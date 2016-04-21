@@ -1,0 +1,26 @@
+# Template file for 'tilibs'
+pkgname=tilibs
+version=2
+revision=1
+wrksrc=${pkgname}${version}
+#create_wrksrc=yes
+#only_for_archs="i686 x86_64"
+build_style=meta
+#configure_args=""
+#make_build_args=""
+#make_install_args=""
+#conf_files=""
+#make_dirs="/var/log/dir 0755 root root"
+hostmakedepends=""
+makedepends=""
+depends="libticables2 libticonv libtifiles2 libticalcs2"
+short_desc="Ti libraries metapackage"
+maintainer="nexolight <snow.dream.ch@gmail.com>"
+license="GPL-3"
+homepage="https://www.ticalc.org"
+
+
+tilibs-devel_package(){
+	short_desc+=" - development files"
+	depends="libticables2-devel libticonv-devel libtifiles2-devel libticalcs2-devel"
+}
