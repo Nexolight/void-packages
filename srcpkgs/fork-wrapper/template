@@ -1,0 +1,43 @@
+# Template file for 'fork-wrapper'
+pkgname=fork-wrapper
+version=1.0.2
+revision=13
+#wrksrc=
+#create_wrksrc=yes
+#only_for_archs="i686 x86_64"
+build_style=gnu-makefile
+#configure_args=""
+
+#These seem only available when the methods aren't defined!
+#make_build_args=""
+#make_install_args=""
+
+#conf_files=""
+#make_dirs=""
+hostmakedepends=""
+makedepends="git"
+depends=""
+short_desc="A wrapper for self forking processes to make them runit compatible"
+maintainer="nexolight <snow.dream.ch@gmail.com>"
+license="MIT"
+homepage="https://github.com/charliesome/fork-wrapper"
+
+do_fetch(){
+	mkdir -p ${wrksrc}
+	if [ ! -d ${wrksrc}/.git ]; then
+		git clone https://github.com/charliesome/fork-wrapper ${wrksrc}
+		cd ${wrksrc}
+		git fetch --tags --all --prune
+		git checkout 83c7822a8332c141d29f881dc84cb4ddcd2a3d37 -b v${version}
+	fi
+}
+
+do_configure(){
+	echo "Skip configure"
+}
+
+
+do_install(){
+	vmkdir /usr/bin
+	DESTDIR=${DESTDIR} PREFIX=/usr make install
+}
