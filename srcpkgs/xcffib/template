@@ -1,0 +1,23 @@
+# Template build for 'xcffib'.
+pkgname=xcffib
+version=0.6.0
+revision=0
+#build_style=python2-module
+hostmakedepends="python-devel"
+makedepends="make python-devel python-pip libxcb-devel"
+depends="python libxcb xcb-proto"
+noarch="yes"
+pycompile_module="xcffib"
+short_desc="Python binding to the X Window System protocol via libxcb"
+maintainer="nexolight <snow.dream.ch@gmail.com>"
+homepage="https://github.com/tych0"
+license="Apache-2.0"
+wrksrc=$pkgname-$version
+#distfiles="https://github.com/tych0/$pkgname/archive/v$version.tar.gz"
+#checksum=b25ff01800d0bdd88b7fde1bff5407604b2d2609c04c596bcf71a697226f7f3f
+
+do_install(){
+	pip install -t ${DESTDIR}/usr/lib/python2.7/site-packages xcffib
+}
+
+

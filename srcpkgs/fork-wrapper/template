@@ -39,5 +39,5 @@ do_configure(){
 
 do_install(){
 	vmkdir /usr/bin
-	DESTDIR=${DESTDIR} PREFIX=/usr make install
+	DESTDIR=${DESTDIR} PREFIX=/usr make -j ${makejobs} install
 }
