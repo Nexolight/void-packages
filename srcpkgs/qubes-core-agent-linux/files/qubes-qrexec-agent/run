@@ -1,0 +1,4 @@
+#!/bin/sh
+modprobe xen_evtchn
+exec /usr/lib/qubes/qrexec-agent 1>&2
+

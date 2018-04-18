@@ -1,0 +1,104 @@
+# Template file for 'qubes-linux-utils'
+pkgname=qubes-linux-utils
+version=4.0.16
+revision=1
+#wrksrc=
+#create_wrksrc=yes
+#only_for_archs="i686 x86_64"
+build_style=gnu-configure
+#configure_args=""
+
+#this doesn't work!
+#make_build_args="BACKEND_VMM=xen all"
+#make_install_args="DESTDIR=${DESTDIR} LIBDIR=/usr/lib SYSLIBDIR=/usr/lib SBINDIR=/usr/bin"
+
+#conf_files=""
+#make_dirs="/var/log/dir 0755 root root"
+hostmakedepends=""
+makedepends="git gcc make python-setuptools python3-setuptools qubes-vmm-xen qubes-core-vchan-xen-devel pkg-config"
+depends="qubes-vmm-xen ImageMagick python-cairo python-Pillow python-numpy python3-Pillow python3-numpy qubes-core-vchan-xen fork-wrapper"
+short_desc="Essential utilities when using a vm as Qube"
+maintainer="nexolight <snow.dream.ch@gmail.com>"
+license="GPL"
+homepage="https://github.com/QubesOS/qubes-linux-utils"
+shlib_provides="libqrexec-utils.so.2 libqubes-rpc-filecopy.so libqubes-rpc-filecopy.so.2 libqrexec-utils.so libqrexec-utils.so.2"
+
+
+do_fetch(){
+	mkdir -p ${wrksrc}
+	if [ ! -d ${wrksrc}/.git ]; then
+		git clone https://github.com/QubesOS/qubes-linux-utils.git ${wrksrc}
+		cd ${wrksrc}
+		git fetch --tags --all --prune
+		git checkout tags/v${version} -b v${version}
+	fi
+}
+
+do_configure(){
+	echo "Skip configure"
+}
+
+do_build(){
+	make -j ${makejobs} PYTHON=python2 BACKEND_VMM=xen all
+	make -j ${makejobs} PYTHON=python3 -C imgconverter
+}
+
+do_install(){
+	make PYTHON=python2 DESTDIR=${DESTDIR} LIBDIR=/usr/lib SYSLIBDIR=/usr/lib SBINDIR=/usr/bin install
+	make PYTHON=python3 DESTDIR=${DESTDIR} LIBDIR=/usr/lib SYSLIBDIR=/usr/lib SBINDIR=/usr/bin -C imgconverter install
+	make DESTDIR=${DESTDIR} LIBRDIR=/usr/lib SYSLIBDIR=/usr/lib SBINDIR=/usr/bin -C dracut install	
+
+	#Remove systemd units
+	rm -rf ${DESTDIR}/usr/lib/systemd
+
+	#Add runit service to replace the systemd one
+	vsv qubes-meminfo-writer
+		
+	#vmkdir /usr/lib/initcpio/install
+	#vmkdir /usr/lib/initcpio/hooks
+	vmkdir /usr/lib/qubes
+	vmkdir /usr/bin
+
+	#TODO individual scripts
+	#vinstall ${FILESDIR}/initcpio-install/qubes 611 /usr/lib/initcpio/install/
+	#vinstall ${FILESDIR}/initcpio-hook/qubes 611 /usr/lib/initcpio/hooks/
+
+	#vcopy dracut/full-dmroot/qubes_cow_setup.sh /usr/lib/qubes/qubes_cow_setup.sh
+	#chmod 755 ${DESTDIR}/usr/lib/qubes/qubes_cow_setup.sh
+	make DESTDIR=${DESTDIR} LIBDIR=/usr/lib SYSLIBDIR=/usr/lib SBINDIR=/usr/bin -C kernel-modules install-u2mfn
+	vcopy ${wrksrc}/kernel-modules/qubes-prepare-vm-kernel /usr/bin/
+	#this script doesn't work with dash and !/bin/sh might be a symlink to it
+	sed -i 's/#!\/bin\/sh/#!\/bin\/bash/g' ${DESTDIR}/usr/bin/qubes-prepare-vm-kernel
+	chmod +x ${DESTDIR}/usr/bin/qubes-prepare-vm-kernel
+	
+	vinstall ${FILESDIR}/dracut/90-qubes-vm.conf 611 /usr/lib/dracut/dracut.conf.d/
+	vinstall ${FILESDIR}/dracut/90pre-qubes/module-setup.sh 755 /usr/lib/dracut/modules.d/90pre-qubes/
+}
+
+qubes-linux-utils-dkms_package(){
+	short_desc="kernel module sources for dkms"
+	dkms_modules="u2mfn ${version}"
+	depends="qubes-linux-utils qubes-core-agent-linux dkms grub btrfs-progs linux linux-headers busybox"
+	noarch="yes"
+
+	pkg_install(){
+		#vmove /usr/lib/initcpio/install/qubes
+		#vmove /usr/lib/initcpio/hooks/qubes
+		#vmove /usr/lib/qubes/*.sh
+		vmove /usr/src/u2mfn-${version}/*.c
+		vmove /usr/src/u2mfn-${version}/*.conf
+		vmove /usr/src/u2mfn-${version}/Makefile
+		#vmove /etc/mkinitcpio.d/*.preset
+		#vmove /etc/mkinitcpio.conf
+
+		vmove /usr/lib/dracut/dracut.conf.d/90-qubes-vm.conf
+		vmove /usr/lib/dracut/modules.d/90pre-qubes/*.sh
+		vmove /usr/lib/dracut/modules.d/90qubes-vm/*.sh
+		vmove /usr/lib/dracut/modules.d/90qubes-vm-modules/*.sh
+		vmove /usr/lib/dracut/modules.d/90qubes-vm-simple/*.sh
+
+		vmove /usr/bin/qubes-prepare-vm-kernel
+	}
+}
+
+

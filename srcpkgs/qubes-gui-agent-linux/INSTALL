@@ -1,0 +1,11 @@
+# INSTALL
+
+case "$ACTION" in
+pre)
+	;;
+post)
+	sed -i '/^autospawn/d' /etc/pulse/client.conf
+	echo autospawn=no >> /etc/pulse/client.conf
+	ldconfig
+	;;
+esac

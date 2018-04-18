@@ -1,0 +1,5 @@
+#!/bin/sh
+sv check qubes-iptabes
+if [ -e /var/lib/qubes-service/qubes-firewall ]; then
+	exec /usr/bin/qubes-firewall 1>&2
+fi

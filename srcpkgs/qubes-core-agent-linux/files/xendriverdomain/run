@@ -1,0 +1,3 @@
+#!/bin/bash
+exec fork-wrapper /usr/bin/xl devd 1>&2
+

@@ -1,0 +1,64 @@
+# Template file for 'qubes-core-qubesdb'
+pkgname=qubes-core-qubesdb
+version=4.0.5
+revision=1
+#wrksrc=
+#create_wrksrc=yes
+#only_for_archs="i686 x86_64"
+build_style=gnu-makefile
+#configure_args=""
+
+#this doesn't work!
+#make_build_args=""
+#make_install_args=""
+
+#conf_files=""
+#make_dirs="/var/log/dir 0755 root root"
+hostmakedepends=""
+makedepends="qubes-core-vchan-xen-devel python-devel python3-devel pkg-config git"
+depends="qubes-core-vchan-xen"
+short_desc="QubesDB libs and daemon service"
+maintainer="nexolight <snow.dream.ch@gmail.com>"
+license="GPL"
+homepage="http://qubes-os.org"
+shlib_provides="libqubesdb.so"
+
+
+do_fetch(){
+	mkdir -p ${wrksrc}
+	if [ ! -d ${wrksrc}/.git ]; then
+		git clone https://github.com/QubesOS/qubes-core-qubesdb.git ${wrksrc}
+		cd ${wrksrc}
+		git fetch --tags --all --prune
+		git checkout tags/v${version} -b v${version}
+	fi
+}
+
+do_configure(){
+	echo "Skip configure"
+}
+
+do_build(){
+	#sorry for the sledgehammer method but the author mentions it is not a requirement
+	#when NOTIFY_SOCKET is disabled. Ther's no way to build without this.
+	sed -i 's/^LIBS.*systemd.*$//g' daemon/Makefile
+	sed -i 's/^CFLAGS.*systemd.*$//g' daemon/Makefile
+	sed -i 's/^#include.*systemd.*$//g' daemon/db-daemon.c
+	sed -i 's/sd_notify.*$//g' daemon/db-daemon.c
+
+	env="NOTIFY_SOCKET=false PYTHON=python2 BACKEND_VMM=xen C_INCLUDE_PATH=/usr/include/vchan-xen:${C_INCLUDE_PATH}"
+	(export ${env}; make -j ${makejobs} all)
+	#python3 bindings
+	make -j ${makejobs} -C python
+}
+
+do_install(){
+	vmkdir /usr/lib64
+	vmkdir /usr/lib
+	env="DESTDIR=${DESTDIR} LIBDIR=/usr/lib SYSLIBDIR=/usr/lib SBINDIR=/usr/bin"
+	(export ${env} PYTHON=python2; make install)
+	(export ${env}; cd python; make install)
+	cp ${DESTDIR}/usr/lib64/* ${DESTDIR}/usr/lib/
+	rm -rf ${DESTDIR}/usr/lib64
+	vinstall ${FILESDIR}/rc.local 755 /etc/rc.local-qubes/${pkgname}
+}

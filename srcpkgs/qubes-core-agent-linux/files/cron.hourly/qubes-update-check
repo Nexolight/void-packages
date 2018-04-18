@@ -1,0 +1,3 @@
+#!/bin/sh
+
+/var/run/qubes-service/qubes-update-check

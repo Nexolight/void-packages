@@ -1,0 +1,14 @@
+# INSTALL
+
+case "$ACTION" in
+pre)
+	;;
+post)
+	if [ "$UPDATE" = "no" ]; then
+		if [ ! -f /etc/rc.local ]; then
+			echo "!/bin/sh" >> /etc/rc.local
+			chmod +x /etc/rc.local		
+		fi
+		echo "/etc/rc.local-qubes/qubes-core-qubesdb/rc.local" >> /etc/rc.local
+	fi
+esac

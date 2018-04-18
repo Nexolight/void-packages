@@ -1,0 +1,10 @@
+# REMOVE
+
+case "$ACTION" in
+pre)
+	;;
+post)
+	sed -i '/^autospawn/d' /etc/pulse/client.conf
+	ldconfig
+	;;
+esac

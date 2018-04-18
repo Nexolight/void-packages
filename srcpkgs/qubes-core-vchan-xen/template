@@ -1,0 +1,58 @@
+# Template file for 'qubes-core-vchan-xen'
+pkgname=qubes-core-vchan-xen
+version=4.0
+revision=1
+#wrksrc=
+#create_wrksrc=yes
+#only_for_archs="i686 x86_64"
+build_style=gnu-configure
+#configure_args=""
+make_build_args="all"
+make_install_args=""
+#conf_files=""
+#make_dirs="/var/log/dir 0755 root root"
+hostmakedepends=""
+makedepends="git make qubes-vmm-xen"
+depends="qubes-vmm-xen"
+short_desc="The Qubes core libs for installation inside a Qube"
+maintainer="nexolight <snow.dream.ch@gmail.com>"
+license="GPL"
+homepage="https://github.com/QubesOS/qubes-core-vchan-xen"
+shlib_provides="libvchan-xen.so libu2mfn.so"
+
+do_fetch(){
+	mkdir -p ${wrksrc}
+	if [ ! -d ${wrksrc}/.git ]; then
+		git clone https://github.com/QubesOS/qubes-core-vchan-xen.git ${wrksrc}
+		cd ${wrksrc}
+		git fetch --tags --all --prune
+		git checkout tags/v${version}.${revision} -b v${version}.${revision}
+	fi
+}
+
+do_configure(){
+	echo "Skip configure"
+}
+
+do_build(){
+	make -j ${makejobs} ${make_build_args}
+}
+
+do_install(){
+	make install DESTDIR=${DESTDIR} ${make_install_args}
+	#vmkdir "usr/lib"
+	#vcopy "${wrksrc}/vchan/*.so" "usr/lib/"
+	#vcopy "${wrksrc}/u2mfn/*.so" "usr/lib/"
+}
+
+qubes-core-vchan-xen-devel_package(){
+	short_desc="devel package of qubes-core-vchan-xen"
+	depends="${sourcepkg}>=${version}_${revision}"
+	pkg_install(){
+		#vmove usr/lib/*.a
+		vmove usr/include/*.h
+		vmove usr/include/vchan-xen/*.h
+		vmove usr/lib/pkgconfig/vchan-xen.pc
+		
+	}
+}

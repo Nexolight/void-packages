@@ -1,0 +1,2 @@
+#!/bin/sh
+exec fork-wrapper /usr/sbin/meminfo-writer 30000 100000 2>&1

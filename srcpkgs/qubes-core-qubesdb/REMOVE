@@ -1,0 +1,9 @@
+# REMOVE
+
+case "$ACTION" in
+pre)
+	;;
+post)
+	sed -i 's|^/etc/rc.local-qubes/qubes-core-qubesdb/rc.local$||g' /etc/rc.local
+	;;
+esac

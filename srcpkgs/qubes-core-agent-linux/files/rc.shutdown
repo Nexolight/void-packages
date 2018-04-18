@@ -1,0 +1,4 @@
+#!/bin/sh
+
+#oneshot qubes-misc-post
+/usr/lib/qubes/init/misc-post-stop.sh

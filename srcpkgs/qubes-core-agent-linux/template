@@ -1,0 +1,85 @@
+# Template file for 'qubes-core-agent-linux'
+pkgname=qubes-core-agent-linux
+version=4.0.24
+revision=2
+#wrksrc=
+#create_wrksrc=yes
+#only_for_archs="i686 x86_64"
+build_style=gnu-makefile
+#configure_args=""
+make_build_args="PKG_CONFIG_PATH=/usr/lib/pkgconfig BACKEND_VMM=xen C_INCLUDE_PATH=/usr/include/vchan-xen:${C_INCLUDE_PATH}"
+#make_install_args=""
+#conf_files=""
+#make_dirs="/var/log/dir 0755 root root"
+hostmakedepends=""
+makedepends="git qubes-core-vchan-xen-devel qubes-linux-utils qubes-vmm-xen libX11-devel python python3 pam-devel pkg-config python-setuptools python-pip pandoc"
+depends="qubes-core-vchan-xen qubes-core-qubesdb python pandoc python-xdg ethtool ntp net-tools ImageMagick fakeroot notification-daemon dconf zenity haveged python-gobject python-dbus xdg-utils gawk sed procps-ng librsvg socat gnome-keyring gnome-settings-daemon python python-setuptools iptables NetworkManager"
+short_desc="The qubes qrexec agent"
+maintainer="nexolight <snow.dream.ch@gmail.com>"
+license="GPL"
+homepage="http://qubes-os.org/"
+shlib_provides=""
+system_groups="qubes:98 user:1100"
+system_accounts="user:1100"
+user_homedir="/home/user"
+user_shell="/bin/bash"
+user_descr="qubes user"
+user_groups="qubes,root"
+user_pgroup="user"
+
+do_fetch(){
+	mkdir -p ${wrksrc}
+	if [ ! -d ${wrksrc}/.git ]; then
+		git clone https://github.com/QubesOS/qubes-core-agent-linux.git ${wrksrc}
+		cd ${wrksrc}
+		git fetch --tags --all --prune
+		git checkout tags/v${version} -b v${version}
+	fi
+}
+
+do_configure(){
+	echo "Skip configure"
+}
+
+do_build(){
+	(cd misc; make -j ${makejobs} ${make_build_args})
+	(cd qrexec; make -j ${makejobs} ${make_build_args})
+	(cd qubes-rpc; make -j ${makejobs} ${make_build_args})
+}
+
+do_install(){
+	#using make_install_args does not work
+	env="PYTHON=python2 SBINDIR=/usr/bin LIBDIR=/usr/lib SYSLIBDIR=/usr/lib DESTDIR=${DESTDIR}"
+	(export ${env}; make -C qrexec install)
+	(export ${env}; make install-corevm)
+	(export ${env}; pip install python-daemon)
+	(export ${env}; make install-netvm)
+
+	#remove unused files
+	rm -rf ${DESTDIR}/usr/lib/systemd*
+	rm -rf ${DESTDIR}/lib/systemd*
+	rm -rf ${DESTDIR}/etc/systemd*
+	rm -rf ${DESTDIR}/etc/yum*
+	rm -rf ${DESTDIR}/etc/dnf*
+	rm -rf ${DESTDIR}/etc/init.d
+	rm -rf ${DESTDIR}/etc/fstab
+	rm -rf ${DESTDIR}/etc/sysctl.d
+
+	#Service helper scripts
+	
+	#setup services
+	#NOTE: Since most of it are oneshot processes and rely on services in a mixed manner
+	#it was completely moved to /etc/runit/core-services
+	#vsv xendriverdomain
+	#vsv qubes-firewall
+	#vsv qubes-qrexec-agent 
+	#vsv qubes-updates-proxy-forwarder		
+	vinstall ${FILESDIR}/98-qubes-client-vm.sh 755 /etc/runit/core-services
+
+	#DEPRECATED - move to core services
+	#install rc.local. many of the services are oneshot processes
+	#that might be an issue since some services depend on them
+	#vinstall ${FILESDIR}/rc.local 755 /etc/rc.local-qubes/${pkgname}
+	#vinstall ${FILESDIR}/rc.shutdown 755 /etc/rc.local-qubes/${pkgname}
+}
+

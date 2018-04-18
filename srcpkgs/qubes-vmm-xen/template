@@ -1,0 +1,122 @@
+# Template file for 'qubes-vmm-xen'
+pkgname=qubes-vmm-xen
+version='4.8.3'
+revision='4'
+#wrksrc=
+#build_wrksrc=
+create_wrksrc=yes
+#only_for_archs="i686 x86_64"
+build_style=gnu-makefile
+#configure_script=
+#configure_args=""
+#make_build_args=""
+#make_install_args=""
+#conf_files=""
+#make_dirs="/var/log/dir 0755 root root"
+hostmakedepends=""
+makedepends="make gcc patch bin86 dev86 yajl-devel libressl-devel pixman-devel autoconf git gnupg automake liblzma-devel 
+acpica-utils ncurses-devel libaio-devel lzo-devel e2fsprogs-devel zlib-devel gnutls-devel libbluetooth-devel 
+pciutils-devel libX11-devel libXext-devel SDL-devel MesaLib-devel python-devel libuuid-devel libglib-devel pkg-config"
+depends="python bridge-utils python-lxml lzo yajl"
+conflicts="xen"
+short_desc="The utils to install on a qubes vm"
+maintainer="nexolight<snow.dream.ch@gmail.com>"
+license="GPL"
+homepage="https://github.com/QubesOS/qubes-vmm-xen"
+
+do_fetch(){
+	
+	#this would recursively clone the git submodules
+	#but we do it manually here. could be useful for tar files.
+	#make -j ${makejobs} get-sources
+
+	mkdir -p ${wrksrc}
+	cd ${wrksrc}
+
+	if [ ! -d ${wrksrc}/.git ]; then
+		git clone --recurse-submodules https://github.com/QubesOS/qubes-vmm-xen.git ${wrksrc}/
+		git fetch --all --tags --prune
+		git checkout tags/v${version}-${revision} -b v${version}-${revision}
+	
+		#it should be a submodule but apparently xen is not included
+		#so let's clone it.
+		xenv=$(cat ${wrksrc}/version)
+		xendir=${wrksrc}/xen-${xenv}
+
+		mkdir -p ${xendir}
+		git clone https://github.com/xen-project/xen ${xendir}
+		cd ${xendir}
+		git fetch --all --tags --prune
+		git checkout tags/RELEASE-${xenv} -b RELEASE-${xenv}
+		cd ${wrksrc}
+	fi
+
+	cp $FILESDIR/patchscript.sh ${wrksrc}/
+}
+
+do_configure(){
+	xenv=$(cat ${wrksrc}/version)
+	xendir=${wrksrc}/xen-${xenv}
+
+	cargs="--prefix=/usr --sbindir=/usr/bin --disable-ocamltools --disable-blktap2"
+	
+	#/bin/sh migth be dash which does not work with this
+	sed -i -e s/\\/bin\\/sh/\\/bin\\/bash/g ${wrksrc}/apply-patches
+	sed -i -e s/\|\ *sh/\|\ bash/g ${wrksrc}/apply-patches
+
+	cd ${xendir}
+	for p in ${wrksrc}/patch-*; do ln -s $p; done
+
+	${wrksrc}/apply-patches ${wrksrc}/series-vm.conf .
+	
+
+	export XEN_VENDORVERSION=$(cat ${wrksrc}/rel)
+	export OCAML_TOOLS=n
+	export PYTHON=/usr/bin/python2.7
+	unset LDFLAGS
+	
+	autoreconf
+	./configure ${cargs}
+}
+
+do_build(){
+	xenv=$(cat ${wrksrc}/version)
+	xendir=${wrksrc}/xen-${xenv}
+	cd ${xendir}
+
+	export XEN_VENDORVERSION=$(cat ${wrksrc}/rel)
+	export OCAML_TOOLS=n
+	export PYTHON=/usr/bin/python2.7
+	
+	make -j ${makejobs} dist-tools
+}
+
+do_install(){
+	xenv=$(cat ${wrksrc}/version)
+	xendir=${wrksrc}/xen-${xenv}
+	
+	env="OCAML_TOOLS=n PYTHON=/usr/bin/python2.7 DESTDIR=${DESTDIR} LIBDIR=/usr/lib SBINDIR=/usr/bin prefix=/usr"
+	(export ${env}; make -C ${xendir} install-tools)
+
+	vsv xenstored
+	vsv xenconsoled
+	
+	#remove unwanted stuff
+
+	#stubdom: newlib
+	rm -rf ${DESTDIR}/usr/*-xen-elf
+	
+	#hypervisior symlinks
+	rm -rf ${DESTDIR}/boot
+	
+	# the PKGBUILD from arch removes a lot of stuff here
+	# which isn't essential. However I disagree with the opinion
+	# that this should be excluded. It's part of the provided software.
+	# and not the job of the package maintainers!
+
+	#fixup files in /etc
+	rm -f ${DESTDIR}/etc/udev/xend.rules
+	
+	# config gile only used for hotplug - we're using eudev
+	rm -f ${DESTDIR}/etc/sysconfig/xend
+}

@@ -1,0 +1,4 @@
+#!/bin/sh
+/usr/bin/mkdir -p /var/run/console
+/usr/bin/touch /var/run/console/user
+/usr/bin/qubes-gui 2> /var/log/qubes/gui-agent.log

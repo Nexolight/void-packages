@@ -1,0 +1,63 @@
+# Template file for 'qubes-gui-agent-linux'
+pkgname=qubes-gui-agent-linux
+version=4.0.9
+revision=1
+#wrksrc=
+#create_wrksrc=yes
+#only_for_archs="i686 x86_64"
+build_style=gnu-makefile
+#configure_args=""
+
+#this doesn't work!
+#make_build_args=""
+#make_install_args=""
+
+#conf_files=""
+#make_dirs=""
+hostmakedepends=""
+makedepends="pkg-config make gcc patch git automake autoconf libltdl-devel pulseaudio-devel xorg-server-devel xorg-util-macros libXcomposite-devel qubes-gui-common-devel qubes-core-vchan-xen-devel qubes-core-qubesdb libXt libtool"
+depends="xinit libXcomposite zenity qubes-core-vchan-xen xcb-proto xorg-server<1.20.0 qubes-vmm-xen alsa-lib alsa-utils 
+alsa-plugins-pulseaudio pulseaudio>=11.1 pulseaudio<11.2 elogind"
+short_desc="The Qubes GUI Agent for AppVMs xcffib"
+maintainer="nexolight <snow.dream.ch@gmail.com>"
+license="GPL"
+homepage="http://qubes-os.org"
+
+do_fetch(){
+	mkdir -p ${wrksrc}
+	if [ ! -d ${wrksrc}/.git ]; then
+		git clone https://github.com/QubesOS/qubes-gui-agent-linux.git ${wrksrc}
+		cd ${wrksrc}
+		git fetch --tags --all --prune
+		git checkout tags/v${version} -b v${version}
+	fi
+}
+
+do_configure(){
+	echo "Skip configure"
+}
+
+do_build(){
+	#Force running all scripts with python2
+	sed 's:#!/usr/bin/python:#!/usr/bin/python2:' -i appvm-scripts/usrbin/*
+	sed 's:#!/usr/bin/env python:#!/usr/bin/env python2:' -i appvm-scripts/usrbin/*
+	sed 's:#!/usr/bin/python:#!/usr/bin/python2:' -i window-icon-updater/*
+	sed 's:#!/usr/bin/env python:#!/usr/bin/env python2:' -i window-icon-updater/*
+
+	env="BACKEND_VMM=xen"
+	(export ${env}; make -j ${makejobs} appvm)
+}
+
+do_install(){
+
+	env="DESTDIR=${DESTDIR} LIBDIR=/usr/lib USRLIBDIR=/usr/lib SYSLIBDIR=/usr/lib BACKEND_VMM=xen"
+	(export ${env}; make install-rh-agent)
+	(export ${env}; make install-pulseaudio)
+	
+	#replace service with a runit one
+	rm -rf ${DESTDIR}/usr/lib/systemd
+	vsv qubes-gui-agent
+
+	#setup qubes session
+	vinstall ${FILESDIR}/z-qubes-session.sh 755 /etc/X11/xinit/xinitrc.d
+}

@@ -1,0 +1,46 @@
+# Template file for 'qubes-gui-common-devel'
+pkgname=qubes-gui-common-devel
+version=4.0.1
+revision=1
+#wrksrc=
+#create_wrksrc=yes
+#only_for_archs="i686 x86_64"
+build_style=gnu-makefile
+#configure_args=""
+
+#this doesn't work!
+#make_build_args=""
+#make_install_args=""
+
+#conf_files=""
+#make_dirs=""
+hostmakedepends=""
+makedepends="git"
+depends=""
+short_desc="Common files for Qubes GUI - protocol headers"
+maintainer="nexolight <snow.dream.ch@gmail.com>"
+license="GPL"
+homepage="http://qubes-os.org"
+
+do_fetch(){
+	mkdir -p ${wrksrc}
+	if [ ! -d ${wrksrc}/.git ]; then
+		git clone https://github.com/QubesOS/qubes-gui-common.git ${wrksrc}
+		cd ${wrksrc}
+		git fetch --tags --all --prune
+		git checkout tags/v${version} -b v${version}
+	fi
+}
+
+do_configure(){
+	echo "Skip configure"
+}
+
+do_build(){
+	echo "Nothing to build"
+}
+
+do_install(){
+	vmkdir /usr/include
+	vcopy ${wrksrc}/include/*.h /usr/include
+}

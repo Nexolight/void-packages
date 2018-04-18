@@ -3345,3 +3345,36 @@ libeditorconfig.so.0 editorconfig-0.12.2_1
 libkid3-core.so.3.6.0 kid3-3.6.0_1
 libkid3-gui.so.3.6.0 kid3-3.6.0_1
 libcfitsio.so.3 cfitsio-3.450_1
+
+libxlutil.so.4.8 qubes-vmm-xen-4.8.3_4
+libxenlight.so.4.8 qubes-vmm-xen-4.8.3_4
+libxenvchan.so.4.8 qubes-vmm-xen-4.8.3_4
+libxenstore.so.3.0 qubes-vmm-xen-4.8.3_4
+libxenguest.so.4.8 qubes-vmm-xen-4.8.3_4
+libxenctrl.so.4.8 qubes-vmm-xen-4.8.3_4
+libxenforeignmemory.so.1 qubes-vmm-xen-4.8.3_4
+libxencall.so.1 qubes-vmm-xen-4.8.3_4
+libxengnttab.so.1 qubes-vmm-xen-4.8.3_4
+libxenevtchn.so.1 qubes-vmm-xen-4.8.3_4
+libxentoollog.so.1 qubes-vmm-xen-4.8.3_4
+libxlutil.so.4.8 qubes-vmm-xen-4.8.3_4
+libxenlight.so.4.8 qubes-vmm-xen-4.8.3_4
+libxenvchan.so.4.8 qubes-vmm-xen-4.8.3_4
+libxenstore.so.3.0 qubes-vmm-xen-4.8.3_4
+libxenguest.so.4.8 qubes-vmm-xen-4.8.3_4
+libxenctrl.so.4.8 qubes-vmm-xen-4.8.3_4
+libxenforeignmemory.so.1 qubes-vmm-xen-4.8.3_4
+libxencall.so.1 qubes-vmm-xen-4.8.3_4
+libxengnttab.so.1 qubes-vmm-xen-4.8.3_4
+libxenevtchn.so.1 qubes-vmm-xen-4.8.3_4
+libxentoollog.so.1 qubes-vmm-xen-4.8.3_4
+
+libvchan-xen.so qubes-core-vchan-xen-4.0_1
+libu2mfn.so qubes-core-vchan-xen-4.0_1
+
+libqubes-rpc-filecopy.so.2 qubes-linux-utils-4.0.16_1
+libqrexec-utils.so.2 qubes-linux-utils-4.0.16_1
+libqubes-rpc-filecopy.so qubes-linux-utils-4.0.16_1
+libqrexec-utils.so qubes-linux-utils-4.0.16_1
+
+libqubesdb.so qubes-core-qubesdb-4.0.5_1

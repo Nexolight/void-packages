@@ -1,0 +1,21 @@
+# INSTALL
+
+case "$ACTION" in
+pre)
+	;;
+post)
+	if [ "$UPDATE" = "no" ]; then
+		#if [ ! -f /etc/rc.local ]; then
+		#	echo "!/bin/sh" >> /etc/rc.local
+		#	chmod +x /etc/rc.local		
+		#fi
+		#echo "/etc/rc.local-qubes/qubes-core-agent-linux/rc.local" >> /etc/rc.local
+
+		#Make sure the qubes user exists and is a sudoer
+		echo "user ALL=(ALL) ALL" >> /etc/sudoers
+		passwd -d user
+
+		#It did not exist for me and caused errors when starting the qubes gui
+		touch /etc/pam.d/postlogin
+	fi
+esac
