@@ -98,9 +98,6 @@ do_install(){
 	env="OCAML_TOOLS=n PYTHON=/usr/bin/python2.7 DESTDIR=${DESTDIR} LIBDIR=/usr/lib SBINDIR=/usr/bin prefix=/usr"
 	(export ${env}; make -C ${xendir} install-tools)
 
-	vsv xenstored
-	vsv xenconsoled
-	
 	#remove unwanted stuff
 
 	#stubdom: newlib

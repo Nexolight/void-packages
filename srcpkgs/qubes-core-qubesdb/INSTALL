@@ -9,6 +9,6 @@ post)
 			echo "!/bin/sh" >> /etc/rc.local
 			chmod +x /etc/rc.local		
 		fi
-		echo "/etc/rc.local-qubes/qubes-core-qubesdb/rc.local" >> /etc/rc.local
+		sed '1s|$|\n/etc/rc.local-qubes/qubes-core-qubesdb/rc.local\n|' -i /etc/rc.local
 	fi
 esac

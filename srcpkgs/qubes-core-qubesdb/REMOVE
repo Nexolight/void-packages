@@ -4,6 +4,6 @@ case "$ACTION" in
 pre)
 	;;
 post)
-	sed -i 's|^/etc/rc.local-qubes/qubes-core-qubesdb/rc.local$||g' /etc/rc.local
+	sed '/^\/etc\/rc.local-qubes\/qubes-core-qubesdb\/rc.local/d' -i /etc/rc.local
 	;;
 esac

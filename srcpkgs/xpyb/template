@@ -1,0 +1,23 @@
+# Template build for 'xpyb'.
+pkgname=xpyb
+version=1.3.1
+revision=1
+build_style=gnu-configure
+hostmakedepends="python-devel pkg-config"
+makedepends="make python-devel pkg-config libxcb-devel xcb-proto"
+depends="python libxcb xcb-proto"
+noarch="yes"
+pycompile_module="xcffib"
+short_desc="Python binding to the X Window System protocol via libxcb"
+maintainer="nexolight <snow.dream.ch@gmail.com>"
+homepage="http://xcb.freedesktop.org"
+license="MIT"
+distfiles="http://xcb.freedesktop.org/dist/$pkgname-$version.tar.bz2"
+checksum=fd4c877b05b83893043734a678eca332c6cabf1867d9b6a966c28a97ac987366
+
+post_install() {
+	vlicense COPYING
+}
+
+
+

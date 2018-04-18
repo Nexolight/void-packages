@@ -6,5 +6,6 @@ pre)
 post)
 	sed -i '/^autospawn/d' /etc/pulse/client.conf
 	ldconfig
+	sed '/^\/etc\/rc.local-qubes\/qubes-gui-agent\/rc.local/d' -i /etc/rc.local
 	;;
 esac

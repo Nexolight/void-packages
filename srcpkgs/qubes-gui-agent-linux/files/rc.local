@@ -1,0 +1,6 @@
+#!/bin/sh
+/usr/bin/mkdir -p /var/run/console
+/usr/bin/touch /var/run/console/user
+/usr/bin/killall -9 -w Xorg &> /dev/null
+DISPLAY=:0 /usr/bin/qubes-gui > /var/log/qubes/gui-agent.log 2>&1 &
+
