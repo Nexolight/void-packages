@@ -1,5 +1,5 @@
-# Template file for 'wine'
-pkgname=wine
+# Template file for 'wine-staging'
+pkgname=wine-staging
 version=3.6
 revision=1
 build_style=gnu-configure
@@ -8,9 +8,14 @@ short_desc="Run Microsoft Windows applications"
 maintainer="Nexolight <snow.dream.ch@gmail.com>"
 license="LGPL-2.1"
 homepage="http://www.winehq.org/"
-distfiles="https://dl.winehq.org/wine/source/${version%.*}.x/wine-${version}.tar.xz"
-checksum="78502dc79a60430d2a2ef66bee146e38eb6dd679fd36b54acfc8f9b2ac07905c"
-replaces="wine-staging>=0"
+distfiles="https://dl.winehq.org/wine/source/${version%.*}.x/wine-${version}.tar.xz 
+https://github.com/${pkgname}/${pkgname}/archive/v${version}.tar.gz"
+checksum="78502dc79a60430d2a2ef66bee146e38eb6dd679fd36b54acfc8f9b2ac07905c
+ 2ec8fc3f8edc282e4ed94ccb7c67524503b02909affc24499ea6bdf7e734bb3f"
+wrksrc=wine-${version}
+replaces="wine>=0"
+
+enable_pba="yes"
 
 nopie_files="/usr/bin/wine64 /usr/bin/wine /usr/bin/winetricks /usr/bin/widl /usr/bin/winebuild /usr/bin/wineserver /usr/bin/winedump /usr/bin/winegcc /usr/bin/wmc /usr/bin/wrc"
 
@@ -30,14 +35,37 @@ makedepends="gettext-devel lcms2-devel zlib-devel ncurses-devel
  libxslt-devel freetype-devel pulseaudio-devel
  mpg123-devel libgsm-devel libopenal-devel giflib-devel libpng-devel
  v4l-utils-devel fontconfig-devel gnutls-devel dbus-devel sane-devel
- libpcap-devel cups-devel dbus-devel ocl-icd-devel vulkan-loader glib-devel"
+ libpcap-devel cups-devel dbus-devel ocl-icd-devel vulkan-loader glib-devel git
+ libtxc_dxtn libva automake"
 
 depends="libXi libXinerama libXcomposite libXcursor libOSMesa
  desktop-file-utils hicolor-icon-theme liberation-fonts-ttf
- gnutls"
+ gnutls libpulseaudio libtxc_dxtn libva libgphoto2"
 
+
+if [ "$enable_pba" == "yes" ]; then
+	makedepends+=" git"
+fi
 
 pre_configure() {
+	if [ ! -e ../${pkgname}-${version}/staging/wine ]; then
+		ln -s ../../${pkgname}-${version} ../${pkgname}-${version}/staging/wine
+	fi
+
+	../${pkgname}-${version}/patches/patchinstall.sh DESTDIR=./ --all
+	
+	if [ "$enable_pba" == "yes" ]; then
+		mkdir -p ../wine-pba
+		if [ ! -d ../wine-pba/.git ]; then
+			git clone https://github.com/acomminos/wine-pba.git ../wine-pba
+		fi
+		(cd ../wine-pba; git fetch origin master; git checkout origin/master)
+		for PATCH in ../wine-pba/patches/*; do
+			echo "Apply patch: $PATCH"
+			patch -p 1 < $PATCH
+		done
+	fi
+
 	sed -i '/libdir=/s/lib64/lib/' configure
 }
 
@@ -48,7 +76,7 @@ post_install() {
 	ln -s ../conf.avail/30-win32-aliases.conf ${DESTDIR}/etc/fonts/conf.d/30-win32-aliases.conf
 }
 
-libwine_package() {
+libwine-staging_package() {
 	lib32mode=full
 	short_desc+=" - Runtime library"
 	provides="libwine-${version}_${revision}"
@@ -58,8 +86,8 @@ libwine_package() {
 		vmove usr/lib/wine
 	}
 }
-wine-devel_package() {
-	depends="libwine-${version}_${revision} libwine-devel>=0"
+wine-staging-devel_package() {
+	depends="libwine-staging-${version}_${revision} libwine-devel>=0"
 	short_desc+=" - development files"
 	provides="libwine-devel-${version}_${revision}"
 	replaces="libwine-unstable-devel>=0 libwine-devel>=0 libwine-staging-devel>=0"
