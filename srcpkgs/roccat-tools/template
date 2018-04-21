@@ -1,0 +1,22 @@
+# Template file for 'roccat-tools'
+pkgname=roccat-tools
+version=5.7.0
+revision=1
+#wrksrc=
+#create_wrksrc=yes
+#only_for_archs="i686 x86_64"
+build_style=cmake
+configure_args="-DLUA_FIND_VERSION=5.1 -DLUA_FIND_VERSION_EXACT=5.1"
+#make_build_args=""
+#make_install_args=""
+#conf_files=""
+#make_dirs="/var/log/dir 0755 root root"
+hostmakedepends="pkg-config"
+makedepends="libgaminggear-devel gtk+3 gtk+-devel atk-devel gdk-pixbuf-devel glib-devel pango-devel cairo-devel dbus-glib-devel libgudev-devel libcanberra-devel libnotify-devel lua51-devel"
+depends="dbus-glib dbus glib libgaminggear"
+short_desc="Roccat utils for windows"
+maintainer="nexolight <snow.dream.ch@gmail.com>"
+license="GPL-2"
+homepage="http://roccat.sourceforge.net/"
+distfiles="https://datapacket.dl.sourceforge.net/project/roccat/roccat-tools/roccat-tools-${version}.tar.bz2"
+checksum=a6e21315c06e072fcea79c185518c8d2c8f19ed9681633613f26085319bdfd95
