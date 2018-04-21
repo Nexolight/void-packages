@@ -1,0 +1,31 @@
+# Template file for 'libgaminggear'
+pkgname=libgaminggear
+version=0.15.1
+revision=1
+#wrksrc=
+#create_wrksrc=yes
+#only_for_archs="i686 x86_64"
+build_style=cmake
+#configure_args=""
+#make_build_args=""
+make_install_args="CMAKE_INSTALL_PREFIX=/usr"
+#conf_files=""
+#make_dirs="/var/log/dir 0755 root root"
+hostmakedepends=""
+makedepends="libcanberra-devel libnotify-devel glib-devel"
+depends=""
+short_desc="Provides functionality for gaming input devices"
+maintainer="nexolight <snow.dream.ch@gmail.com>"
+license="GPL-3"
+homepage="no homepage"
+distfiles="https://netcologne.dl.sourceforge.net/project/libgaminggear/libgaminggear-0.15.1.tar.bz2"
+checksum=ffbd59c62e3107b09ec99f1e5147529c61931987abc7f86a140449b46388c549
+
+
+libgaminggear-devel_package(){
+	short_desc=" - development files"
+	depends="${sourcepkg}>=${version}_${revision}"
+	pkg_install(){
+		vmove usr/include
+	}
+}
