@@ -3276,3 +3276,74 @@ libfifechan_opengl.so.0.1.4 fifechan-0.1.4_1
 libpolyclipping.so.22 clipper-6.4.2_1
 libSoapySDR.so.0.6 SoapySDR-0.6.1_1
 libeditorconfig.so.0 editorconfig-0.12.2_1
+
+libxlutil.so.4.8 qubes-vmm-xen-4.8.3_4
+libxenlight.so.4.8 qubes-vmm-xen-4.8.3_4
+libxenvchan.so.4.8 qubes-vmm-xen-4.8.3_4
+libxenstore.so.3.0 qubes-vmm-xen-4.8.3_4
+libxenguest.so.4.8 qubes-vmm-xen-4.8.3_4
+libxenctrl.so.4.8 qubes-vmm-xen-4.8.3_4
+libxenforeignmemory.so.1 qubes-vmm-xen-4.8.3_4
+libxencall.so.1 qubes-vmm-xen-4.8.3_4
+libxengnttab.so.1 qubes-vmm-xen-4.8.3_4
+libxenevtchn.so.1 qubes-vmm-xen-4.8.3_4
+libxentoollog.so.1 qubes-vmm-xen-4.8.3_4
+libxlutil.so.4.8 qubes-vmm-xen-4.8.3_4
+libxenlight.so.4.8 qubes-vmm-xen-4.8.3_4
+libxenvchan.so.4.8 qubes-vmm-xen-4.8.3_4
+libxenstore.so.3.0 qubes-vmm-xen-4.8.3_4
+libxenguest.so.4.8 qubes-vmm-xen-4.8.3_4
+libxenctrl.so.4.8 qubes-vmm-xen-4.8.3_4
+libxenforeignmemory.so.1 qubes-vmm-xen-4.8.3_4
+libxencall.so.1 qubes-vmm-xen-4.8.3_4
+libxengnttab.so.1 qubes-vmm-xen-4.8.3_4
+libxenevtchn.so.1 qubes-vmm-xen-4.8.3_4
+libxentoollog.so.1 qubes-vmm-xen-4.8.3_4
+
+libvchan-xen.so qubes-core-vchan-xen-4.0_1
+libu2mfn.so qubes-core-vchan-xen-4.0_1
+
+libqubes-rpc-filecopy.so.2 qubes-linux-utils-4.0.16_1
+libqrexec-utils.so.2 qubes-linux-utils-4.0.16_1
+libqubes-rpc-filecopy.so qubes-linux-utils-4.0.16_1
+libqrexec-utils.so qubes-linux-utils-4.0.16_1
+
+libqubesdb.so qubes-core-qubesdb-4.0.5_1
+
+libgaminggear.so.0 libgaminggear-0.15.1_1
+libgaminggearwidget.so.0 libgaminggear-0.15.1_1
+
+libroccat.so.5 roccat-tools-5.7.0_1
+libroccatwidget.so.5 roccat-tools-5.7.0_1
+libroccatarvo.so.5 roccat-tools-5.7.0_1
+libroccatisku.so.5 roccat-tools-5.7.0_1
+libroccatiskuwidget.so.5 roccat-tools-5.7.0_1
+libroccatiskufx.so.5 roccat-tools-5.7.0_1
+libroccatkiro.so.5 roccat-tools-5.7.0_1
+libroccatkoneplus.so.5 roccat-tools-5.7.0_1
+libroccatkonepluswidget.so.5 roccat-tools-5.7.0_1
+libroccatkonepure.so.5 roccat-tools-5.7.0_1
+libroccatkonepurewidget.so.5 roccat-tools-5.7.0_1
+libroccatkonepuremilitary.so.5 roccat-tools-5.7.0_1
+libroccatkonepuremilitarywidget.so.5 roccat-tools-5.7.0_1
+libroccatkonepureoptical.so.5 roccat-tools-5.7.0_1
+libroccatkonextd.so.5 roccat-tools-5.7.0_1
+libroccatkonextdwidget.so.5 roccat-tools-5.7.0_1
+libroccatkonextdoptical.so.5 roccat-tools-5.7.0_1
+libroccatkovaplus.so.5 roccat-tools-5.7.0_1
+libroccatkova2016.so.5 roccat-tools-5.7.0_1
+libroccatlua.so.5 roccat-tools-5.7.0_1
+libroccatnyth.so.5 roccat-tools-5.7.0_1
+libroccatpyra.so.5 roccat-tools-5.7.0_1
+libroccatryosmk.so.5 roccat-tools-5.7.0_1
+libroccatryosmkwidget.so.5 roccat-tools-5.7.0_1
+libroccatryosmkfx.so.5 roccat-tools-5.7.0_1
+libroccatryostkl.so.5 roccat-tools-5.7.0_1
+libroccatsavu.so.5 roccat-tools-5.7.0_1
+libroccatskeltr.so.5 roccat-tools-5.7.0_1
+libroccatsova.so.5 roccat-tools-5.7.0_1
+libroccatsuora.so.5 roccat-tools-5.7.0_1
+libroccattyon.so.5 roccat-tools-5.7.0_1
+libroccatkone.so.5 roccat-tools-5.7.0_1
+
+libticables2.so.7 libticables2-1.3.5_1
