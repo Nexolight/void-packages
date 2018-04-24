@@ -1,0 +1,24 @@
+# Template file for 'brother-dcp-9020cdw-cupswrapper'
+pkgname=brother-dcp-9020cdw-cupswrapper
+version=1.1.4
+revision=1
+maintainer="Nexolight <snow.dream.ch@gmail.com>"
+homepage="http://support.brother.com/g/b/index.aspx"
+license="GPL-2"
+short_desc="CUPS wrapper driver for the brother DCP-9020CDW printer/scanner"
+distfiles="http://download.brother.com/welcome/dlf100443/dcp9020cdwcupswrapper-${version}-0.i386.deb"
+checksum="313a90f69a6f903f0ef0e161e21d156516f4451c94d80e71f4adb3a09588b018"
+only_for_archs="i686 x86_64"
+depends="brother-dcp-9020cdw-lpr cups"
+create_wrksrc=yes
+nopie=yes
+
+do_extract() {
+	ar x ${XBPS_SRCDISTDIR}/${pkgname}-${version}/dcp9020cdwcupswrapper-${version}-0.i386.deb
+}
+
+do_install() {
+	mkdir -p ${DESTDIR}
+	tar xzpvf data.tar.gz -C ${DESTDIR}
+	vinstall ${FILESDIR}/43-cups-usb.rules 644 /usr/lib/udev/rules.d/
+}
