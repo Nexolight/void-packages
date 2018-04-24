@@ -1,0 +1,27 @@
+# Template file for 'brother-dcp-9020cdw-lpr'
+pkgname=brother-dcp-9020cdw-lpr
+version=1.1.2
+revision=1
+maintainer="Nexolight <snow.dream.ch@gmail.com>"
+homepage="http://support.brother.com/g/b/index.aspx"
+license="GPL-2"
+short_desc="LPR driver for the brother DCP-9020CDW printer/scanner"
+distfiles="http://download.brother.com/welcome/dlf100441/dcp9020cdwlpr-${version}-1.i386.deb"
+checksum="de94c9ebd6f95249b4f42e89d7529ae45bd53d1acf73a4c0020ae88488aad6fc"
+only_for_archs="i686 x86_64"
+create_wrksrc=yes
+depends="a2ps ghostscript"
+nopie=yes
+
+if [ "$XBPS_TARGET_MACHINE" = "x86_64" ]; then
+	depends+=" glibc-32bit"
+fi
+
+do_extract() {
+	ar x ${XBPS_SRCDISTDIR}/${pkgname}-${version}/dcp9020cdwlpr-${version}-1.i386.deb
+}
+
+do_install() {
+	mkdir -p ${DESTDIR}
+	tar xzpvf data.tar.gz -C ${DESTDIR}
+}
