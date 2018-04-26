@@ -1,7 +1,7 @@
 # Template file for 'qubes-linux-utils'
 pkgname=qubes-linux-utils
-version=4.0.16
-revision=1
+version=4.0.19
+revision=2
 #wrksrc=
 #create_wrksrc=yes
 #only_for_archs="i686 x86_64"
@@ -14,25 +14,16 @@ build_style=gnu-configure
 
 #conf_files=""
 #make_dirs="/var/log/dir 0755 root root"
-hostmakedepends=""
-makedepends="git gcc make python-setuptools python3-setuptools qubes-vmm-xen qubes-core-vchan-xen-devel pkg-config"
+hostmakedepends="pkg-config"
+makedepends="python-setuptools python3-setuptools qubes-vmm-xen qubes-core-vchan-xen-devel"
 depends="qubes-vmm-xen ImageMagick python-cairo python-Pillow python-numpy python3-Pillow python3-numpy qubes-core-vchan-xen fork-wrapper"
 short_desc="Essential utilities when using a vm as Qube"
 maintainer="nexolight <snow.dream.ch@gmail.com>"
 license="GPL"
-homepage="https://github.com/QubesOS/qubes-linux-utils"
+homepage="http://qubes-os.org"
 shlib_provides="libqrexec-utils.so.2 libqubes-rpc-filecopy.so libqubes-rpc-filecopy.so.2 libqrexec-utils.so libqrexec-utils.so.2"
-
-
-do_fetch(){
-	mkdir -p ${wrksrc}
-	if [ ! -d ${wrksrc}/.git ]; then
-		git clone https://github.com/QubesOS/qubes-linux-utils.git ${wrksrc}
-		cd ${wrksrc}
-		git fetch --tags --all --prune
-		git checkout tags/v${version} -b v${version}
-	fi
-}
+distfiles="https://github.com/QubesOS/${pkgname}/archive/v${version}.tar.gz"
+checksum="b820d155b5b9b44e6f6cbe211571c42bf98b51dcef764773584c47748929f738"
 
 do_configure(){
 	echo "Skip configure"
@@ -73,6 +64,9 @@ do_install(){
 	
 	vinstall ${FILESDIR}/dracut/90-qubes-vm.conf 611 /usr/lib/dracut/dracut.conf.d/
 	vinstall ${FILESDIR}/dracut/90pre-qubes/module-setup.sh 755 /usr/lib/dracut/modules.d/90pre-qubes/
+
+	vinstall ${FILESDIR}/05_qubes 755 /etc/grub.d/
+
 }
 
 qubes-linux-utils-dkms_package(){

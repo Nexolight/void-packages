@@ -8,6 +8,15 @@ post)
 	echo autospawn=no >> /etc/pulse/client.conf
 	ldconfig
 	
-	echo '/etc/rc.local-qubes/qubes-gui-agent/rc.local' >> /etc/rc.local
+	#alternate to runit service
+	#echo '/etc/rc.local-qubes/qubes-gui-agent/rc.local' >> /etc/rc.local
+
+	if [ "$UPDATE" = "no" ]; then
+		update-grub
+        fi
+	if [ "$UPDATE" = "yes" ]; then
+                update-grub
+        fi
+
 	;;
 esac

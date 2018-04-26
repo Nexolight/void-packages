@@ -4,7 +4,7 @@ case "$ACTION" in
 pre)
 	;;
 post)
-	#sed -i 's|^/etc/rc.local-qubes/qubes-core-agent-linux/rc.local$||g' /etc/rc.local
+	sed -i 's|^/etc/rc.local-qubes/qubes-core-agent-linux/rc.local$||g' /etc/rc.local
 	sed -i 's|^user ALL=(ALL) ALL$||g' /etc/sudoers
 	;;
 esac

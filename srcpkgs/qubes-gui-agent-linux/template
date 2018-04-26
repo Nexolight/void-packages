@@ -1,7 +1,7 @@
 # Template file for 'qubes-gui-agent-linux'
 pkgname=qubes-gui-agent-linux
-version=4.0.9
-revision=1
+version=4.0.10
+revision=3
 #wrksrc=
 #create_wrksrc=yes
 #only_for_archs="i686 x86_64"
@@ -14,30 +14,21 @@ build_style=gnu-makefile
 
 #conf_files=""
 #make_dirs=""
-hostmakedepends=""
-
-makedepends="pkg-config make gcc patch git automake autoconf libltdl-devel
+hostmakedepends="pkg-config"
+makedepends="patch automake autoconf libltdl-devel
  pulseaudio-devel xorg-server-devel xorg-util-macros libXcomposite-devel
  qubes-gui-common-devel qubes-core-vchan-xen-devel qubes-core-qubesdb libXt libtool"
 
 depends="xinit libXcomposite zenity qubes-core-vchan-xen xcb-proto xorg-server<1.20.0
  qubes-vmm-xen alsa-lib alsa-utils alsa-plugins-pulseaudio pulseaudio>=11.1
- pulseaudio<11.2 elogind xcffib"
+ pulseaudio<11.2 elogind xcffib linux4.16-headers-4.16.7_1 linux4.16-4.16.7_1"
 
 short_desc="The Qubes GUI Agent for AppVMs xcffib"
 maintainer="nexolight <snow.dream.ch@gmail.com>"
 license="GPL"
 homepage="http://qubes-os.org"
-
-do_fetch(){
-	mkdir -p ${wrksrc}
-	if [ ! -d ${wrksrc}/.git ]; then
-		git clone https://github.com/QubesOS/qubes-gui-agent-linux.git ${wrksrc}
-		cd ${wrksrc}
-		git fetch --tags --all --prune
-		git checkout tags/v${version} -b v${version}
-	fi
-}
+distfiles="https://github.com/QubesOS/${pkgname}/archive/v${version}.tar.gz"
+checksum="035701f41cf207a06e02408be0dcedd6692eae4b8dc959b3fdb4687d45940313"
 
 do_configure(){
 	echo "Skip configure"
@@ -71,13 +62,16 @@ do_install(){
 	#replace service with a runit one
 	rm -rf ${DESTDIR}/usr/lib/systemd
 	
-	#We can not use a service here!
 	#the qubes-gui agent does start an X server
 	#which will not terminate when the qubes-gui is terminated
 	#after that it doesn't work anymore until the X server is killed.
-	#vsv qubes-gui-agent
-	vmkdir /etc/rc.local-qubes/qubes-gui-agent
-	vinstall ${FILESDIR}/rc.local 755 /etc/rc.local-qubes/qubes-gui-agent
+	#due to limitations of runit it will kill the Xorg instance before start
+
+	vsv qubes-gui-agent
+
+	#Alternative approach via rc.local
+	#vmkdir /etc/rc.local-qubes/qubes-gui-agent
+	#vinstall ${FILESDIR}/rc.local 755 /etc/rc.local-qubes/qubes-gui-agent
 
 	#setup qubes session
 	vinstall ${FILESDIR}/z-qubes-session.sh 755 /etc/X11/xinit/xinitrc.d

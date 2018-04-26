@@ -1,4 +1,5 @@
 #!/bin/sh
-/usr/bin/mkdir -p /var/run/console
-/usr/bin/touch /var/run/console/user
-/usr/bin/qubes-gui 2> /var/log/qubes/gui-agent.log
+/usr/bin/mkdir -p /var/run/console > /dev/null 2>&1
+/usr/bin/touch /var/run/console/user > /dev/null 2>&1
+/usr/bin/killall -9 -w Xorg > /dev/null 2>&1
+chpst -e /etc/sv/qubes-gui-agent/env /usr/bin/qubes-gui > /var/log/qubes/gui-agent.log 2>&1

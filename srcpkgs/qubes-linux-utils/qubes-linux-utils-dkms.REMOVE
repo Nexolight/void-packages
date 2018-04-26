@@ -4,10 +4,6 @@ case "$ACTION" in
 pre)
 	;;
 post)
-	if [ -f /etc/default/grub.original ]; then
-		rm -f /etc/default/grub
-		mv /etc/default/grub.original /etc/default/grub
-	fi
 	sed -i 's/^xen.*$//g' /etc/fstab
 	update-grub
 	dracut -f

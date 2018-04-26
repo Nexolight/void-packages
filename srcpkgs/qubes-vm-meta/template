@@ -1,0 +1,30 @@
+# Template file for 'qubes-vm-meta'
+pkgname=qubes-vm-meta
+version=1.0.0
+revision=5
+#wrksrc=
+#create_wrksrc=yes
+#only_for_archs="i686 x86_64"
+build_style=meta
+#configure_args=""
+#make_build_args=""
+#make_install_args=""
+#conf_files=""
+#make_dirs="/var/log/dir 0755 root root"
+hostmakedepends=""
+makedepends=""
+depends="
+ qubes-vmm-xen-4.8.3_7
+ qubes-core-vchan-xen-4.0.2_1
+ qubes-core-agent-linux-4.0.28_2
+ qubes-core-qubesdb-4.0.6_2
+ qubes-linux-utils-dkms-4.0.19_2
+ qubes-gui-agent-linux-4.0.10_3
+ qubes-app-linux-usb-proxy-1.0.18_1
+"
+short_desc="The meta package for proper functionality of a void qubes VM"
+maintainer="nexolight <snow.dream.ch@gmail.com>"
+license="GPL"
+homepage="http://qubes-os.org"
+distfiles=""
+checksum=""

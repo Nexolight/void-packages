@@ -1,0 +1,32 @@
+# Template file for 'qubes-app-linux-usb-proxy'
+pkgname=qubes-app-linux-usb-proxy
+version=1.0.18
+revision=1
+#wrksrc=
+#create_wrksrc=yes
+#only_for_archs="i686 x86_64"
+build_style=gnu-makefile
+#configure_args=""
+#make_build_args=""
+#make_install_args=""
+#conf_files=""
+#make_dirs="/var/log/dir 0755 root root"
+hostmakedepends=""
+makedepends=""
+depends="qubes-core-agent-linux usbutils"
+short_desc="USB device passthrough using USBIP as a protocol, but qrexec as link layer"
+maintainer="nexolight <snow.dream.ch@gmail.com>"
+license="GPL"
+homepage="http://qubes-os.org"
+distfiles="https://github.com/QubesOS/${pkgname}/archive/v${version}.tar.gz"
+checksum=5e7107810301e949acd2e5204cf12320e73a792b77d420f0f22b6f26b72c992f
+
+do_build(){
+	echo "nothing to build"
+}
+
+do_install(){
+	env="DESTDIR=${DESTDIR} LIBDIR=/usr/lib USRLIBDIR=/usr/lib SYSLIBDIR=/usr/lib"
+	(export ${env}; make -j ${makejobs} install-vm)
+}
+

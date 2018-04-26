@@ -1,7 +1,7 @@
 # Template file for 'qubes-core-qubesdb'
 pkgname=qubes-core-qubesdb
-version=4.0.5
-revision=1
+version=4.0.6
+revision=2
 #wrksrc=
 #create_wrksrc=yes
 #only_for_archs="i686 x86_64"
@@ -15,24 +15,15 @@ build_style=gnu-makefile
 #conf_files=""
 #make_dirs="/var/log/dir 0755 root root"
 hostmakedepends=""
-makedepends="qubes-core-vchan-xen-devel python-devel python3-devel pkg-config git"
+makedepends="qubes-core-vchan-xen-devel python-devel python3-devel pkg-config"
 depends="qubes-core-vchan-xen"
 short_desc="QubesDB libs and daemon service"
 maintainer="nexolight <snow.dream.ch@gmail.com>"
 license="GPL"
 homepage="http://qubes-os.org"
 shlib_provides="libqubesdb.so"
-
-
-do_fetch(){
-	mkdir -p ${wrksrc}
-	if [ ! -d ${wrksrc}/.git ]; then
-		git clone https://github.com/QubesOS/qubes-core-qubesdb.git ${wrksrc}
-		cd ${wrksrc}
-		git fetch --tags --all --prune
-		git checkout tags/v${version} -b v${version}
-	fi
-}
+distfiles="https://github.com/QubesOS/${pkgname}/archive/v${version}.tar.gz"
+checksum="8043868909b8a332a20b27d006e5b372083e780c586bbab5667b2389746a2672"
 
 do_configure(){
 	echo "Skip configure"

@@ -1,6 +1,6 @@
 # Template file for 'qubes-core-agent-linux'
 pkgname=qubes-core-agent-linux
-version=4.0.24
+version=4.0.28
 revision=2
 #wrksrc=
 #create_wrksrc=yes
@@ -12,13 +12,15 @@ make_build_args="PKG_CONFIG_PATH=/usr/lib/pkgconfig BACKEND_VMM=xen C_INCLUDE_PA
 #conf_files=""
 #make_dirs="/var/log/dir 0755 root root"
 hostmakedepends=""
-makedepends="git qubes-core-vchan-xen-devel qubes-linux-utils qubes-vmm-xen libX11-devel python python3 pam-devel pkg-config python-setuptools python-pip pandoc"
+makedepends="qubes-core-vchan-xen-devel qubes-linux-utils qubes-vmm-xen libX11-devel python python3 pam-devel pkg-config python-setuptools python-pip pandoc"
 depends="qubes-core-vchan-xen qubes-core-qubesdb python pandoc python-xdg ethtool ntp net-tools ImageMagick fakeroot notification-daemon dconf zenity haveged python-gobject python-dbus xdg-utils gawk sed procps-ng librsvg socat gnome-keyring gnome-settings-daemon python python-setuptools iptables NetworkManager"
 short_desc="The qubes qrexec agent"
 maintainer="nexolight <snow.dream.ch@gmail.com>"
 license="GPL"
 homepage="http://qubes-os.org/"
 shlib_provides=""
+distfiles="https://github.com/QubesOS/${pkgname}/archive/v${version}.tar.gz"
+checksum="d9c4b2cb40085e6c1bf0d10b92e89efd95d50db99a11b259c7c675cd07ac426f"
 system_groups="qubes:98 user:1100"
 system_accounts="user:1100"
 user_homedir="/home/user"
@@ -26,16 +28,6 @@ user_shell="/bin/bash"
 user_descr="qubes user"
 user_groups="qubes,root"
 user_pgroup="user"
-
-do_fetch(){
-	mkdir -p ${wrksrc}
-	if [ ! -d ${wrksrc}/.git ]; then
-		git clone https://github.com/QubesOS/qubes-core-agent-linux.git ${wrksrc}
-		cd ${wrksrc}
-		git fetch --tags --all --prune
-		git checkout tags/v${version} -b v${version}
-	fi
-}
 
 do_configure(){
 	echo "Skip configure"
@@ -69,17 +61,11 @@ do_install(){
 	
 	#setup services
 	#NOTE: Since most of it are oneshot processes and rely on services in a mixed manner
-	#it was completely moved to /etc/runit/core-services
-	#vsv xendriverdomain
-	#vsv qubes-firewall
-	#vsv qubes-qrexec-agent 
-	#vsv qubes-updates-proxy-forwarder		
+	#TODO: I'm not entirely convinced that this works as it should at stage 1.
 	vinstall ${FILESDIR}/98-qubes-client-vm.sh 755 /etc/runit/core-services
 
-	#DEPRECATED - move to core services
-	#install rc.local. many of the services are oneshot processes
-	#that might be an issue since some services depend on them
-	#vinstall ${FILESDIR}/rc.local 755 /etc/rc.local-qubes/${pkgname}
-	#vinstall ${FILESDIR}/rc.shutdown 755 /etc/rc.local-qubes/${pkgname}
+	#Some stuff doesn't seem to work at stage 1.
+	#Since some of them are no real services let's put them in rc.local at stage 3
+	vinstall ${FILESDIR}/rc.local 755 /etc/rc.local-qubes/${pkgname}
 }
 

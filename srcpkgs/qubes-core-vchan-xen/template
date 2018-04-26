@@ -1,6 +1,6 @@
 # Template file for 'qubes-core-vchan-xen'
 pkgname=qubes-core-vchan-xen
-version=4.0
+version=4.0.2
 revision=1
 #wrksrc=
 #create_wrksrc=yes
@@ -12,23 +12,15 @@ make_install_args=""
 #conf_files=""
 #make_dirs="/var/log/dir 0755 root root"
 hostmakedepends=""
-makedepends="git make qubes-vmm-xen"
+makedepends="qubes-vmm-xen"
 depends="qubes-vmm-xen"
 short_desc="The Qubes core libs for installation inside a Qube"
 maintainer="nexolight <snow.dream.ch@gmail.com>"
 license="GPL"
-homepage="https://github.com/QubesOS/qubes-core-vchan-xen"
+homepage="http://qubes-os.org"
 shlib_provides="libvchan-xen.so libu2mfn.so"
-
-do_fetch(){
-	mkdir -p ${wrksrc}
-	if [ ! -d ${wrksrc}/.git ]; then
-		git clone https://github.com/QubesOS/qubes-core-vchan-xen.git ${wrksrc}
-		cd ${wrksrc}
-		git fetch --tags --all --prune
-		git checkout tags/v${version}.${revision} -b v${version}.${revision}
-	fi
-}
+distfiles="https://github.com/QubesOS/${pkgname}/archive/v${version}.tar.gz"
+checksum="35c8a3e2a7d52c8cc6b794bec28697434c340903071656137d4c7a92a69201d7"
 
 do_configure(){
 	echo "Skip configure"

@@ -1,6 +1,6 @@
 # Template file for 'qubes-gui-common-devel'
 pkgname=qubes-gui-common-devel
-version=4.0.1
+version=4.0.2
 revision=1
 #wrksrc=
 #create_wrksrc=yes
@@ -15,22 +15,15 @@ build_style=gnu-makefile
 #conf_files=""
 #make_dirs=""
 hostmakedepends=""
-makedepends="git"
+makedepends=""
 depends=""
 short_desc="Common files for Qubes GUI - protocol headers"
 maintainer="nexolight <snow.dream.ch@gmail.com>"
 license="GPL"
 homepage="http://qubes-os.org"
-
-do_fetch(){
-	mkdir -p ${wrksrc}
-	if [ ! -d ${wrksrc}/.git ]; then
-		git clone https://github.com/QubesOS/qubes-gui-common.git ${wrksrc}
-		cd ${wrksrc}
-		git fetch --tags --all --prune
-		git checkout tags/v${version} -b v${version}
-	fi
-}
+distfiles="https://github.com/QubesOS/qubes-gui-common/archive/v${version}.tar.gz"
+checksum="790b458088e69236c79704dafd57c3080e65465240f532a944b55c1b3c3a69e5"
+wrksrc=qubes-gui-common-${version}
 
 do_configure(){
 	echo "Skip configure"

@@ -5,8 +5,6 @@ pre)
 	;;
 post)
 	if [ "$UPDATE" = "no" ]; then
-		mv /etc/default/grub /etc/default/grub.original
-		ln -s /etc/default/grub.qubes /etc/default/grub
 		echo "xen /proc/xen xenfs defaults 0 0" >> /etc/fstab
 		update-grub
 		dracut -f
