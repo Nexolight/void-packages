@@ -1,0 +1,29 @@
+# Template file for 'nemo-share'
+pkgname=nemo-share
+version=3.6.0
+mint_version=19
+revision=1
+#wrksrc=
+#create_wrksrc=yes
+#only_for_archs="i686 x86_64"
+build_style=gnu-configure
+#configure_args=""
+#make_build_args=""
+#make_install_args=""
+#conf_files=""
+#make_dirs="/var/log/dir 0755 root root"
+hostmakedepends="pkg-config"
+makedepends="nemo-devel automake gnome-common glib-devel intltool libtool gettext-devel cinnamon-desktop-devel"
+depends="nemo samba cinnamon-desktop"
+short_desc="Allows you to quickly share folders in the nemo file manager"
+maintainer="nexolight <snow.dream.ch@gmail.com>"
+license="GPL-2"
+homepage="https://linuxmint.com/"
+distfiles="https://github.com/linuxmint/nemo-extensions/archive/master.mint${mint_version}.tar.gz"
+checksum=421e0a5b6a733b095bb66c513f7c67d84c51f9470eb7a3ddd59d8b5996cf7eda
+wrksrc=nemo-extensions-master.mint${mint_version}/${pkgname}
+
+do_configure(){
+	./autogen.sh
+	./configure --prefix=/usr
+}
