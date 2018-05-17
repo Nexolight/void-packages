@@ -5,6 +5,12 @@ pre)
 	;;
 post)
 	if [ "$UPDATE" = "no" ]; then
+		echo "/dev/xvdb /rw auto noauto,defaults,discard 1 2" >> /etc/fstab
+		echo "/rw/home /home none noauto,bind,defaults 0 0" >> /etc/fstab
+		echo "tmpfs /dev/shm tmpfs defaults 0 0" >> /etc/fstab
+		echo "devpts /dev/pts devpts gid=5,mode=620 0 0" >> /etc/fstab
+		echo "sysfs /sys sysfs defaults 0 0" >> /etc/fstab
+		echo "proc /proc proc defaults 0 0" >> /etc/fstab
 		echo "xen /proc/xen xenfs defaults 0 0" >> /etc/fstab
 		update-grub
 		dracut -f

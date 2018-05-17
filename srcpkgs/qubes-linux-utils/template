@@ -1,7 +1,7 @@
 # Template file for 'qubes-linux-utils'
 pkgname=qubes-linux-utils
 version=4.0.19
-revision=2
+revision=3
 #wrksrc=
 #create_wrksrc=yes
 #only_for_archs="i686 x86_64"

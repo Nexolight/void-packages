@@ -51,7 +51,6 @@ Make sure your partition setup looks like this:
 /dev/xvda1 1M BIOS boot
 /dev/xvda2 EFI System
 /dev/xvda3 Linux filesystem
-/dev/xvda4 Linux swap
 ```
 
 especially `/dev/xvda3` is hardcoded by the devs in the initramfs!
@@ -115,7 +114,6 @@ ln -s /etc/sv/dhcpcd /var/service/
 rm -f /var/service/dhcpcd (unconfigured it conflicts with the qubes init)
 ```
 
-
 #### 4. Test boot
 
 You may now try a reboot and hope it doesn't end up in the rescue console.
@@ -123,7 +121,18 @@ If the boot is successful you should be able to use all the usual qvm commands,
 pass devices, use the gui-agent, etc.
 
 
-#### 5. Finish
+#### 5. Additional fstab entries
+
+Setup your fstab to mount the other partitions as follows:
+
+```
+/dev/xvdb /rw ext4 noauto,defaults,discard 1 2
+/rw/home /home none noauto,bind,defaults 0 0
+
+/dev/xvdc1 swap swap defaults 0 0
+```
+
+#### 6. Finish
 
 You may now change your app VM type to whatever it should be. 
 Keep it a HVM type for now. Dynamic memory should now work so you can switch that back.

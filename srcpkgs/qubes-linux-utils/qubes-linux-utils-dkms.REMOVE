@@ -4,7 +4,13 @@ case "$ACTION" in
 pre)
 	;;
 post)
-	sed -i 's/^xen.*$//g' /etc/fstab
+	sed -i 's|^/dev/xvdb.*$||g' /etc/fstab
+	sed -i 's|^/rw/home.*$||g' /etc/fstab
+	sed -i 's|^tmpfs.*$||g' /etc/fstab
+	sed -i 's|^devpts.*$||g' /etc/fstab
+	sed -i 's|^sysfs.*$||g' /etc/fstab
+	sed -i 's|^proc.*$||g' /etc/fstab
+	sed -i 's|^xen.*$||g' /etc/fstab
 	update-grub
 	dracut -f
 	;;
