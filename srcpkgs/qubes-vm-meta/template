@@ -16,8 +16,8 @@ makedepends=""
 depends="
  qubes-vmm-xen-4.8.3_7
  qubes-core-vchan-xen-4.0.2_1
- qubes-core-agent-linux-4.0.28_2
- qubes-core-qubesdb-4.0.6_2
+ qubes-core-agent-linux-4.0.28_3
+ qubes-core-qubesdb-4.0.6_3
  qubes-linux-utils-dkms-4.0.19_3
  qubes-gui-agent-linux-4.0.10_3
  qubes-app-linux-usb-proxy-1.0.18_1

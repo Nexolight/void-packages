@@ -1,7 +1,7 @@
 # Template file for 'qubes-core-agent-linux'
 pkgname=qubes-core-agent-linux
 version=4.0.28
-revision=2
+revision=3
 #wrksrc=
 #create_wrksrc=yes
 #only_for_archs="i686 x86_64"
@@ -62,7 +62,7 @@ do_install(){
 	#setup services
 	#NOTE: Since most of it are oneshot processes and rely on services in a mixed manner
 	#TODO: I'm not entirely convinced that this works as it should at stage 1.
-	vinstall ${FILESDIR}/98-qubes-client-vm.sh 755 /etc/runit/core-services
+	vinstall ${FILESDIR}/98-50-qubes-client-vm.sh 644 /etc/runit/core-services
 
 	#Some stuff doesn't seem to work at stage 1.
 	#Since some of them are no real services let's put them in rc.local at stage 3

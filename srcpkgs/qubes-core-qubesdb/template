@@ -1,7 +1,7 @@
 # Template file for 'qubes-core-qubesdb'
 pkgname=qubes-core-qubesdb
 version=4.0.6
-revision=2
+revision=3
 #wrksrc=
 #create_wrksrc=yes
 #only_for_archs="i686 x86_64"
@@ -51,5 +51,6 @@ do_install(){
 	(export ${env}; cd python; make install)
 	cp ${DESTDIR}/usr/lib64/* ${DESTDIR}/usr/lib/
 	rm -rf ${DESTDIR}/usr/lib64
-	vinstall ${FILESDIR}/rc.local 755 /etc/rc.local-qubes/${pkgname}
+	
+	vinstall ${FILESDIR}/98-40-qubesdb.sh 644 /etc/runit/core-services
 }
