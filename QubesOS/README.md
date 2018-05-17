@@ -121,18 +121,7 @@ If the boot is successful you should be able to use all the usual qvm commands,
 pass devices, use the gui-agent, etc.
 
 
-#### 5. Additional fstab entries
-
-Setup your fstab to mount the other partitions as follows:
-
-```
-/dev/xvdb /rw ext4 noauto,defaults,discard 1 2
-/rw/home /home none noauto,bind,defaults 0 0
-
-/dev/xvdc1 swap swap defaults 0 0
-```
-
-#### 6. Finish
+#### 5. Finish
 
 You may now change your app VM type to whatever it should be. 
 Keep it a HVM type for now. Dynamic memory should now work so you can switch that back.
