@@ -1,0 +1,27 @@
+# Template file for 'brother-hl2300d-lpr'
+pkgname=brother-hl-l2300d-lpr
+version=3.2.0
+revision=1
+maintainer="Nexolight <snow.dream.ch@gmail.com>"
+homepage="http://support.brother.com/g/b/index.aspx"
+license="GPL-2"
+short_desc="LPR driver for the brother HL-L2300D printer"
+distfiles="http://download.brother.com/welcome/dlf101900/hll2300dlpr-${version}-${revision}.i386.deb"
+checksum="9b576bcbd42aae22147d3934f8c0acd5184f31f03c7c1e97ad68c2e9f1517e24"
+only_for_archs="i686 x86_64"
+create_wrksrc=yes
+depends="a2ps ghostscript"
+nopie=yes
+
+if [ "$XBPS_TARGET_MACHINE" = "x86_64" ]; then
+	depends+=" glibc-32bit"
+fi
+
+do_extract() {
+	ar x ${XBPS_SRCDISTDIR}/${pkgname}-${version}/hll2300dlpr-${version}-${revision}.i386.deb
+}
+
+do_install() {
+	mkdir -p ${DESTDIR}
+	tar xzpvf data.tar.gz -C ${DESTDIR}
+}
