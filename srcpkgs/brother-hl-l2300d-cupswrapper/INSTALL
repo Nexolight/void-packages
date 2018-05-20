@@ -1,0 +1,6 @@
+case "${ACTION}" in
+post)
+    /opt/brother/Printers/hl2300d/cupswrapper/cupswrapperhl2300d
+    ;;
+esac
+

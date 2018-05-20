@@ -1,0 +1,24 @@
+# Template file for 'brother-hl-l2300d-cupswrapper'
+pkgname=brother-hl-l2300d-cupswrapper
+version=3.2.0
+revision=1
+maintainer="Nexolight <snow.dream.ch@gmail.com>"
+homepage="http://support.brother.com/g/b/index.aspx"
+license="GPL-2"
+short_desc="CUPS wrapper driver for the brother HL-L2300D printer"
+distfiles="http://download.brother.com/welcome/dlf101901/hll2300dcupswrapper-${version}-${revision}.i386.deb"
+checksum="1973b781a01c3c1777cbff19e816e48e442d891823b7454f2850d2d5edd2d4bb"
+only_for_archs="i686 x86_64"
+depends="brother-hl-l2300d-lpr cups"
+create_wrksrc=yes
+nopie=yes
+
+do_extract() {
+	ar x ${XBPS_SRCDISTDIR}/${pkgname}-${version}/hll2300dcupswrapper-${version}-${revision}.i386.deb
+}
+
+do_install() {
+	mkdir -p ${DESTDIR}
+	tar xzpvf data.tar.gz -C ${DESTDIR}
+	vinstall ${FILESDIR}/43-cups-usb-hll2300d.rules 644 /usr/lib/udev/rules.d/
+}
