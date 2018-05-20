@@ -1,6 +1,6 @@
 case "${ACTION}" in
 post)
-    /opt/brother/Printers/hl2300d/cupswrapper/cupswrapperhl2300d
+    /opt/brother/Printers/HLL2300D/cupswrapper/brother_lpdwrapper_HLL2300D
     ;;
 esac
 

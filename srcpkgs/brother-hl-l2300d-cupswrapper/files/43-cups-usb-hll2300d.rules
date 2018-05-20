@@ -18,4 +18,4 @@
 # even if you installed the brother-brsca3 package
 # version date 2014/05/12
 
-ATTR{idVendor}=="04f9", ATTR{idProduct}=="02d3", MODE:="0664", GROUP:="lp", ENV{libsane_matched}:="yes"
+ATTR{idVendor}=="04f9", ATTR{idProduct}=="0061", MODE:="0664", GROUP:="lp", ENV{libsane_matched}:="yes"
