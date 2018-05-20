@@ -1,6 +1,6 @@
 case "${ACTION}" in
     post)
         mkdir -p /var/spool/lpd
-        /opt/brother/Printers/hll2300d/inf/setupPrintcapij hll2300d -i
+        /opt/brother/Printers/HLL2300D/inf/setupPrintcap HLL2300D -i
     ;;
 esac
