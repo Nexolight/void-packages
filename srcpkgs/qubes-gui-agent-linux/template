@@ -1,7 +1,7 @@
 # Template file for 'qubes-gui-agent-linux'
 pkgname=qubes-gui-agent-linux
 version=4.0.10
-revision=3
+revision=4
 #wrksrc=
 #create_wrksrc=yes
 #only_for_archs="i686 x86_64"
@@ -21,7 +21,7 @@ makedepends="patch automake autoconf libltdl-devel
 
 depends="xinit libXcomposite zenity qubes-core-vchan-xen xcb-proto xorg-server<1.20.0
  qubes-vmm-xen alsa-lib alsa-utils alsa-plugins-pulseaudio pulseaudio>=11.1
- pulseaudio<11.2 elogind xcffib linux4.16-headers-4.16.7_1 linux4.16-4.16.7_1"
+ pulseaudio<11.2 elogind xcffib linux4.16-headers-4.16.10_1 linux4.16-4.16.10_1"
 
 short_desc="The Qubes GUI Agent for AppVMs xcffib"
 maintainer="nexolight <snow.dream.ch@gmail.com>"
