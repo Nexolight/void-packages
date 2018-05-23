@@ -30,6 +30,14 @@ Furthermore the kernel is not suitable for the Qubes gui agent.
 That means there's a custom kernel which must either be built or setup on a custom repository and which must be prefered over 
 potentially more recent versions from the official repository.
 
+After installing it from a suitable repository you should do:
+
+```
+xbps-pkgdb -m repolock linux-headers
+xbps-pkgdb -m repolock linux
+```
+
+
 
 ### Installation steps
 
