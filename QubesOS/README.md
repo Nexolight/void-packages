@@ -81,7 +81,7 @@ after the meta package was installed.
 
 #### 2. The metapackage
 
-`xbps-install --repository=<placeholder> qubes-vm-xen`
+`xbps-install --repository=<placeholder> qubes-vm-meta`
 
 This will install everything required.
 
