@@ -64,12 +64,12 @@ especially `/dev/xvda3` is hardcoded by the devs in the initramfs!
 
 #### 1. Kernel
 
-You **must** use the kernel from this branch/repository:
+You **must** use a modified kernel:
 
-`xbps-install --repository=<placeholder> linux<version>-headers linux<version>`
+`xbps-install --repository=http://void.coldbyte.net/qubes linux<version>-headers linux<version>`
 
-Replace placeholder with either your local repository or mine:
-`http://void.coldbyte.net/qubes`
+If you want to build it by yourself, use the script `qubes-kernel.patch.sh`. It's just one
+option that needs to be changed.
 
 You also need to make sure that updates pulled in do not override that kernel.
 Install the kernel updates only from the custom repository!
