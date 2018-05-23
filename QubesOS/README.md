@@ -3,6 +3,10 @@
 
 #### Provided packages
 
+Use xbps-src to build them. Building `qubes-vm-meta` is enough.
+You may find more information how to do it in the Manual.md
+at the root level of this repository.
+
 * qubes-vm-meta - Meta package which contains everything required.
   * qubes-vmm-xen
   * qubes-core-vchan-xen
@@ -14,6 +18,8 @@
 
 * qubes-core-vchan-xen-devel
 * qubes-gui-common-devel
+* xcffib
+* fork-wrapper
 
 #### Drawbacks
 Runit doesn't play very well with the style the Qubes services are 
@@ -29,14 +35,6 @@ This is done on start and not on stop. It should not affect you on a qubes envir
 Furthermore the kernel is not suitable for the Qubes gui agent.
 That means there's a custom kernel which must either be built or setup on a custom repository and which must be prefered over 
 potentially more recent versions from the official repository.
-
-After installing it from a suitable repository you should do:
-
-```
-xbps-pkgdb -m repolock linux-headers
-xbps-pkgdb -m repolock linux
-```
-
 
 
 ### Installation steps
@@ -70,9 +68,19 @@ You **must** use the kernel from this branch/repository:
 
 `xbps-install --repository=<placeholder> linux<version>-headers linux<version>`
 
+Replace placeholder with either your local repository or mine:
+`http://void.coldbyte.net/qubes`
+
 You also need to make sure that updates pulled in do not override that kernel.
 Install the kernel updates only from the custom repository!
 Otherwise the qubes gui agent wont work
+
+After installing it from a suitable repository you should do:
+
+```
+xbps-pkgdb -m repolock linux-headers
+xbps-pkgdb -m repolock linux
+```
 
 The grub script will automatically detect the required changes in the config
 and generate entries for these kernels by doing `update-grub`
@@ -82,6 +90,9 @@ after the meta package was installed.
 #### 2. The metapackage
 
 `xbps-install --repository=<placeholder> qubes-vm-meta`
+
+Replace placeholder with either your local repository or mine:
+`http://void.coldbyte.net/qubes`
 
 This will install everything required.
 
