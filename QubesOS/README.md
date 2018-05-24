@@ -139,9 +139,14 @@ You may now try a reboot and hope it doesn't end up in the rescue console.
 If the boot is successful you should be able to use all the usual qvm commands,
 pass devices, use the gui-agent, etc.
 
+A QubesVM grub entry should be on top of the list and is selected by default.
+
 
 #### 5. Finish
 
 You may now change your app VM type to whatever it should be. 
 Keep it a HVM type for now. Dynamic memory should now work so you can switch that back.
 Set it to minmal 600MB. 400MB may cause OOMs on qubes.
+
+You may want to disable the grub delay of 5 seconds on the template.
+edit `/etc/default/grub` and set `GRUB_TIMEOUT=0`
