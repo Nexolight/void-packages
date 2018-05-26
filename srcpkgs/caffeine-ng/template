@@ -1,7 +1,7 @@
 # Template file for 'caffeine-ng'
 pkgname=caffeine-ng
-version=3.4.0
-revision=3
+version=3.4.2
+revision=1
 noarch=yes
 build_style=python3-module
 pycompile_module="caffeine"
@@ -11,10 +11,10 @@ depends="desktop-file-utils gtk+3 hicolor-icon-theme libnotify
  python3-setproctitle python3-setuptools python3-xdg"
 short_desc="Temporarily inhibits the screensaver and sleep mode"
 maintainer="cr6git <quark6@protonmail.com>"
-license="GPL-3"
-homepage="https://gitlab.com/WhyNotHugo/caffeine-ng"
+license="GPL-3.0-or-later"
+homepage="https://github.com/caffeine-ng/caffeine-ng"
 distfiles="${PYPI_SITE}/c/caffeine-ng/caffeine-ng-${version}.tar.gz"
-checksum=ca439ed6200ddb34fdfbaff817ac716a2b14839ba604d197eeef3546e7c1e31c
+checksum=9cf843f9359b4b8cdb2ad4a14bb433641a100e25206274eb638c494765d56816
 
 pre_build() {
 	sed -i setup.py \

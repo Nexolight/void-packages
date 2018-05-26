@@ -61,7 +61,6 @@ A simple `template` example is as follows:
 
 ```
 # Template file for 'foo'
-
 pkgname=foo
 version=1.0
 revision=1
@@ -827,6 +826,11 @@ package accordingly. Additionally, the following functions are available:
 
   Emits an error and exits if both options are set at the same time.
 
+- *vopt_bool()* `vopt_bool <option> <property>`
+
+  Outputs `-D<property>=true` if the option is set, or
+  `-D<property>=false` otherwise.
+
 The following example shows how to change a source package that uses GNU
 configure to enable a new build option to support PNG images:
 
@@ -1038,9 +1042,8 @@ with this naming: `<subpkgname>_package()`, i.e:
 
 ```
 # Template file for 'foo'
-
-pkgname="foo"
-version="1.0"
+pkgname=foo
+version=1.0
 revision=1
 build_style=gnu-configure
 short_desc="A short description max 72 chars"
@@ -1056,8 +1059,8 @@ foo-devel_package() {
 	depends="${sourcepkg}>=${version}_${revision}"
 	pkg_install() {
 		vmove usr/include
-		vmove usr/lib/*.a
-		vmove usr/lib/*.so
+		vmove "usr/lib/*.a"
+		vmove "usr/lib/*.so"
 		vmove usr/lib/pkgconfig
 	}
 }

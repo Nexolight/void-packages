@@ -1,18 +1,18 @@
 # Template file for 'font-iosevka'
 pkgname=font-iosevka
-version=1.14.1
+version=1.14.3
 revision=1
+noarch=yes
 create_wrksrc=yes
-noarch="yes"
 font_dirs="/usr/share/fonts/TTF"
 hostmakedepends="unzip"
 depends="font-util xbps-triggers"
 short_desc="A slender monospace sans-serif and slab-serif typeface"
 maintainer="Diogo Leal <diogo@diogoleal.com>"
-license="SIL Open Font License"
+license="OFL-1.1"
 homepage="https://be5invis.github.io/Iosevka/"
 distfiles="https://github.com/be5invis/Iosevka/releases/download/v${version}/iosevka-pack-${version}.zip"
-checksum=41d35e3ac2fce0cfc9b549e26d5d7a8246d264388cf5ae3038651a306d2d2280
+checksum=01f3e5d4f8c87dadd1a4fb50d63d59aeaa27e7f7fcf6cb23bcc99e1419d77345
 
 do_install() {
 	vmkdir usr/share/fonts/TTF

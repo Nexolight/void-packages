@@ -1,16 +1,16 @@
 # Template file for 'neofetch'
 pkgname=neofetch
-version=3.3.0
+version=4.0.0
 revision=1
 noarch=yes
 build_style=gnu-makefile
 depends="bash"
 short_desc="Simple system information script"
 maintainer="Muhammad Herdiansyah <herdiansyah@netc.eu>"
-homepage="https://github.com/dylanaraps/neofetch"
 license="MIT"
+homepage="https://github.com/dylanaraps/neofetch"
 distfiles="${homepage}/archive/${version}/${pkgname}-${version}.tar.gz"
-checksum=4808e76bd81da3602cb5be7e01dfed8223b1109e2792755dd0d54126014ee696
+checksum=b2dae233007ac7d5717df7b1f8f742aebcb84289d5a048398eab3566a8204278
 
 post_install() {
 	vlicense LICENSE.md

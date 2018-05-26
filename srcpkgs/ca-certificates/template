@@ -1,7 +1,8 @@
 # Template file for 'ca-certificates'
 pkgname=ca-certificates
+reverts=20180409_1
 version=20170717
-revision=2
+revision=3
 wrksrc="${pkgname}"
 bootstrap=yes
 noarch="yes"
