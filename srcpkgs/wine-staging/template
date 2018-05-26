@@ -1,6 +1,6 @@
 # Template file for 'wine-staging'
 pkgname=wine-staging
-version=3.6
+version=3.9
 revision=1
 build_style=gnu-configure
 configure_args="--without-gstreamer --prefix=/usr --libdir=/usr/lib --with-xattr"
@@ -10,8 +10,8 @@ license="LGPL-2.1"
 homepage="http://www.winehq.org/"
 distfiles="https://dl.winehq.org/wine/source/${version%.*}.x/wine-${version}.tar.xz 
 https://github.com/${pkgname}/${pkgname}/archive/v${version}.tar.gz"
-checksum="78502dc79a60430d2a2ef66bee146e38eb6dd679fd36b54acfc8f9b2ac07905c
- 2ec8fc3f8edc282e4ed94ccb7c67524503b02909affc24499ea6bdf7e734bb3f"
+checksum="ccadc281966d5a94f1161dec22d29bf7bd6506b371b26f18f652d374e986b735
+ 4e919585aba04654a42290a9ba31fb0b62ec0960d149759d88c86c4ff3778bf8"
 wrksrc=wine-${version}
 replaces="wine>=0"
 
