@@ -143,7 +143,7 @@ libnvidia-gtk2.so.346.47 nvidia-gtklibs-346.47_1 ignore
 libnvidia-gtk3.so.346.47 nvidia-gtklibs-346.47_1 ignore
 libnvidia-glcore.so.346.47 nvidia340-libs-340.46_1 ignore
 libnvidia-glsi.so.346.72 nvidia-libs-346.72_1 ignore
-libnvidia-fatbinaryloader.so.390.48 nvidia-libs-390.48_1 ignore
+libnvidia-fatbinaryloader.so.390.59 nvidia-libs-390.59_1 ignore
 libglapi.so.0 libglapi-7.11_1
 libgbm.so.1 libgbm-9.0_1
 librsvg-2.so.2 librsvg-2.26.0_1
@@ -550,15 +550,15 @@ libwebkit2gtk-4.0.so.37 webkit2gtk-2.6.2_1
 libjavascriptcoregtk-1.0.so.0 webkitgtk2-2.4.8_2
 libjavascriptcoregtk-3.0.so.0 webkitgtk-2.0.0_1
 libjavascriptcoregtk-4.0.so.18 webkit2gtk-2.6.2_1
-libgimp-2.0.so.0 libgimp-2.8.10_3
-libgimpwidgets-2.0.so.0 libgimp-2.8.10_3
-libgimpui-2.0.so.0 libgimp-2.8.10_3
-libgimpbase-2.0.so.0 libgimp-2.8.10_3
-libgimpthumb-2.0.so.0 libgimp-2.8.10_3
-libgimpconfig-2.0.so.0 libgimp-2.8.10_3
-libgimpmath-2.0.so.0 libgimp-2.8.10_3
-libgimpcolor-2.0.so.0 libgimp-2.8.10_3
-libgimpmodule-2.0.so.0 libgimp-2.8.10_3
+libgimp-2.0.so.0 libgimp-2.10.0_1
+libgimpwidgets-2.0.so.0 libgimp-2.10.0_1
+libgimpui-2.0.so.0 libgimp-2.10.0_1
+libgimpbase-2.0.so.0 libgimp-2.10.0_1
+libgimpthumb-2.0.so.0 libgimp-2.10.0_1
+libgimpconfig-2.0.so.0 libgimp-2.10.0_1
+libgimpmath-2.0.so.0 libgimp-2.10.0_1
+libgimpcolor-2.0.so.0 libgimp-2.10.0_1
+libgimpmodule-2.0.so.0 libgimp-2.10.0_1
 libgmic.so.2 gmic-2.1.8_1
 libcgmic.so.2 gmic-2.1.8_1
 libexiv2.so.26 exiv2-0.26_1
@@ -829,7 +829,7 @@ libvpx.so.5 libvpx-1.7.0_1
 libXevie.so.1 libXevie-1.0.2_1
 libatspi.so.0 at-spi2-core-1.91.91_1
 libatk-bridge-2.0.so.0 at-spi2-atk-2.6.0_1
-libvte-2.91.so.0 vte3-0.38.1_1
+libvte-2.91.so.0 vte3-0.52.2_1
 libgnome-media-profiles-3.0.so.0 libgnome-media-profiles-3.0.0_1
 libpipeline.so.1 libpipeline-1.2.0_1
 libosp.so.5 opensp-1.5.2_1
@@ -1942,7 +1942,7 @@ libQt5EglFsKmsSupport.so.5 qt5-5.7.1_1
 libQt5WebKit.so.5 qt5-webkit-5.6.0_1
 libQt5WebKitWidgets.so.5 qt5-webkit-5.6.0_1
 libQt5TextToSpeech.so.5 qt5-speech-5.8.0_1
-libx265.so.151 x265-2.7_1
+libx265.so.160 x265-2.8_1
 libQt5Xdg.so.3 libqtxdg-3.1.0_1
 libQt5XdgIconLoader.so.3 libqtxdg-3.1.0_1
 libqwt.so.6 qwt-6.1.3_1
@@ -2154,11 +2154,14 @@ libopenrawgnome.so.7 libopenraw-0.1.0_1
 libgeda.so.42 geda-1.8.2_1
 libclutter-gst-3.0.so.0 clutter-gst3-3.0.4_1
 libgsound.so.0 gsound-1.0.1_1
-libgegl-0.2.so.0 gegl-0.2.0_1
 libgegl-0.3.so.0 gegl3-0.3.0_1
 libgegl-npd-0.3.so gegl3-0.3.0_1
 libgegl-sc-0.3.so gegl3-0.3.0_1
 libprocps.so.7 procps-ng-3.3.15_1
+libgegl-0.4.so.0 gegl-0.4.0_1
+libgegl-npd-0.4.so gegl-0.4.0_1
+libgegl-sc-0.4.so gegl-0.4.0_1
+libprocps.so.6 procps-ng-3.3.12_1
 libskarnet.so.2.6 skalibs-2.6.0.0_1
 libKF5BalooWidgets.so.5 baloo-widgets5-17.04.3_1
 libtidy.so.5 libtidy5-5.1.25_1
@@ -2921,7 +2924,7 @@ libgcab-1.0.so.0 gcab-0.7_1
 libappstream-glib.so.8 appstream-glib-0.6.13_1
 libappstream-builder.so.8 appstream-glib-0.6.13_1
 libflatpak.so.0 flatpak-0.9.3_2
-libnanomsg.so.5.1.0 nanomsg-1.1.0_2
+libnanomsg.so.5 nanomsg-1.1.3_1
 libindicator3.so.7 libindicator-12.10.1_1
 libappindicator3.so.1 libappindicator-12.10.0_1
 librados.so.2 ceph-11.2.0_1
@@ -3377,3 +3380,5 @@ libqubes-rpc-filecopy.so qubes-linux-utils-4.0.16_1
 libqrexec-utils.so qubes-linux-utils-4.0.16_1
 
 libqubesdb.so qubes-core-qubesdb-4.0.5_1
+libapparmor.so.1 libapparmor-2.12.0_1
+libcue.so.2 libcue-2.2.0_1

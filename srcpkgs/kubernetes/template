@@ -1,11 +1,12 @@
 # Template file for 'kubernetes'
 pkgname=kubernetes
 version=1.10.3
-revision=1
+revision=2
 build_style=go
 nocross=yes
 only_for_archs="x86_64 x86_64-musl"
 hostmakedepends="rsync git go-bindata"
+depends="kubectl"
 short_desc="Container Cluster Manager for Docker"
 maintainer="Andrea Brancaleoni <abc@pompel.me>"
 license="Apache-2.0"
@@ -19,6 +20,13 @@ conf_files="/etc/kubernetes/*"
 
 do_build() {
 	make
+	hack/generate-docs.sh
+	find "_output/local/bin/linux/" -type f -executable | grep "kubectl" | egrep -v "gen|test" | while read line
+	do
+		$line completion bash > completion.bash
+		$line completion zsh > completion.zsh
+		break
+	done
 }
 
 do_install() {
@@ -41,4 +49,15 @@ do_install() {
 	vsv kube-proxy
 
 	vlicense LICENSE
+}
+
+kubectl_package() {
+	short_desc="Controls the Kubernetes cluster manager"
+	pkg_install() {
+		vmove usr/bin/kubectl
+		vmove usr/share/man/man1/kubectl*
+		vinstall completion.bash 644 usr/share/bash-completion/completions kubectl
+		vinstall completion.zsh 644 usr/share/kubectl
+		vlicense LICENSE
+	}
 }
