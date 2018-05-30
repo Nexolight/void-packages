@@ -1,7 +1,7 @@
 # Template file for 'qubes-vm-meta'
 pkgname=qubes-vm-meta
 version=1.0.0
-revision=9
+revision=10
 #wrksrc=
 #create_wrksrc=yes
 #only_for_archs="i686 x86_64"
@@ -19,7 +19,7 @@ depends="
  qubes-core-agent-linux-4.0.28_3
  qubes-core-qubesdb-4.0.6_3
  qubes-linux-utils-dkms-4.0.19_3
- qubes-gui-agent-linux-4.0.10_5
+ qubes-gui-agent-linux-4.0.10_6
  qubes-app-linux-usb-proxy-1.0.18_1
 "
 short_desc="The meta package for proper functionality of a void qubes VM"
