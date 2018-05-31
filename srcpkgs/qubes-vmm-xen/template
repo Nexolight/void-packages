@@ -1,7 +1,7 @@
 # Template file for 'qubes-vmm-xen'
 pkgname=qubes-vmm-xen
 version='4.8.3'
-revision='7'
+revision='8'
 #wrksrc=
 #build_wrksrc=
 create_wrksrc=yes

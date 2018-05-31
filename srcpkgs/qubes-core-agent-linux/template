@@ -1,7 +1,7 @@
 # Template file for 'qubes-core-agent-linux'
 pkgname=qubes-core-agent-linux
-version=4.0.28
-revision=3
+version=4.0.29
+revision=1
 #wrksrc=
 #create_wrksrc=yes
 #only_for_archs="i686 x86_64"
