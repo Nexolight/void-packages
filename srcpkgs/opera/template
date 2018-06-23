@@ -1,18 +1,17 @@
 # Template file for 'opera'
 pkgname=opera
-version=51.0.2830.55
+version=53.0.2907.68
 revision=1
 only_for_archs="x86_64"
 repository="nonfree"
 nostrip=yes
-hostmakedepends="freetype-devel"
 depends="ffmpeg desktop-file-utils hicolor-icon-theme"
 short_desc="Fast, secure, easy to use browser"
 maintainer="Diogo Leal <diogo@diogoleal.com>"
 license="Proprietary"
 homepage="https://www.opera.com/computer"
-distfiles="https://get.geo.opera.com/pub/opera/desktop/${version}/linux/${pkgname}-stable_${version}_amd64.deb"
-checksum=d97c56b61a27e1cfb1be02cc75c8b8da72f61bfd4be174f91aef2352aa6944df
+distfiles="http://get.geo.opera.com/pub/opera/desktop/${version}/linux/${pkgname}-stable_${version}_amd64.deb"
+checksum=f38a9f835e55c088a66f15c1b62a99d235133e905809724df77d502080efea65
 
 do_extract() {
 	ar x ${XBPS_SRCDISTDIR}/${pkgname}-${version}/${pkgname}-stable_${version}_amd64.deb
@@ -30,8 +29,6 @@ do_install() {
 	rm -rf usr/share/doc
 
 	vcopy usr/share /usr
-
-	ln -sf /usr/lib/libfreetype.so.6 ${DESTDIR}/usr/lib/opera/libfreetype.so.6
 
 	# suid opera_sandbox
 	chmod 4755 ${DESTDIR}/usr/lib/opera/opera_sandbox

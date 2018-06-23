@@ -1,20 +1,11 @@
 # Template file for 'python-b2'
 pkgname=python-b2
 version=1.1.0
-revision=5
-noarch=y
-wrksrc="B2_Command_Line_Tool-$version"
-build_style=python-module
-hostmakedepends="python python-setuptools"
-depends="python-logfury python-futures python-Arrow python-dateutil"
-short_desc="CLI that gives easy access B2 Cloud Storage"
+revision=6
+noarch=yes
+build_style=meta
+depends="backblaze-b2>=${version}_${revision}"
+short_desc="Command Line Interface for Backblaze's B2 storage service (transitional dummy package)"
 maintainer="Andrea Brancaleoni <abc@pompel.me>"
 license="MIT"
 homepage="https://github.com/Backblaze/B2_Command_Line_Tool"
-distfiles="$homepage/archive/v$version.tar.gz"
-checksum=fae0dd48a2b6ab38cb142b91d7907a66144659d599bdfbf3c8995788ed29313b
-pycompile_module="b2"
-
-post_install() {
-	vlicense LICENSE
-}

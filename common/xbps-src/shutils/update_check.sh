@@ -43,15 +43,15 @@ update_check() {
                 pkgname=${pkgname#perl-};;
             *pythonhosted.org*)
                 pkgname=${pkgname#python-}
-                url="https://pypi.io/simple/$pkgname";;
+                url="https://pypi.org/simple/$pkgname";;
             *github.com*)
                 githubname="$(printf %s "$url" | cut -d/ -f4,5)"
                 url="https://github.com/$githubname/tags"
                 rx='/archive/(v?|\Q'"$pkgname"'\E-)?\K[\d\.]+(?=\.tar\.gz")';;
-            *gitlab.com*)
-                gitlabname="$(printf %s "$url" | cut -d/ -f4,5)"
-                url="https://gitlab.com/$gitlabname/tags"
-                rx='href="/\Q'$gitlabname'\E/repository/[^\d\.]*\K[\d\.]+(?=/archive\.tar\.gz")';;
+            *gitlab.com*|*gitlab.gnome.org*)
+                gitlaburl="$(printf %s "$url" | cut -d/ -f1-5)"
+                url="$gitlaburl/tags"
+                rx='/archive/[^/]+/\Q'"$pkgname"'\E-v?\K[\d\.]+(?=\.tar\.gz")';;
             *bitbucket.org*)
                 bbname="$(printf %s "$url" | cut -d/ -f4,5)"
                 url="https://bitbucket.org/$bbname/downloads"
@@ -63,6 +63,9 @@ update_check() {
                 rx=linux-'\K'${version%.*}'[\d.]+(?=\.tar\.xz)';;
             *cran.r-project.org/src/contrib*)
                 rx='\b\Q'"${pkgname#R-cran-}"'\E_\K\d+(\.\d+)*(-\d+)?(?=\.tar)';;
+            *download.kde.org/stable/applications*|*download.kde.org/stable/frameworks*)
+                url="${url%%${version%.*}*}"
+                rx='href="\K[\d\.]+(?=/")';;
             esac
         fi
 

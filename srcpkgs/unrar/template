@@ -1,19 +1,19 @@
 # Template file for 'unrar'
 pkgname=unrar
-version=5.6.2
+version=5.6.4
 revision=1
 wrksrc=unrar
-homepage="https://www.rarlab.com/rar_add.htm"
-distfiles="https://www.rarlab.com/rar/unrarsrc-${version}.tar.gz"
 short_desc="Unarchiver for .rar files (non-free version)"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
 license="freeware"
 repository="nonfree"
-checksum=ce048094764b2377dd60802359c74f03528b6d7defd808cd584443c5fd2de948
+homepage="https://www.rarlab.com/rar_add.htm"
+distfiles="https://www.rarlab.com/rar/unrarsrc-${version}.tar.gz"
+checksum=9335d2201870f2034007c04be80e00f1dc23932cb88b329d55c76134e6ba49fe
 
 do_build() {
-	sed -i 's/^\(CXXFLAGS\)=\(.*\)/\1+=\2/' makefile
-	sed -i 's/^\(LDFLAGS\)=\(.*\)/\1+=-lpthread \2/' makefile
+	sed -i -e 's/^\(CXXFLAGS\)=\(.*\)/\1+=\2/' \
+		-e 's/^\(LDFLAGS\)=\(.*\)/\1+=-lpthread \2/' makefile
 	make CXX="$CXX" LD="$LD" STRIP=: -f makefile
 }
 do_install() {

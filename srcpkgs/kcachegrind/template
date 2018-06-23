@@ -1,6 +1,6 @@
 # Template file for 'kcachegrind'
 pkgname=kcachegrind
-version=17.12.3
+version=18.04.2
 revision=1
 build_style=cmake
 configure_args="-Wno-dev"
@@ -9,10 +9,10 @@ makedepends="kparts-devel qt5-devel"
 depends="python hicolor-icon-theme"
 short_desc="Visualization of Performance Profiling Data"
 maintainer="Piotr Wójcik <chocimier@tlen.pl>"
-license="GPL-2, FDL-1.2"
+license="GPL-2.0-only, GFDL-1.2-only"
 homepage="http://kde.org/applications/development/kcachegrind/"
-distfiles="http://download.kde.org/stable/applications/${version}/src/${pkgname}-${version}.tar.xz"
-checksum=0d9670aa3b96e9d5ad2a110965c523922138786e8c00de9e2aee59dd46405ddb
+distfiles="${KDE_SITE}/applications/${version}/src/${pkgname}-${version}.tar.xz"
+checksum=248a45a8351593f4ea4d411221b700e090ea0e48af63204f880d60a0d25878ae
 
 if [ -n "$CROSS_BUILD" ]; then
 	hostmakedepends+=" kconfig kdoctools python qt5-host-tools qt5-qmake"

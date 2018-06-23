@@ -1,19 +1,19 @@
 # Template file for 'mame'
 pkgname=mame
-version=0196
+version=0198
 revision=1
 wrksrc="mame-mame${version}"
 homepage="http://mamedev.org"
 distfiles="https://github.com/mamedev/mame/archive/mame${version}.tar.gz"
 short_desc="The Multiple Arcade Machine Emulator"
 maintainer="Jürgen Buchmüller <pullmoll@t-online.de>"
-license="GPL-2"
-checksum=fc4436a23d7f2ef0b3c3f600c00745bc468541d0d29bcd3a1e0c599c5c02df7f
+license="GPL-2.0-or-later"
+checksum=0c354a5c3d82d46acf2183d6be291364c4454ce6ffdd79cf3397174779cff8fa
 
-hostmakedepends="perl pkg-config python automoc4"
-makedepends="libstdc++-devel SDL2_ttf-devel $(vopt_if qt qt5-devel) lua-devel
- libjpeg-turbo-devel libflac-devel libuv-devel sqlite-devel portaudio-devel
- portmidi-devel libutf8proc-devel glm rapidjson"
+hostmakedepends="automoc4 perl pkg-config python"
+makedepends="SDL2_ttf-devel glm libjpeg-turbo-devel libutf8proc-devel
+ libuv-devel lua-devel portaudio-devel portmidi-devel rapidjson
+ $(vopt_if qt 'qt5-devel')"
 depends="liberation-fonts-ttf"
 nocross=yes
 replaces="sdlmame>=0 sdlmess>=0"
@@ -82,18 +82,20 @@ do_install() {
 	for f in mame mame64 mamearcade mamearcade64; do
 		if [ -r ${f} ]; then
 			vinstall ${f} 755 usr/share/${pkgname} mame
+			break
 		fi
 	done
 	for f in mess mess64; do
 		if [ -r ${f} ]; then
 			vinstall ${f} 755 usr/share/${pkgname} mess
+			break
 		fi
 	done
 
 	# Install the tools
 	for f in chdman jedutil regrep pngcmp romcmp src2html srcclean \
 		ldverify ldresample unidasm castool floptool imgtool; do
-		vinstall ${f} 755 usr/share/${pkgname}
+		vbin ${f}
 		if [ -f docs/man/${f}.1 ]; then
 			vman docs/man/${f}.1
 		fi

@@ -1,6 +1,6 @@
 # Template file for 'docker-compose'
 pkgname=docker-compose
-version=1.18.0
+version=1.21.2
 revision=1
 noarch=yes
 wrksrc="compose-${version}"
@@ -12,10 +12,10 @@ depends="python3-setuptools python3-jsonschema python3-docker python3-dockerpty
  python3-six python3-texttable python3-cached-property"
 short_desc="Tool to define and run multi-container Docker applications"
 maintainer="pancake <pancake@nopcode.org>"
-homepage="https://docs.docker.com/compose/"
 license="Apache-2.0"
+homepage="https://docs.docker.com/compose/"
 distfiles="https://github.com/docker/compose/archive/${version}.tar.gz"
-checksum=4265c18d7223c149342a252ce6f060934b373a1498c667b4d57b923aaeea4090
+checksum=3fdaa361dceb919b6008a925b8b672d7402cc3dd8277b8f26b028dd546d39926
 
 pre_build() {
 	# remove all upper bounds

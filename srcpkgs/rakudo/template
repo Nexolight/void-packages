@@ -1,18 +1,19 @@
-# Template build file for 'rakudo'.
+# Template file for 'rakudo'
 pkgname=rakudo
-version=2018.02.1
+version=2018.05
 revision=1
 build_style=configure
 configure_script="perl Configure.pl"
 configure_args="--prefix=/usr --backends=moar"
 hostmakedepends="perl"
-makedepends="nqp libatomic_ops-devel libffi-devel libuv-devel libtommath-devel"
-depends="nqp>=2017.12"
+makedepends="libatomic_ops-devel libffi-devel libtommath-devel libuv-devel nqp"
+depends="nqp"
 short_desc="Rakudo is an implementation of Perl 6 language"
 maintainer="Ruslan <axetwe@gmail.com>"
-homepage="http://rakudo.org"
 license="Artistic-2.0"
+homepage="https://rakudo.org"
+changelog="https://raw.githubusercontent.com/rakudo/rakudo/master/docs/ChangeLog"
 distfiles="https://github.com/rakudo/rakudo/archive/${version}.tar.gz"
+checksum=0adcc61b1117184b23d3f1ec4fd922a6ea1eac922b06c8b7193bfa02a8836f46
 nocross=yes
-checksum=9b4d2a17742e88bc4033ba1ad4355e8e9c73525b00f5713342fac815468bda4d
-make_check_target="test"
+make_check_target=test

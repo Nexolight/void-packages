@@ -1,16 +1,16 @@
 # Template file for 'fribidi'
 pkgname=fribidi
-version=1.0.2
+version=1.0.4
 revision=1
-configure_args="--disable-docs"
 build_style=gnu-configure
+configure_args="--disable-docs"
 hostmakedepends="automake libtool pkg-config"
 short_desc="Free Implementation of the Unicode Bidirectional Algorithm"
-homepage="http://fribidi.org/"
-license="LGPL-2.1-or-later"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
+license="LGPL-2.1-or-later"
+homepage="https://github.com/fribidi/fribidi/"
 distfiles="https://github.com/fribidi/fribidi/archive/v${version}.tar.gz"
-checksum=1609083ac93fd60078c60ecdd60b61aff86855eb33e09acced579f110e41b04d
+checksum=a8ea2bc423ba8918684648c4a0068b151ebac95cfe87f6ac1372e9b1feac8416
 disable_parallel_build=yes
 
 pre_configure() {
@@ -18,7 +18,7 @@ pre_configure() {
 }
 
 pre_build() {
-	if [ -n "$CROSS_BUILD" ]; then
+	if [ "$CROSS_BUILD" ]; then
 		sed -i gen.tab/Makefile \
 			-e "s;^\(CC =\) .*;\1 cc;" \
 			-e "s;^\(CFLAGS =\) .*;\1 -O2 -pipe;" \
@@ -33,5 +33,6 @@ fribidi-devel_package() {
 		vmove usr/include
 		vmove usr/lib/pkgconfig
 		vmove "usr/lib/*.so"
+		vmove usr/share/man/man3
 	}
 }

@@ -1,6 +1,6 @@
 # Template file for 'vagrant'
 pkgname=vagrant
-version=2.0.3
+version=2.1.1
 revision=1
 hostmakedepends="ruby"
 makedepends="ruby-devel zlib-devel"
@@ -10,7 +10,7 @@ maintainer="Andrea Brancaleoni <abc@pompel.me>"
 license="MIT"
 homepage="https://www.vagrantup.com/"
 distfiles="https://github.com/mitchellh/$pkgname/archive/v$version.tar.gz"
-checksum=508fa6cb61453202f28d7f0015f3491107a1288c13929dae81609d875a2d5efe
+checksum=8b54b39ad2bdfe038f5a6767a745f2139d6f62e6e4745008e906f2e1c658fa4d
 nocross=yes
 patch_args="-p1"
 

@@ -1,21 +1,21 @@
 # Template file for 'youtube-dl'
 pkgname=youtube-dl
-version=2018.04.16
+version=2018.06.19
 revision=1
-wrksrc="${pkgname}"
+noarch=yes
+wrksrc="$pkgname"
 build_style=python-module
 pycompile_module="youtube_dl"
 hostmakedepends="python python3"
 depends="python"
 short_desc="CLI program to download videos from YouTube and other sites (Python2)"
-#changelog="https://raw.githubusercontent.com/rg3/youtube-dl/master/ChangeLog"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
-homepage="http://rg3.github.io/youtube-dl/"
 license="Public Domain"
+homepage="http://rg3.github.io/youtube-dl/"
+changelog="https://raw.githubusercontent.com/rg3/youtube-dl/master/ChangeLog"
 distfiles="https://yt-dl.org/downloads/${version}/${pkgname}-${version}.tar.gz"
-checksum=2d2565cd65b20da05aa0e16b48b2fdc1a1c72452811db8a20faf0bce2f7adf10
+checksum=e68ff7b344d24ecc7714b6c91ddbb833c438ac3e654d9f8fbdb29e4c10ab427b
 alternatives="youtube-dl:youtube-dl:/usr/bin/youtube-dl2"
-noarch=yes
 
 post_install() {
 	rm -rf ${DESTDIR}/usr/etc

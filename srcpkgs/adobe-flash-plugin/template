@@ -1,6 +1,6 @@
 # Template file for 'adobe-flash-plugin'
 pkgname=adobe-flash-plugin
-version=29.0.0.113
+version=30.0.0.113
 revision=1
 # The EULA file
 _eula="https://www.adobe.com/content/dam/Adobe/en/legal/licenses-terms/pdf/PlatformClients_PC_WWEULA-en_US-20150407_1357.pdf"
@@ -8,10 +8,10 @@ _eulacksum=2851b4b39df44a2777c6c07e1f59cbc3055a346d2e775121b9ed38e0a4bf40d2
 _url=http://fpdownload.adobe.com/get/flashplayer/pdc/${version}
 if [ "$XBPS_MACHINE" = "x86_64" ]; then
 	_disttarball="${_url}/flash_player_npapi_linux.x86_64.tar.gz"
-	_distcksum=04deecea1c677e267ed5a5bd338b8d9963fdd64c2b18b41c7a68cde82d558ba1
+	_distcksum=5470bfa42156ba1f307059ff47605474df1c6ad2bd99e0ab2bff8f982c23bb15
 else
 	_disttarball="${_url}/flash_player_npapi_linux.i386.tar.gz"
-	_distcksum=beb2f8660f7579dd96410db2805369cbdf1ad5156934bd0844f9a4cf3481b219
+	_distcksum=e86d43d797c692fa48b86e6792978331316b3da08cc1372b35cb9afe732ac15e
 fi
 distfiles="${_eula} ${_disttarball}"
 checksum="${_eulacksum} ${_distcksum}"

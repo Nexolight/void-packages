@@ -61,7 +61,6 @@ A simple `template` example is as follows:
 
 ```
 # Template file for 'foo'
-
 pkgname=foo
 version=1.0
 revision=1
@@ -212,8 +211,8 @@ the package name should contain them too; if it doesn't, the package name
 is lowercase.
 
 Programs can be split into program packages and library packages. The program
-package should be named as describe above. The library package should be prefix
-with "lib" (see section `Libraries`)
+package should be named as described above. The library package should be
+prefixed with "lib" (see section `Libraries`)
 
 <a id="global_funcs"></a>
 ### Global functions
@@ -414,6 +413,7 @@ Example:
   | UBUNTU_SITE      | http://archive.ubuntu.com/ubuntu/pool           |
   | XORG_HOME        | http://xorg.freedesktop.org/wiki/               |
   | XORG_SITE        | http://xorg.freedesktop.org/releases/individual |
+  | KDE_SITE         | https://download.kde.org/stable                 |
 
 - `checksum` The `sha256` digests matching `${distfiles}`. Multiple files can be
 separated by blanks. Please note that the order must be the same than
@@ -711,7 +711,7 @@ on `R`.
 Additional install arguments can be specified via `make_install_args`.
 
 - `perl-ModuleBuild` For packages that use the Perl
-[Module::Build](http://search.cpan.org/~leont/Module-Build-0.4202/lib/Module/Build.pm) method.
+[Module::Build](https://metacpan.org/pod/Module::Build) method.
 
 - `perl-module` For packages that use the Perl
 [ExtUtils::MakeMaker](http://perldoc.perl.org/ExtUtils/MakeMaker.html) build method.
@@ -825,6 +825,11 @@ package accordingly. Additionally, the following functions are available:
 - *vopt_conflict()* `vopt_conflict <option 1> <option 2>`
 
   Emits an error and exits if both options are set at the same time.
+
+- *vopt_bool()* `vopt_bool <option> <property>`
+
+  Outputs `-D<property>=true` if the option is set, or
+  `-D<property>=false` otherwise.
 
 The following example shows how to change a source package that uses GNU
 configure to enable a new build option to support PNG images:
@@ -1037,9 +1042,8 @@ with this naming: `<subpkgname>_package()`, i.e:
 
 ```
 # Template file for 'foo'
-
-pkgname="foo"
-version="1.0"
+pkgname=foo
+version=1.0
 revision=1
 build_style=gnu-configure
 short_desc="A short description max 72 chars"
@@ -1055,8 +1059,8 @@ foo-devel_package() {
 	depends="${sourcepkg}>=${version}_${revision}"
 	pkg_install() {
 		vmove usr/include
-		vmove usr/lib/*.a
-		vmove usr/lib/*.so
+		vmove "usr/lib/*.a"
+		vmove "usr/lib/*.so"
 		vmove usr/lib/pkgconfig
 	}
 }
@@ -1271,7 +1275,7 @@ You can now make your own commits to the `forked` repository:
 To keep your forked repository always up to date, setup the `upstream` remote
 to pull in new changes:
 
-    $ git remote add upstream git://github.com/voidlinux/void-packages.git
+    $ git remote add upstream git://github.com/void-linux/void-packages.git
     $ git pull upstream master
 
 Once you've made changes to your `forked` repository you can submit

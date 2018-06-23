@@ -1,6 +1,6 @@
 # Template file for 'hplip'
 pkgname=hplip
-version=3.18.3
+version=3.18.6
 revision=1
 build_style=gnu-configure
 configure_args="
@@ -27,10 +27,10 @@ make_dirs="/var/lib/hp 0755 root root"
 pycompile_dirs="usr/share/hplip"
 short_desc="HP Linux Imaging and Printing"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
+license="GPL-2.0-only, BSD-3-Clause, MIT"
 homepage="https://developers.hp.com/hp-linux-imaging-and-printing"
-license="GPL-2"
 distfiles="${SOURCEFORGE_SITE}/hplip/hplip/${version}/hplip-${version}.tar.gz"
-checksum=3e009a0fb5035dca3ebf12775327b967394257090cf2f27b3684a3b00dd2bd74
+checksum=0ecf3e68b09480f602de81798ac00774cf8ffe754692e784bbbe0f9b2e337b7d
 conflicts="hplip-gui"
 
 CFLAGS="-I${XBPS_CROSS_BASE}/usr/include/libusb-1.0 -I${XBPS_CROSS_BASE}/usr/include/python2.7"
@@ -61,6 +61,9 @@ do_install() {
 	 -e "s/\(gui-build=\).*/\1no/" \
 	 -e "s/\(ui-toolkit=\).*/\1no/" \
 	 -e "s/\(qt5=\).*/\1no/"
+	# licenses
+	vlicense COPYING
+	vlicense copyright
 }
 
 hplip-gui_package() {

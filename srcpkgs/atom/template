@@ -1,6 +1,6 @@
 # Template file for 'atom'
 pkgname=atom
-version=1.25.0
+version=1.26.1
 revision=1
 nocross=yes
 nostrip=yes
@@ -11,7 +11,7 @@ maintainer="Wilson Birney <wpb@360scada.com>"
 license="MIT"
 homepage="https://atom.io"
 distfiles="https://github.com/atom/atom/archive/v${version}.tar.gz"
-checksum=3608c1472879420d3e69f76402f74d9bef9270687bb679b4cde008d328768c5c
+checksum=d5c2fab3f671b4162992d0baffb2393bc58e6b361aa37214dcc5c9be1e03c65f
 only_for_archs="i686 x86_64"
 
 do_install() {

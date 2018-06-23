@@ -1,28 +1,26 @@
 # Template file for 'xapps'
 pkgname=xapps
-version=1.0.4
+version=1.2.1
 revision=1
-build_style=gnu-configure
-hostmakedepends="gnome-common glib-devel intltool pkg-config libtool intltool gtk-doc"
-makedepends="gettext-devel gobject-introspection gtk+3-devel gdk-pixbuf-devel libgnomekbd-devel"
-depends="inxi gist xfconf"
+build_style=meson
+hostmakedepends="glib-devel gnome-common pkg-config vala"
+makedepends="gettext-devel gobject-introspection libgnomekbd-devel
+ python-gobject-devel"
+depends="gist inxi xfconf"
 short_desc="Cross-desktop libraries and common resources from Linux Mint"
 maintainer="Michael Aldridge <maldridge@VoidLinux.eu>"
-license="GPL-2"
+license="GPL-3.0-or-later, LGPL-3.0-or-later"
+#changelog="https://raw.githubusercontent.com/linuxmint/xapps/master/debian/changelog"
 homepage="https://github.com/linuxmint/xapps"
 distfiles="https://github.com/linuxmint/xapps/archive/${version}.tar.gz"
-checksum=6578574561cb10b602c67669b0374b71d9cccd5d1c13c17d6a4b6ec2f8fe739a
-
-pre_configure() {
-	./autogen.sh
-}
+checksum=daf41acb021b4dfb1b313710eea812e315a9f49e6a2cc037691ec51799f4cf26
 
 xapps-devel_package() {
 	short_desc+=" - development files"
 	depends="${sourcepkg}>=${version}_${revision}"
 	pkg_install() {
-		vmove usr/lib/libxapp.so
 		vmove usr/include
 		vmove usr/lib/pkgconfig
+		vmove "usr/lib/*.so"
 	}
 }

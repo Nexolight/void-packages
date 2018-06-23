@@ -1,22 +1,22 @@
 # Template file for 'poedit'
 pkgname=poedit
-version=2.0.6
+version=2.0.8
 revision=1
 build_style=gnu-configure
 hostmakedepends="pkg-config"
-makedepends="icu-devel db-devel gtkspell-devel wxWidgets-devel boost-devel
- Lucene++-devel cld2-devel"
-depends="hicolor-icon-theme desktop-file-utils"
+makedepends="Lucene++-devel boost-devel cld2-devel db-devel gtkspell-devel
+ wxWidgets-devel"
+depends="desktop-file-utils hicolor-icon-theme"
 short_desc="Cross-platform gettext catalogs (.po files) editor"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
 license="MIT"
-homepage="http://www.poedit.net/"
+homepage="https://www.poedit.net/"
 distfiles="https://github.com/vslavik/poedit/releases/download/v${version}-oss/poedit-${version}.tar.gz"
-checksum=a9e9feee6d65440008ae3fe24504681fe390cb41233122580f503a677989b1bc
+checksum=01a12bc28477922e77995350e1f3677701bfbc848af9efcfbd35fbd37c7501c2
 
 CPPFLAGS="-DUCHAR_TYPE=uint16_t"
 
-if [ -n "$CROSS_BUILD" ]; then
+if [ "$CROSS_BUILD" ]; then
 	hostmakedepends+=" wxWidgets-devel"
 	configure_args+=" WXRC=/usr/bin/wxrc --with-boost-libdir=${XBPS_CROSS_BASE}/usr/lib"
 fi

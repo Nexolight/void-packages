@@ -1,7 +1,7 @@
 # Template file for 'kea'
 pkgname=kea
 version=1.3.0
-revision=1
+revision=4
 build_style=gnu-configure
 configure_args="--enable-generate-docs --with-openssl=${XBPS_CROSS_BASE}/usr
  $(vopt_if mysql --with-dhcp-mysql)
@@ -12,6 +12,7 @@ makedepends="boost-devel log4cplus-devel python3-devel
  $(vopt_if botan botan-devel libressl-devel)
  $(vopt_if mysql libmysqlclient-devel)
  $(vopt_if pgsql postgresql-libs-devel)"
+checkdepends="procps-ng" #needs pgrep
 depends="libkea>=0"
 conf_files="/etc/kea/*.conf"
 short_desc="Next generation DHCPv4/v6 server"

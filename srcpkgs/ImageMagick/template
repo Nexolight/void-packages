@@ -1,30 +1,30 @@
 # Template file for 'ImageMagick'
 pkgname=ImageMagick
-_majorver=6.9.9
-_patchver=40
-version=${_majorver}.${_patchver}
+_majorver=6.9.10
+_patchver=0
+version="${_majorver}.${_patchver}"
 revision=1
-wrksrc=${pkgname}-${_majorver}-${_patchver}
+wrksrc="${pkgname}-${_majorver}-${_patchver}"
 build_style=gnu-configure
 configure_args="--without-autotrace --with-wmf=yes
  --without-dps --without-fpx --without-gvc --without-jbig --with-gslib=yes
  --without-lqr --without-openexr --with-gs-font-dir=/usr/share/fonts/Type1
  --with-magick-plus-plus --with-modules --enable-shared --with-rsvg
  --with-dejavu-font-dir=/usr/share/fonts/TTF --enable-opencl --disable-static"
+hostmakedepends="automake libtool pkg-config"
+makedepends="djvulibre-devel fftw-devel ghostscript-devel glib-devel lcms2-devel
+ libXt-devel libgomp-devel libltdl-devel librsvg-devel libwebp-devel
+ libwmf-devel ocl-icd-devel pango-devel"
 short_desc="Package for display and interactive manipulation of images"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
-homepage="https://www.imagemagick.org/"
 license="ImageMagick"
+homepage="https://www.imagemagick.org/"
 distfiles="https://www.imagemagick.org/download/ImageMagick-${_majorver}-${_patchver}.tar.xz"
-checksum=62f25d46bfbcffe00b84e167994d593868a9a47d4defc489a429cae1d6aab9f7
+checksum=35c44cd570eab21d2ad398500290441855e2f01dc0776852728430bd51c97724
 
 subpackages="libmagick libmagick-devel"
 
 keep_libtool_archives=yes
-hostmakedepends="automake libtool pkg-config"
-makedepends="djvulibre-devel fftw-devel ghostscript-devel glib-devel lcms2-devel
- libXt-devel libgomp-devel libltdl-devel librsvg-devel libwebp-devel libwmf-devel
- ocl-icd-devel pango-devel"
 conf_files="/etc/ImageMagick-${_majorver%%.*}/*.xml"
 
 if [ -z "$CROSS_BUILD" ]; then
@@ -37,12 +37,14 @@ fi
 pre_configure() {
 	autoreconf -if
 }
+
 do_check() {
 	# Disable failing checks
 	sed -i '/validate-formats/d' Makefile
 
 	make check
 }
+
 post_install() {
 	vlicense LICENSE
 	vlicense NOTICE
@@ -56,6 +58,7 @@ libmagick_package() {
 		vmove "usr/share/ImageMagick*"
 	}
 }
+
 libmagick-devel_package() {
 	depends="
 		fftw-devel fontconfig-devel lcms2-devel libXt-devel
@@ -72,6 +75,7 @@ libmagick-devel_package() {
 		vmove "usr/share/man/man1/*-config.1"
 	}
 }
+
 libmagick-perl_package() {
 	short_desc="ImageMagick perl library bindings"
 	pkg_install() {

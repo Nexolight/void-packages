@@ -5,11 +5,11 @@
 #
 #   https://www.raspberrypi.org/forums/viewtopic.php?f=29&t=197689
 
-_githash="81dda1af754c3af667944af7156bf1c5cdf9beee"
+_githash="58eb131ce78d1976dad26c21bd75a7da290cd6aa"
 _gitshort="${_githash:0:7}"
 
 pkgname=rpi-kernel
-version=4.14.30
+version=4.14.48
 revision=1
 wrksrc="linux-${_githash}"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
@@ -17,7 +17,7 @@ homepage="http://www.kernel.org"
 license="GPL-2"
 short_desc="The Linux kernel for Raspberry Pi (${version%.*} series [git ${_gitshort}])"
 distfiles="https://github.com/raspberrypi/linux/archive/${_githash}.tar.gz"
-checksum=2daeb88792ebdb13e0c983f0acabad03f109360966ba76d88351ad7f64f772e2
+checksum=0eda040a9ef97274d96069008785d65ca343c66f91e759ff261a93ee9af1ed7a
 
 _kernver="${version}_${revision}"
 
@@ -28,7 +28,7 @@ noshlibprovides=yes
 
 # RPi, RPi2, RPi3
 only_for_archs="armv6l armv6l-musl armv7l armv7l-musl aarch64 aarch64-musl"
-hostmakedepends="perl kmod uboot-mkimage libressl bc"
+hostmakedepends="perl kmod uboot-mkimage libressl-devel bc"
 makedepends="ncurses-devel"
 triggers="kernel-hooks"
 # These files could be modified when an external module is built.

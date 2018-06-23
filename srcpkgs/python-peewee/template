@@ -1,18 +1,18 @@
 # Template file for 'python-peewee'
 pkgname=python-peewee
-version=3.1.7
+version=3.5.0
 revision=1
-noarch=yes
-pycompile_module="peewee"
 wrksrc="peewee-${version}"
 build_style=python-module
-hostmakedepends="python-setuptools python3-setuptools"
+pycompile_module="playhouse peewee.py pwiz.py"
+hostmakedepends="python-setuptools python3-setuptools python-Cython python3-Cython"
+makedepends="python-devel python3-devel sqlite-devel"
 short_desc="Small and simple ORM for Python2"
 maintainer="johannes <johannes.brechtmann@gmail.com>"
 license="MIT"
 homepage="https://github.com/coleifer/peewee"
 distfiles="https://github.com/coleifer/peewee/archive/${version}.tar.gz"
-checksum=2225f909b49bd50a86ea9a6c93ac3eb4ea7e363d349a3149b4c2be8acbea841d
+checksum=1a910438c1394fa74c3ba4c926f19a48d02ae6223719181e2d866c5063edf547
 alternatives="peewee:pwiz:/usr/bin/pwiz.py2"
 
 post_install() {
@@ -21,8 +21,7 @@ post_install() {
 
 python3-peewee_package() {
 	alternatives="peewee:pwiz:/usr/bin/pwiz.py3"
-	noarch=yes
-	pycompile_module="peewee"
+	pycompile_module="playhouse peewee.py pwiz.py"
 	short_desc="${short_desc/Python2/Python3}"
 	pkg_install() {
 		vmove usr/bin/*3

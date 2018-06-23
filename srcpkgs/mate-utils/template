@@ -1,6 +1,6 @@
 # Template file for 'mate-utils'
 pkgname=mate-utils
-version=1.18.3
+version=1.20.1
 revision=1
 build_style=gnu-configure
 configure_args="--disable-static --disable-schemas-compile"
@@ -11,14 +11,15 @@ makedepends="gtk+3-devel libSM-devel zlib-devel libcanberra-devel
 depends="desktop-file-utils"
 short_desc="Common utilities for the MATE desktop"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
-license="GPL-2"
+license="GPL-2.0-or-later"
 homepage="https://mate-desktop.org"
 distfiles="https://pub.mate-desktop.org/releases/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=dfcd364d624a4482d7fc980cd43537e4cf28b2f99f105fd938fb983e30cb88db
+checksum=6a1e0bba9c117f8ce81bb271d2182006524250fe9e31f2fc904f6403453020cf
 
 pre_configure() {
 	NOCONFIGURE=1 ./autogen.sh
 }
+
 post_install() {
 	rm -r ${DESTDIR}/usr/include
 	rm -r ${DESTDIR}/usr/lib/pkgconfig

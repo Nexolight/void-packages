@@ -3,7 +3,7 @@
 _desc="NVIDIA drivers for linux (long-lived series)"
 
 pkgname=nvidia
-version=390.25
+version=390.67
 revision=1
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
 license="Proprietary NVIDIA license"
@@ -15,7 +15,7 @@ repository="nonfree"
 create_wrksrc=yes
 short_desc="${_desc} - Libraries and Utilities"
 depends="nvidia-gtklibs-${version}_${revision} nvidia-dkms-${version}_${revision} pkg-config"
-conflicts="catalyst>=0 xserver-abi-video>23_1"
+conflicts="catalyst>=0 xserver-abi-video>24_1"
 
 build_options="glvnd"
 desc_option_glvnd="Add support for NVIDIA's GL Vendor Neutral Dispatch implementation"
@@ -24,11 +24,11 @@ build_options_default="glvnd"
 if [ "$XBPS_TARGET_MACHINE" = "i686" ]; then
 	_pkg="NVIDIA-Linux-x86-${version}"
 	distfiles="http://uk.download.nvidia.com/XFree86/Linux-x86/${version}/${_pkg}.run"
-	checksum=1183552b46409a3c09caa172da5a296b56078d178c5ad272bed7101a40bf6b3a
+	checksum=6f4af70ee3d03ed31c497a5d555164c56057b53ecedfc0d2c8de4b0b90728805
 else
 	_pkg="NVIDIA-Linux-x86_64-${version}-no-compat32"
 	distfiles="http://uk.download.nvidia.com/XFree86/Linux-x86_64/${version}/${_pkg}.run"
-	checksum=02263bc81b66e68fc8224447b249f4f0ca4ae201c467e236d917be2fe187f3d6
+	checksum=4d9d4a636d568a93412cd9a2db08c594adef20861707dfdfbd6ae15db3292b26
 fi
 
 subpackages="nvidia-gtklibs nvidia-dkms nvidia-opencl nvidia-libs"
@@ -38,12 +38,6 @@ do_extract() {
 	cd ${wrksrc}
 	./${_pkg}.run --extract-only
 	rm -f ${_pkg}.run
-	#
-	if [ "$XBPS_TARGET_MACHINE" = "x86_64" ]; then
-		cp ${FILESDIR}/nvidia-x86_64-uvm8_va_block-linux_4_14_9.patch \
-			nvidia-uvm8_va_block-linux_4_14_9.patch
-		patch -p0 < nvidia-uvm8_va_block-linux_4_14_9.patch
-	fi
 }
 
 pre_install() {
@@ -65,9 +59,9 @@ do_install() {
 	# GLX client libs
 	if [ "${build_option_glvnd}" ]; then
 		# ----- Also provided by the libglvnd package (todo)
-		vinstall libGL.so.1.0.0 755 usr/lib
-		ln -sf libGL.so.1.0.0 ${DESTDIR}/usr/lib/libGL.so
-		ln -sf libGL.so.1.0.0 ${DESTDIR}/usr/lib/libGL.so.1
+		vinstall libGL.so.1.7.0 755 usr/lib
+		ln -sf libGL.so.1.7.0 ${DESTDIR}/usr/lib/libGL.so
+		ln -sf libGL.so.1.7.0 ${DESTDIR}/usr/lib/libGL.so.1
 
 		vinstall libGLX.so.0 755 usr/lib
 		ln -sf libGLX.so.0 ${DESTDIR}/usr/lib/libGLX.so
@@ -102,11 +96,13 @@ do_install() {
 
 	vinstall libGLdispatch.so.0 755 usr/lib
 
-	vinstall libGLESv1_CM.so.1 755 usr/lib
-	ln -sf libGLESv1_CM.so.1 ${DESTDIR}/usr/lib/libGLESv1_CM.so
+	vinstall libGLESv1_CM.so.1.2.0 755 usr/lib
+	ln -sf libGLESv1_CM.so.1.2.0 ${DESTDIR}/usr/lib/libGLESv1_CM.so
+	ln -sf libGLESv1_CM.so.1.2.0 ${DESTDIR}/usr/lib/libGLESv1_CM.so.1
 
-	vinstall libGLESv2.so.2 755 usr/lib
-	ln -sf libGLESv2.so.2 ${DESTDIR}/usr/lib/libGLESv2.so
+	vinstall libGLESv2.so.2.1.0 755 usr/lib
+	ln -sf libGLESv2.so.2.1.0 ${DESTDIR}/usr/lib/libGLESv2.so
+	ln -sf libGLESv2.so.2.1.0 ${DESTDIR}/usr/lib/libGLESv2.so.2
 
 	vinstall libnvidia-egl-wayland.so.1.0.2 755 usr/lib
 	ln -sf libnvidia-egl-wayland.so.1.0.2 ${DESTDIR}/usr/lib/libnvidia-egl-wayland.so.1
@@ -115,8 +111,9 @@ do_install() {
 	vinstall 10_nvidia_wayland.json 755 usr/share/egl/egl_external_platform.d
 	# --------------------------------------------------
 
-	vinstall libEGL.so.1 755 usr/lib
-	ln -sf libEGL.so.1 ${DESTDIR}/usr/lib/libEGL.so
+	vinstall libEGL.so.1.1.0 755 usr/lib
+	ln -sf libEGL.so.1.1.0 ${DESTDIR}/usr/lib/libEGL.so
+	ln -sf libEGL.so.1.1.0 ${DESTDIR}/usr/lib/libEGL.so.1
 
 	vinstall libEGL_nvidia.so.${version} 755 usr/lib
 	ln -sf libEGL_nvidia.so.${version} ${DESTDIR}/usr/lib/libEGL_nvidia.so.0

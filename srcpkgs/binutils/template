@@ -1,7 +1,7 @@
 # Template file for 'binutils'
 pkgname=binutils
 version=2.29.1
-revision=1
+revision=3
 bootstrap=yes
 short_desc="GNU binary utilities"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
@@ -34,6 +34,9 @@ do_configure() {
 	fi
 	if [ "$XBPS_TARGET_MACHINE" = "mipsel-musl" ]; then
 		CONFIGFLAG+=" --with-float=soft --without-fp"
+	fi
+	if [ "${XBPS_TARGET_MACHINE%-musl}" = "x86_64" ]; then
+		CONFIGFLAG+=" --enable-targets=x86_64-pep"
 	fi
 	./configure --build=$XBPS_TRIPLET --prefix=/usr --enable-threads \
 		--enable-plugins --enable-secureplt --with-mmap \

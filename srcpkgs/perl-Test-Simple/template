@@ -1,6 +1,6 @@
 # Template file for 'perl-Test-Simple'
 pkgname=perl-Test-Simple
-version=1.302133
+version=1.302136
 revision=1
 wrksrc="${pkgname/perl-/}-${version}"
 build_style=perl-module
@@ -10,7 +10,7 @@ depends="${makedepends}"
 short_desc="Framework for writing test tools that work well together"
 maintainer="maxice8 <thinkabit.ukim@gmail.com>"
 license="Artistic-1.0-Perl, GPL-1.0-or-later"
-homepage="http://search.cpan.org/dist/Test-Simple"
+homepage="https://metacpan.org/release/Test-Simple"
 distfiles="${CPAN_SITE}/Test/${pkgname/perl-/}-${version}.tar.gz"
-checksum=02bc2b4ec299886efcc29148308c9afb64e0f2c2acdeaa2dee33c3adfe6f96e2
+checksum=8d9a5c53b0309257af58b55177045f7d94e095e1c1416cb1e11aae4c1cdad446
 noarch=yes

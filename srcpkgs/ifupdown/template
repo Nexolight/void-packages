@@ -1,17 +1,17 @@
 # Template file for 'ifupdown'
 pkgname=ifupdown
-version=0.8.31
+version=0.8.34
 revision=1
-wrksrc=$pkgname
+wrksrc=ifupdown
 build_style=gnu-makefile
-make_use_env=1
+make_use_env=yes
 hostmakedepends="dpkg perl"
 short_desc="High level tools to configure network interfaces"
 maintainer="Michael Aldridge <maldridge@VoidLinux.eu>"
-license="GPL-2"
+license="GPL-2.0-or-later"
 homepage="https://tracker.debian.org/pkg/ifupdown"
 distfiles="http://http.debian.net/debian/pool/main/i/ifupdown/ifupdown_${version}.tar.xz"
-checksum=a5dd8c6e79465b81a4c4f9dab3f00de83a2f6fbea4dc01ecbb2fbb727f8bcad6
+checksum=8319961313d78320c8d0841ea9ca1490359a924d019df8e6d7cded86a1963cbd
 
 make_dirs="/etc/network/interfaces.d 0755 root root
  /etc/network/if-pre-up.d 0755 root root
@@ -23,7 +23,6 @@ conf_files="/etc/network/interfaces"
 post_install() {
 	vman interfaces.5
 	vman ifup.8
-
 
 	for _i in examples/* ; do
 		vsconf $_i

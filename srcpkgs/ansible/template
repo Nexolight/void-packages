@@ -1,6 +1,6 @@
 # Template file for 'ansible'
 pkgname=ansible
-version=2.4.3.0
+version=2.5.5
 revision=1
 noarch=yes
 build_style=python2-module
@@ -10,10 +10,10 @@ depends="${hostmakedepends} python-cryptography python-Jinja2 python-paramiko
  python-yaml"
 short_desc="Simple deployment, configuration management and execution framework"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
-license="GPL-3"
+license="GPL-3.0-or-later"
 homepage="https://www.ansible.com/"
 distfiles="https://releases.ansible.com/ansible/${pkgname}-${version}.tar.gz"
-checksum=0e98b3a56928d03979d5f8e7ae5d8e326939111b298729b03f00b3ad8f998a3d
+checksum=d7e5aae60c0e76c824bf8a410fe247b5c4afcfaee272f6283b4f996d237e365a
 
 post_install() {
 	for f in examples/*; do

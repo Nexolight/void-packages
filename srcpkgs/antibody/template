@@ -1,16 +1,16 @@
 # Template file for 'antibody'
 pkgname=antibody
-version=3.4.3
-revision=4
+version=3.5.0
+revision=1
 build_style=go
-go_import_path="github.com/getantibody/antibody"
+go_import_path=github.com/getantibody/antibody
 hostmakedepends="git"
 short_desc="Fast and lightweight shell plugin manager"
 maintainer="SolitudeSF <solitudesf@protonmail.com>"
 license="MIT"
 homepage="https://getantibody.github.io/"
 distfiles="https://${go_import_path}/archive/v${version}.tar.gz"
-checksum=6acc44b1be8efe29260a67fa01f56a9685a2d89b52ef11ec0dc95b171abed7dc
+checksum=0c774cf2d7e29293b1ca2ad1c05d4c8a4226a2956be1f7c50cb2c8456a88810d
 
 post_install() {
 	vlicense LICENSE.md
