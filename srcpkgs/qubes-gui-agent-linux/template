@@ -1,7 +1,7 @@
 # Template file for 'qubes-gui-agent-linux'
 pkgname=qubes-gui-agent-linux
 version=4.0.10
-revision=6
+revision=7
 #wrksrc=
 #create_wrksrc=yes
 #only_for_archs="i686 x86_64"
@@ -17,7 +17,7 @@ build_style=gnu-makefile
 hostmakedepends="pkg-config"
 makedepends="patch automake autoconf libltdl-devel
  pulseaudio-devel xorg-server-devel xorg-util-macros libXcomposite-devel
- qubes-gui-common-devel qubes-core-vchan-xen-devel qubes-core-qubesdb libXt libtool"
+ qubes-gui-common-devel qubes-core-vchan-xen-devel qubes-core-qubesdb libXt libtool git"
 
 depends="xinit libXcomposite zenity qubes-core-vchan-xen xcb-proto xorg-server
  qubes-vmm-xen alsa-lib alsa-utils alsa-plugins-pulseaudio pulseaudio elogind xcffib"
@@ -39,6 +39,16 @@ do_build(){
 	sed 's:#!/usr/bin/env python:#!/usr/bin/env python2:' -i appvm-scripts/usrbin/*
 	sed 's:#!/usr/bin/python:#!/usr/bin/python2:' -i window-icon-updater/*
 	sed 's:#!/usr/bin/env python:#!/usr/bin/env python2:' -i window-icon-updater/*
+
+
+	#Fix the build on our rolling release distro if the repository is behind.
+	PA_VER=$(pkg-config --modversion libpulse | cut -d "-" -f 1 || echo 0.0)
+	if [ ! -d "pulse/pulsecore-$PA_VER" ];then
+		rm -rf "pulsetmp"
+		mkdir -p "pulsetmp"
+		git clone --branch "v$PA_VER" https://github.com/pulseaudio/pulseaudio.git "pulsetmp"
+		mv pulsetmp/src/pulsecore "pulse/pulsecore-$PA_VER"
+	fi
 
 	env="BACKEND_VMM=xen"
 	(export ${env}; make -j ${makejobs} appvm)

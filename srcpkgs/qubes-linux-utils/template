@@ -1,7 +1,7 @@
 # Template file for 'qubes-linux-utils'
 pkgname=qubes-linux-utils
-version=4.0.19
-revision=3
+version=4.0.20
+revision=1
 #wrksrc=
 #create_wrksrc=yes
 #only_for_archs="i686 x86_64"
@@ -23,7 +23,7 @@ license="GPL"
 homepage="http://qubes-os.org"
 shlib_provides="libqrexec-utils.so.2 libqubes-rpc-filecopy.so libqubes-rpc-filecopy.so.2 libqrexec-utils.so libqrexec-utils.so.2"
 distfiles="https://github.com/QubesOS/${pkgname}/archive/v${version}.tar.gz"
-checksum="b820d155b5b9b44e6f6cbe211571c42bf98b51dcef764773584c47748929f738"
+checksum="2c200f2288858e477be83749539c12014fb0fbda80d4b268eee0c50538784c8d"
 
 do_configure(){
 	echo "Skip configure"
