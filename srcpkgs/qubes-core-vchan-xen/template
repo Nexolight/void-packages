@@ -1,16 +1,10 @@
 # Template file for 'qubes-core-vchan-xen'
 pkgname=qubes-core-vchan-xen
-version=4.0.2
+version=4.0.5
 revision=1
-#wrksrc=
-#create_wrksrc=yes
-#only_for_archs="i686 x86_64"
 build_style=gnu-configure
-#configure_args=""
 make_build_args="all"
 make_install_args=""
-#conf_files=""
-#make_dirs="/var/log/dir 0755 root root"
 hostmakedepends=""
 makedepends="qubes-vmm-xen"
 depends="qubes-vmm-xen"
@@ -20,7 +14,7 @@ license="GPL"
 homepage="http://qubes-os.org"
 shlib_provides="libvchan-xen.so libu2mfn.so"
 distfiles="https://github.com/QubesOS/${pkgname}/archive/v${version}.tar.gz"
-checksum="35c8a3e2a7d52c8cc6b794bec28697434c340903071656137d4c7a92a69201d7"
+checksum="10daa0a48114210b4f329a72c12fd385c65e1770d0849d4c09d72e872ec5750f"
 
 do_configure(){
 	echo "Skip configure"
