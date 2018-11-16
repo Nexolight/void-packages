@@ -1,18 +1,9 @@
 # Template file for 'qubes-vmm-xen'
 pkgname=qubes-vmm-xen
-version='4.8.3'
-revision='9'
-#wrksrc=
-#build_wrksrc=
+version='4.8.4'
+revision='6'
 create_wrksrc=yes
-#only_for_archs="i686 x86_64"
 build_style=gnu-makefile
-#configure_script=
-#configure_args=""
-#make_build_args=""
-#make_install_args=""
-#conf_files=""
-#make_dirs="/var/log/dir 0755 root root"
 hostmakedepends="pkg-config"
 makedepends="make gcc patch bin86 dev86 yajl-devel libressl-devel pixman-devel autoconf git gnupg
  automake liblzma-devel acpica-utils ncurses-devel libaio-devel lzo-devel e2fsprogs-devel
@@ -25,8 +16,7 @@ maintainer="nexolight<snow.dream.ch@gmail.com>"
 license="GPL"
 homepage="https://github.com/QubesOS/qubes-vmm-xen"
 
-do_fetch(){
-	
+do_fetch(){	
 	#this would recursively clone the git submodules
 	#but we do it manually here. could be useful for tar files.
 	#make -j ${makejobs} get-sources
@@ -73,7 +63,7 @@ do_configure(){
 	${wrksrc}/apply-patches ${wrksrc}/series-vm.conf .
 	
 	#bugfixes for bugs introduced
-	patch -p0 < acpica-utils-20180427.patch
+	#patch -p0 < acpica-utils-20180427.patch
 	patch -p0 < ocmal-unsafe-string.patch
 
 	export XEN_VENDORVERSION=$(cat ${wrksrc}/rel)
