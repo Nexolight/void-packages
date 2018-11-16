@@ -1,16 +1,9 @@
 # Template file for 'qubes-core-agent-linux'
 pkgname=qubes-core-agent-linux
-version=4.0.31
+version=4.0.38
 revision=1
-#wrksrc=
-#create_wrksrc=yes
-#only_for_archs="i686 x86_64"
 build_style=gnu-makefile
-#configure_args=""
 make_build_args="PKG_CONFIG_PATH=/usr/lib/pkgconfig BACKEND_VMM=xen C_INCLUDE_PATH=/usr/include/vchan-xen:${C_INCLUDE_PATH}"
-#make_install_args=""
-#conf_files=""
-#make_dirs="/var/log/dir 0755 root root"
 hostmakedepends=""
 makedepends="qubes-core-vchan-xen-devel qubes-linux-utils qubes-vmm-xen libX11-devel python python3 pam-devel pkg-config python-setuptools python-pip pandoc"
 depends="qubes-core-vchan-xen qubes-core-qubesdb python pandoc python-xdg ethtool ntp net-tools ImageMagick fakeroot notification-daemon dconf zenity haveged python-gobject python-dbus xdg-utils gawk sed procps-ng librsvg socat gnome-keyring gnome-settings-daemon python python-setuptools iptables NetworkManager"
@@ -20,7 +13,7 @@ license="GPL"
 homepage="http://qubes-os.org/"
 shlib_provides=""
 distfiles="https://github.com/QubesOS/${pkgname}/archive/v${version}.tar.gz"
-checksum="1d376368b983cf6dbd9bf7abacf01e7b3c254a611dfba1990248901696ad76f1"
+checksum="90f404a72ec1f8e9ff0842f0fc0b059d85b09dfa259fa1d837a5f0b4c2944b23"
 system_groups="qubes:98 user:1100"
 system_accounts="user:1100"
 user_homedir="/home/user"
