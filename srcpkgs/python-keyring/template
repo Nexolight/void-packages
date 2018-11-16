@@ -1,19 +1,20 @@
 # Template file for 'python-keyring'
 pkgname=python-keyring
-version=12.0.1
+version=16.0.0
 revision=1
 noarch=yes
 wrksrc="keyring-${version}"
 build_style=python-module
+pycompile_module="keyring"
 hostmakedepends="python-setuptools python3-setuptools"
 depends="python-setuptools python-SecretStorage python-entrypoints"
-pycompile_module="keyring"
 short_desc="Python2 interface to the system keyring service"
 maintainer="Oliver Kiddle <okiddle@yahoo.co.uk>"
 license="MIT"
 homepage="https://github.com/jaraco/keyring"
+changelog="https://raw.githubusercontent.com/jaraco/keyring/master/CHANGES.rst"
 distfiles="https://github.com/jaraco/keyring/archive/${version}.tar.gz"
-checksum=dcf0a28d9437dc9b5eb15ffd0158b1b5755a89be8d2f932be582d831c128652f
+checksum=d7521547b053ad5bd0ed2529b39acd7f2bca14058bf9b93060cb8733564cdb36
 alternatives="keyring:keyring:/usr/bin/keyring2"
 
 pre_build() {

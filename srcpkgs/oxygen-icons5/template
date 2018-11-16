@@ -1,16 +1,16 @@
 # Template file for 'oxygen-icons5'
 pkgname=oxygen-icons5
-version=5.43.0
+version=5.52.0
 revision=1
 noarch=yes
 build_style=cmake
-conflicts="oxygen-icons>=0"
 configure_args="-DBUILD_TESTING=OFF"
 hostmakedepends="extra-cmake-modules qt5-qmake qt5-host-tools"
 makedepends="qt5-devel"
 short_desc="KDE Oxygen(5) icon theme"
-maintainer="Denis Revin <denis.revin@gmail.com>"
-license="LGPL-2"
+maintainer="John <johnz@posteo.net>"
+license="LGPL-2.1-or-later, LGPL-3.0-or-later"
 homepage="https://projects.kde.org/projects/frameworks/oxygen-icons5"
-distfiles="http://download.kde.org/stable/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=ec7208b82e7439fd97ee22ff0ff4221620ab255a017fced74a5f40c3ac04888d
+distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
+checksum=16cafdb5a91465e1c711f55305a41df0ccb6f7b78582243fbdf45752d1f0d3de
+conflicts="oxygen-icons>=0"

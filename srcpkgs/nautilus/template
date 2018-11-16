@@ -1,31 +1,25 @@
 # Template file for 'nautilus'
 pkgname=nautilus
-version=3.28.1
+version=3.30.3
 revision=1
 build_style=meson
-configure_args="-Denable-selinux=false -Denable-nst-extension=false"
-hostmakedepends="glib-devel intltool pkg-config
- $(vopt_if gir 'gobject-introspection')"
-makedepends="exempi-devel gnome-autoar-devel gnome-desktop-devel libexif-devel
- libgexiv2-devel libnotify-devel tracker-devel"
+configure_args="-Dtests=headless -Dintrospection=$(vopt_if gir true false)"
+hostmakedepends="glib-devel libxslt pkg-config $(vopt_if gir 'gobject-introspection')"
+makedepends="exempi-devel gnome-autoar-devel gnome-desktop-devel gtk+3-devel
+ libexif-devel libgexiv2-devel libglib-devel libnotify-devel libseccomp-devel
+ libX11-devel libxml2-devel tracker-devel"
 depends="desktop-file-utils gsettings-desktop-schemas hicolor-icon-theme"
+checkdepends="tracker"
 short_desc="The GNOME file manager"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-homepage="https://wiki.gnome.org/Nautilus"
+maintainer="Rasmus Thomsen <rasmus.thomsen@protonmail.com>"
 license="GPL-2.0-or-later, LGPL-2.1-or-later"
-distfiles="${GNOME_SITE}/$pkgname/${version%.*}/$pkgname-$version.tar.xz"
-checksum=9ce878fc9d9f950475c504066ce5f8e98a8cfbf15051724469e865ea85bab0a5
-
-# no meson option to disable gir, gobject-introspection nocross
-nocross="https://build.voidlinux.eu/builders/aarch64-musl_builder/builds/5628/steps/shell_3/logs/stdio"
+homepage="https://wiki.gnome.org/Nautilus"
+distfiles="${GNOME_SITE}/${pkgname}/${version%.*}/${pkgname}-${version}.tar.xz"
+checksum=a4baf342b5162d0c6d0a974e6589e596fe80b1e6a0f86415daaa45be5298b6b5
 
 build_options="gir"
 if [ -z "$CROSS_BUILD" ]; then
 	build_options_default="gir"
-fi
-
-if [ ${XBPS_GCC_VERSION_MAJOR} -gt 5 ]; then
-	CFLAGS="-Wno-error=format-nonliteral"
 fi
 
 libnautilus_package() {

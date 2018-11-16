@@ -1,31 +1,42 @@
 # Template file for 'goxel'
 pkgname=goxel
-version=0.7.3
+version=0.8.1
 revision=1
 build_style=scons
 make_build_args="debug=0 werror=0"
-hostmakedepends="pkg-config scons"
+hostmakedepends="pkg-config"
 makedepends="glfw-devel gtk+3-devel"
 short_desc="Open Source 3D voxel editor"
 maintainer="John <johnz@posteo.net>"
 license="GPL-3.0-or-later"
 homepage="https://guillaumechereau.github.io/goxel/"
 distfiles="https://github.com/guillaumechereau/goxel/archive/v${version}.tar.gz"
-checksum=56790d96d9d52d37765ac5c59f924c007885daaa6fb2129baea51dff5380c15c
-
-if [ "$CROSS_BUILD" ];then
-	pre_build() {
-		sed -i -e "/conf = env.Configure()/ a env.Replace(CC = \"$CC\")\nenv.Replace(CXX = \"$CXX\")" SConstruct
-	}
-fi
+checksum=a954b8f772468848dd806e7c53e9e994be9df5ee943a2cbb8b605462da355c87
 
 case "$XBPS_TARGET_MACHINE" in
 	*-musl) makedepends+=" argp-standalone";;
+	i686*) make_build_args+=" cycles=0";;
 esac
 
+pre_build() {
+	if [ "$CROSS_BUILD" ];then
+		sed -i SConstruct \
+			-e "/conf = env.Configure()/ a env.Replace(CC = \"$CC\")" \
+			-e "/conf = env.Configure()/ a env.Replace(CXX = \"$CXX\")"
+	fi
+	case $XBPS_TAGET_MACHINE in
+		x86_64*|i686*);;
+		*) sed -i SConstruct -e "s/-msse2 //";;
+	esac
+}
+
 do_install() {
-	sed -i 's|${SNAP}/icon.png|/usr/share/icons/goxel.png|' snap/gui/goxel.desktop
+	sed -i 's|${SNAP}/icon.png|goxel.png|' snap/gui/goxel.desktop
 	vbin goxel
 	vinstall snap/gui/goxel.desktop 644 usr/share/applications
-	vinstall icon.png 644 usr/share/icons goxel.png
+	for size in 16 24 32 48 64 128 256; do
+		vinstall data/icons/icon${size}.png 644 \
+			usr/share/icons/hicolor/${size}x${size}/apps goxel.png
+	done
+	vinstall snap/gui/io.github.guillaumechereau.Goxel.appdata.xml 644 usr/share/metainfo
 }

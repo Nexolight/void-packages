@@ -1,6 +1,6 @@
 # Template file for 'kio'
 pkgname=kio
-version=5.43.0
+version=5.52.0
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
@@ -8,15 +8,15 @@ hostmakedepends="extra-cmake-modules kauth"
 makedepends="kdoctools-devel ksolid-devel kbookmarks-devel kjobwidgets-devel kwallet-devel acl-devel mit-krb5-devel libxslt-devel libxml2-devel"
 depends="desktop-file-utils"
 short_desc="KDE Network transparent access to files and data"
-maintainer="Denis Revin <denis.revin@gmail.com>"
-license="LGPL-2"
+maintainer="John <johnz@posteo.net>"
+license="LGPL-2.0-or-later"
 homepage="https://projects.kde.org/projects/frameworks/kio"
-distfiles="http://download.kde.org/stable/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=e6ecd2290d19e0680f4bc35dc157cf8f4df85ab3a967521dd510163843a372d5
+distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
+checksum=acb05d730f057a81a263d1b217019ffadc276929462c54add202de44313524a1
 
 CXXFLAGS+=" -fpermissive"
 
-if [ -n "$CROSS_BUILD" ]; then
+if [ "$CROSS_BUILD" ]; then
 	hostmakedepends+=" qt5-host-tools qt5-qmake python kdoctools libxml2 kcoreaddons"
 	configure_args+=" -DDESKTOPTOJSON_EXECUTABLE=/usr/bin/desktoptojson"
 fi
@@ -28,6 +28,6 @@ kio-devel_package() {
 		vmove usr/include
 		vmove usr/lib/qt5/mkspecs
 		vmove usr/lib/cmake
-		vmove usr/lib/*.so
+		vmove "usr/lib/*.so"
 	}
 }

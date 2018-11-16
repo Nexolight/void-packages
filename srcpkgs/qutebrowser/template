@@ -1,10 +1,10 @@
 # Template file for 'qutebrowser'
 pkgname=qutebrowser
-version=1.3.0
+version=1.5.2
 revision=1
 noarch=yes
 build_style=python3-module
-pycompile_module="${pkgname}"
+pycompile_module="$pkgname"
 hostmakedepends="python3-setuptools asciidoc"
 depends="python3-setuptools python3-PyQt5-webengine python3-PyQt5-quick
  python3-Jinja2 python3-Pygments python3-pyPEG2 python3-yaml python3-attrs
@@ -12,17 +12,22 @@ depends="python3-setuptools python3-PyQt5-webengine python3-PyQt5-quick
 short_desc="Keyboard-focused browser with a minimal GUI"
 maintainer="Eivind Uggedal <eivind@uggedal.com>"
 license="GPL-3.0-or-later"
-#changelog="https://raw.githubusercontent.com/qutebrowser/qutebrowser/master/doc/changelog.asciidoc"
 homepage="https://qutebrowser.org/"
+changelog="https://raw.githubusercontent.com/qutebrowser/qutebrowser/master/doc/changelog.asciidoc"
 distfiles="https://github.com/${pkgname}/${pkgname}/releases/download/v${version}/${pkgname}-${version}.tar.gz"
-checksum=83cf51e934d37ac6fa686ba25878d63ba319b3e548f41f8ea2ee02d393313095
+checksum=be126522456902fc80e63466738f36c55639bcb237c23e078c2a246c7d4d214e
 
 pre_build() {
 	a2x -f manpage doc/${pkgname}.1.asciidoc
 }
+
 post_install() {
 	vman doc/${pkgname}.1
 	vinstall misc/${pkgname}.desktop 644 usr/share/applications
+
+	vmkdir usr/share/qutebrowser/
+	vcopy misc/userscripts usr/share/qutebrowser/
+	vcopy scripts usr/share/qutebrowser/
 
 	local dim
 	for dim in 16 24 32 48 64 96 128 256 512; do

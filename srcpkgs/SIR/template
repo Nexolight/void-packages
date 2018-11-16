@@ -1,12 +1,12 @@
 # Template file for 'SIR'
 pkgname=SIR
 version=3.2
-revision=1
+revision=2
 build_style=cmake
 hostmakedepends="pkg-config"
 makedepends="exiv2-devel qt5-svg-devel qt5-tools-devel"
 depends="dcraw qt5-imageformats"
-maintainer="cr6git <quark6@protonmail.com>"
+maintainer="Orphaned <orphan@voidlinux.eu>"
 short_desc="Simple Image Resizer using Qt5 and exiv2"
 homepage="http://marek629.github.io/SIR/"
 license="GPL-2"

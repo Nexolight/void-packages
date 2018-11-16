@@ -1,17 +1,17 @@
 # Template file for 'kpty'
 pkgname=kpty
-version=5.43.0
+version=5.52.0
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
 hostmakedepends="extra-cmake-modules kcoreaddons-devel"
 makedepends="kcoreaddons-devel ki18n-devel libutempter-devel"
 short_desc="KDE Interfacing with pseudo terminal devices"
-maintainer="Denis Revin <denis.revin@gmail.com>"
-license="LGPL-2"
+maintainer="John <johnz@posteo.net>"
+license="LGPL-2.0-or-later, LGPL-2.1-or-later"
 homepage="https://projects.kde.org/projects/frameworks/kpty"
-distfiles="http://download.kde.org/stable/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=a84e2155b853b0ab5bd3b23e676ddd4245fbb4a86c6bcb7462d2cc5f5516a026
+distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
+checksum=02cd57c6fb41946d76e79153387db24de664f3f55db6664b37d65286ef91c78a
 
 kpty-devel_package() {
 	short_desc+=" - development"
@@ -20,6 +20,6 @@ kpty-devel_package() {
 		vmove usr/include
 		vmove usr/lib/qt5/mkspecs
 		vmove usr/lib/cmake
-		vmove usr/lib/*.so
+		vmove "usr/lib/*.so"
 	}
 }

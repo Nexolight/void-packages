@@ -1,14 +1,14 @@
 # Template file for 'mate-tweak'
 pkgname=mate-tweak
-version=18.04.16
+version=18.10.2
 revision=1
 noarch=yes
 build_style=python3-module
 hostmakedepends="intltool python3-distutils-extra python3-pbr python3-setuptools"
 depends="mate-panel python3-gobject python3-psutil python3-setproctitle"
-maintainer="cr6git <quark6@protonmail.com>"
 short_desc="Tweak tool for MATE"
+maintainer="Orphaned <orphan@voidlinux.eu>"
+license="GPL-2.0-or-later"
 homepage="https://github.com/ubuntu-mate/mate-tweak"
-license="GPL-2"
 distfiles="https://github.com/ubuntu-mate/mate-tweak/archive/${version}.tar.gz"
-checksum=67593f9f6cc0040a2bef2828146d69e6f8ce4ec25bd4ff87c907fa954681ede9
+checksum=1e5eea75339c1e45f3d643f7c0750fac1e1814958b1dd3f846f7a49faf1fabfb

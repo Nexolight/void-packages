@@ -1,21 +1,23 @@
 # Template file for 'python-hypothesis'
 pkgname=python-hypothesis
-version=3.55.0
-revision=2
+version=3.82.1
+revision=1
 noarch=yes
-wrksrc="${pkgname/python-//}-${version}"
+wrksrc="hypothesis-hypothesis-python-${version}"
+build_wrksrc=hypothesis-python
 build_style=python-module
 pycompile_module="hypothesis"
 hostmakedepends="python-setuptools python3-setuptools"
 depends="python-attrs python-coverage python-enum34"
 checkdepends="python-coverage python-enum34 python-pytest python3-coverage
- python3-flaky python3-pytest python3-pytz"
+ python3-flaky python3-pytest python3-pytz python3-numpy"
 short_desc="Python2 library for property based testing"
-maintainer="maxice8 <thinkabit.ukim@gmail.com>"
+maintainer="Orphaned <orphan@voidlinux.eu>"
 license="MPL-2.0"
 homepage="https://hypothesis.works/"
-distfiles="https://github.com/HypothesisWorks/hypothesis-python/archive/${version}.tar.gz"
-checksum=9b9bb4855ddfb2680154b715fad2730212bb75909edb9fb0d8964651df2359d4
+changelog="https://github.com/HypothesisWorks/hypothesis/raw/master/hypothesis-python/docs/changes.rst"
+distfiles="https://github.com/HypothesisWorks/hypothesis/archive/hypothesis-python-${version}.tar.gz"
+checksum=021859ee1bd132b45dabd1d413c692f82601a8f11848174caaa43fdf3525e22e
 
 do_check() {
 	# pytest doesn't recognize -n switch
@@ -27,7 +29,7 @@ do_check() {
 
 	# Add variables that will be used by python to find the local
 	# hypothesis build
-	PY3PATH="${PWD}/build-3.6/lib"
+	PY3PATH="${PWD}/build-${py3_ver}/lib"
 	PY2PATH="${PWD}/build-2.7/lib"
 
 	PYTHONPATH="${PY3PATH}" python3 -m pytest tests/cover

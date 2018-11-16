@@ -1,6 +1,6 @@
 # Template file for 'erlang'
 pkgname=erlang
-version=20.3
+version=21.1
 revision=2
 create_wrksrc=yes
 build_wrksrc=otp_src_${version}
@@ -15,8 +15,8 @@ license="Apache-2.0"
 homepage="http://www.erlang.org/"
 distfiles="http://www.erlang.org/download/otp_src_${version}.tar.gz
  http://www.erlang.org/download/otp_doc_man_${version}.tar.gz"
-checksum="4e19e6c403d5255531c0b870f19511c8b8e3b080618e4f9efcb44d905935b2a1
- 17e0b2f94f11576a12526614a906ecad629b8804c25e6c18523f7c4346607112"
+checksum="a489ca88d79422a165112120e0295bbd2f777533a81eae5610578d1bd8d89caf
+ 021e47b5036eaa4671b6d87a910403b775c967bfcb79b56a87f2183ddc5a5df5"
 
 build_options="x11"
 

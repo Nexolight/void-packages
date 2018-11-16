@@ -1,0 +1,17 @@
+# Template file for 'croc'
+pkgname=croc
+version=4.1.4
+revision=1
+build_style=go
+go_import_path="github.com/schollz/croc"
+hostmakedepends="git"
+short_desc="Easily and securely send things from one computer to another"
+maintainer="Orphaned <orphan@voidlinux.eu>"
+license="MIT"
+homepage="https://github.com/schollz/croc"
+distfiles="https://github.com/schollz/croc/archive/v${version}.tar.gz"
+checksum=0f81f22f6af478b0d499be4da19a38dff49aae2b9a4e1295f9949f15f185d863
+
+post_install() {
+	vlicense LICENSE
+}

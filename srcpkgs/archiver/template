@@ -1,0 +1,18 @@
+# Template file for 'archiver'
+pkgname=archiver
+version=3.0.1
+revision=1
+build_style=go
+go_import_path=github.com/mholt/archiver
+go_package="${go_import_path}/cmd/arc"
+hostmakedepends="git"
+short_desc="Easily create and extract common archive formats"
+maintainer="Orphaned <orphan@voidlinux.eu>"
+license="MIT"
+homepage="https://github.com/mholt/archiver"
+distfiles="https://github.com/mholt/archiver/archive/v${version}.tar.gz"
+checksum=a1808580d731499044f3f7de5ab04e5580a1189b7b532673bea1e4f35a48e7b9
+
+post_install() {
+	vlicense LICENSE
+}

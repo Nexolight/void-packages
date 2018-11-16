@@ -407,7 +407,7 @@ readonly XBPS_VERSION_REQ="0.46"
 readonly XBPS_VERSION=$(xbps-uhelper -V|awk '{print $2}')
 readonly XBPS_SRC_VERSION="113"
 export XBPS_MACHINE=$(xbps-uhelper arch)
-readonly XBPS_GCC_VERSION_MAJOR=7
+readonly XBPS_GCC_VERSION_MAJOR=8
 readonly XBPS_GCC_VERSION_MINOR=2
 readonly XBPS_GCC_VERSION_BUILD=0
 readonly XBPS_GCC_VERSION=${XBPS_GCC_VERSION_MAJOR}.${XBPS_GCC_VERSION_MINOR}.${XBPS_GCC_VERSION_BUILD}
@@ -621,10 +621,6 @@ else
         export CCACHE_COMPILERCHECK=content CCACHE_COMPRESS=1
         export PATH="$CCACHEPATH:$PATH"
         mkdir -p $CCACHE_DIR
-
-        export GOCACHE="${XBPS_HOSTDIR}/gocache"
-    else
-        export GOCACHE=off
     fi
     if [ -n "$XBPS_DISTCC" ]; then
         if [ -n "$XBPS_CCACHE" ]; then
@@ -688,6 +684,7 @@ case "$XBPS_TARGET" in
                 remove_pkg_autodeps
             fi
             msg_normal "xbps-src: cleaning up masterdir...\n"
+            chmod -R +wX $XBPS_MASTERDIR/builddir # Needed to remove Go Modules
             rm -rf $XBPS_MASTERDIR/builddir $XBPS_MASTERDIR/destdir
             rm -f $XBPS_MASTERDIR/tmp/* >/dev/null 2>&1
         else
@@ -780,6 +777,9 @@ case "$XBPS_TARGET" in
 		    revision) print_var="$revision ";;
 		    subpackages) print_var="$subpackages ";;
 		    version) print_var="$version ";;
+		    provides) print_var="$provides ";;
+		    lib32disabled) print_var="$lib32disabled ";;
+		    nodebug) print_var="$nodebug ";;
 		esac # the space at the end of each is essential for unset vars
 		if [ -n "$print_var" ]; then
 			printf "%s\n" "$(printf "${print_var% }" | tr -t '\n\r' ' ')"

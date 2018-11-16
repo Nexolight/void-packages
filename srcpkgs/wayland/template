@@ -1,35 +1,25 @@
-# Template file for 'wayland'.
+# Template file for 'wayland'
 pkgname=wayland
-version=1.15.0
-revision=3
+version=1.16.0
+revision=1
 build_style=gnu-configure
 configure_args="--disable-documentation --disable-static"
-hostmakedepends="automake flex libtool pkg-config"
+hostmakedepends="flex pkg-config"
 makedepends="expat-devel libffi-devel libfl-devel libxml2-devel"
 short_desc="Wayland protocol compositor"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
 license="MIT"
-homepage="http://wayland.freedesktop.org/"
-distfiles="http://wayland.freedesktop.org/releases/wayland-${version}.tar.xz"
-checksum=eb3fbebb8559d56a80ad3753ec3db800f587329067962dbf65e14488b4b7aeb0
+homepage="https://wayland.freedesktop.org/"
+distfiles="https://wayland.freedesktop.org/releases/wayland-${version}.tar.xz"
+checksum=4e72c2b56109ccfb6610d776e465f4ca0af2280c9c2f7d5cc23f0ed2548752f5
 
-pre_configure() {
-	autoreconf -fi
-}
 post_install() {
-	# avoid conflict with libGLs libwayland-egl/MesaLib-devel
-	rm -f ${DESTDIR}/usr/lib/libwayland-egl.so*
-	rm -f ${DESTDIR}/usr/lib/pkgconfig/wayland-egl.pc
-
 	vlicense COPYING
 }
 
 if [ "$CROSS_BUILD" ]; then
 	hostmakedepends+=" wayland-devel"
-	post_configure() {
-		# Use host wayland-scanner
-		sed -e '/$(AM_V_GEN)/s,$(wayland_scanner),wayland-scanner,g' -i Makefile.in
-	}
+	configure_args+=" --with-host-scanner"
 fi
 
 wayland-devel_package() {

@@ -1,0 +1,29 @@
+# Template file for 'skopeo'
+pkgname=skopeo
+version=0.1.32
+revision=1
+build_style=go
+go_import_path="github.com/containers/${pkgname}"
+go_package="${go_import_path}/cmd/${pkgname}"
+hostmakedepends="go-md2man pkg-config"
+makedepends="device-mapper-devel gpgme-devel libbtrfs-devel libostree-devel"
+short_desc="Utility for operations on container images and image repositories"
+maintainer="Frank Steinborn <steinex@nognu.de>"
+license="Apache-2.0"
+homepage="https://github.com/containers/skopeo"
+distfiles="https://github.com/containers/${pkgname}/archive/v${version}.tar.gz"
+checksum=fcb593d4fa4cb6cf8f1817d21f43a8051c1d8c759b857633d4b932361dbd93a7
+make_dirs="/var/lib/atomic/sigstore 0755 root root"
+
+post_build() {
+	go-md2man -in docs/skopeo.1.md -out docs/skopeo.1
+}
+
+post_install() {
+	vman docs/skopeo.1
+	vinstall completions/bash/skopeo 644 usr/share/bash-completion/completions
+	vmkdir etc/containers
+	vinstall default-policy.json 644 etc/containers policy.json
+	vmkdir etc/containers/registries.d
+	vinstall default.yaml 644 etc/containers/registries.d
+}

@@ -1,20 +1,20 @@
 # Template file for 'perl-Math-Prime-Util'
-pkgname="perl-Math-Prime-Util"
-version=0.70
+pkgname=perl-Math-Prime-Util
+version=0.72
 revision=1
 wrksrc="${pkgname/perl-/}-${version}"
 build_style=perl-module
 hostmakedepends="perl perl-Math-Prime-Util-GMP"
-makedepends="${hostmakedepends}"
-depends="${hostmakedepends}"
+makedepends="$hostmakedepends"
+depends="$hostmakedepends"
 short_desc="Utilities related to prime numbers, including fast sieves and factoring"
 maintainer="newbluemoon <blaumolch@mailbox.org>"
-license="Artistic, GPL-1"
+license="Artistic-1.0-Perl, GPL-1.0-or-later"
 homepage="https://github.com/danaj/Math-Prime-Util"
 distfiles="${CPAN_SITE}/Math/${pkgname/perl-/}-${version}.tar.gz"
-checksum=aa38561c7d2a6ffa5f2bcb029ef4ad26596a1addfac3fa1b4b9fee1e9d24ab9d
+checksum=d08eb9868abe3118565bdcb1103721fe2f20aa3f72e2e4a2c29eb79d437b4354
 
-if [ -n "$CROSS_BUILD" ]; then
+if [ "$CROSS_BUILD" ]; then
 	pre_configure() {
 		sed -i -e "s/^\(my \$have_gmp =\).*/\1 1;/" Makefile.PL
 	}

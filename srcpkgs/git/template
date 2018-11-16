@@ -1,7 +1,7 @@
-# Template file for "git"
+# Template file for 'git'
 pkgname=git
-version=2.17.1
-revision=1
+version=2.19.1
+revision=2
 build_style=gnu-configure
 configure_args="--with-curl --with-expat --with-tcltk --with-libpcre2
  ac_cv_fread_reads_directories=no ac_cv_snprintf_returns_bogus=no"
@@ -16,9 +16,10 @@ short_desc="Git Tree History Storage Tool"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
 license="GPL-2.0-only"
 homepage="https://git-scm.com/"
+changelog="https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/${version}.txt"
 distfiles="https://www.kernel.org/pub/software/scm/git/git-${version}.tar.xz"
-checksum=79136e7aa83abae4d8a25c8111f113d3c5a63aeb5fd93cc72c26d49c6d5ba65e
-make_check_target="test"
+checksum=345056aa9b8084280b1b9fe1374d232dec05a34e8849028a20bfdb56e920dbb5
+make_check_target=test
 
 subpackages="git-cvs git-svn gitk git-gui git-all"
 

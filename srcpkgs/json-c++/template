@@ -1,15 +1,15 @@
 # Template file for 'json-c++'
 pkgname=json-c++
-version=3.1.2
+version=3.4.0
 revision=1
 wrksrc="json-${version}"
 build_style=cmake
 short_desc="JSON for modern C++"
-maintainer="maxice8 <thinkabit.ukim@gmail.com>"
+maintainer="Jürgen Buchmüller <pullmoll@t-online.de>"
 license="MIT"
 homepage="https://github.com/nlohmann/json"
 distfiles="https://github.com/nlohmann/json/archive/v${version}.tar.gz"
-checksum=e8fffa6cbdb3c15ecdff32eebf958b6c686bc188da8ad5c6489462d16f83ae54
+checksum=c377963a95989270c943d522bfefe7b889ef5ed0e1e15d535fd6f6f16ed70732
 
 post_install() {
 	vlicense LICENSE.MIT

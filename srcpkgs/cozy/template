@@ -1,10 +1,11 @@
 # Template file for 'cozy'
 pkgname=cozy
-version=0.5.5
+version=0.6.4
 revision=1
-build_style=meson
 noarch=yes
-hostmakedepends="pkg-config glib-devel"
+build_style=meson
+pycompile_module="cozy"
+hostmakedepends="pkg-config glib-devel python3"
 makedepends="glib-devel"
 depends="python3 python3-peewee gst-libav gst-plugins-good1 gst1-python3 python3-mutagen"
 short_desc="Audio book player"
@@ -12,4 +13,5 @@ maintainer="johannes <johannes.brechtmann@gmail.com>"
 license="GPL-3.0-only, LGPL-3.0-only"
 homepage="https://github.com/geigi/cozy"
 distfiles="https://github.com/geigi/cozy/archive/${version}.tar.gz"
-checksum=9156592386aaa8ab6acddfad186b6427edad0d17808f5adb169dd1dc19727701
+checksum=a64a59e45b7876643201c6fffc2628ff22e8e62c3032fd6721f95ac81991f1a0
+nocross="requires python3-gobject"

@@ -1,27 +1,22 @@
 # Template file for 'armadillo'
 pkgname=armadillo
-version=8.400.0
-revision=2
+version=9.100.6
+revision=1
 build_style=cmake
+configure_args="$(vopt_if hdf5 -DDETECT_HDF5=ON)"
 hostmakedepends="pkg-config openblas-devel"
-makedepends="openblas-devel superlu-devel"
+makedepends="openblas-devel superlu-devel $(vopt_if hdf5 hdf5-devel)"
 short_desc="C++ linear algebra library"
 maintainer="Julien Dehos <dehos@lisic.univ-littoral.fr>"
-license="BSD"
+license="Apache-2.0"
 homepage="http://arma.sourceforge.net/"
 distfiles="${SOURCEFORGE_SITE}/arma/${pkgname}-${version}.tar.xz"
-checksum=5cb6bc2f457a9d6a0758cfb15c418d48289909daccd79d0e428452029285dd9b
-
-# automatically link to openblas (so you just have to compile with
-# "-larmadillo" instead of "-larmadillo -lopenblas")
-configure_args="-DLAPACK_LIBRARY=/usr/lib/libopenblas.so"
+checksum=6349163da682d237ee6fedfa31b936b07ff0c1c12a48631be700a89aa37c39ee
 
 build_options="hdf5"
 if [ -z "$CROSS_BUILD" ]; then
 	build_options_default="hdf5"
 fi
-makedepends+=" $(vopt_if hdf5 hdf5-devel)"
-configure_args+=" $(vopt_if hdf5 -DDETECT_HDF5=ON)"
 
 post_install() {
 	vlicense LICENSE.txt
@@ -31,8 +26,9 @@ armadillo-devel_package() {
 	depends="${makedepends}"
 	short_desc+=" - development files"
 	pkg_install() {
-		vmove "usr/include"
+		vmove usr/include
 		vmove "usr/lib/*.so"
-		vmove "/usr/share"
+		vmove /usr/share
+		vmove /usr/lib/pkgconfig
 	}
 }

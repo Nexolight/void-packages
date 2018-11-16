@@ -1,16 +1,17 @@
 # Template file for 'perl-Clone-Choose'
 pkgname=perl-Clone-Choose
-version=0.008
-revision=1
+version=0.010
+revision=2
+noarch=yes
 wrksrc="${pkgname/perl-/}-${version}"
 build_style=perl-module
-hostmakedepends="perl"
+hostmakedepends="perl-Test-Without-Module"
 makedepends="perl"
-checkdepends="perl-Clone perl-Clone-PP"
-depends="${makedepends}"
+depends="$makedepends"
+checkdepends="perl-Clone perl-Clone-PP perl-Module-Runtime"
 short_desc="Clone::Choose - Choose appropriate clone utility"
 maintainer="maxice8 <thinkabit.ukim@gmail.com>"
-license="Artistic, GPL-1"
-homepage="http://search.cpan.org/dist/Clone-Choose/"
+license="Artistic-1.0-Perl, GPL-1.0-or-later"
+homepage="https://metacpan.org/release/Clone-Choose"
 distfiles="${CPAN_SITE}/Clone/${pkgname/perl-/}-${version}.tar.gz"
-checksum=d32ac724c006250c966592579a97ff0734feac7c51a983d554f8371ade022e3f
+checksum=5623481f58cee8edb96cd202aad0df5622d427e5f748b253851dfd62e5123632

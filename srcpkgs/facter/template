@@ -1,19 +1,26 @@
 # Template file for 'facter'
 pkgname=facter
-version=3.11.1
-revision=2
+version=3.12.1
+revision=3
 build_style=cmake
 configure_args="-DRUBY_CONFIG_INCLUDE_DIR=${XBPS_CROSS_BASE}/usr/include"
 hostmakedepends="ruby-devel"
 makedepends="boost-devel cpp-hocon leatherman libblkid-devel libcurl-devel
- ruby-devel yaml-cpp-devel"
+ ruby-devel yaml-cpp-devel libblkid-devel"
 depends="net-tools ruby"
 short_desc="Collect and display system facts"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
 license="Apache-2.0"
 homepage="http://puppetlabs.com/facter"
 distfiles="http://downloads.puppetlabs.com/${pkgname}/${pkgname}-${version}.tar.gz"
-checksum=3114d6ae4522c86a195952e32a211239bf7f27ccc28581a85d992caccf91be33
+checksum=57d62f5c9c97576fd3a246e7b9ea350bf600126265b674b64b418f0bc9972aed
+
+CXXFLAGS="-Wno-catch-value -Wno-stringop-truncation"
+pre_configure() {
+	case "$XBPS_TARGET_MACHINE" in
+	mips*)	sed -i lib/CMakeLists.txt -e'/add_subdirectory(tests)/d' ;;
+	esac
+}
 
 post_install() {
 	vlicense LICENSE

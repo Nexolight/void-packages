@@ -1,27 +1,28 @@
 # Template file for 'gc'
 pkgname=gc
-version=7.6.4
+version=8.0.0
 revision=1
 build_style=gnu-configure
-hostmakedepends="automake pkg-config libtool"
+configure_args="--enable-static --enable-mmap"
+hostmakedepends="pkg-config"
 makedepends="libatomic_ops-devel"
+short_desc="A garbage collector for C and C++"
+maintainer="Juan RP <xtraeme@voidlinux.eu>"
+license="GPL-2.0-or-later"
+homepage="http://www.hboehm.info/gc/"
+distfiles="https://github.com/ivmai/bdwgc/releases/download/v${version}/gc-${version}.tar.gz"
+checksum=8f23f9a20883d00af2bff122249807e645bdf386de0de8cbd6cce3e0c6968f04
+
 case "$XBPS_TARGET_MACHINE" in
 *-musl)
 	CFLAGS='-D_GNU_SOURCE -DNO_GETCONTEXT -DSEARCH_FOR_DATA_START -DUSE_MMAP -DHAVE_DL_ITERATE_PHDR'
 esac
-short_desc="A garbage collector for C and C++"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-homepage="http://www.hboehm.info/gc/"
-license="GPL-2"
-distfiles="http://www.hboehm.info/gc/gc_source/gc-${version}.tar.gz"
-checksum=b94c1f2535f98354811ee644dccab6e84a0cf73e477ca03fb5a3758fb1fecd1c
 
-post_extract() {
-	sed -i '1i#include <sys/select.h>' pthread_stop_world.c
-}
-
-pre_configure() {
-	autoreconf -fi
+post_install() {
+	mkdir -p ${DESTDIR}/usr/include/gc/
+	mv ${wrksrc}/include/* ${DESTDIR}/usr/include/gc/
+	mv ${DESTDIR}/usr/include/gc/extra/* ${DESTDIR}/usr/include/
+	rmdir ${DESTDIR}/usr/include/gc/extra
 }
 
 gc-devel_package() {

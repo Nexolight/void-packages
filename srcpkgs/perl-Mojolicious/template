@@ -1,6 +1,6 @@
 # Template file for 'perl-Mojolicious'
 pkgname=perl-Mojolicious
-version=7.82
+version=8.06
 revision=1
 noarch=yes
 wrksrc="${pkgname//perl-/}-${version}"
@@ -10,7 +10,7 @@ depends="perl"
 short_desc="Real-time web framework"
 maintainer="Urs Schulz <voidpkgs@ursschulz.de>"
 license="Artistic-1.0-Perl, GPL-1.0-or-later"
-homepage="https://metacpan.org/release/${pkgname//perl-/}/"
+homepage="https://metacpan.org/release/Mojolicious"
 distfiles="${CPAN_SITE}/${pkgname//perl-/}/${pkgname//perl-/}-${version}.tar.gz"
-checksum=70c5f211ba81982752eae189ca7aea0ea14fb7534449114d0a3d47d96c0d05c4
+checksum=6198f8430d3c4be686b075bc02a2ef5b4486bc8bcf60a3482cf5250c846d1748
 

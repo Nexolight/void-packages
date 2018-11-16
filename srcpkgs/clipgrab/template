@@ -1,18 +1,19 @@
 # Template file for 'clipgrab'
 pkgname=clipgrab
-version=3.6.8
+version=3.7.1
 revision=1
+patch_args="-Np1"
 build_style=qmake
 configure_args=clipgrab.pro
-hostmakedepends="qt-host-tools qt-webkit-devel"
-makedepends="qt-webkit-devel"
+hostmakedepends="qt5-host-tools qt5-qmake qt5-webkit-devel qt5-devel"
+makedepends="qt5-webkit-devel qt5-devel"
 depends="ffmpeg desktop-file-utils"
 short_desc="Friendly downloader for YouTube and other sites"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
-license="GPL-3"
+license="GPL-3.0-or-later"
 homepage="https://clipgrab.org"
 distfiles="https://download.clipgrab.org/clipgrab-${version}.tar.gz"
-checksum=1704386b88d2d17ed7d56dc62e5285a04fc27bcb6576f11d6798d674de49f729
+checksum=addf58c027f8f0e01acb0d1d6cdb9fd17c356d4fe5e2d768b94e531b599d1f2e
 
 do_install() {
 	vbin clipgrab

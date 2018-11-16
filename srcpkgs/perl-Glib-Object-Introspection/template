@@ -1,6 +1,6 @@
 # Template file for 'perl-Glib-Object-Introspection'
 pkgname=perl-Glib-Object-Introspection
-version=0.045
+version=0.046
 revision=1
 wrksrc="${pkgname/perl-/}-${version}"
 build_style=perl-module
@@ -10,7 +10,7 @@ depends="perl-ExtUtils-PkgConfig perl-ExtUtils-Depends perl-Glib"
 short_desc="Dynamically create Perl language bindings"
 maintainer="Orphaned <orphan@voidlinux.eu>"
 license="LGPL-3.0-or-later"
-homepage="http://search.cpan.org/~tsch/Glib-Object-Introspection/"
-distfiles="http://search.cpan.org/CPAN/authors/id/X/XA/XAOC/Glib-Object-Introspection-${version}.tar.gz"
-checksum=5f0b88d5cf9b9d5d60c90ea9d411076bea54a2c0757c8f4d527520e5f332e7bb
+homepage="https://metacpan.org/release/Glib-Object-Introspection"
+distfiles="${CPAN_SITE}/Glib/Glib-Object-Introspection-${version}.tar.gz"
+checksum=6632da2075d5b4ce4edf327caad9bbaf945fae4e31b03e0569ef883b48a26fb4
 nocross=yes

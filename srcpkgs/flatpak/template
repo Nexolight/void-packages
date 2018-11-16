@@ -1,21 +1,21 @@
 # Template file for 'flatpak'
 pkgname=flatpak
-version=0.11.7
+version=1.0.5
 revision=1
 build_style=gnu-configure
 configure_args="--disable-documentation --with-system-bubblewrap"
 hostmakedepends="bubblewrap glib-devel libxslt pkg-config bison"
 makedepends="appstream-glib-devel gpgme-devel json-glib-devel libcap-devel
  libostree-devel libseccomp-devel polkit-devel"
-checkdepends="dbus"
+checkdepends="bubblewrap dbus"
 depends="bubblewrap"
 short_desc="Application sandboxing and distribution framework"
 maintainer="Duncaen <duncaen@voidlinux.eu>"
 license="LGPL-2.1-or-later"
 homepage="https://flatpak.org/"
-#changelog="https://github.com/flatpak/flatpak/blob/master/NEWS"
+changelog="https://github.com/flatpak/flatpak/blob/master/NEWS"
 distfiles="https://github.com/flatpak/flatpak/releases/download/${version}/flatpak-${version}.tar.xz"
-checksum=1099f3115972f40940ac02af5981bc56931fba662b6875b776e45264f69104ef
+checksum=8087b9e390101fd853c30e04c64a14a738d745b604c5600b03ffaf212e4548f2
 
 post_install() {
 	rm -rf $DESTDIR/usr/lib/systemd

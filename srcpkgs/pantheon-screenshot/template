@@ -1,15 +1,15 @@
 # Template file for 'pantheon-screenshot'
 pkgname=pantheon-screenshot
-version=0.1.4
+version=0.1.5
 revision=2
-build_style=cmake
-hostmakedepends="intltool pkg-config vala"
-makedepends="granite-devel gtk+3-devel libcanberra-devel"
+wrksrc="screenshot-${version}"
+build_style=meson
+hostmakedepends="desktop-file-utils intltool pkg-config vala"
+makedepends="granite-devel libcanberra-devel"
 depends="desktop-file-utils hicolor-icon-theme"
-maintainer="cr6git <quark6@protonmail.com>"
 short_desc="Screenshot tool"
+maintainer="Orphaned <orphan@voidlinux.eu>"
+license="LGPL-3.0-only"
 homepage="https://github.com/elementary/screenshot-tool"
-license="LGPL-3"
 distfiles="https://github.com/elementary/screenshot-tool/archive/${version}.tar.gz"
-checksum=b01ef495818cc026a3eaf5446aac7b7e507a7625ea855c012c8ae4ee5c38a572
-wrksrc="screenshot-tool-${version}"
+checksum=20cea7a6ca1e99175953a2f8d1c73cff47f00e17e82f6826238d2c3c5718a4f5

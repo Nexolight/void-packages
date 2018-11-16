@@ -1,6 +1,6 @@
 # Template file for 'sfeed'
 pkgname=sfeed
-version=0.9.3
+version=0.9.6
 revision=1
 build_style=gnu-makefile
 make_install_args="MANPREFIX=/usr/share/man"
@@ -10,7 +10,7 @@ maintainer="Rubén Santos <kojicomics@cocaine.ninja>"
 license="ISC"
 homepage="https://git.codemadness.org/sfeed"
 distfiles="https://codemadness.org/releases/sfeed/sfeed-${version}.tar.gz"
-checksum=09372442a76272990ecc2d295da27c25f477f5714db8dffb2eab537a08868d4c
+checksum=50de9f556906974b1ed9ebe4460331d1dadceb4e20bd0936ce1ad00aaba036ec
 
 post_install() {
 	vlicense LICENSE

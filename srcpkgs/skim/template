@@ -1,25 +1,19 @@
 # Template file for 'skim'
 pkgname=skim
-version=0.3.2
+version=0.5.2
 revision=1
-hostmakedepends="cargo rust"
+build_style=cargo
 short_desc="Fuzzy Finder in rust"
 maintainer="maxice8 <thinkabit.ukim@gmail.com>"
 license="MIT"
 homepage="https://github.com/lotabout/skim"
 distfiles="https://github.com/lotabout/skim/archive/v${version}.tar.gz"
-checksum=a16f64e4ce4703b36ca01e2f83b92b8a653ef9b9ce10332c6e215b80d3680e79
-nocross=yes
+checksum=41280bee2138afefff95f76a640b753d1cb9215e8391ef37eab7ccb3517d9019
 
-do_build() {
-	cargo build --release
-}
+case "$XBPS_TARGET_MACHINE" in
+	aarch64-musl) broken="MAP_32BIT; not found in libc" ;;
+esac
 
-do_check() {
-	cargo test --release
-}
-
-do_install() {
-	vbin target/release/sk
+post_install() {
 	vlicense LICENSE
 }

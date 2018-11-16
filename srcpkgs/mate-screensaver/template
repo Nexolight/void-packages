@@ -1,18 +1,18 @@
 # Template file for 'mate-screensaver'
 pkgname=mate-screensaver
-version=1.20.0
+version=1.20.2
 revision=1
 build_style=gnu-configure
 hostmakedepends="pkg-config intltool itstool glib-devel"
-makedepends="gtk+3-devel dbus-glib-devel libnotify-devel libXScrnSaver-devel
+makedepends="dbus-glib-devel libnotify-devel libXScrnSaver-devel
  libmatekbd-devel mate-menus-devel mate-desktop-devel pam-devel"
 depends="mate-desktop mate-session-manager"
 short_desc="Screensaver for MATE"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
-license="GPL-2.0-or-later"
+license="GPL-2.0-or-later, LGPL-2.0-or-later"
 homepage="https://mate-desktop.org"
 distfiles="https://pub.mate-desktop.org/releases/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=69927e32b49b9723ab26a9cc0005f84ff904103d9eb71e926dc44d5311302899
+checksum=7d70062e0fd7bbb83bf9b828b9dd5b5e2658b96a97d619cb61ad9ed36c9baee1
 
 post_install() {
 	vinstall ${FILESDIR}/${pkgname}.pam 644 etc/pam.d ${pkgname}

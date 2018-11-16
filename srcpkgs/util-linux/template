@@ -1,20 +1,20 @@
 # Template file for 'util-linux'
 pkgname=util-linux
-version=2.32
+version=2.33
 revision=1
-short_desc="Miscellaneous linux utilities"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-homepage="https://www.kernel.org/pub/linux/utils/util-linux/"
-checkdepends="ncurses" # Some tests require terminfo-entries
-license="GPL-2.0-or-later"
-distfiles="${KERNEL_SITE}/utils/${pkgname}/v${version}/${pkgname}-${version}.tar.xz"
-checksum=6c7397abc764e32e8159c2e96042874a190303e77adceb4ac5bd502a272a4734
-
 hostmakedepends="automake bison gettext-devel libtool pkg-config"
 makedepends="libcap-ng-devel pam-devel readline-devel zlib-devel"
+checkdepends="ncurses" # Some tests require terminfo-entries
+short_desc="Miscellaneous linux utilities"
+maintainer="Juan RP <xtraeme@voidlinux.eu>"
+license="GPL-2.0-or-later"
+homepage="https://www.kernel.org/pub/linux/utils/util-linux/"
+distfiles="${KERNEL_SITE}/utils/${pkgname}/v${version%.1}/${pkgname}-${version}.tar.xz"
+checksum=f261b9d73c35bfeeea04d26941ac47ee1df937bd3b0583e748217c1ea423658a
+
 # Create uuidd system account for uuidd.
-system_accounts="uuidd"
-uuidd_homedir="/run/uuidd"
+system_accounts="_uuidd"
+_uuidd_homedir="/run/uuidd"
 conf_files="/etc/pam.d/*"
 provides="eject-${version}_1 rfkill-${version}_1"
 replaces="rfkill>=0"

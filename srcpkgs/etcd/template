@@ -1,7 +1,7 @@
 # Template file for 'etcd'
 pkgname=etcd
-version=3.3.5
-revision=1
+version=3.3.9
+revision=2
 build_style=go
 short_desc="Distributed reliable key-value store"
 maintainer="Andrea Brancaleoni <abc@pompel.me>"
@@ -11,7 +11,7 @@ go_import_path="github.com/coreos/etcd"
 go_package="${go_import_path} ${go_import_path}/etcdctl"
 homepage="https://coreos.com/etcd/docs/latest/"
 distfiles="https://${go_import_path}/archive/v${version}.tar.gz"
-checksum=fce3f59e4afef16ca0aa24650f25b5e1689b163cd6770dc2be660d0b7bb064eb
+checksum=96639d35772108004da53e568489ce7572171d39ee507245848cc42fbd3a3032
 conf_files="/etc/sv/etcd/conf"
 system_accounts="etcd"
 make_dirs="/var/lib/etcd 0755 etcd etcd"

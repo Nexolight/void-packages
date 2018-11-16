@@ -1,7 +1,7 @@
 # Template file for 'ladish'
 pkgname=ladish
 version=1
-revision=10
+revision=11
 wrksrc="ladish-1+dfsg0"
 build_style=waf
 hostmakedepends="perl intltool python pkg-config"
@@ -21,9 +21,9 @@ CXXFLAGS=-std=c++11
 
 do_configure() {
 	if [ "$CROSS_BUILD" ];then
-		python waf configure --prefix=/usr --enable-liblash
+		python2 waf configure --prefix=/usr --enable-liblash
 	else
-		python waf configure --prefix=/usr --enable-liblash --enable-pylash
+		python2 waf configure --prefix=/usr --enable-liblash --enable-pylash
 	fi
 }
 

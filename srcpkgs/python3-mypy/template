@@ -1,0 +1,19 @@
+# Template file for 'python3-mypy'
+pkgname=python3-mypy
+version=0.641
+revision=1
+noarch=yes
+wrksrc="mypy-${version}"
+pycompile_module="mypy"
+build_style=python3-module
+hostmakedepends="python3-setuptools"
+short_desc="Optional static typing for Python3"
+maintainer="maxice8 <thinkabit.ukim@gmail.com>"
+license="MIT"
+homepage="https://github.com/python/mypy"
+distfiles="https://github.com/python/mypy/archive/v${version}.tar.gz"
+checksum=5539cd4036c67509fb0a3fcb83deb9aeddfa1bbeb60ab5113b685b85bdf0d1c8
+
+post_install() {
+	vlicense LICENSE
+}

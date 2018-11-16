@@ -1,0 +1,39 @@
+# Template file for 'python-natsort'
+pkgname=python-natsort
+version=5.4.1
+revision=2
+noarch=yes
+wrksrc="natsort-${version}"
+build_style=python-module
+pycompile_module="natsort"
+hostmakedepends="python-setuptools python3-setuptools"
+depends="python-setuptools"
+checkdepends="python3-pytest-mock python3-hypothesis"
+short_desc="Simple yet flexible natural sorting in Python2"
+maintainer="Michal Koutenský <koutak.m@gmail.com>"
+license="MIT"
+homepage="https://github.com/SethMMorton/natsort"
+distfiles="${PYPI_SITE}/n/natsort/natsort-${version}.tar.gz"
+checksum=ae73b005135dc152e7b282b2d4cf19380d8cab4c4026461ee9f37bf3aa12e344
+alternatives="natsort:natsort:/usr/bin/natsort2"
+
+do_check() {
+	python3 -m pytest
+}
+
+post_install() {
+	vlicense LICENSE
+}
+
+python3-natsort_package() {
+	noarch=yes
+	pycompile_module="natsort"
+	depends="python3-setuptools"
+	short_desc="${short_desc/Python2/Python3}"
+	alternatives="natsort:natsort:/usr/bin/natsort3"
+	pkg_install() {
+		vmove usr/bin/*3
+		vmove usr/lib/python3*
+		vlicense LICENSE
+	}
+}

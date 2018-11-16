@@ -1,17 +1,18 @@
-# Template build file for 'glib'
+# Template file for 'glib'
 pkgname=glib
-version=2.56.1
+version=2.58.1
 revision=1
 build_style=gnu-configure
 configure_args="--enable-libelf --disable-fam --with-pcre=system --enable-static"
-hostmakedepends="automake libtool pkg-config perl python3 libxslt docbook-xsl"
+hostmakedepends="automake libtool pkg-config python3 libxslt docbook-xsl"
 makedepends="zlib-devel pcre-devel libffi-devel dbus-devel elfutils-devel libmount-devel"
 short_desc="The GNU library of C routines"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
-homepage="http://www.gtk.org/"
 license="LGPL-2.1-or-later"
-distfiles="${GNOME_SITE}/glib/${version%.*}/glib-$version.tar.xz"
-checksum=40ef3f44f2c651c7a31aedee44259809b6f03d3d20be44545cd7d177221c0b8d
+homepage="https://wiki.gnome.org/Projects/GLib"
+changelog="https://gitlab.gnome.org/GNOME/glib/raw/master/NEWS"
+distfiles="${GNOME_SITE}/glib/${version%.*}/glib-${version}.tar.xz"
+checksum=97d6a9d926b6aa3dfaadad3077cfb43eec74432ab455dff14250c769d526d7d6
 
 if [ "$CROSS_BUILD" ]; then
 	hostmakedepends+=" glib-devel"
@@ -22,7 +23,7 @@ if [ "$CROSS_BUILD" ]; then
 fi
 
 pre_configure() {
-	autoreconf -fi
+	NOCONFIGURE=1 ./autogen.sh
 }
 
 libglib-devel_package() {
@@ -32,15 +33,16 @@ libglib-devel_package() {
 		vmove usr/include
 		vmove usr/lib/glib-2.0
 		vmove usr/lib/pkgconfig
-		vmove "usr/lib/*.a"
 		vmove "usr/lib/*.so"
+		vmove "usr/lib/*.a"
 	}
 }
+
 glib-devel_package() {
-	depends="python3 perl libglib-devel>=${version}_${revision}"
+	depends="python3 libglib-devel>=${version}_${revision}"
 	short_desc+=" - development files"
-	pycompile_dirs="/usr/share/glib-2.0"
-	python_version=3
+	pycompile_version="$py3_ver"
+	pycompile_dirs="usr/share/glib-2.0/codegen usr/share/glib-2.0/gdb"
 	pkg_install() {
 		vmove usr/bin/glib-compile-resources
 		vmove usr/bin/glib-genmarshal
@@ -56,7 +58,7 @@ glib-devel_package() {
 		vmove usr/share/man/man1/gdbus-codegen.1
 		vmove usr/share/man/man1/glib-genmarshal.1
 		vmove usr/share/man/man1/gtester-report.1
-		for f in gtk-doc aclocal glib-2.0 gdb; do
+		for f in aclocal glib-2.0 gdb; do
 			vmove usr/share/${f}
 		done
 	}

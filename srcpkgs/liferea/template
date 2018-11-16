@@ -1,18 +1,21 @@
 # Template file for 'liferea'
 pkgname=liferea
-version=1.12.3
+version=1.12.5
 revision=1
+_version=${version}a
+wrksrc="${pkgname}-${_version}"
 build_style=gnu-configure
-makedepends="gtk+3-devel libxslt-devel libsoup-devel webkit2gtk-devel
+makedepends="libxslt-devel webkit2gtk-devel
  json-glib-devel $(vopt_if gir gobject-introspection)
  gsettings-desktop-schemas-devel libpeas-devel python-devel sqlite-devel"
 hostmakedepends="pkg-config intltool"
 short_desc="GTK news aggregator"
 maintainer="Enno Boland <gottox@voidlinux.eu>"
-license="GPL-2"
-homepage="http://lzone.de/liferea/"
-distfiles="https://github.com/lwindolf/liferea/releases/download/v${version}/${pkgname}-${version}.tar.bz2"
-checksum=8f5dfc676c4cc7cc641ad302d61f2f80ee53fb2851ede886c14dd9973162a272
+license="GPL-2.0-or-later"
+homepage="https://lzone.de/liferea/"
+changelog="https://raw.githubusercontent.com/lwindolf/liferea/master/ChangeLog"
+distfiles="https://github.com/lwindolf/liferea/releases/download/v${version}/${pkgname}-${_version}.tar.bz2"
+checksum=566b17524e8573f26f733161bf7d452069c9a534219e882a5a79b36f69a59877
 lib32disabled=yes
 
 build_options="gir"

@@ -1,19 +1,19 @@
 # Template file for 'python3-Telethon'
 pkgname=python3-Telethon
-version=0.19
+version=1.4.1
 revision=1
 noarch=yes
 wrksrc="Telethon-${version}"
 build_style=python3-module
 pycompile_module="telethon telethon_generator"
 hostmakedepends="python3-setuptools"
-depends="python3-pyaes python3-rsa"
+depends="python3-pyaes python3-rsa python3-async_generator"
 short_desc="Pure Python3 Telegram client library"
-maintainer="maxice8 <thinkabit.ukim@gmail.com>"
+maintainer="Orphaned <orphan@voidlinux.eu>"
 license="MIT"
 homepage="https://lonamiwebs.github.io/Telethon"
 distfiles="https://github.com/LonamiWebs/Telethon/archive/v${version}.tar.gz"
-checksum=2072318a146459fbb4acf92dd3ca03aa4a58e4cf147c43d8e016bd191826e097
+checksum=bf9adc4f657813a1e21770e8a39e440d719c92a77c85ac48209b147518b631df
 
 post_install() {
 	vlicense LICENSE

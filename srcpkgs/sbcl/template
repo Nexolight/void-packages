@@ -1,6 +1,6 @@
 # Template file for 'sbcl'
 pkgname=sbcl
-version=1.4.8
+version=1.4.13
 revision=1
 only_for_archs="i686 x86_64 x86_64-musl armv7l aarch64"
 
@@ -11,8 +11,9 @@ short_desc="Steel Bank Common Lisp"
 maintainer="Leah Neukirchen <leah@vuxu.org>"
 license="custom"
 homepage="http://www.sbcl.org/"
+changelog="http://www.sbcl.org/news.html"
 distfiles="${SOURCEFORGE_SITE}/${pkgname}/${pkgname}-${version}-source.tar.bz2"
-checksum=ce24b62b88482621c228a4fd6c802350330b6263e1b1b98460eeb4a81d7fb335
+checksum=75bfef4e2eba160cf0242b6adcd1380d2c525becc8512ce999f49881beb51988
 nocross=yes
 nopie=yes
 
@@ -20,7 +21,7 @@ _bootstrap_lisp="bash ../sbcl-*-linux/run-sbcl.sh --no-sysinit --no-userinit --d
 case "$XBPS_TARGET_MACHINE" in
 x86_64)
 	distfiles+=" ${SOURCEFORGE_SITE}/${pkgname}/${pkgname}-${version}-x86-64-linux-binary.tar.bz2"
-	checksum+=" f0612bbf37de07c4d1213de1cdd108315da1f2251789d0278592b434fa82b044"
+	checksum+=" 534613dad3459a3416a351215b39e91f4e77fb2137e72f193dae65f6ca11deef"
 	;;
 i686)
 	distfiles+=" ${SOURCEFORGE_SITE}/${pkgname}/${pkgname}-1.4.3-x86-linux-binary.tar.bz2"
@@ -30,7 +31,7 @@ arm*)
 	distfiles+=" ${SOURCEFORGE_SITE}/${pkgname}/${pkgname}-1.2.14-armhf-linux-binary.tar.bz2"
 	checksum+=" a5fbf1d596a909a7719bc4a958f00e8537bf399fa051f83736baee950b21e56a"
 	;;
-aarch64*)
+aarch64)
 	distfiles+=" ${SOURCEFORGE_SITE}/${pkgname}/${pkgname}-1.3.9-arm64-linux-binary.tar.bz2"
 	checksum+=" 494829f8e3ea7eb1c308b343cc390daf94a6215030a5f2b9ee0cded67511e918"
 	;;

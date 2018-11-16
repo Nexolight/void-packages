@@ -1,19 +1,25 @@
 # Template file for 'gtkwave'
 pkgname=gtkwave
-version=3.3.89
+version=3.3.93
 revision=1
 build_style=gnu-configure
+configure_args="--with-tcl=${XBPS_CROSS_BASE}/usr/lib --with-tk=${XBPS_CROSS_BASE}/usr/lib"
 hostmakedepends="gperf pkg-config"
 makedepends="gtk+-devel tk-devel"
 short_desc="Fully featured GTK+ based wave viewer"
 maintainer="allan <mail@may.mooo.com>"
 license="GPL-2.0-or-later, MIT"
 homepage="http://gtkwave.sourceforge.net/"
-distfiles="${SOURCEFORGE_SITE}/$pkgname/$pkgname-$version.tar.gz"
-checksum=af10558beed7cec6758fcd4bca989cec117589def29d709b31eaaa3a81f7ebc8
-configure_args="--with-tcl=${XBPS_CROSS_BASE}/usr/lib --with-tk=${XBPS_CROSS_BASE}/usr/lib"
+distfiles="http://gtkwave.sourceforge.net/gtkwave-${version}.tar.gz"
+checksum=da1b9266c079cb05e0ecdbe1a280d7df85b014613984cdce2ce742bd39fd2229
+
+pre_build() {
+	if [ "$CROSS_BUILD" ]; then
+		make -C contrib/pccts/antlr CC=cc LD=ld CFLAGS= LDFLAGS=
+		make -C contrib/pccts/dlg CC=cc LD=ld CFLAGS= LDFLAGS=
+	fi
+}
 
 post_install() {
-	# MIT license
 	vlicense LICENSE.TXT
 }

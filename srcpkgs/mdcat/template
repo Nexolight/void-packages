@@ -1,27 +1,14 @@
 # Template file for 'mdcat'
 pkgname=mdcat
-version=0.8.0
+version=0.11.0
 revision=2
-wrksrc=${pkgname}-${pkgname}-${version}
-hostmakedepends="cargo cmake pkg-config"
+wrksrc="${pkgname}-${pkgname}-${version}"
+build_style=cargo
+hostmakedepends="cmake pkg-config"
 makedepends="libressl-devel"
 short_desc="Cat for markdown"
 maintainer="Wilson Birney <wpb@360scada.com>"
-license="Apache License 2.0"
+license="Apache-2.0"
 homepage="https://github.com/lunaryorn/mdcat"
 distfiles="https://github.com/lunaryorn/mdcat/archive/mdcat-${version}.tar.gz"
-checksum=fb4ce097fff72fb53734568a8a1b96797cbedfbee2aabc2d2a5e8c794b1d5887
-nocross=yes
-
-do_build() {
-	cargo update --package openssl-sys --precise 0.9.28
-	cargo build --release ${makejobs}
-}
-
-do_check() {
-	cargo check --release
-}
-
-do_install() {
-	vbin target/release/${pkgname}
-}
+checksum=0b197d66c98a78ceff7a7ee557695d823dab2254f125d1bcbc21da12b366bfbc

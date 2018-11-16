@@ -1,6 +1,6 @@
 # Template file for 'fio'
 pkgname=fio
-version=3.6
+version=3.12
 revision=1
 wrksrc="${pkgname}-${pkgname}-${version}"
 build_style=configure
@@ -9,10 +9,10 @@ makedepends="zlib-devel libaio-devel"
 depends="python"
 short_desc="Flexible I/O tester"
 maintainer="Leah Neukirchen <leah@vuxu.org>"
-license="GPL-2"
+license="GPL-2.0-only"
 homepage="https://github.com/axboe/fio"
 distfiles="https://github.com/axboe/${pkgname}/archive/${pkgname}-${version}.tar.gz"
-checksum=184982f5cdddada40b08b3d9a82f4de5e698374d9bfdfb7c85d10e9fddf51b8c
+checksum=c9fb079e24bb02413b106a80a20e43b2166ba8681e371a5fb9002b8c9d79bd36
 
 case "$XBPS_TARGET_MACHINE" in
 	i686*|x86_64*) makedepends+=" libnuma-devel"

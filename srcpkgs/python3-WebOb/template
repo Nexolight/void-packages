@@ -1,0 +1,16 @@
+# Template file for 'python3-WebOb'
+pkgname=python3-WebOb
+version=1.8.4
+revision=1
+noarch=yes
+wrksrc="WebOb-${version}"
+build_style=python3-module
+pycompile_module="webob"
+hostmakedepends="python3-setuptools"
+depends="python3"
+short_desc="WSGI request and response object"
+maintainer="maxice8 <thinkabit.ukim@gmail.com>"
+license="MIT"
+homepage="https://webob.org"
+distfiles="${PYPI_SITE}/W/WebOb/WebOb-${version}.tar.gz"
+checksum=a48315158db05df0c47fbdd061b57ba0ba85bdd0b6ea9dca87511b4b7c798e99

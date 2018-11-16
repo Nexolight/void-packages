@@ -1,31 +1,32 @@
 # Template file for 'baloo5'
 pkgname=baloo5
-version=5.43.0
+version=5.52.0
 revision=1
+wrksrc="${pkgname%5}-${version}"
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
-wrksrc="${pkgname%5}-${version}"
 hostmakedepends="extra-cmake-modules"
 makedepends="kfilemetadata5-devel kidletime-devel kio-devel lmdb-devel"
 depends="hicolor-icon-theme"
 short_desc="A framework for searching and managing metadata"
-maintainer="Denis Revin <denis.revin@gmail.com>"
-license="LGPL-2"
+maintainer="John <johnz@posteo.net>"
+license="LGPL-2.1-or-later"
 homepage="https://projects.kde.org/projects/frameworks/baloo5"
-distfiles="http://download.kde.org/stable/frameworks/${version%.*}/${pkgname%5}-${version}.tar.xz"
-checksum=d78a17895b212eb3d081990393787a6687fddc8f1be0de26149f608f0b37bf24
+distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname%5}-${version}.tar.xz"
+checksum=8ddf85c6ae74dac868f37b562b80fdad753888f0c75b97ab26f01bdfc7bf5ea8
 
-if [ -n "$CROSS_BUILD" ]; then
+if [ "$CROSS_BUILD" ]; then
 	hostmakedepends+=" qt5-host-tools qt5-qmake python kcoreaddons"
 	configure_args+=" -DDESKTOPTOJSON_EXECUTABLE=/usr/bin/desktoptojson"
 fi
 
 baloo5-devel_package() {
 	short_desc+=" - development"
-	depends="${makedepends} ${sourcepkg}>=${version}_${revision}"
+	depends="${makedepends} ${sourcepkg}-${version}_${revision}"
 	pkg_install() {
 		vmove usr/include
 		vmove usr/lib/cmake
-		vmove usr/lib/*.so
+		vmove usr/lib/pkgconfig
+		vmove "usr/lib/*.so"
 	}
 }

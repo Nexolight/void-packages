@@ -1,19 +1,19 @@
 # Template file for 'ktexteditor'
 pkgname=ktexteditor
-version=5.43.0
+version=5.52.0
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
 hostmakedepends="extra-cmake-modules pkg-config"
 makedepends="kparts-devel libgit2-devel qt5-xmlpatterns-devel syntax-highlighting-devel"
 short_desc="KDE Full text editor component"
-maintainer="Denis Revin <denis.revin@gmail.com>"
-license="LGPL-2"
+maintainer="John <johnz@posteo.net>"
+license="LGPL-2.0-or-later"
 homepage="https://projects.kde.org/projects/frameworks/ktexteditor"
-distfiles="http://download.kde.org/stable/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=4f75c1f546afd97207bf5eb1d85eb624b28d374da3b8c4ce95720b2d810f1ce6
+distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
+checksum=215c38142a8ca5d001f945f98056463adc808b1c195bca0c505ad69cb4ad03a3
 
-if [ -n "$CROSS_BUILD" ]; then
+if [ "$CROSS_BUILD" ]; then
 	hostmakedepends+=" qt5-host-tools qt5-qmake python kauth kparts"
 	configure_args+=" -DDESKTOPTOJSON_EXECUTABLE=/usr/bin/desktoptojson"
 fi
@@ -25,6 +25,6 @@ ktexteditor-devel_package() {
 		vmove usr/include
 		vmove usr/lib/qt5/mkspecs
 		vmove usr/lib/cmake
-		vmove usr/lib/*.so
+		vmove "usr/lib/*.so"
 	}
 }

@@ -1,16 +1,25 @@
 # Template file for 'usbtop'
 pkgname=usbtop
 version=0.2
-revision=1
+revision=2
 wrksrc="usbtop-release-${version}"
 build_style=cmake
 makedepends="boost-devel libpcap-devel"
 short_desc="Shows an estimated instantaneous bandwidth on USB buses and devices"
-maintainer="cr6git <quark6@protonmail.com>"
+maintainer="Orphaned <orphan@voidlinux.eu>"
 homepage="https://github.com/aguinet/usbtop"
 license="BSD-3-Clause"
 distfiles="https://github.com/aguinet/usbtop/archive/release-${version}.tar.gz"
 checksum=6283454ccbfecab44276344b6bc1bf74e86808fb9f539ca63eb0447d7741487e
+
+LDFLAGS="-lpthread"
+
+pre_configure() {
+	case "$XBPS_TARGET_MACHINE" in
+		*-musl);;
+		*) sed -i -e 's/\${Boost_LIBRARIES}/${Boost_LIBRARIES} "-lpthread"/g' src/CMakeLists.txt;;
+	esac
+}
 
 do_install() {
 	vbin build/src/usbtop

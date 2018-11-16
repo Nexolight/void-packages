@@ -1,6 +1,6 @@
 # Template file for 'elixir'
 pkgname=elixir
-version=1.6.5
+version=1.7.4
 revision=1
 build_style=gnu-makefile
 make_check_target="test"
@@ -12,4 +12,4 @@ maintainer="Duncaen <duncaen@voidlinux.eu>"
 license="Apache-2.0"
 homepage="http://elixir-lang.org/"
 distfiles="https://github.com/elixir-lang/elixir/archive/v${version}.tar.gz"
-checksum=defe2bed953ee729addf1121db3fa42a618ef1d6c57a1f489da03b0e7a626e89
+checksum=c7c87983e03a1dcf20078141a22355e88dadb26b53d3f3f98b9a9268687f9e20

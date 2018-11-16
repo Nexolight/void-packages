@@ -1,12 +1,12 @@
 # Template file for 'bs1770gain'
 pkgname=bs1770gain
-version=0.4.12
+version=0.5.1
 revision=1
 build_style=gnu-configure
 makedepends="ffmpeg-devel sox-devel"
-short_desc="A loudness scanner compliant with ITU-R BS.1770"
+short_desc="Loudness scanner compliant with ITU-R BS.1770"
 maintainer="Michal Koutenský <koutak.m@gmail.com>"
-license="GPL-2"
+license="GPL-2.0-or-later"
 homepage="http://bs1770gain.sourceforge.net"
 distfiles="${SOURCEFORGE_SITE}/${pkgname}/${pkgname}-${version}.tar.gz"
-checksum=cafc5440cf4940939c675e98c8dbeb839f4965d60f74270a37d4ee70559b3a59
+checksum=06749f866417e6bcdb9fb24883cb08ae54248333a532380c7ddc56f7a45a8e64

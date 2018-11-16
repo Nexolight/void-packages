@@ -1,6 +1,6 @@
 # Template file for 'appstream-glib'
 pkgname=appstream-glib
-version=0.7.8
+version=0.7.14
 revision=1
 build_style=meson
 configure_args="-Dgtk-doc=false -Drpm=false -Dstemmer=false
@@ -12,8 +12,9 @@ short_desc="Install and update applications"
 maintainer="Enno Boland <gottox@voidlinux.eu>"
 license="LGPL-2.1-or-later"
 homepage="https://people.freedesktop.org/~hughsient/appstream-glib/"
+changelog="https://raw.githubusercontent.com/hughsie/appstream-glib/master/NEWS"
 distfiles="${homepage}/releases/${pkgname}-${version}.tar.xz"
-checksum=eb0e2cfd5a6070615efea4c87b1fc539f4566085aa5f5b41945f679d9d61dd4c
+checksum=6dccad15f9d9a59dec6d259170a2010ee4a4b87475335a122a5d8b5e654a1a58
 
 build_options="gir"
 if [ -z "$CROSS_BUILD" ]; then
@@ -37,7 +38,6 @@ appstream-glib-devel_package() {
 		vmove "usr/lib/*.so"
 		vmove usr/share/aclocal
 		if [ "$build_option_gir" ]; then
-			vmove usr/lib/girepository-1.0
 			vmove usr/share/gir-1.0
 		fi
 	}

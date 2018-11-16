@@ -1,16 +1,17 @@
 # Template file for 'kiwix-tools'
 pkgname=kiwix-tools
-version=0.4.0
+version=0.8.0
 revision=1
 build_style=meson
 hostmakedepends="pkg-config"
 makedepends="kiwix-lib-devel zlib-devel libmicrohttpd-devel libuuid-devel ctpp2-devel"
 short_desc="Kiwix command line tools"
 maintainer="John <johnz@posteo.net>"
-license="GPL-3"
+license="GPL-3.0-or-later"
 homepage="https://kiwix.org"
+changelog="https://github.com/kiwix/kiwix-tools/blob/${version}/Changelog"
 distfiles="https://github.com/kiwix/kiwix-tools/archive/${version}.tar.gz"
-checksum=168d2616c2f1829c897462e1f7557ca3b352d6baef80d0a1f3499748031f00cd
+checksum=4cf3289670d42cdc9a5c9145544f9936aa0a2f125582b36ac843177f69487295
 
 if [ "$CROSS_BUILD" ]; then
 	hostmakedepends+=" kiwix-lib-devel"

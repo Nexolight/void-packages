@@ -1,17 +1,18 @@
 # Template file for 'knotifications'
 pkgname=knotifications
-version=5.43.0
+version=5.52.0
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
 hostmakedepends="extra-cmake-modules qt5-qmake qt5-host-tools qt5-tools"
-makedepends="kwindowsystem-devel kcodecs-devel kconfig-devel kcoreaddons-devel phonon-qt5-devel libdbusmenu-qt5-devel"
+makedepends="kwindowsystem-devel kcodecs-devel kconfig-devel
+ kcoreaddons-devel phonon-qt5-devel libdbusmenu-qt5-devel"
 short_desc="KDE Desktop notifications"
-maintainer="Denis Revin <denis.revin@gmail.com>"
-license="LGPL-2"
+maintainer="John <johnz@posteo.net>"
+license="LGPL-2.1-or-later"
 homepage="https://projects.kde.org/projects/frameworks/knotifications"
-distfiles="http://download.kde.org/stable/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=3baa47288f3fa8ac1ca62938a812251a4ef0874c287110842aada78f062cf64d
+distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
+checksum=27e24b0fa30bf529953125087bc0cbf2f7fba9e524ce48596fc26062c8af7656
 
 knotifications-devel_package() {
 	short_desc+=" - development"
@@ -20,6 +21,6 @@ knotifications-devel_package() {
 		vmove usr/include
 		vmove usr/lib/qt5/mkspecs
 		vmove usr/lib/cmake
-		vmove usr/lib/*.so
+		vmove "usr/lib/*.so"
 	}
 }

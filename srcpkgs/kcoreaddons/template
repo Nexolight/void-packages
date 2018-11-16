@@ -1,6 +1,6 @@
 # Template file for 'kcoreaddons'
 pkgname=kcoreaddons
-version=5.43.0
+version=5.52.0
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
@@ -8,11 +8,11 @@ hostmakedepends="extra-cmake-modules qt5-qmake qt5-host-tools qt5-tools-devel"
 makedepends="qt5-devel qt5-tools-devel gamin-devel"
 depends="shared-mime-info"
 short_desc="Qt5 addon library with a collection of non-GUI utilities"
-maintainer="Denis Revin <denis.revin@gmail.com>"
-license="LGPL-2"
+maintainer="John <johnz@posteo.net>"
+license="LGPL-2.0-or-later, LGPL-2.1-or-later"
 homepage="https://projects.kde.org/projects/frameworks/kcoreaddons"
-distfiles="http://download.kde.org/stable/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=c67f008b79365913cbb8c62d2b1b48353c1302f6a351a9bc34b874b18392ef82
+distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
+checksum=49aaae09f4196f2aef7b78ea2ee4d290bbedd9fe3831680197e3a767697c78d3
 
 kcoreaddons-devel_package() {
 	short_desc+=" - development"
@@ -21,6 +21,6 @@ kcoreaddons-devel_package() {
 		vmove usr/include
 		vmove usr/lib/qt5/mkspecs
 		vmove usr/lib/cmake
-		vmove usr/lib/*.so
+		vmove "usr/lib/*.so"
 	}
 }

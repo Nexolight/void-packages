@@ -1,28 +1,33 @@
 # Template file for 'gnome-settings-daemon'
 pkgname=gnome-settings-daemon
-version=3.28.1
+version=3.30.1.2
 revision=1
 build_style=meson
-hostmakedepends="docbook-xsl glib-devel intltool itstool libxslt pkg-config"
-makedepends="NetworkManager-devel alsa-lib-devel geoclue2-devel
- gnome-desktop-devel ibus-devel libcanberra-devel libgnomekbd-devel
+hostmakedepends="docbook-xsl glib-devel libglib-devel libxslt perl pkg-config"
+makedepends="NetworkManager-devel alsa-lib-devel colord-devel cups-devel
+ geoclue2-devel gnome-desktop-devel ibus-devel libcanberra-devel libgnomekbd-devel
  libgweather-devel libnotify-devel librsvg-devel libwacom-devel nss-devel
  polkit-devel pulseaudio-devel startup-notification-devel upower-devel
  xf86-input-wacom-devel"
 depends="hicolor-icon-theme pulseaudio"
+checkdepends="elogind libnotify python3-dbusmock python3-gobject
+ python3-pycodestyle"
 short_desc="GNOME settings daemon"
 maintainer="Enno Boland <gottox@voidlinux.eu>"
 license="GPL-3.0-or-later"
-homepage="https://www.gnome.org"
-distfiles="${GNOME_SITE}/$pkgname/${version%.*}/$pkgname-$version.tar.xz"
-checksum=594f78e194eb42a6f77785d1a92a4cb9cda54b8c3af6ca0c315b4570d38d2d7d
+homepage="https://gitlab.gnome.org/GNOME/gnome-settings-daemon"
+distfiles="${GNOME_SITE}/${pkgname}/${version%.*.*}/${pkgname}-${version}.tar.xz"
+checksum=5cdcf64f6e41fe1816e719850709e8e7a53a11460955f2be77fcee9c80812d1d
 
-pre_configure() {
-	# XXX workaround wrong paths for build
-	if [ "$CROSS_BUILD" ]; then
-		sed -i "s#^GEOCLUE_DBUS_INTERFACE_XML=#\0${XBPS_CROSS_BASE}#" configure
-	fi
+if [ "$CROSS_BUILD" ]; then
+	hostmakedepends+=" polkit"
+fi
+
+post_extract() {
+	# drop flaky test
+	sed "/test(/d" -i plugins/color/meson.build
 }
+
 gnome-settings-daemon-devel_package() {
 	depends="libglib-devel"
 	short_desc+=" - development files"

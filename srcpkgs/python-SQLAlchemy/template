@@ -1,6 +1,6 @@
 # Template file for 'python-SQLAlchemy'
 pkgname=python-SQLAlchemy
-version=1.2.7
+version=1.2.13
 revision=1
 wrksrc="${pkgname#*-}-${version}"
 build_style=python-module
@@ -9,10 +9,10 @@ makedepends="python-devel python3-devel"
 pycompile_module="sqlalchemy"
 short_desc="SQL Toolkit and Object Relational Mapper for Python2"
 maintainer="Alessio Sergi <al3hex@gmail.com>"
-homepage="http://www.sqlalchemy.org/"
+homepage="https://www.sqlalchemy.org/"
 license="MIT"
 distfiles="${PYPI_SITE}/S/SQLAlchemy/SQLAlchemy-${version}.tar.gz"
-checksum=d6cda03b0187d6ed796ff70e87c9a7dce2c2c9650a7bc3c022cd331416853c31
+checksum=84412de3794acee05630e7788f25e80e81f78eb4837e7b71d0499129f660486a
 
 post_install() {
 	vlicense LICENSE

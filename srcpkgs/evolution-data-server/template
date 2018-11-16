@@ -1,22 +1,22 @@
 # Template file for 'evolution-data-server'
 pkgname=evolution-data-server
-version=3.28.2
-revision=1
+version=3.30.2
+revision=2
 build_style=cmake
-configure_args="-DENABLE_GOOGLE_AUTH=OFF -DENABLE_UOA=OFF
+configure_args="-DENABLE_UOA=OFF
  $(vopt_if gir '-DENABLE_INTROSPECTION=ON -DENABLE_VALA_BINDINGS=ON' '-DENABLE_WEATHER=OFF')"
-hostmakedepends="flex glib-devel gperf intltool pkg-config
+hostmakedepends="flex glib-devel gperf intltool pkg-config libglib-devel
  $(vopt_if gir 'gobject-introspection')"
-makedepends="libgdata-devel $(vopt_if gir libgweather-devel) libical-devel libsecret-devel
- mit-krb5-devel $(vopt_if gir 'vala-devel') webkit2gtk-devel"
+makedepends="libcanberra-devel libgdata-devel $(vopt_if gir libgweather-devel)
+ libical-devel libsecret-devel mit-krb5-devel $(vopt_if gir 'vala-devel') webkit2gtk-devel"
 depends="$(vopt_if gir libgweather) libsoup-gnome"
 short_desc="Centralized access to appointments and contacts"
 maintainer="Enno Boland <gottox@voidlinux.eu>"
 license="LGPL-2.1-only"
-#changelog="https://raw.githubusercontent.com/GNOME/evolution-data-server/gnome-3-28/NEWS"
 homepage="https://wiki.gnome.org/Apps/Evolution"
-distfiles="${GNOME_SITE}/$pkgname/${version%.*}/$pkgname-$version.tar.xz"
-checksum=531a790182dc6b6b2d0421feb34489c7ddf5cc807e9cffbb87461d13e047f3ab
+changelog="https://raw.githubusercontent.com/GNOME/evolution-data-server/gnome-3-30/NEWS"
+distfiles="${GNOME_SITE}/${pkgname}/${version%.*}/${pkgname}-${version}.tar.xz"
+checksum=5b3ab1557ea27475e5f78014ae5a4a989179cbf8c98ce7e26bd70b7767388e40
 
 build_options="gir"
 if [ -z "$CROSS_BUILD" ]; then
@@ -40,11 +40,6 @@ pre_configure() {
 	if [ "$CROSS_BUILD" ]; then
 		cp ${FILESDIR}/disableRuntimeTests.cmake ${wrksrc}/build/.
 	fi
-}
-post_install() {
-	# Fix broken pkg-config
-	sed -i "s|^Requires: gio-2.0, , |Requires: gio-2.0, mozilla-nspr, mozilla-nss|" \
-		$DESTDIR/usr/lib/pkgconfig/evolution-data-server-1.2.pc
 }
 
 evolution-data-server-devel_package() {

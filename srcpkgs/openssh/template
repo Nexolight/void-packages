@@ -1,6 +1,6 @@
 # Template file for 'openssh'
 pkgname=openssh
-version=7.7p1
+version=7.9p1
 revision=2
 build_style=gnu-configure
 configure_args="--datadir=/usr/share/openssh
@@ -19,10 +19,10 @@ makedepends="libedit-devel pam-devel zlib-devel
  $(vopt_if ssl 'libressl-devel')"
 short_desc="The OpenSSH implementation of SSH protocol"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
-homepage="http://www.openssh.org"
-license="BSD"
-distfiles="http://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/$pkgname-$version.tar.gz"
-checksum=d73be7e684e99efcd024be15a30bffcbe41b012b2f7b3c9084aed621775e6b8f
+homepage="https://www.openssh.com"
+license="BSD-2-Clause, ISC"
+distfiles="https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/$pkgname-$version.tar.gz"
+checksum=6b4b3ba2253d84ed3771c8050728d597c91cfce898713beb7b64a305b6f11aad
 conf_files="/etc/ssh/moduli /etc/ssh/ssh_config /etc/ssh/sshd_config /etc/pam.d/sshd"
 make_dirs="/var/chroot/ssh 0755 root root"
 
@@ -41,7 +41,7 @@ case $XBPS_TARGET_MACHINE in
 esac
 
 if [ "$XBPS_GCC_VERSION_MAJOR" -ge 7 ]; then
-	CFLAGS+=" -Wno-format-truncation"
+	CFLAGS+=" -Wno-format-truncation -Wno-stringop-truncation"
 fi
 
 pre_configure() {

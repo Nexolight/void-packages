@@ -1,27 +1,23 @@
 # Template file for 'Signal-Desktop'
 pkgname=Signal-Desktop
-version=1.7.1
+version=1.14.4
 revision=1
-hostmakedepends="git python nodejs-lts"
+hostmakedepends="git python nodejs-lts yarn"
 depends="libnotify libappindicator"
 short_desc="Signal Private Messenger for Linux"
 maintainer="Julio Galvan <juliogalvan@protonmail.com>"
-license="GPL-3"
+license="GPL-3.0-only"
 homepage="https://github.com/signalapp/Signal-Desktop"
 distfiles="https://github.com/signalapp/Signal-Desktop/archive/v${version}.tar.gz"
-checksum=188fe8c17ccf49609467ab59ea6321beb7ee71e00da7b419249d205ebf80d13d
+checksum=538c50de7fb2bd442e470f5128a76ddb07490f612a597183d342a95f26b89940
 # Due to electron
 only_for_archs="x86_64 i686"
 nostrip_files="signal-desktop"
 
-post_extract() {
-	sed -i "s/'sass', 'date'/'sass'/g" Gruntfile.js
-}
-
 do_build() {
-	npm install -g yarn
 	yarn install --ignore-engines
-	yarn pack-prod
+	yarn grunt
+	yarn build-release --dir
 }
 
 do_install() {
@@ -30,9 +26,8 @@ do_install() {
 	case "$XBPS_TARGET_MACHINE" in
 		i686*) _ARCH="-ia32-";;
 		x86_64*) _ARCH="-";;
-		*) _ARCH="-${XBPS_TARGET_MACHINE%-musl}-";;
 	esac
-	vcopy dist/linux${_ARCH}unpacked/* usr/share/signal-desktop
+	vcopy release/linux${_ARCH}unpacked/* usr/share/signal-desktop
 
 	vmkdir usr/bin
 	ln -s /usr/share/signal-desktop/signal-desktop ${DESTDIR}/usr/bin/
@@ -41,8 +36,7 @@ do_install() {
 	vcopy ${FILESDIR}/signal.desktop usr/share/applications/
 
 	vmkdir usr/share/icons/hicolor
-	for size in 16 24 32 48 64 128 256 512; do
-		vinstall build/icons/png/${size}x${size}.png 644 usr/share/icons/hicolor/${size}x${size}/apps/	signal.png
+	for size in 16 32 48 128 256 1024; do
+		vinstall images/icon_${size}.png 644 usr/share/icons/hicolor/${size}x${size}/apps/	signal.png
 	done
-	npm remove -g yarn
 }

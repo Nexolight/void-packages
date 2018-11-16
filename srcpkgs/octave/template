@@ -1,19 +1,19 @@
 # Template file for 'octave'
 pkgname=octave
-version=4.2.2
-revision=2
+version=4.4.1
+revision=5
 build_style=gnu-configure
-configure_args=" --with-blas=openblas --with-lapack=openblas
- $(vopt_if largearrays --enable-64)"
+configure_args=" --with-blas=openblas --with-lapack=openblas"
 hostmakedepends="perl gcc-fortran pkg-config gnuplot"
 makedepends="pcre-devel openblas-devel readline-devel libSM-devel libltdl-devel
  lcms2-devel glpk-devel"
+depends="$(vopt_if gui qt5-plugin-sqlite) texinfo"
 short_desc="High-level language, primarily intended for numerical computations"
 maintainer="Diogo Leal <diogo@diogoleal.com>"
-license="GPL-3"
+license="GPL-3.0-or-later"
 homepage="https://gnu.org/software/octave/"
 distfiles="${GNU_SITE}/octave/octave-${version}.tar.gz"
-checksum=77b84395d8e7728a1ab223058fe5e92dc38c03bc13f7358e6533aab36f76726e
+checksum=09fbd0f212f4ef21e53f1d9c41cf30ce3d7f9450fb44911601e21ed64c67ae97
 
 # Package build options
 # TODO: some options are still missing, such as
@@ -27,7 +27,6 @@ build_options="
 	gui
 	hdf5
 	imagemagick
-	largearrays
 	opengl
 	openmp
 	qhull
@@ -44,7 +43,6 @@ desc_option_gui="Graphical User Interface."
 desc_option_graphicsmagick="Provides 'imread' and 'imwrite' functions."
 desc_option_hdf5="Support for HDF data files."
 desc_option_imagemagick="Provides 'imread' and 'imwrite' functions."
-desc_option_largearrays="Enable large array (64bit pointers)." #req. 64bit BLAS
 desc_option_qhull="Provides 'convhull{,n}', 'delaunay{,n}' and 'voronoi{,n}' functions."
 desc_option_openmp="Enable support for OpenMP SMP multi-threading"
 desc_option_zlib="Support for compressed data."
@@ -69,7 +67,7 @@ makedepends+="
 	$(vopt_if curl libcurl-devel)
 	$(vopt_if fftw3 fftw-devel)
 	$(vopt_if graphicsmagick libgraphicsmagick-devel)
-	$(vopt_if gui 'qt5-devel qscintilla-qt5-devel')
+	$(vopt_if gui 'qt5-devel qscintilla-qt5-devel qt5-tools-devel')
 	$(vopt_if hdf5 hdf5-devel)
 	$(vopt_if imagemagick libmagick-devel)
 	$(vopt_if opengl "glu-devel fltk-devel fontconfig-devel freetype-devel gl2ps-devel")
@@ -90,6 +88,6 @@ post_build() {
 
 post_install() {
 	# add helper to launch octave from dmenu etc.
-	printf "#!/bin/sh\noctave --force-gui" > octave-gui
+	printf "#!/bin/sh\noctave --gui" > octave-gui
 	vbin octave-gui
 }

@@ -1,27 +1,27 @@
 # Template file for 'dovecot'
 # revbump dovecot-plugin-pigeonhole when updating dovecot!
 pkgname=dovecot
-version=2.3.1
-revision=3
+version=2.3.3
+revision=2
 build_style=gnu-configure
 configure_args="--with-moduledir=/usr/lib/dovecot/modules --with-sql=plugin
  --disable-static --with-pam --with-mysql --with-pgsql --with-lucene
  --with-sqlite --with-ssl=openssl --with-ssldir=/etc/dovecot/ssl
  --with-gssapi --with-ldap=plugin --with-zlib --with-bzlib --with-lzma
  --with-lz4 --with-libcap --with-solr --with-docs --sbindir=/usr/bin"
-short_desc="IMAP and POP3 server written with security primarily in mind"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-license="LGPL-2.1-or-later"
-homepage="http://dovecot.org"
-distfiles="${homepage}/releases/2.3/${pkgname}-${version}.tar.gz"
-checksum=0883821b97fd02a084a84b9469a681f7e6edc56541d854b5419d98891c51fb93
-keep_libtool_archives=yes
-
-hostmakedepends="pkg-config"
+hostmakedepends="pkg-config perl"
 makedepends="
  liblz4-devel zlib-devel bzip2-devel liblzma-devel libressl-devel mit-krb5-devel
  libmysqlclient-devel postgresql-libs-devel sqlite-devel clucene-devel
  libldap-devel libcap-devel pam-devel libcurl-devel expat-devel libsodium-devel"
+short_desc="IMAP and POP3 server written with security primarily in mind"
+maintainer="Juan RP <xtraeme@voidlinux.eu>"
+license="LGPL-2.1-or-later"
+homepage="https://dovecot.org"
+distfiles="${homepage}/releases/2.3/${pkgname}-${version}.tar.gz"
+checksum=15af27ee25258afb4ad9581f8df681be998b763597086bbae54ca7d77a066d8e
+keep_libtool_archives=yes
+
 
 if [ "$CROSS_BUILD" ]; then
 	configure_args+="
@@ -42,9 +42,7 @@ fi
 
 # For SSL support.
 depends="ca-certificates"
-system_accounts="dovecot dovenull"
-dovecot_homedir="/var/chroot"
-dovenull_homedir="/var/chroot"
+system_accounts="_dovecot _dovenull"
 conf_files="/etc/dovecot/*.conf /etc/dovecot/conf.d/*.conf /etc/ssl/dovecot-openssl.cnf"
 
 post_install() {

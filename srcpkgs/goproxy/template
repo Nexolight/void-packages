@@ -1,0 +1,13 @@
+# Template file for 'goproxy'
+pkgname=goproxy
+version=6.5
+revision=1
+build_style=go
+go_import_path=github.com/snail007/goproxy
+hostmakedepends="git"
+short_desc="High performance HTTP(S), websocket, TCP, UDP, Socks5 proxy server"
+maintainer="Orphaned <orphan@voidlinux.eu>"
+license="GPL-3.0-or-later"
+homepage="https://github.com/snail007/goproxy"
+distfiles="https://github.com/snail007/goproxy/archive/v${version}.tar.gz"
+checksum=356e8a04860fa3a9b50b162328be7f457cd9495693fc4b2831fcb4675f05c3a4

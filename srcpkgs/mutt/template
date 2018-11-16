@@ -1,6 +1,6 @@
 # Template file for 'mutt'
 pkgname=mutt
-version=1.9.5
+version=1.10.1
 revision=2
 build_style=gnu-configure
 configure_args="--enable-pop --enable-imap --enable-smtp --enable-hcache
@@ -11,14 +11,14 @@ hostmakedepends="libidn-devel perl pkg-config"
 makedepends="gdbm-devel gpgme-devel libidn-devel libressl-devel libsasl-devel
  ncurses-devel"
 depends="mime-types"
-conf_files="/etc/$pkgname/Muttrc"
+conf_files="/etc/${pkgname}/Muttrc"
 short_desc="The Mutt Mail Client"
 maintainer="Jan S. <jan.schreib@gmail.com>"
 license="GPL-2.0-or-later"
-# changelog="http://www.mutt.org/doc/PGP-Notes.txt"
 homepage="http://www.mutt.org"
+changelog="http://mutt.org/relnotes/1.10"
 distfiles="http://ftp.mutt.org/pub/mutt/${pkgname}-${version}.tar.gz"
-checksum=bf617e64ae4e08a998bef8e42a965a211587e051f1437a3a4884b351a9385753
+checksum=734a3883158ec3d180cf6538d8bd7f685ce641d2cdef657aa0038f76e79a54a0
 
 provides="mutt-0_1"
 # Begin alternatives:

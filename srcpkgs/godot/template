@@ -1,10 +1,10 @@
 # Template file for 'godot'
 pkgname=godot
-version=3.0.2
+version=3.0.6
 revision=2
 wrksrc="${pkgname}-${version}-stable"
 build_style=scons
-hostmakedepends="scons pkg-config clang"
+hostmakedepends="pkg-config clang"
 makedepends="
  alsa-lib-devel freetype-devel glu-devel libXcursor-devel libXi-devel
  libXinerama-devel libXrender-devel libXrandr-devel libressl-devel libX11-devel"
@@ -13,14 +13,12 @@ maintainer="Nick Hahn <nick.hahn@hotmail.de>"
 license="MIT"
 homepage="https://www.godotengine.org/"
 distfiles="https://github.com/godotengine/${pkgname}/archive/${version}-stable.tar.gz"
-checksum=15bc91dcbc92fe49624118678fcab119ff332dc295b25f4921700a4ee498b651
+checksum=50431e021ee5ec21002cc23435f530f8fde518c6eb7085c9f7f1027abaae2581
 # Godot contains private copies of libraries
 # that already have been packaged elsewhere.
-make_build_args="use_llvm=yes platform=x11 tools=yes target=release_debug colored=yes pulseaudio=no"
-nocross="https://build.voidlinux.eu/builders/armv7l_builder/builds/6342/steps/shell_3/logs/stdio"
+make_build_args="use_llvm=yes platform=x11 tools=yes target=release_debug dev=no progress=no pulseaudio=no"
+nocross=https://build.voidlinux.eu/builders/armv7l_builder/builds/6342/steps/shell_3/logs/stdio
 
-# Specifing nopie=yes crashes clang, because -no-pie is not implemented,
-# only -no-pie is
 CFLAGS+=" -fPIE -fPIC"
 LDFLAGS+=" -pie"
 

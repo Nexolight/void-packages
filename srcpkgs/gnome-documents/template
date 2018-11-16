@@ -1,31 +1,24 @@
 # Template file for 'gnome-documents'
 pkgname=gnome-documents
-version=3.28.0
+version=3.30.0
 revision=1
-lib32disabled=yes
 build_style=meson
-hostmakedepends="pkg-config intltool itstool docbook-xsl $(vopt_if gir gobject-introspection)"
-makedepends="
- clutter-gtk-devel gnome-desktop-devel libzapojit-devel
- gnome-online-accounts-devel libgdata-devel tracker-devel
- evince-devel gjs-devel libsoup-gnome-devel vala-devel
- webkit2gtk-devel librsvg-devel libgepub-devel"
-depends="desktop-file-utils hicolor-icon-theme libgepub
- tracker tracker-miners"
+hostmakedepends="docbook-xsl intltool itstool pkg-config
+ $(vopt_if gir 'gobject-introspection')"
+makedepends="clutter-gtk-devel evince-devel gjs-devel gnome-desktop-devel
+ libgdata-devel libgepub-devel librsvg-devel libzapojit-devel tracker-devel
+ vala-devel webkit2gtk-devel"
+depends="desktop-file-utils hicolor-icon-theme libgepub tracker tracker-miners
+ gjs gnome-online-miners evince"
 short_desc="Documents Manager for GNOME"
 maintainer="Enno Boland <gottox@voidlinux.eu>"
+license="GPL-2.0-or-later"
 homepage="https://wiki.gnome.org/Apps/Documents"
-license="GPL-2"
-distfiles="${GNOME_SITE}/$pkgname/${version%.*}/$pkgname-$version.tar.xz"
-checksum=0a320e9713c2ebbf345f9865e19ba7a4e56ecc144da3bdd74000c8345f2a989c
+distfiles="${GNOME_SITE}/${pkgname}/${version%.*}/${pkgname}-${version}.tar.xz"
+checksum=066a4aba215926d5c5b0db1c083eba3e40c2a888c9017973af8faac4ae9c907d
+lib32disabled=yes
 
 build_options="gir"
 if [ -z "$CROSS_BUILD" ]; then
 	build_options_default+=" gir"
 fi
-
-CFLAGS="-I${XBPS_CROSS_BASE}/usr/include/libgepub-0.6/"
-LDFLAGS="-lgepub-0.6"
-pre_configure() {
-	sed '/libgepub-0.6/d' -i meson.build;
-}

@@ -1,11 +1,11 @@
 # Template file for 'codecrypt'
 pkgname=codecrypt
 version=1.8
-revision=1
+revision=2
 build_style=gnu-configure
 hostmakedepends="automake libtool pkg-config"
 makedepends="crypto++-devel fftw-devel gmp-devel"
-maintainer="cr6git <quark6@protonmail.com>"
+maintainer="Orphaned <orphan@voidlinux.eu>"
 short_desc="Post-quantum cryptography tool"
 homepage="https://e-x-a.org/codecrypt"
 license="LGPL-3"

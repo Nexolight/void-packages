@@ -1,22 +1,24 @@
 # Template file for 'gedit'
 pkgname=gedit
-version=3.28.1
-revision=2
+version=3.30.2
+revision=1
 build_style=gnu-configure
-configure_args="--disable-schemas-compile --enable-zeitgeist
- --enable-python --enable-gvfs-metadata $(vopt_enable gir introspection)"
+pycompile_module="gi/overrides"
+pycompile_dirs="usr/lib/gedit/plugins"
+configure_args="--disable-schemas-compile --enable-python --enable-gvfs-metadata
+ $(vopt_enable gir introspection)"
 hostmakedepends="gnome-doc-utils intltool itstool pkg-config
  $(vopt_if gir 'gobject-introspection')"
 makedepends="gsettings-desktop-schemas-devel gspell-devel gtksourceview-devel
- libpeas-devel $(vopt_if gir 'python-gobject-devel') zeitgeist-devel"
-depends="desktop-file-utils gsettings-desktop-schemas gnome-icon-theme
- iso-codes zeitgeist"
+ libpeas-devel $(vopt_if gir 'python-gobject-devel')"
+depends="desktop-file-utils gsettings-desktop-schemas
+ iso-codes"
 short_desc="A text editor for GNOME"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-homepage="http://www.gnome.org"
+maintainer="Rasmus Thomsen <rasmus.thomsen@protonmail.com>"
+homepage="https://wiki.gnome.org/Apps/Gedit"
 license="GPL-2.0-or-later"
 distfiles="${GNOME_SITE}/${pkgname}/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=f174be0958ce63771fef9a81d06da6769358dab8705364a6abb5c7d10ec8211d
+checksum=eaf3b17856a0fb7c6f363c2ebbf4f26c5be6eb6552a49e58c44aee0fcb789163
 nocross="requires libpeas which requires girepository which is not cross"
 
 build_options="gir"

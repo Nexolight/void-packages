@@ -1,6 +1,6 @@
 # Template file for 'bfs'
 pkgname=bfs
-version=1.2.1
+version=1.2.4
 revision=1
 build_style=gnu-makefile
 short_desc="Breadth-first version of the UNIX find command"
@@ -8,7 +8,11 @@ maintainer="maxice8 <thinkabit.ukim@gmail.com>"
 license="0BSD"
 homepage="https://github.com/tavianator/bfs"
 distfiles="https://github.com/tavianator/bfs/archive/${version}.tar.gz"
-checksum=e3e7fb7d8d7508b0b9e789b32c492d962b5726f9b6b7951cf3359c97d47b2f82
+checksum=99612daa60f3c6d3dd9c0fd92c1e12f4a975b7a3fad700dcad5796262e17674f
+
+case "$XBPS_TARGET_MACHINE" in
+	*-musl) broken="requires STATX macros" ;;
+esac
 
 post_install() {
 	vlicense COPYING

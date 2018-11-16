@@ -1,23 +1,36 @@
 # Template file for 'gnome-builder'
 pkgname=gnome-builder
-version=3.28.2
+version=3.30.2
 revision=1
 build_style=meson
+configure_args="-Dwith_webkit=true"
 hostmakedepends="appdata-tools desktop-file-utils flex gobject-introspection
  gspell-devel llvm mm-common vala"
-makedepends="clang devhelp-devel flatpak-devel gtksourceview-devel
- json-glib-devel jsonrpc-glib-devel libdazzle-devel libgit2-glib-devel
- libpeas-devel sysprof-devel template-glib-devel vala-devel vte3-devel"
+makedepends="cairo-devel clang devhelp-devel enchant2-devel flatpak-devel
+ gspell-devel gtksourceview4-devel gtk+3-devel json-glib-devel jsonrpc-glib-devel
+ libdazzle-devel libgit2-glib-devel libglib-devel libostree-devel libpeas-devel
+ libxml2-devel template-glib-devel vala-devel vte3-devel webkit2gtk-devel"
 depends="desktop-file-utils flatpak-builder python3-lxml"
 short_desc="IDE for GNOME"
 maintainer="Enno Boland <gottox@voidlinux.eu>"
-homepage="https://wiki.gnome.org/Apps/Builder"
 license="GPL-2.0-or-later"
-distfiles="${GNOME_SITE}/$pkgname/${version%.*}/$pkgname-$version.tar.xz"
-checksum=398baaf8b14407a666b9d9eddbe9bde0812a86479f534085080149bd3271372e
+homepage="https://wiki.gnome.org/Apps/Builder"
+changelog="https://gitlab.gnome.org/GNOME/gnome-builder/raw/gnome-builder-3-30/NEWS"
+distfiles="${GNOME_SITE}/${pkgname}/${version%.*}/${pkgname}-${version}.tar.xz"
+checksum=39b72e2934e72d86ba48a6b96c60bdf850c07000acf5c4770f03bdb4e3e9ca17
 
 case "$XBPS_TARGET_MACHINE" in
 	*-musl) makedepends+=" libexecinfo-devel"
 		LIBS+=" -lexecinfo"
+		configure_args+=" -Dwith_sysprof=false"
+		;;
+	*)
+		makedepends+=" sysprof-devel"
+		configure_args+=" -Dwith_sysprof=true"
 		;;
 esac
+
+do_check() {
+	# Need X
+	:
+}

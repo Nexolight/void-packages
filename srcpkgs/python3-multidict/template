@@ -1,22 +1,29 @@
 # Template file for 'python3-multidict'
 pkgname=python3-multidict
-version=4.3.1
+version=4.4.2
 revision=1
 wrksrc="multidict-${version}"
 build_style=python3-module
 pycompile_module="multidict"
 hostmakedepends="python3-Cython python3-setuptools"
 makedepends="python3-devel"
-checkdepends="python3-pytest python3-perf"
+checkdepends="python3-pytest"
 short_desc="Multidict implementation from aiohttp"
 maintainer="Michael Aldridge <maldridge@VoidLinux.eu>"
 license="Apache-2.0"
 #changelog="https://raw.githubusercontent.com/aio-libs/multidict/master/docs/changes.rst"
 homepage="https://github.com/aio-libs/multidict"
 distfiles="https://github.com/aio-libs/multidict/archive/v${version}.tar.gz"
-checksum=2d4f7249a11bd4387e2bbb8a29267be927db86b50d1beff9c0f6b53e00d81a65
+checksum=5caa32ec9fd170b589c804e9e741da5226473174eab6af813bc0183db1f52c1b
 
 do_check() {
-	sed -i 's|--cov=multidict||g' pytest.ini
-	python3 setup.py test
+	# don't use pytest-runner
+	sed -i '/setup_requires=/d' setup.py
+
+	# don't enable coverage for tests
+	sed -i 's/pytest-cov//' setup.py
+	sed -i '/addopts/d' pytest.ini
+
+	cp -f build/lib.linux-*/multidict/*.so multidict
+	python3 -m pytest
 }

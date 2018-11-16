@@ -1,27 +1,17 @@
 # Template file for 'gifski'
 pkgname=gifski
-version=0.8.0
-revision=1
-hostmakedepends="cargo"
+version=0.8.5
+revision=2
+build_style=cargo
+configure_args="--features=openmp"
 makedepends="libgomp-devel"
-maintainer="cr6git <quark6@protonmail.com>"
 short_desc="Highest-quality GIF encoder based on pngquant"
+maintainer="Orphaned <orphan@voidlinux.eu>"
+license="AGPL-3.0-only"
 homepage="https://gif.ski"
-license="AGPL-3"
 distfiles="https://github.com/ImageOptim/gifski/archive/${version}.tar.gz"
-checksum=f3cab822dd41de17ba4fdc3b8d379b469404573b1a4adcb5f9c9385a7a927760
+checksum=0c4f946e873e26777423e1bab37392220aec9382ae818866d2e3a52b3c976cf1
 
-# cargo:warning=armv7l-linux-gnueabihf-gcc: error: unrecognized command line option '-m64'
-# cargo:warning=armv7l-linux-gnueabihf-gcc: error: unrecognized command line option '-msse'; did you mean '-fdse'?
-# cargo:warning=aarch64-linux-gnu-gcc: error: unrecognized command line option '-m64'
-# cargo:warning=aarch64-linux-gnu-gcc: error: unrecognized command line option '-msse'; did you mean '-fdse'?
-nocross=yes
-
-do_build() {
-	cargo build --release --features=openmp
-}
-
-do_install() {
-	vbin target/release/gifski
+post_install() {
 	vlicense LICENSE
 }

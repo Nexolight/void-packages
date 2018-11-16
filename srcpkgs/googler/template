@@ -1,16 +1,16 @@
 # Template file for 'googler'
 pkgname=googler
-version=3.6
+version=3.7.1
 revision=1
 build_style=gnu-makefile
-depends="python3 xsel"
+depends="python3 xsel xclip"
 short_desc="Google Search, Site Search and News from the terminal"
 maintainer="maxice8 <thinkabit.ukim@gmail.com>"
 license="GPL-3.0-or-later"
 homepage="https://github.com/jarun/googler"
 distfiles="https://github.com/jarun/googler/archive/v${version}.tar.gz"
-checksum=514218f5155a2c1bd653462a503507beafca9d7ddff7203aeabb3ab4812e4b44
-make_build_target="disable-self-upgrade"
+checksum=1ceadab40fea49a113f46807a5c7297fcf145eeaa8128e33d53aadb275377f37
+make_build_target=disable-self-upgrade
 
 post_install() {
 	vinstall auto-completion/bash/googler-completion.bash 644 /usr/share/bash-completion/completions/googler

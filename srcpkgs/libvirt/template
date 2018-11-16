@@ -1,18 +1,20 @@
 # Template file for 'libvirt'
 pkgname=libvirt
-version=4.2.0
-revision=2
+version=4.9.0
+revision=1
 build_style=gnu-configure
 patch_args="-Np1"
-configure_args="--without-hal --with-storage-lvm
+configure_args="--without-hal --with-storage-lvm --with-qemu
  --with-qemu-user=libvirt --with-qemu-group=libvirt --without-netcf
- --with-interface --disable-static"
+ --with-interface --disable-static --with-apparmor --with-secdriver-apparmor
+ --with-apparmor-profiles"
 short_desc="The virtualization API for controlling virtualization engines"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
+maintainer="Helmut Pozimski <helmut@pozimski.eu>"
+license="LGPL-2.1-or-later"
 homepage="https://libvirt.org"
-license="LGPL-2.1"
+changelog="https://libvirt.org/news.html"
 distfiles="https://libvirt.org/sources/${pkgname}-${version}.tar.xz"
-checksum=3a98ea4417811a24d2cf7be776c102919ae6376d28820b153686b018cb8f015b
+checksum=4fd4bfe7312b7996a817c7919cf0062de0d5b3c400c93bd30855a46c40dd455a
 
 # FIX https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=701649
 system_accounts="libvirt"
@@ -23,8 +25,9 @@ hostmakedepends="automake libtool perl pkg-config lvm2 parted gettext-devel
 makedepends="readline-devel libcap-ng-devel libnl3-devel attr-devel
  gnutls-devel libsasl-devel libcurl-devel libpcap-devel libxml2-devel
  libparted-devel device-mapper-devel dbus-devel eudev-libudev-devel libblkid-devel
- libpciaccess-devel avahi-libs-devel polkit-devel yajl-devel
- python-devel libssh2-devel libcap-ng-devel fuse-devel libtirpc-devel"
+ libpciaccess-devel avahi-libs-devel polkit-devel yajl-devel jansson-devel
+ python-devel libssh2-devel libcap-ng-devel fuse-devel libtirpc-devel
+ libapparmor-devel"
 depends="ebtables dnsmasq"
 
 case "$XBPS_TARGET_MACHINE" in

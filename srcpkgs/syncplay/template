@@ -1,12 +1,20 @@
 # Template file for 'syncplay'
 pkgname=syncplay
-version=1.5.2
+version=1.5.5
 revision=1
+noarch=yes
 build_style=gnu-makefile
-depends="python-pyside Twisted"
+pycompile_dirs="usr/lib/syncplay/syncplay"
+depends="desktop-file-utils python-pyside python-Twisted"
 short_desc="Free software that synchronises media players"
 maintainer="KeepBotting <branon.mcclellan@gmail.com>"
 license="Apache-2.0"
-homepage="http://syncplay.pl/"
+homepage="https://syncplay.pl/"
 distfiles="https://github.com/syncplay/syncplay/archive/v${version}.tar.gz"
-checksum=8a6a6e73b28e842230b4deef3b031f8ebeea5e30ffca393f2c4f8de207c6f428
+checksum=19f266665daa297794dd6857319da9bb14274c8c804aca6b960e11465085223c
+
+post_install() {
+	for res in 16x16 24x24 32x32 48x48 64x64 96x96 128x128 256x256; do
+		rm -rf ${DESTDIR}/usr/share/icons/${res}
+	done
+}

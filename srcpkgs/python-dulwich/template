@@ -1,18 +1,20 @@
 # Template file for 'python-dulwich'
 pkgname=python-dulwich
-version=0.19.2
-revision=1
+version=0.19.6
+revision=2
 wrksrc="dulwich-${version}"
 build_style=python-module
 pycompile_module="dulwich"
 hostmakedepends="python-setuptools python3-setuptools"
 makedepends="python-devel python3-devel"
+depends="python-urllib3"
+checkdepends="python3-gevent python3-pbr python3-greenlet"
 short_desc="Python2 implementation of the Git file formats and protocols"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
-homepage="https://www.dulwich.io/"
 license="GPL-2.0-or-later, Apache-2.0"
+homepage="https://www.dulwich.io/"
 distfiles="${PYPI_SITE}/d/dulwich/dulwich-${version}.tar.gz"
-checksum=c51e10c260543240e0806052af046e1a78b98cbe1ac1ef3880a78d2269e09da4
+checksum=9a7dc5c5759f3d3b7a9ac0a684aa2c47f099e1722d9caab5b043cef1d73ff4a2
 
 alternatives="
  dulwich:dul-receive-pack:/usr/bin/dul-receive-pack2
@@ -34,6 +36,7 @@ python3-dulwich_package() {
 	 dulwich:dul-upload-pack:/usr/bin/dul-upload-pack3
 	 dulwich:dulwich:/usr/bin/dulwich3"
 	pycompile_module="dulwich"
+	depends="python3-urllib3"
 	short_desc="${short_desc/Python2/Python3}"
 	pkg_install() {
 		vmove usr/bin/*3

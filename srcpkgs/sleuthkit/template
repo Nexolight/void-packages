@@ -1,9 +1,9 @@
 # Template file for 'sleuthkit'
 pkgname=sleuthkit
-version=4.6.1
+version=4.6.4
 revision=1
-build_style=gnu-configure
 wrksrc="${pkgname}-${pkgname}-${version}"
+build_style=gnu-configure
 hostmakedepends="automake libtool"
 makedepends="libewf-devel sqlite-devel zlib-devel"
 depends="perl"
@@ -12,7 +12,7 @@ maintainer="Leah Neukirchen <leah@vuxu.org>"
 license="GPL-2.0-only, IPL-1.0, CPL-1.0"
 homepage="http://www.sleuthkit.org/"
 distfiles="https://github.com/sleuthkit/${pkgname}/archive/${pkgname}-${version}.tar.gz"
-checksum=bb2c936dbc88820fc4a875bc9b610f56c6a4a61b7bc8625f86be2549a948a7a9
+checksum=9329322b738a5b721cb95c78f71efc1faaef39db3b9b2a5c1fbbbb9de7d657c2
 
 post_extract() {
 	sed -i 's/daddr_t/uint32_t/g' tools/srchtools/sigfind.cpp

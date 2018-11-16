@@ -1,22 +1,25 @@
 # Template file for 'sysprof'
 pkgname=sysprof
-version=3.28.0
+version=3.30.2
 revision=1
 build_style=meson
+configure_args="-Denable_gtk=true -Dsystemdunitdir=/DELETEME"
 hostmakedepends="pkg-config itstool glib-devel"
 makedepends="gtk+3-devel polkit-devel glib-devel elogind-devel"
 short_desc="A system-wide profiler for Linux"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-license="GPL-2"
+maintainer="Rasmus Thomsen <rasmus.thomsen@protonmail.com>"
+license="GPL-2.0-or-later, GPL-3.0-or-later"
 homepage="http://sysprof.com/"
-distfiles="https://download.gnome.org/sources/sysprof/${version%.*}/$pkgname-$version.tar.xz"
-checksum=65437778af2fc3bab05bf9c1871fbd8726a4bd6471f1288d7b7a7e3429cee436
-configure_args="-Denable-gtk=true -Dsystemdunitdir=/DELETEME"
+distfiles="${GNOME_SITE}/${pkgname}/${version%.*}/${pkgname}-${version}.tar.xz"
+checksum=e90878e5a509bd79d170a7a51d47cc5508ab1363afaf0d97654373dfd9c8ba0b
+
 case "$XBPS_TARGET_MACHINE" in
-  x64_64-musl|aarch64-musl) CFLAGS="-D__WORDSIZE=64" ;;
-  *-musl) CFLAGS="-D__WORDSIZE=32" ;;
+	aarch64-musl|x86_64-musl) broken="__WORDSIZE definitions aren't recognized" ;;
+	x64_64-musl|aarch64-musl) CFLAGS="-D__WORDSIZE=64" ;;
+	*-musl) CFLAGS="-D__WORDSIZE=32" ;;
 esac
-CFLAGS+=" -Wno-error -Wno-error=undef"
+
+CFLAGS=" -Wno-error -Wno-error=undef"
 
 pre_build() {
 	export SHELL=/bin/bash
@@ -33,6 +36,5 @@ sysprof-devel_package() {
 		vmove usr/include
 		vmove usr/lib/pkgconfig
 		vmove "usr/lib/*.a"
-		vmove usr/share
 	}
 }

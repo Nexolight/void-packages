@@ -1,18 +1,21 @@
 # Template file for 'tvheadend'
 pkgname=tvheadend
-version=4.2.6
-revision=2
+version=4.2.7
+revision=3
 wrksrc=tvheadend-${version}
 build_style=gnu-configure
-configure_args="--disable-dvbscan --disable-ffmpeg_static --disable-hdhomerun_static --disable-bintray_cache"
+configure_args="--disable-dvbscan --disable-ffmpeg_static
+--disable-hdhomerun_static --disable-bintray_cache --disable-libx264_static
+--disable-libx265_static --disable-libvpx_static --disable-libtheora_static
+--disable-libvorbis_static --disable-libfdkaac_static"
 hostmakedepends="pkg-config python"
-makedepends="avahi-libs-devel libressl-devel zlib-devel libcurl-devel"
+makedepends="avahi-libs-devel libressl-devel zlib-devel libcurl-devel ffmpeg-devel"
 short_desc="TV streaming server"
 maintainer="lemmi <lemmi@nerd2nerd.org>"
 license="GPL-3"
 homepage="http://tvheadend.org"
 distfiles="https://github.com/tvheadend/tvheadend/archive/v${version}.tar.gz"
-checksum=09b4d4ff436a2006001ef3c3f38553dc4db3ea31bf9871b046a33180a0e8a8b9
+checksum=e333e2b3756ce20d32cbff5dc4e126e2d9efe8adac7a942ba73cacb0cd131a79
 
 pre_build() {
 	sed -i '/^${PROG}:/s/check_config//' Makefile

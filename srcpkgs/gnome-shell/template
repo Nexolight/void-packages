@@ -1,21 +1,29 @@
 # Template file for 'gnome-shell'
 pkgname=gnome-shell
-version=3.28.2
+version=3.30.2
 revision=1
 build_style=meson
 configure_args="-Dsystemd=false"
-hostmakedepends="gobject-introspection gtk-doc intltool pkg-config sassc"
-makedepends="caribou-devel folks-devel gjs-devel gnome-bluetooth-devel
- gnome-control-center-devel gnome-desktop-devel gnome-menus-devel ibus-devel
- libcanberra-devel libcroco-devel mutter-devel network-manager-applet-devel
- polkit-devel pulseaudio-devel startup-notification-devel
- telepathy-logger-devel"
-depends="caribou elogind glxinfo gnome-control-center upower"
+hostmakedepends="gobject-introspection gtk-doc intltool libxslt pkg-config
+ python3 sassc"
+makedepends="at-spi2-atk caribou-devel evolution-data-server-devel folks-devel
+ gcr-devel gjs-devel gnome-bluetooth-devel gnome-control-center-devel gnome-desktop-devel
+ gnome-menus-devel gsettings-desktop-schemas-devel gstreamer1-devel gtk+3-devel
+ ibus-devel json-glib-devel libcanberra-devel libcroco-devel libglib-devel
+ libsecret-devel libsoup-devel libX11-devel libxml2-devel mutter-devel
+ network-manager-applet-devel polkit-devel pulseaudio-devel
+ startup-notification-devel telepathy-logger-devel"
+depends="caribou elogind glxinfo gnome-control-center gsettings-desktop-schemas upower"
 short_desc="GNOME core user interface"
 maintainer="Enno Boland <gottox@voidlinux.eu>"
 license="GPL-2.0-or-later"
 homepage="https://wiki.gnome.org/Projects/GnomeShell"
-#changelog="https://raw.githubusercontent.com/GNOME/gnome-shell/gnome-3-28/NEWS"
+changelog="https://raw.githubusercontent.com/GNOME/gnome-shell/gnome-3-30/NEWS"
 distfiles="${GNOME_SITE}/${pkgname}/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=27e690c0c4bb0faac2892b9772d3160aa3c6b09523a873b1c2b63c21634236ad
+checksum=22632c9bbccef11fe3130fc8d642e37de223d089e004bdb58dae309a38694c4d
 nocross="hard dependency on gobject-introspection"
+
+do_check() {
+	# Need X
+	:
+}

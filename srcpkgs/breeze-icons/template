@@ -1,16 +1,16 @@
 # Template file for 'breeze-icons'
 pkgname=breeze-icons
-version=5.43.0
+version=5.52.0
 revision=1
 build_style=cmake
 hostmakedepends="extra-cmake-modules qt5-host-tools qt5-devel libxml2"
 makedepends="qt5-devel"
 short_desc="Breeze icon theme"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-license="LGPL-3"
+maintainer="John <johnz@posteo.net>"
+license="LGPL-3.0-or-later"
 homepage="https://community.kde.org/Frameworks"
-distfiles="http://download.kde.org/stable/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=3eda58a4c7c9369fe9b246500d88a964d3411f83e1113727ed723989d935dea7
+distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
+checksum=979db0040d8c7ef7adcac133988f6440ebe21bf3f4c4479e830d38195ba1dc5a
 
 if [ -z "$CROSS_BUILD" ]; then
 	configure_args="-DBINARY_ICONS_RESOURCE=ON"

@@ -1,16 +1,16 @@
 # Template file for 'go'
 pkgname=go
-version=1.10.2
+version=1.11.1
 revision=1
 create_wrksrc=yes
 build_wrksrc=go
 hostmakedepends="go1.4-bootstrap"
 short_desc="The Go Programming Language"
-maintainer="Michael Gehring <mg@ebfe.org>"
+maintainer="Michael Aldridge <maldridge@VoidLinux.eu>"
 homepage="http://golang.org/"
 license="3-clause-BSD"
 distfiles="https://golang.org/dl/go${version}.src.tar.gz"
-checksum=6264609c6b9cd8ed8e02ca84605d727ce1898d74efa79841660b2e3e985a98bd
+checksum=558f8c169ae215e25b81421596e8de7572bd3ba824b79add22fba6e284db1117
 
 nostrip=yes
 noverifyrdeps=yes
@@ -18,6 +18,7 @@ noverifyrdeps=yes
 case "${XBPS_TARGET_MACHINE}" in
 	aarch64*) _goarch=arm64 ;;
 	arm*) _goarch=arm ;;
+	mips*) _goarch=mips ;;
 	i686*) _goarch=386 ;;
 	x86_64*) _goarch=amd64 ;;
 	*) _goarch=${XBPS_TARGET_MACHINE} ;;
@@ -74,6 +75,7 @@ do_install() {
 	rm -f ${DESTDIR}/usr/share/go/doc/articles/wiki/get.bin
 	rm -f ${DESTDIR}/usr/lib/go/pkg/tool/*/api
 	rm -rf ${DESTDIR}/usr/lib/go/pkg/bootstrap
+	rm -rf ${DESTDIR}/usr/lib/go/pkg/obj
 
 	vlicense LICENSE
 }

@@ -1,14 +1,14 @@
 # Template file for 'R-cran-stringi'
 pkgname=R-cran-stringi
-version=1.1.7
-revision=1
+version=1.2.4
+revision=2
 build_style=R-cran
 makedepends+=" pkg-config icu-devel"
 short_desc="Character String Processing Facilities"
 maintainer="Florian Wagner <florian@wagner-flo.net>"
-license="BSD"
+license="BSD-3-Clause"
 homepage="http://gagolewski.com/software/stringi/"
-checksum=b475a8549fbaf8ee0e625a7cead9b3b478cd73864c785582cdb3d217850e9359
+checksum=01570a200a25bde62c47b241636e67d73425efa10b924b63959a867796ea86f8
 
 post_install() {
 	vlicense LICENSE

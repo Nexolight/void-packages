@@ -1,6 +1,6 @@
 # Template file for 'libpqxx'
 pkgname=libpqxx
-version=6.2.3
+version=6.2.5
 revision=1
 build_style=gnu-configure
 configure_args="--enable-shared --disable-documentation"
@@ -9,10 +9,10 @@ makedepends="postgresql-libs-devel"
 short_desc="C++ connector for PostgreSQL"
 maintainer="John Regan <john@jrjrtech.com>"
 license="BSD-3-Clause"
-#changelog="https://raw.githubusercontent.com/jtv/libpqxx/master/NEWS"
 homepage="http://pqxx.org/development/libpqxx"
+changelog="https://raw.githubusercontent.com/jtv/libpqxx/master/NEWS"
 distfiles="https://github.com/jtv/${pkgname}/archive/${version}.tar.gz"
-checksum=382b88992c6162c9814388cc8575eb774ffad03d49743a5d9576aa3bffc91dfa
+checksum=36fcf8439ac7f7cc68b21e95b20e921ece4487cda1cc1d09b798a84e7cb3a4b7
 
 post_install() {
 	vlicense COPYING
@@ -22,7 +22,6 @@ libpqxx-devel_package() {
 	short_desc+=" - development files"
 	depends="${sourcepkg}>=${version}_${revision}"
 	pkg_install() {
-		vmove usr/bin/pqxx-config
 		vmove usr/include
 		vmove "usr/lib/*.a"
 		vmove usr/lib/libpqxx.so

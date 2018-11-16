@@ -1,6 +1,6 @@
 # Template file for 'i3'
 pkgname=i3
-version=4.15
+version=4.16
 revision=1
 build_style=gnu-configure
 configure_args="--disable-builddir"
@@ -9,13 +9,14 @@ makedepends="pcre-devel yajl-devel libxcb-devel libev-devel
  pango-devel startup-notification-devel libxkbcommon-devel
  xcb-util-keysyms-devel xcb-util-wm-devel xcb-util-cursor-devel
  xcb-util-xrm-devel"
+depends="perl-AnyEvent-I3"
 conf_files="/etc/i3/config /etc/i3/config.keycodes"
 short_desc="Improved tiling window manager"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
 license="BSD-3-Clause"
 homepage="https://i3wm.org/"
 distfiles="${homepage}/downloads/${pkgname}-${version}.tar.bz2"
-checksum=217d524d1fbc85ae346b25f6848d1b7bcd2c23184ec88d29114bf5a621385326
+checksum=cc60a5f518c5e37b4143b644a840bb2ad2a63ea7a771954c332cd5637db655b4
 
 case "$XBPS_TARGET_MACHINE" in
 	*-musl) makedepends+=" libglob-devel";;

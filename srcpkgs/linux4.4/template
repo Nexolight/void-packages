@@ -1,14 +1,14 @@
 # Template file for 'linux4.4'
 pkgname=linux4.4
-version=4.4.130
+version=4.4.163
 revision=1
 wrksrc="linux-${version}"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
 homepage="https://www.kernel.org"
-license="GPL-2"
+license="GPL-2.0-only"
 short_desc="The Linux kernel and modules (${version%.*} series)"
 distfiles="${KERNEL_SITE}/kernel/v4.x/linux-${version}.tar.xz"
-checksum=b29bdf90659deee725dd760096c5d86b69cde0e787e98efb75f1c32294434de5
+checksum=61b3d63a960a55046a7324d5724c262831952b223fe9ca02be0607f26d8f2ef4
 
 nocross=yes
 nodebug=yes
@@ -21,9 +21,10 @@ export CCACHE_DISABLE=1
 
 only_for_archs="i686 i686-musl x86_64 x86_64-musl armv7l armv7l-musl aarch64 aarch64-musl"
 hostmakedepends="bc perl kmod uboot-mkimage libressl-devel"
-triggers="kernel-hooks"
 
+triggers="kernel-hooks"
 _kernver="${version}_${revision}"
+
 # These files could be modified when an external module is built.
 mutable_files="
  /usr/lib/modules/${_kernver}/modules.builtin.bin
@@ -46,14 +47,9 @@ do_configure() {
 		i686*) arch=i386;;
 		x86_64*) arch=x86_64;;
 		armv7*) arch=arm
-			# This file does not exist!?
-			# $XBPS_FETCH_CMD http://rcn-ee.com/deb/sid-armhf/v${version}-armv7-x2/patch-${version}-armv7-x2.diff.gz
-			# gunzip patch-${version}-armv7-x2.diff.gz
-			# patch -Np1 -i patch-${version}-armv7-x2.diff
-			# Found the latest here:
-			$XBPS_FETCH_CMD http://rcn-ee.com/deb/zesty-armhf/v${version}-armv7-x15/patch-${version}-armv7-x15.diff.xz
-			unxz patch-${version}-armv7-x15.diff.xz
-			patch -Np1 -i patch-${version}-armv7-x15.diff
+			$XBPS_FETCH_CMD http://rcn-ee.com/deb/sid-armhf/v${version}-armv7-x16/patch-${version}-armv7-x16.diff.gz
+			gunzip patch-${version}-armv7-x16.diff.gz
+			patch -Np1 -i patch-${version}-armv7-x16.diff
 			;;
 		aarch64*) arch=arm64;;
 	esac

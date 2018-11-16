@@ -1,7 +1,7 @@
 # Template file for 'xreader'
 pkgname=xreader
-version=1.8.2
-revision=1
+version=1.8.5
+revision=3
 build_style=gnu-configure
 configure_args="--disable-introspection --disable-thumbnailer"
 hostmakedepends="mate-common"
@@ -9,11 +9,11 @@ makedepends="djvulibre-devel libSM-devel libgnomekbd-devel libgxps-devel libsecr
  libspectre-devel libxkbfile-devel poppler-glib-devel webkit2gtk-devel xapps-devel"
 depends="desktop-file-utils hicolor-icon-theme"
 short_desc="Document viewer capable of displaying formats like PDF and Postscript"
-maintainer="cr6git <quark6@protonmail.com>"
+maintainer="Orphaned <orphan@voidlinux.eu>"
 license="GPL-2.0-or-later"
 homepage="https://github.com/linuxmint/xreader"
 distfiles="https://github.com/linuxmint/xreader/archive/${version}.tar.gz"
-checksum=a8a767c4617bbeeecb3ebeb570cbaecb4c5e5ee7e69f359a5a46053aa0d09b63
+checksum=11fca6f6126a168473d47a61dfe9d01d3c959a1aae6fcd3b9c849e26022e1949
 
 pre_configure() {
 	NOCONFIGURE=1 ./autogen.sh

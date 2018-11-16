@@ -1,17 +1,17 @@
 # Template file for 'ktextwidgets'
 pkgname=ktextwidgets
-version=5.43.0
+version=5.52.0
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
 hostmakedepends="extra-cmake-modules qt5-qmake qt5-host-tools qt5-tools python"
 makedepends="kcompletion-devel kiconthemes-devel kservice-devel sonnet-devel"
 short_desc="KDE Text editing widgets"
-maintainer="Denis Revin <denis.revin@gmail.com>"
-license="LGPL-2"
+maintainer="John <johnz@posteo.net>"
+license="LGPL-2.0-or-later, LGPL-2.1-or-later"
 homepage="https://projects.kde.org/projects/frameworks/ktextwidgets"
-distfiles="http://download.kde.org/stable/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=fe21e79b4882726a51c3c42f46dc379a940cb2b5a75ad8c51533d6a482ebab40
+distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
+checksum=f1de7662ed95c99bcd665aa8033b884a7e5315c2f3ba3825a12b92ce157579e1
 
 ktextwidgets-devel_package() {
 	short_desc+=" - development"
@@ -20,6 +20,6 @@ ktextwidgets-devel_package() {
 		vmove usr/include
 		vmove usr/lib/qt5/mkspecs
 		vmove usr/lib/cmake
-		vmove usr/lib/*.so
+		vmove "usr/lib/*.so"
 	}
 }

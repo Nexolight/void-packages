@@ -1,18 +1,20 @@
 # Template file for 'skype'
 # This just repackages the debian package.
 pkgname=skype
-version=8.20.76.3
+reverts="8.30.76.41_1"
+version=8.33.0.41
 revision=1
 only_for_archs="x86_64"
 repository="nonfree"
 build_style="fetch"
 nostrip="yes"
+depends="elogind"
 short_desc="Skype for Linux"
 maintainer="Lon Willett <xgit@lonw.net>"
 license="skype"
 homepage="https://www.skype.com"
 distfiles="https://repo.skype.com/deb/pool/main/s/skypeforlinux/skypeforlinux_${version}_amd64.deb"
-checksum=d53218468e7188e40b11dcb28bb218eddefffef75f4c98aa208638a35870549f
+checksum=bda45e1a5a60c5a1c8347eeb7ad9077925cda4d33d822a123ab7edee48aca878
 
 do_extract() {
 	ar p ${XBPS_SRCDISTDIR}/${pkgname}-${version}/skypeforlinux_${version}_amd64.deb data.tar.xz | tar xJpf - ./usr

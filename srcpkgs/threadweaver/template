@@ -1,17 +1,17 @@
 # Template file for 'threadweaver'
 pkgname=threadweaver
-version=5.43.0
+version=5.52.0
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
 hostmakedepends="extra-cmake-modules qt5-host-tools qt5-devel"
 makedepends="qt5-devel"
 short_desc="KDE Helper for multithreaded programming"
-maintainer="Denis Revin <denis.revin@gmail.com>"
-license="LGPL-2"
+maintainer="John <johnz@posteo.net>"
+license="LGPL-2.1-or-later"
 homepage="https://projects.kde.org/projects/frameworks/threadweaver"
-distfiles="http://download.kde.org/stable/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=5d4a33640da357e7a7f101e5a56f2367de4451c3bbd82b63a61cef1ca971b656
+distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
+checksum=a262abf07336a6085060c5f7ae9dbb3841064070834af0e019e9303bade396c2
 
 threadweaver-devel_package() {
 	short_desc+=" - development"
@@ -20,6 +20,6 @@ threadweaver-devel_package() {
 		vmove usr/include
 		vmove usr/lib/qt5/mkspecs
 		vmove usr/lib/cmake
-		vmove usr/lib/*.so
+		vmove "usr/lib/*.so"
 	}
 }

@@ -1,18 +1,19 @@
 # Template file for 'pywal'
 pkgname=pywal
-version=3.0.0
+version=3.2.1
 revision=1
+noarch=yes
 build_style=python3-module
+pycompile_module="pywal"
 hostmakedepends="python3-setuptools"
 depends="python3-setuptools ImageMagick"
 short_desc="Generate and change colorschemes on the fly"
 maintainer="Yuusha Spacewolf <xyuusha@paranoici.org>"
 license="MIT"
-#changelog="https://raw.githubusercontent.com/dylanaraps/pywal/master/CHANGELOG.md"
 homepage="https://github.com/dylanaraps/pywal"
+changelog="https://raw.githubusercontent.com/dylanaraps/pywal/master/CHANGELOG.md"
 distfiles="${PYPI_SITE}/p/${pkgname}/${pkgname}-${version}.tar.gz"
-checksum=003807f7d0c0edf4a01a935ff77f0df053cec27f035c8cdf41824d284ddedbab
-noarch=yes
+checksum=2cb6d59c743c709c6d82229174613300a790df5cdf0792eaaa90cb98020443de
 
 post_install() {
 	vlicense LICENSE.md

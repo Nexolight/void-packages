@@ -1,6 +1,6 @@
 # Template file for 'kirigami2'
 pkgname=kirigami2
-version=5.43.0
+version=5.52.0
 revision=1
 build_style=cmake
 hostmakedepends="extra-cmake-modules qt5-qmake qt5-host-tools"
@@ -9,10 +9,10 @@ makedepends="qt5-devel qt5-declarative-devel qt5-svg-devel qt5-quickcontrols2-de
 depends="qt5-graphicaleffects"
 short_desc="Kirigami is KDE’s lightweight user interface framework"
 maintainer="Sir_Boops <admin@boops.me>"
-license="GPL-3"
+license="LGPL-2.0-or-later"
 homepage="https://techbase.kde.org/Kirigami"
-distfiles="https://download.kde.org/stable/frameworks/${version%.*}/kirigami2-${version}.tar.xz"
-checksum=80cafbbfc571d5a93de001b8db6a78c950a52e3df4940738d3f2161cd652506f
+distfiles="${KDE_SITE}/frameworks/${version%.*}/kirigami2-${version}.tar.xz"
+checksum=375ec103d56a71ee3a5f43de1cfb4720fc33c125b2b2de545f9e563851c38c24
 
 kirigami2-devel_package() {
 	short_desc+=" - development"
@@ -20,6 +20,6 @@ kirigami2-devel_package() {
 	pkg_install() {
 		vmove usr/include
 		vmove usr/lib/cmake
-		vmove usr/lib/*.so
+		vmove "usr/lib/*.so"
 	}
 }

@@ -1,0 +1,19 @@
+# Template file for 'waifu2x-converter-cpp'
+pkgname=waifu2x-converter-cpp
+version=5.2.1
+revision=1
+build_style=cmake
+configure_args="-DINSTALL_MODELS=ON"
+hostmakedepends="pkg-config"
+makedepends="libopencv-devel opencl2-headers"
+short_desc="Image upscaling using deep convolutional neural networks"
+maintainer="SolitudeSF <solitudesf@protonmail.com>"
+license="MIT"
+homepage="https://github.com/DeadSix27/waifu2x-converter-cpp"
+distfiles="${homepage}/archive/v${version}.tar.gz"
+checksum=dea629f3fcf7b0091c2a6d7b8399ead00af7a028a331b5ba935e5a47ee93c759
+nocross="Builds intermediate executable, which should be ran on host, for the target architecture"
+
+post_install() {
+	vlicense LICENSE
+}

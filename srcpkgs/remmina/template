@@ -1,10 +1,10 @@
 # Template file for 'remmina'
 pkgname=remmina
-version=1.2.30
-revision=1
+version=1.2.32
+revision=2
 wrksrc="Remmina-${version}"
 build_style=cmake
-configure_args="-DWITH_APPINDICATOR=OFF"
+configure_args="-DWITH_APPINDICATOR=OFF -DCMAKE_USE_PTHREADS_INIT=ON"
 hostmakedepends="intltool pkg-config"
 makedepends="avahi-glib-libs-devel avahi-ui-libs-devel
  freerdp-devel json-glib-devel libgnome-keyring-devel libsecret-devel
@@ -12,11 +12,12 @@ makedepends="avahi-glib-libs-devel avahi-ui-libs-devel
  telepathy-glib-devel vte3-devel"
 depends="desktop-file-utils hicolor-icon-theme"
 short_desc="Remote desktop client written in GTK+"
-maintainer="cr6git <quark6@protonmail.com>"
+maintainer="Orphaned <orphan@voidlinux.eu>"
 license="GPL-2.0-or-later"
 homepage="http://www.remmina.org/wp/"
+changelog="https://raw.githubusercontent.com/FreeRDP/Remmina/master/CHANGELOG.md"
 distfiles="https://github.com/FreeRDP/Remmina/archive/v${version}.tar.gz"
-checksum=cf9528709fe531830f949bc4adcc806b86606942e7ee552fd6177fcd81d4d33f
+checksum=803d8cd4ec5a860f32297517f4d61f03de720259afe98eef58e4f83af46e1ae0
 
 case "$XBPS_TARGET_MACHINE" in
 	*-musl) makedepends+=" libexecinfo-devel" ;;

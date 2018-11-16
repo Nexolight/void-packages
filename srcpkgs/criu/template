@@ -1,9 +1,9 @@
 # Template file for 'criu'
 pkgname=criu
-version=3.9
+version=3.11
 revision=1
-make_use_env=compliant
 build_style=gnu-makefile
+make_use_env=compliant
 hostmakedepends="asciidoc pkg-config xmlto"
 makedepends="libcap-devel libnet-devel libnl3-devel protobuf-c-devel
  protobuf-devel"
@@ -11,8 +11,8 @@ short_desc="Utility to checkpoint/restore a process tree"
 maintainer="Enno Boland <gottox@voidlinux.eu>"
 license="GPL-2.0-or-later, LGPL-2.1-only"
 homepage="http://criu.org/"
-distfiles="https://download.openvz.org/criu/criu-$version.tar.bz2"
-checksum=dd95d35ae6a4eb160926d1b86405e90ba98dfcb9f39e21976057904c67a5e150
+distfiles="https://download.openvz.org/criu/criu-${version}.tar.bz2"
+checksum=886b5851a3f46755a4074414e1d09638dfbd3fddebe00706a7b5783eacafd10e
 nocross="fails to run protobuf internals"
 
 case "$XBPS_TARGET_MACHINE" in

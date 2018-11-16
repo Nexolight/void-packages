@@ -43,11 +43,13 @@ contents_cksum() {
 	*.diff)       cursufx="txt";;
 	*.txt)        cursufx="txt";;
 	*.7z)	      cursufx="7z";;
+	*.gem)	      cursufx="gem";;
+	*.crate)      cursufx="crate";;
 	*) msg_error "$pkgver: unknown distfile suffix for $curfile.\n";;
 	esac
 
 	case ${cursufx} in
-	tar|txz|tbz|tlz|tgz)
+	tar|txz|tbz|tlz|tgz|crate)
 		cksum=$(tar xf "$curfile" --to-stdout | sha256sum | awk '{print $1}')
 		if [ $? -ne 0 ]; then
 			msg_error "$pkgver: extracting $curfile to pipe.\n"
@@ -91,6 +93,9 @@ contents_cksum() {
 		else
 			msg_error "$pkgver: cannot find 7z bin for extraction.\n"
 		fi
+		;;
+	gem)
+		cksum=$(tar -xf "$curfile" data.tar.gz --to-stdout | tar -xzO | sha256sum | awk '{print $1}')
 		;;
 	*)
 		msg_error "$pkgver: cannot guess $curfile extract suffix. ($cursufx)\n"

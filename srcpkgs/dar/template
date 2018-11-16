@@ -1,6 +1,6 @@
 # Template file for 'dar'
 pkgname=dar
-version=2.5.15
+version=2.5.17
 revision=1
 build_style=gnu-configure
 configure_args="--disable-upx --disable-build-html"
@@ -12,10 +12,10 @@ maintainer="Juan RP <xtraeme@voidlinux.eu>"
 license="GPL-2.0-or-later"
 homepage="http://dar.linux.free.fr/"
 distfiles="${SOURCEFORGE_SITE}/dar/dar-${version}.tar.gz"
-checksum=58d860299e0b2ee61cf1cac549f1e7b228060aed3ee5575c2e9c88324504e0c0
+checksum=7bf4a5f3f9ac78a5b5cd37d7e94cd3299239f26fdc5404b53f36f1036da286df
 conf_files="/etc/darrc"
 
-if [ -n "$CROSS_BUILD" ]; then
+if [ "$CROSS_BUILD" ]; then
 	configure_args+=" --with-gpgme-prefix=${XBPS_CROSS_BASE}/usr
 	 ac_cv_lib_gcrypt_gcry_check_version=false"
 	LDFLAGS="-L${XBPS_CROSS_BASE}/usr/lib -lgcrypt"

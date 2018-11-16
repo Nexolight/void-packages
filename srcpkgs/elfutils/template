@@ -1,7 +1,7 @@
 # Template file for 'elfutils'
 pkgname=elfutils
-version=0.170
-revision=2
+version=0.174
+revision=1
 build_style=gnu-configure
 configure_args="--program-prefix=eu-"
 hostmakedepends="automake libtool"
@@ -11,7 +11,7 @@ maintainer="Juan RP <xtraeme@voidlinux.eu>"
 license="GPL-3.0-or-later"
 homepage="https://sourceware.org/elfutils/"
 distfiles="https://sourceware.org/${pkgname}/ftp/${version}/${pkgname}-${version}.tar.bz2"
-checksum=1f844775576b79bdc9f9c717a50058d08620323c1e935458223a12f249c9e066
+checksum=cdf27e70076e10a29539d89e367101d516bc4aa11b0d7777fe52139e3fcad08a
 
 CFLAGS="-Wno-error"
 

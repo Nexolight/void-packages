@@ -1,17 +1,18 @@
 # Template file for 'libopenal'
 pkgname=libopenal
-version=1.18.2
+version=1.19.1
 revision=1
-build_style=cmake
 wrksrc="openal-soft-${version}"
+build_style=cmake
+configure_args="-DALSOFT_EXAMPLES=OFF -DALSOFT_TESTS=OFF"
 hostmakedepends="pkg-config"
 makedepends="alsa-lib-devel pulseaudio-devel SDL2-devel ffmpeg-devel jack-devel"
 short_desc="A cross-platform 3D audio library"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
-license="LGPL-2.1"
-homepage="http://kcat.strangesoft.net/openal.html"
-distfiles="http://kcat.strangesoft.net/openal-releases/openal-soft-${version}.tar.bz2"
-checksum=9f8ac1e27fba15a59758a13f0c7f6540a0605b6c3a691def9d420570506d7e82
+license="LGPL-2.1-or-later"
+homepage="http://openal-soft.org/"
+distfiles="http://openal-soft.org/openal-releases/openal-soft-${version}.tar.bz2"
+checksum=5c2f87ff5188b95e0dc4769719a9d89ce435b8322b4478b95dd4b427fe84b2e9
 
 pre_configure() {
 	case "$XBPS_TARGET_MACHINE" in
@@ -19,6 +20,12 @@ pre_configure() {
 		sed -i CMakeLists.txt -e"s;arm_neon.h;arm_neon.xxx;"
 		;;
 	esac
+}
+
+pre_configure() {
+	cd native-tools
+	CC= CXX= CPP= LD= AR= AS= RANLIB= CFLAGS= CXXFLAGS= LDFLAGS= cmake .
+	make ${makejobs}
 }
 
 post_install() {
@@ -32,6 +39,6 @@ libopenal-devel_package() {
 	pkg_install() {
 		vmove usr/include
 		vmove usr/lib/pkgconfig
-		vmove usr/lib/*.so
+		vmove "usr/lib/*.so"
 	}
 }

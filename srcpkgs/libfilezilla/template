@@ -1,15 +1,17 @@
 # Template file for 'libfilezilla'
 pkgname=libfilezilla
-version=0.12.2
+version=0.15.0
 revision=1
 build_style=gnu-configure
 configure_args="--disable-static"
+hostmakedepends="pkg-config"
+makedepends="nettle-devel"
 short_desc="Small and modern C++ library, which offers some basic functionalities"
 maintainer="bra1nwave <brainwave@openmailbox.org>"
 license="GPL-2.0-or-later"
 homepage="https://lib.filezilla-project.org/"
 distfiles="https://download.filezilla-project.org/${pkgname}/${pkgname}-${version}.tar.bz2"
-checksum=778c166fde3a87e04a0524a4bf92c3eea1f0836c20119dd0859c9cd9380c86ec
+checksum=9e68d35b23423d95e40126cadce6b07f1e82db3721227d577450f358d5482317
 
 libfilezilla-devel_package() {
 	short_desc+=" - development files"

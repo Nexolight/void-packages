@@ -1,6 +1,6 @@
 # Template file for 'libversion'
 pkgname=libversion
-version=2.6.0
+version=2.8.1
 revision=1
 build_style=cmake
 short_desc="Advanced version string comparison library"
@@ -8,7 +8,7 @@ maintainer="maxice8 <thinkabit.ukim@gmail.com>"
 license="MIT"
 homepage="https://github.com/repology/libversion"
 distfiles="https://github.com/repology/libversion/archive/${version}.tar.gz"
-checksum=a95fac4fdcf6ac45772fa8b66f8c3a469e53395ca78fba2f92f0575d7a7458d2
+checksum=05ea425cf07be89a53cb925eb4ad7606b9f57437e144477313f2b6c4581cb923
 
 post_install() {
 	vlicense COPYING

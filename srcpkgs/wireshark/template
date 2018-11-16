@@ -1,7 +1,7 @@
 # Template file for 'wireshark'
 pkgname=wireshark
-version=2.4.6
-revision=2
+version=2.6.4
+revision=1
 build_style=gnu-configure
 configure_args="--with-ssl --with-pcap --with-libcap --with-zlib --with-lua
  --with-krb5 --with-gtk=3 --with-qt=5 --without-portaudio CC_FOR_BUILD=cc"
@@ -13,9 +13,9 @@ depends="libcap-progs"
 short_desc="A network protocol analyzer"
 maintainer="Enno Boland <gottox@voidlinux.eu>"
 homepage="https://www.wireshark.org"
-license="GPL-2"
+license="GPL-2.0-or-later"
 distfiles="https://www.wireshark.org/download/src/${pkgname}-${version}.tar.xz"
-checksum=8e965fd282bc0c09e7c4eba5f08a555d0ccf40a7d1544b939e01b90bc893d5fe
+checksum=a06b007e6343f148b8b93443b2fcfc9bb3204311cd268565d54d1b71660bc861
 system_groups="wireshark"
 
 CFLAGS="-I${XBPS_CROSS_BASE}/usr/include/lua5.2"
@@ -30,7 +30,7 @@ post_install() {
 
 	# Headers
 	vmkdir $_includeDir
-	vcopy "config.h register.h ws_symbol_export.h" $_includeDir
+	vcopy "config.h ws_symbol_export.h" $_includeDir
 
 	for i in wiretap wsutil; do
 		vmkdir $_includeDir/$i

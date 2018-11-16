@@ -1,20 +1,20 @@
 # Template file for 'kdesignerplugin'
 pkgname=kdesignerplugin
-version=5.43.0
-revision=3
+version=5.52.0
+revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
 hostmakedepends="extra-cmake-modules"
 makedepends="kdoctools-devel kplotting-devel kdewebkit-devel"
-short_desc="Integrating KDE frameworks widgets with Qt Designer"
-maintainer="Denis Revin <denis.revin@gmail.com>"
-license="LGPL-2"
-homepage="https://projects.kde.org/projects/frameworks/kdesignerplugin"
-distfiles="http://download.kde.org/stable/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=bfabe42cf4e667cabaa2754ea80decd4a53cff769951a530e0f218f9f42e695e
 depends="kgendesignerplugin>=${version}_${revision}"
+short_desc="Integrating KDE frameworks widgets with Qt Designer"
+maintainer="John <johnz@posteo.net>"
+license="LGPL-2.1-only"
+homepage="https://projects.kde.org/projects/frameworks/kdesignerplugin"
+distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
+checksum=8db46460457b696662a78d307949529356b1c2f6c6c540b957d866eb217ddf75
 
-if [ -n "$CROSS_BUILD" ]; then
+if [ "$CROSS_BUILD" ]; then
 	hostmakedepends+=" qt5-host-tools qt5-qmake qt5-tools python kgendesignerplugin kdoctools"
 	configure_args+=" -DMEINPROC5_EXECUTABLE=/usr/bin/meinproc5"
 fi

@@ -1,24 +1,22 @@
 # Template file for 'gutenberg'
 pkgname=gutenberg
-version=0.2.2
-revision=1
-hostmakedepends="rust cmake git cargo pkg-config"
-makedepends="libsass-devel"
-short_desc="A fast opinionated static site generator written in rust"
+version=0.4.2
+revision=3
+build_style=cargo
+hostmakedepends="cmake git pkg-config"
+makedepends="libressl-devel libsass-devel"
+short_desc="Fast opinionated static site generator written in rust"
 maintainer="Carson Page <pagem.carson@gmail.com>"
 license="MIT"
-homepage="https://getgutenberg.io/"
+homepage="https://www.getgutenberg.io/"
+changelog="https://raw.githubusercontent.com/Keats/gutenberg/master/CHANGELOG.md"
 distfiles="https://github.com/Keats/gutenberg/archive/v${version}.tar.gz"
-checksum=6ae747e791c96591bc8d3b41b1609ce53d06ad384c7db3c96875b5f8f049f72f
-nocross=yes
+checksum=8d3fb9972a17f6fa8a7830c8d129a7d587f0bbfc36f5351dc4c9e44f46aa4e2d
 
-do_build() {
-	cargo build --release
-}
+case "$XBPS_TARGET_MACHINE" in
+       aarch64-musl) broken="https://github.com/nix-rust/nix/issues/951" ;;
+esac
 
-do_install() {
-	# Install the binary
-	vbin target/release/${pkgname}
-
+post_install() {
 	vlicense LICENSE
 }

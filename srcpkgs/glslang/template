@@ -1,0 +1,27 @@
+# Template file for 'glslang'
+pkgname=glslang
+version=7.10.2984
+revision=1
+build_style=cmake
+configure_args="-DBUILD_SHARED_LIBS=ON"
+hostmakedepends="python bison"
+short_desc="Khronos reference front-end for GLSL, ESSL, and sample SPIR-V generator"
+maintainer="maxice8 <thinkabit.ukim@gmail.com>"
+license="BSD-3-Clause"
+homepage="https://github.com/KhronosGroup/glslang"
+distfiles="https://github.com/KhronosGroup/glslang/archive/${version}.tar.gz"
+checksum=d0afe88034577ecf06a825db1a5e8222d949a38d3b19c5ce002b90b66c403f67
+
+post_install() {
+	sed -n '2,32p' < glslang/GenericCodeGen/CodeGen.cpp > LICENSE
+	vlicense LICENSE
+}
+
+glslang-devel_package() {
+	depends="glslang-${version}_${revision}"
+	short_desc+=" - development files"
+	pkg_install() {
+		vmove usr/include
+		vmove "usr/lib/*.a"
+	}
+}

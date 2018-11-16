@@ -1,17 +1,17 @@
 # Template file for 'kplotting'
 pkgname=kplotting
-version=5.43.0
+version=5.52.0
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
 hostmakedepends="extra-cmake-modules qt5-host-tools qt5-devel"
 makedepends="qt5-devel"
 short_desc="QWidget-derived class for easy data-plotting"
-maintainer="Denis Revin <denis.revin@gmail.com>"
-license="LGPL-2"
+maintainer="John <johnz@posteo.net>"
+license="LGPL-2.1-or-later"
 homepage="https://projects.kde.org/projects/frameworks/kplotting"
-distfiles="http://download.kde.org/stable/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=2e818d7034a05427bd43a2329a5a571223951d0cbd6d1bed19886baf7a71b534
+distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
+checksum=d7d9444580b3b6b45744976894667d38fd7bd338123649fe945fb6f70fc9d146
 
 kplotting-devel_package() {
 	short_desc+=" - development"
@@ -20,6 +20,6 @@ kplotting-devel_package() {
 		vmove usr/include
 		vmove usr/lib/qt5/mkspecs
 		vmove usr/lib/cmake
-		vmove usr/lib/*.so
+		vmove "usr/lib/*.so"
 	}
 }

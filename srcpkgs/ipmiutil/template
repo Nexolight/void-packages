@@ -1,11 +1,11 @@
 # Template file for 'ipmiutil'
 pkgname=ipmiutil
 version=3.0.0
-revision=5
+revision=6
 build_style=gnu-configure
 makedepends="libressl-devel"
 short_desc="Series of utilities that perform common IPMI management functions"
-maintainer="Toyam Cox <Vaelatern@gmail.com>"
+maintainer="Toyam Cox <Vaelatern@voidlinux.eu>"
 license="BSD-2.0"
 #changelog="http://ipmiutil.sourceforge.net/docs/ChangeLog"
 homepage="http://ipmiutil.sourceforge.net"
@@ -13,6 +13,7 @@ homepage="http://ipmiutil.sourceforge.net"
 distfiles="https://sources.voidlinux.eu/ipmiutil-3.0.0/ipmiutil-3.0.0.tar.gz"
 checksum=7d57c1fd0d15518dcb13fa94842761d3309c09dec2679ccc382e600377352865
 only_for_archs="i686 i686-musl x86_64 x86_64-musl"
+disable_parallel_build=yes
 
 post_install() {
 	vlicense COPYING

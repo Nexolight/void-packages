@@ -1,10 +1,9 @@
 # Template file for 'wordgrinder'
 pkgname=wordgrinder
 version=0.7.1
-revision=1
+revision=3
 hostmakedepends="pkg-config ninja lua"
-makedepends="ncurses-devel lua-devel zlib-devel libXft-devel libX11-devel
- freetype-devel"
+makedepends="libXft-devel lua-devel"
 short_desc="A terminal-based word processor"
 maintainer="Andrew Benson <abenson+void@gmail.com>"
 license="MIT"
@@ -33,7 +32,7 @@ do_install() {
 }
 
 wordgrinder-x11_package() {
-	short_descr+=" - x11 frontend"
+	short_desc+=" - x11 frontend"
 	depends="${sourcepkg}-${version}_${revision}"
 	pkg_install() {
 		vmove usr/bin/xwordgrinder

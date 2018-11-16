@@ -1,0 +1,27 @@
+# Template file for 'libksane'
+pkgname=libksane
+version=18.08.3
+revision=1
+build_style=cmake
+hostmakedepends="extra-cmake-modules"
+makedepends="qt5-devel libkdepim-devel sane-devel"
+short_desc="An image scanning library"
+maintainer="travankor <travankor@tuta.io>"
+license="LGPL-2.1-or-later"
+homepage="https://www.kde.org/applications/graphics/"
+distfiles="${KDE_SITE}/applications/${version}/src/${pkgname}-${version}.tar.xz"
+checksum=24f4a3603dec32be7d973486af2eb528f0e1141819f3a6de014c3eaf5b6ec2c5
+
+if [ "$CROSS_BUILD" ]; then
+	hostmakedepends+=" qt5-qmake qt5-host-tools"
+fi
+
+libksane-devel_package() {
+	depends="${sourcepkg}>=${version}_${revision}"
+	short_desc+=" - development files"
+	pkg_install() {
+		vmove usr/include
+		vmove "usr/lib/*.so"
+		vmove usr/lib/cmake
+	}
+}

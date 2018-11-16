@@ -1,18 +1,18 @@
 # Template file for 'python-psutil'
 pkgname=python-psutil
-version=5.4.5
+version=5.4.8
 revision=1
 wrksrc="psutil-${version}"
 build_style=python-module
+pycompile_module="psutil"
 hostmakedepends="python-setuptools python3-setuptools"
 makedepends="python-devel python3-devel"
-pycompile_module="psutil"
 short_desc="Cross-platform process and system utilities module for Python2"
 maintainer="Alessio Sergi <al3hex@gmail.com>"
 homepage="https://github.com/giampaolo/psutil"
 license="BSD-3-Clause"
 distfiles="${PYPI_SITE}/p/psutil/psutil-${version}.tar.gz"
-checksum=ebe293be36bb24b95cdefc5131635496e88b17fabbcf1e4bc9b5c01f5e489cfe
+checksum=6e265c8f3da00b015d24b842bfeb111f856b13d24f2c57036582568dc650d6c3
 
 post_install() {
 	vlicense LICENSE

@@ -1,17 +1,19 @@
 # Template file for 'restic'
 pkgname=restic
-version=0.9.0
+version=0.9.3
 revision=1
 build_style=go
-go_import_path="github.com/restic/restic"
+go_import_path=github.com/restic/restic
 go_package="${go_import_path}/cmd/restic"
 go_ldflags="-X 'main.version=${version} (Void Linux)'"
+hostmakedepends="git"
 short_desc="Backup solution written in Go"
 maintainer="Florian Eich <flrn@nrmncr.net>"
 license="BSD-2-Clause"
 homepage="https://restic.github.io/"
+changelog="https://raw.githubusercontent.com/restic/restic/master/CHANGELOG.md"
 distfiles="https://github.com/restic/restic/releases/download/v${version}/restic-${version}.tar.gz"
-checksum=5b46612254dcaec09a6f7ddae70e116f77c0f87ac7988dc379b34d0fd4bbc4c4
+checksum=b95a258099aee9a56e620ccebcecabc246ee7f8390e3937ccedadd609c6d2dd0
 
 post_install() {
 	vlicense LICENSE

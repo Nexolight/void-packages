@@ -1,14 +1,19 @@
 # Template file for 'bluedevil'
 pkgname=bluedevil
-version=5.12.0
+version=5.13.5
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
-hostmakedepends="extra-cmake-modules"
+hostmakedepends="extra-cmake-modules kcoreaddons qt5-qmake qt5-host-tools"
 makedepends="bluez-qt5-devel kded-devel kio-devel plasma-framework-devel"
 short_desc="KDE Bluetooth integration"
 maintainer="Denis Revin <denis.revin@gmail.com>"
-license="GPL-2"
+license="GPL-2.0-or-later, LGPL-2.1-or-later"
 homepage="https://projects.kde.org/projects/plasma/bluedevil"
-distfiles="http://download.kde.org/stable/plasma/${version}/${pkgname}-${version}.tar.xz"
-checksum=de009f6c440cc89cdb6ca0c16e60d49bf419b1a195a5bb49b0316275619254ee
+distfiles="${KDE_SITE}/plasma/${version}/${pkgname}-${version}.tar.xz"
+checksum=afcbd59b2f5f92b7404c2c474ab154a4f12705e3312f274367cc49b31802a72a
+
+if [ "$CROSS_BUILD" ]; then
+	hostmakedepends+=" kconfig-devel kcoreaddons-devel"
+	configure_args+=" -DKF5_HOST_TOOLING=/usr/lib/cmake"
+fi

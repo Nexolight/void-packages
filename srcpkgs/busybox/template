@@ -1,6 +1,6 @@
 # Template file for 'busybox'
 pkgname=busybox
-version=1.28.4
+version=1.29.3
 revision=1
 hostmakedepends="perl"
 checkdepends="zip"
@@ -8,8 +8,8 @@ short_desc="The Swiss Army Knife of Embedded Linux"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
 license="GPL-2.0-only"
 homepage="http://www.busybox.net"
-distfiles="${homepage}/downloads/busybox-$version.tar.bz2"
-checksum=e3c14a3699dc7e82fed397392957afc78e37bdf25398ac38ead6e84621b2ae6a
+distfiles="${homepage}/downloads/busybox-${version}.tar.bz2"
+checksum=97648636e579462296478e0218e65e4bc1e9cd69089a3b1aeb810bff7621efb7
 
 alternatives="
  awk:awk:/usr/bin/busybox

@@ -1,24 +1,24 @@
 # Template file for 'iwd'
 pkgname=iwd
-version=0.2
+version=0.12
 revision=1
 build_style=gnu-configure
-configure_args="--disable-systemd-service --enable-docs"
+configure_args="--disable-systemd-service --enable-docs --enable-pie
+ --enable-external-ell"
 hostmakedepends="asciidoc pkg-config"
-makedepends="readline-devel dbus-devel"
+makedepends="readline-devel dbus-devel ell-devel"
 depends="dbus"
+checkdepends="python3"
 short_desc="Internet Wireless Daemon by Intel that aims to replace wpa_supplicant"
 maintainer="maxice8 <thinkabit.ukim@gmail.com>"
 license="LGPL-2.1-or-later"
 homepage="https://iwd.wiki.kernel.org/"
 distfiles="${KERNEL_SITE}/network/wireless/iwd-${version}.tar.xz"
-checksum=25cc09cb75a707e0441dc52901d8bba9c73d9460f42116c34ffc4f0f3676ea44
-make_dirs="/var/lib/iwd 0600 root root"
+checksum=a829310ffc0a83c553526d3a0ca7b3e81ed5e7f9fd788d269c71ff2141d7b23a
+make_dirs="/var/lib/iwd 0600 root root
+ /etc/iwd 755 root root"
 
 post_install() {
-	vmkdir etc/iwd
-	touch "${DESTDIR}"/etc/iwd/.empty
-
 	vsconf doc/main.conf
 	vsv iwd
 }

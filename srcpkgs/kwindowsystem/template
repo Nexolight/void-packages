@@ -1,17 +1,17 @@
 # Template file for 'kwindowsystem'
 pkgname=kwindowsystem
-version=5.43.0
+version=5.52.0
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
 hostmakedepends="pkg-config extra-cmake-modules qt5-host-tools qt5-tools-devel"
 makedepends="qt5-tools-devel qt5-x11extras-devel libXfixes-devel xcb-util-keysyms-devel"
 short_desc="KDE frameworks - Access to the windowing system"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-license="LGPL-2.1"
+maintainer="John <johnz@posteo.net>"
+license="LGPL-2.1-or-later"
 homepage="https://projects.kde.org/projects/frameworks/kwindowsystem"
-distfiles="http://download.kde.org/stable/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=4df6da4f313f8c52a5d202caa5cc90791b4a07f0d91d5b7252e2da5487a6997d
+distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
+checksum=fd7adee58e803732cda7ea1ba1d99f6750920a774945293174e0512254bdaeab
 
 kwindowsystem-devel_package() {
 	short_desc+=" - development"
@@ -20,6 +20,6 @@ kwindowsystem-devel_package() {
 		vmove usr/include
 		vmove usr/lib/cmake
 		vmove usr/lib/qt5/mkspecs
-		vmove usr/lib/*.so
+		vmove "usr/lib/*.so"
 	}
 }

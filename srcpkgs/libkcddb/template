@@ -1,20 +1,17 @@
 # Template file for 'libkcddb'
 pkgname=libkcddb
-version=17.12.0
+version=18.08.3
 revision=1
 build_style=cmake
+configure_args="-DBUILD_TESTING=OFF"
 hostmakedepends="extra-cmake-modules qt5-qmake qt5-host-tools python kdoctools kconfig"
-makedepends="kcodecs-devel kdoctools-devel kio-devel kwidgetsaddons-devel libmusicbrainz5-devel qt5-devel"
+makedepends="kio-devel libmusicbrainz5-devel"
 short_desc="KDE CDDB library"
-maintainer="Enno Boland <gottox@voidlinux.eu>"
-license="GPL-2, LGPL-2, BSD, GFDL"
+maintainer="Piotr Wójcik <chocimier@tlen.pl>"
+license="GPL-2.0-or-later, LGPL-2.0-or-later, BSD-3-Clause, GFDL-1.2-only"
 homepage="https://projects.kde.org/projects/kde/kdemultimedia/libkcddb"
-distfiles="http://download.kde.org/stable/applications/${version}/src/${pkgname}-${version}.tar.xz"
-checksum=e5c1c0cfc45794c76f4e4680bad8096fea13c31d729c4ce1f2545a882b3c2977
-
-post_install() {
-	vlicense COPYING
-}
+distfiles="${KDE_SITE}/applications/${version}/src/${pkgname}-${version}.tar.xz"
+checksum=945bf4d106658022dfac75b7689124b60feacf02b1307f9d235288cbe56967a6
 
 libkcddb-devel_package() {
 	depends="libkcddb>=${version}_${revision}"
@@ -24,5 +21,6 @@ libkcddb-devel_package() {
 		vmove usr/share/doc
 		vmove usr/include
 		vmove "usr/lib/*.so"
+		vlicense cmake/COPYING-CMAKE-SCRIPTS
 	}
 }

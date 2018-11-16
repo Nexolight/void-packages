@@ -1,95 +1,148 @@
 # Template file for 'rust'
 pkgname=rust
-version=1.26.1
+version=1.30.0
 revision=1
-_rust_dist_version=1.25.0
-_cargo_dist_version=0.26.0
+_rust_dist_version=1.29.2
+_cargo_dist_version=0.31.0
 # NB. if you push any(!) new version, don't forget to put a build
-# output of musl to https://repo.voidlinux.eu/distfiles/
+# output of musl to https://alpha.de.repo.voidlinux.org/distfiles/
 wrksrc="rustc-${version}-src"
 lib32disabled=yes
 patch_args="-Np1"
 build_style=configure
 make_build_args="dist VERBOSE=1"
-only_for_archs="i686 x86_64 x86_64-musl"
 hostmakedepends="cmake curl pkg-config python"
-makedepends="libffi-devel llvm ncurses-devel zlib-devel"
+makedepends="libffi-devel llvm ncurses-devel libxml2-devel zlib-devel"
+depends="rust-std"
 short_desc="Safe, concurrent, practical systems language"
 maintainer="Enno Boland <gottox@voidlinux.eu>"
-homepage="http://www.rust-lang.org/"
+homepage="https://www.rust-lang.org/"
 license="MIT, Apache-2.0"
 distfiles="https://static.rust-lang.org/dist/rustc-${version}-src.tar.gz"
-checksum=70a7961bd8ec43b2c01e9896e90b0a06804a7fbe0a5c05acc7fd6fed19500df0
+checksum=cd0ba83fcca55b64c0c9f23130fe731dfc1882b73ae21bef96be8f2362c108ee
 
-case "$XBPS_MACHINE" in
-x86_64-musl)
-	hostmakedepends+=" libcurl libgit2"
-	distfiles+="
-	 https://repo.voidlinux.eu/distfiles/rustc-${_rust_dist_version}-x86_64-unknown-linux-musl.tar.gz
-	 https://repo.voidlinux.eu/distfiles/rust-std-${_rust_dist_version}-x86_64-unknown-linux-musl.tar.gz
-	 https://repo.voidlinux.eu/distfiles/cargo-${_cargo_dist_version}-x86_64-unknown-linux-musl.tar.gz"
-	checksum+="
-	 f70810658e111e22a48562f3a0e658c6a89427e2dc9f0d01079df7d81c1a5d84
-	 3dcb3ce1a0972ab637062f9556f269a00cb2e9f537a1ca02314d5090373795b3
-	 406a348567577cb2859749f1b1e1a843de20e7c1f305de89d3a3760635c4979e"
-	;;
-x86_64)
-	# extract from src/stage0.txt
-	distfiles+="
-	 https://static.rust-lang.org/dist/rustc-${_rust_dist_version}-x86_64-unknown-linux-gnu.tar.gz
-	 https://static.rust-lang.org/dist/rust-std-${_rust_dist_version}-x86_64-unknown-linux-gnu.tar.gz
-	 https://static.rust-lang.org/dist/cargo-${_cargo_dist_version}-x86_64-unknown-linux-gnu.tar.xz"
-	checksum+="
-	 f8f4ae2f4b76416bfa90758267df4280dd078235dfba92dac0431595493443be
-	 a3258308e3a9fe364d63b5d782efb285ab410bdfc01d168c119122ddbc9a02e2
-	 aeaa5813aa6615dd7fdde6d870ca257c5b2e9da5e308f8242a08b231605bce0e"
-	;;
-i686)
-	# extract from src/stage0.txt
-	distfiles+="
-	 https://static.rust-lang.org/dist/rustc-${_rust_dist_version}-i686-unknown-linux-gnu.tar.gz
-	 https://static.rust-lang.org/dist/rust-std-${_rust_dist_version}-i686-unknown-linux-gnu.tar.gz
-	 https://static.rust-lang.org/dist/cargo-${_cargo_dist_version}-i686-unknown-linux-gnu.tar.xz"
-	checksum+="
-	 12d056e4e2aecb67f1aed3e045c9c07e9ba7449bc9f39f3d66b5c256fb8c397f
-	 407318bad891e2e2ca8e35f1be97a4cf70b76e4c7ce8b4e838048bfabea26acb
-	 bc5f5aa32d2f4ba26abf79a900231d06eecc7f1f2e125ed51bf71766550d1879"
-	;;
+if [ "$CROSS_BUILD" ]; then
+	hostmakedepends+=" cargo llvm"
+
+	# These are required for building the buildhost's stage0/1
+	hostmakedepends+=" libffi-devel libxml2-devel
+		ncurses-devel zlib-devel"
+else
+	case "$XBPS_MACHINE" in
+	x86_64-musl)
+		hostmakedepends+=" libcurl libgit2"
+		distfiles+="
+		 https://alpha.de.repo.voidlinux.org/distfiles/rustc-${_rust_dist_version}-x86_64-unknown-linux-musl.tar.xz
+		 https://alpha.de.repo.voidlinux.org/distfiles/rust-std-${_rust_dist_version}-x86_64-unknown-linux-musl.tar.xz
+		 https://alpha.de.repo.voidlinux.org/distfiles/cargo-${_cargo_dist_version}-x86_64-unknown-linux-musl-libressl-2.8.tar.gz"
+		checksum+="
+		 9550baae3d2848a881b9e42b4dd8d798615271843bc56ae1f34cdf5f946daae2
+		 ded98b3ba0938715c1fe02812628bc0239c07109248f8d73889af9e8866fd776
+		 61d72ac378f3ee592cd3c82b02518f717bfcf328946ad4a51d24a2dac546c1cb"
+		;;
+	x86_64)
+		# extract from src/stage0.txt
+		distfiles+="
+		 https://static.rust-lang.org/dist/rustc-${_rust_dist_version}-x86_64-unknown-linux-gnu.tar.gz
+		 https://static.rust-lang.org/dist/rust-std-${_rust_dist_version}-x86_64-unknown-linux-gnu.tar.gz
+		 https://static.rust-lang.org/dist/cargo-${_cargo_dist_version}-x86_64-unknown-linux-gnu.tar.xz"
+		checksum+="
+		 b04146b09edc4bad0de7c8fa1a5a2aa4416d365c03c5962b8a5b26c7047b7cc9
+		 1fe9a0f354256483a354ee1b51c60bf9f3f48868581f7cb36d0cc51a82400605
+		 391518dab2831a90851158cbace4362fb85ad909483ed08dad0c8a11bbe6bee8"
+		;;
+	i686)
+		# extract from src/stage0.txt
+		distfiles+="
+		 https://static.rust-lang.org/dist/rustc-${_rust_dist_version}-i686-unknown-linux-gnu.tar.gz
+		 https://static.rust-lang.org/dist/rust-std-${_rust_dist_version}-i686-unknown-linux-gnu.tar.gz
+		 https://static.rust-lang.org/dist/cargo-${_cargo_dist_version}-i686-unknown-linux-gnu.tar.xz"
+		checksum+="
+		9309858b2f6f194c5a440ca163782b45b7f9f11351c2e0e1745dfdf2416aba40
+		d2958af5d99f1d0bd2751afe7eebce7dab24da6794be3096e1c45e98c7be7f40
+		800a5d9f8784231541e1a31612568951e9b3607f07fa11c728fb288aeafba000"
+		;;
+	esac
+fi
+
+# In rust terminology 'build' is the build host ($CBUILD) and `target`
+# and `host` are the triplets that are supposed to run the built binaries
+# ($CTARGET)
+case $XBPS_MACHINE in
+	*-musl) _build_triplet=${XBPS_MACHINE%-musl}-unknown-linux-musl;;
+	*) _build_triplet=${XBPS_MACHINE}-unknown-linux-gnu;;
 esac
 
 post_extract() {
 	rm -rf src/llvm
 
-	mkdir -p stage0
-	cp -flr ../rustc-*/rustc/* stage0
-	cp -flr ../rust-std-*/rust-std-*/* stage0
-	case "$XBPS_MACHINE" in
-		*-musl) cp -flr ../cargo stage0/bin;;
-		*) cp -flr ../cargo-*/cargo/* stage0;;
-	esac
-
-	# XXX: Cheat Rust build system so we can build rustc using different
-	# version of (prebuilt) stable rustc than preconfigured. It's hack-ish,
-	# but since we're basically rebuilding rustc with the same version,
-	# it's actually safe.
-	# Note: --enable-local-rebuild from #33787 didn't work, don't know why.
-	export LD_LIBRARY_PATH="$wrksrc/stage0/lib"
-	rustc_ver="$($wrksrc/stage0/bin/rustc --version | cut -f2 -d ' ')"
-	rustc_key="$(printf "$rustc_ver" | md5sum | cut -c1-8)"
-	sed -Ei \
-		-e "s/^(rustc):.*/\1: $rustc_ver-1970-01-01/" \
-		-e "s/^(rustc_key):.*/\1: $rustc_key/" \
-		src/stage0.txt
-
-	# Generate config for bootstrap.py to use our prebuilt rustc and cargo
-	# for bootstrapping instead of downloading snapshot from internet.
-	cat > config.toml <<EOF
-[build]
-cargo = "$wrksrc/stage0/bin/cargo"
-rustc = "$wrksrc/stage0/bin/rustc"
-EOF
+	if [ -z "$CROSS_BUILD" ]; then
+		mkdir -p stage0
+		cp -bflr ../rustc-*/rustc/* stage0
+		cp -bflr ../rust-std-*/rust-std-*/* stage0
+		case "$XBPS_MACHINE" in
+			*-musl) cp -bflr ../cargo stage0/bin;;
+			*)
+				rm ../cargo-*/cargo/manifest.in
+				cp -flr ../cargo-*/cargo/* stage0
+				;;
+		esac
+	fi
 
 	sed -i /LD_LIBRARY_PATH/d src/bootstrap/bootstrap.py
+}
+
+do_configure() {
+	export LD_LIBRARY_PATH="$wrksrc/stage0/lib"
+
+	configure_args="
+		--prefix=/usr
+		--host=${RUST_TARGET}
+		--target=${RUST_TARGET}
+		--build=${_build_triplet}
+		--disable-full-bootstrap
+		--release-channel=stable
+		--disable-rpath
+		--disable-docs
+		--disable-codegen-tests
+		--llvm-root=/usr
+		--set=target.${_build_triplet}.llvm-config=/usr/bin/llvm-config
+	"
+
+	# Disable jemalloc for now. It increases the size of small programs
+	# significantly (hello world without jemalloc 130KB vs with jemalloc
+	# 300KB) and provides worse performance in some cases.
+	configure_args+=" --disable-jemalloc"
+
+	if [ "$CROSS_BUILD" ]; then
+		configure_args+="
+			--local-rust-root=/usr
+			--enable-local-rebuild
+		"
+
+		# Set the appropriate values for the native compilation tools
+		configure_args+="
+			--set=target.${_build_triplet}.cc=${CC_host}
+			--set=target.${_build_triplet}.cxx=${CXX_host}
+			--set=target.${_build_triplet}.ar=${AR_host}
+			--set=target.${_build_triplet}.linker=${CC_host}
+		"
+
+		# Set 'llvm-config' for the cross target (host) so that we don't build
+		# LLVM for it again.
+		configure_args+="
+			--set=target.${RUST_TARGET}.llvm-config="/usr/bin/llvm-config"
+		"
+	else
+		configure_args+=" --local-rust-root=$wrksrc/stage0"
+	fi
+	case "$XBPS_TARGET_MACHINE" in
+	*-musl)
+		configure_args+=" --set=target.${RUST_TARGET}.musl-root=/usr"
+		;;
+	esac
+
+	./configure $configure_args
 }
 
 pre_build() {
@@ -99,42 +152,20 @@ pre_build() {
 	export PATH="$wrksrc/stage0/bin:$PATH"
 	export MUSL_ROOT=/usr
 	export RUST_BACKTRACE=1
+	export RUSTFLAGS="-C linker=${CC}"
 }
 
-do_configure() {
-	local _triplet
-	case $XBPS_TARGET_MACHINE in
-		i686) _triplet=i686-unknown-linux-gnu;;
-		x86_64) _triplet=x86_64-unknown-linux-gnu;;
-		x86_64-musl) _triplet=x86_64-unknown-linux-musl;;
-		*) _triplet=$XBPS_TARGET_MACHINE;;
-	esac
-	export LD_LIBRARY_PATH="$wrksrc/stage0/lib"
-	configure_args="
-		--prefix=/usr
-		--host=${_triplet}
-		--build=${_triplet}
-		--release-channel=stable
-		--disable-rpath
-		--disable-docs
-		--disable-codegen-tests
-		--enable-ccache
-		--llvm-root=/usr
-		--enable-local-rust
-		--local-rust-root=$wrksrc/stage0
-	"
-	case "$XBPS_TARGET_MACHINE" in
-	*-musl)
-		configure_args+="--musl-root=/usr --disable-jemalloc"
-		;;
-	esac
-	./configure $configure_args
-
+# Set the correct CFLAGS for the build host, we have to compile libbacktrace
+# for it during stage1. Otherwise it attemps to use CFLAGS, which are the CFLAGS
+# of the cross host.
+do_build() {
+	env CFLAGS_${_build_triplet}="${CFLAGS_host}" make ${makejobs} ${make_build_args}
 }
+
 do_install() {
 	vmkdir usr
-	tar xf build/dist/rustc-*-*-*.tar.gz -C "$DESTDIR/usr" --strip-components=2 --exclude=manifest.in
-	tar xf build/dist/rust-std-*-*-*.tar.gz -C "$DESTDIR/usr/lib" --strip-components=3 --exclude=manifest.in
+	tar xf build/dist/rustc-${version}-${RUST_TARGET}.tar.gz -C "$DESTDIR/usr" --strip-components=2 --exclude=manifest.in
+	tar xf build/dist/rust-std-${version}-${RUST_TARGET}.tar.gz -C "$DESTDIR/usr/lib" --strip-components=3 --exclude=manifest.in
 
 	vlicense COPYRIGHT
 	vlicense LICENSE-APACHE
@@ -149,5 +180,12 @@ rust-doc_package() {
 	noarch=yes
 	pkg_install() {
 		vmove usr/share/doc
+	}
+}
+
+rust-std_package() {
+	short_desc+=" - standard library"
+	pkg_install() {
+		vmove usr/lib/rustlib
 	}
 }

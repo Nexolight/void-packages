@@ -1,7 +1,7 @@
 # Template file for 'python-py'
 pkgname=python-py
-version=1.5.3
-revision=2
+version=1.6.0
+revision=1
 noarch=yes
 wrksrc="py-${version}"
 build_style=python-module
@@ -10,11 +10,12 @@ hostmakedepends="python-setuptools python3-setuptools"
 depends="python"
 checkdepends="python3-pytest"
 short_desc="Python2 development support library"
-maintainer="maxice8 <thinkabit.ukim@gmail.com>"
+maintainer="Orpahend <orphan@voidlinux.eu>"
 license="MIT"
 homepage="https://github.com/pytest-dev/py"
-distfiles="https://github.com/pytest-dev/py/archive/${version}.tar.gz"
-checksum=c0698a6f71e9ea2a44e5bdf81f1ec8d5b5e9646e990c75fadeb133149aeb8440
+changelog="https://github.com/pytest-dev/py/raw/master/CHANGELOG"
+distfiles="${PYPI_SITE}/p/py/py-${version}.tar.gz"
+checksum=06a30435d058473046be836d3fc4f27167fd84c45b99704f2fb5509ef61f9af1
 
 do_check() {
 	python3 -m pytest

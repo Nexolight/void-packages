@@ -1,6 +1,6 @@
 # Template file for 'slurm-wlm'
 pkgname=slurm-wlm
-version=17.11.5.1
+version=18.08.1.1
 revision=3
 _distver="${version//./-}"
 wrksrc="slurm-slurm-${_distver}"
@@ -16,7 +16,7 @@ maintainer="Toyam Cox <Vaelatern@voidlinux.eu>"
 license="GPL-2"
 homepage="http://slurm.schedmd.com/slurm.html"
 distfiles="https://github.com/SchedMD/slurm/archive/slurm-${_distver}.tar.gz"
-checksum=37ff1896294a1d0bbd84feae26635178f7e85fe55bbe5b5ae74892721e594fed
+checksum=6c44e9b5fb2763e7715cf0f085292a00166d7b14cb77b85d6010f701a58200d3
 
 case "${XBPS_TARGET_MACHINE}" in
 	# Undefined: inet_nsap_addr and getgrent_r

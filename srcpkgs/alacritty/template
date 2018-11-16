@@ -1,27 +1,37 @@
 # Template file for 'alacritty'
 pkgname=alacritty
-version=0.1.0.20180508
+version=0.2.3
 revision=1
-_commit=24e8a19e7d981fbc8853891ad4a17a9de2ac36bd
-wrksrc="${pkgname}-${_commit}"
-hostmakedepends="rust cargo cmake pkg-config"
+build_style=cargo
+hostmakedepends="cmake pkg-config"
 makedepends="freetype-devel fontconfig-devel"
-depends="libXxf86vm xclip"
-short_desc="A cross-platform, GPU-accelerated terminal emulator"
+depends="libXxf86vm xclip ncurses alacritty-terminfo-${version}_${revision}"
+short_desc="Cross-platform, GPU-accelerated terminal emulator"
 maintainer="Andrea Brancaleoni <abc@pompel.me>"
 license="Apache-2.0"
-homepage="https://github.com/jwilm/alacritty"
-distfiles="${homepage}/archive/${_commit}.tar.gz"
-checksum=91d9f6b01770fa3e9ac4da306bbe95eae56819f13cc77668d7dd1ed2874b60b5
+homepage="https://github.com/jwilm/${pkgname}"
+changelog="https://raw.githubusercontent.com/jwilm/${pkgname}/v${version}/CHANGELOG.md"
+distfiles="https://github.com/jwilm/${pkgname}/archive/v${version}.tar.gz"
+checksum=52d433381afce036a1744772e2ef0f3a9be3bc4eb24e5cf384a6b1b792340e05
 
-nocross=yes
+case "$XBPS_TARGET_MACHINE" in
+	aarch64-musl) broken="MAP_32BIT; not found in libc" ;;
+esac
 
-do_build() {
-	cargo build --release
+post_install() {
+	vinstall alacritty.desktop 644 usr/share/applications
+	vinstall alacritty-completions.zsh 644 usr/share/zsh/site-functions _alacritty
+	vinstall alacritty-completions.fish 644 usr/share/fish/completions alacritty.fish
+	vinstall alacritty.info 644 usr/share/terminfo/a
+	vlicense LICENSE-APACHE LICENSE
+	vman alacritty.man alacritty.1
+	vsconf alacritty.yml
 }
 
-do_install() {
-	vbin target/release/$pkgname
-	vinstall Alacritty.desktop 644 usr/share/applications
-	vlicense LICENSE-APACHE LICENSE
+alacritty-terminfo_package() {
+	short_desc+=" - terminfo data"
+	noarch=yes
+	pkg_install() {
+		vmove usr/share/terminfo
+	}
 }

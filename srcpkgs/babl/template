@@ -1,15 +1,16 @@
-# Template build file for 'babl'.
+# Template file for 'babl'
 pkgname=babl
-version=0.1.50
+version=0.1.60
 revision=1
 build_style=gnu-configure
 hostmakedepends="pkg-config vala-devel"
 short_desc="Dynamic pixel format translation library"
 maintainer="Enno Boland <gottox@voidlinux.eu>"
-homepage="http://gegl.org/babl/"
 license="LGPL-3.0-only"
-distfiles="https://ftp.gimp.org/pub/babl/${version%.*}/babl-$version.tar.bz2"
-checksum=b52c1dc081ff9ae8bc4cb7cdb959c762ea692b9f4431bacf8d17a14dbcc85b2d
+homepage="http://gegl.org/babl/"
+changelog="https://raw.githubusercontent.com/GNOME/babl/master/NEWS"
+distfiles="https://download.gimp.org/pub/babl/${version%.*}/babl-${version}.tar.bz2"
+checksum=a3d1eeccb6057ccbc189dc926ebaca96cd4896f3391f857b86334d2245f0604f
 
 babl-devel_package() {
 	depends="${sourcepkg}>=${version}_${revision}"

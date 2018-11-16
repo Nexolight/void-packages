@@ -1,6 +1,6 @@
 # Template file for 'xterm'
 pkgname=xterm
-version=333
+version=337
 revision=1
 build_style=gnu-configure
 configure_args="--enable-wide-chars --enable-88-color --enable-broken-osc
@@ -14,16 +14,19 @@ configure_args="--enable-wide-chars --enable-88-color --enable-broken-osc
 hostmakedepends="pkg-config"
 makedepends="libXaw-devel libXft-devel libutempter-devel libxkbfile-devel
  ncurses-devel"
-depends="libutempter"
 short_desc="X Terminal Emulator"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
 license="MIT"
 homepage="http://invisible-island.net/xterm/"
-distfiles="https://invisible-mirror.net/archives/xterm/$pkgname-$version.tgz"
-checksum=2f1d42014e55c8036c6b29a847b31d3b5c1a3a35b126993ae6d3f05e8da0ef78
+changelog="http://invisible-island.net/xterm/xterm.log.html"
+distfiles="https://invisible-mirror.net/archives/xterm/xterm-${version}.tgz"
+checksum=ccac77ded347e78d5ffb69b381adf8b2377ce66644b8bec6308aaf19b9aecfa7
 
 post_install() {
 	for f in {u,}xterm.desktop; do
 		vinstall $f 644 usr/share/applications
 	done
+
+	sed -n '2,32p' < Makefile.in > LICENSE
+	vlicense LICENSE
 }

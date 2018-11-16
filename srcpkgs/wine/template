@@ -1,15 +1,15 @@
 # Template file for 'wine'
 pkgname=wine
-version=3.9
+version=3.20
 revision=1
 build_style=gnu-configure
 configure_args="--without-gstreamer"
 short_desc="Run Microsoft Windows applications"
 maintainer="Andrea Brancaleoni <abc@pompel.me>"
-license="LGPL-2.1"
+license="LGPL-2.1-or-later"
 homepage="http://www.winehq.org/"
 distfiles="https://dl.winehq.org/wine/source/${version%.*}.x/wine-${version}.tar.xz"
-checksum=ccadc281966d5a94f1161dec22d29bf7bd6506b371b26f18f652d374e986b735
+checksum=33d61122085056e091042df7d2cbe908ffb9c06e602278611dca2eea6a566f18
 
 nopie_files="/usr/bin/wine"
 
@@ -25,7 +25,7 @@ makedepends="gettext-devel lcms2-devel zlib-devel ncurses-devel
  libxslt-devel glib-devel freetype-devel pulseaudio-devel
  mpg123-devel libgsm-devel libopenal-devel giflib-devel libpng-devel
  v4l-utils-devel fontconfig-devel gnutls-devel dbus-devel sane-devel
- libpcap-devel cups-devel dbus-devel ocl-icd-devel vulkan-loader"
+ libpcap-devel cups-devel ocl-icd-devel vulkan-loader"
 depends="libXi libXinerama libXcomposite libXcursor libOSMesa
  desktop-file-utils hicolor-icon-theme liberation-fonts-ttf
  gnutls"

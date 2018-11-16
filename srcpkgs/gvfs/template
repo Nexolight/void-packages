@@ -1,22 +1,25 @@
 # Template file for 'gvfs'
 pkgname=gvfs
-version=1.36.2
+version=1.38.1
 revision=1
 build_style=meson
-configure_args="-Dsystemduserunitdir=no -Dtmpfilesdir=no -Dlogind=false"
-hostmakedepends="docbook-xsl glib-devel intltool libxslt openssh pkg-config"
-makedepends="avahi-glib-libs-devel dbus-glib-devel fuse-devel libarchive-devel
- libbluetooth-devel libbluray-devel libcap-devel libcdio-paranoia-devel
- libgdata-devel libgphoto2-devel libgudev-devel libimobiledevice-devel
- libmtp-devel libnfs-devel libsecret-devel libsoup-gnome-devel polkit-devel
+configure_args="-Dsystemduserunitdir=no -Dtmpfilesdir=no -Dlogind=false
+ -Dman=true"
+hostmakedepends="docbook-xsl glib-devel intltool libxslt openssh pkg-config
+ polkit-devel"
+makedepends="avahi-glib-libs-devel dbus-glib-devel fuse-devel gcr-devel
+ libarchive-devel libbluetooth-devel libbluray-devel libcap-devel
+ libcdio-paranoia-devel libgcrypt-devel libgdata-devel libglib-devel
+ libgphoto2-devel libgudev-devel libimobiledevice-devel libmtp-devel
+ libnfs-devel libsecret-devel libsoup-gnome-devel libxml2-devel polkit-devel
  samba-devel udisks2-devel"
 short_desc="Userspace virtual filesystem"
 maintainer="Enno Boland <gottox@voidlinux.eu>"
-license="LGPL-2.1"
-#changelog="https://git.gnome.org/browse/gvfs/plain/NEWS?h=gnome-3-28"
+license="LGPL-2.1-or-later"
+changelog="https://gitlab.gnome.org/GNOME/gvfs/raw/gnome-3-30/NEWS"
 homepage="https://wiki.gnome.org/Projects/gvfs"
 distfiles="${GNOME_SITE}/${pkgname}/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=c4e279a33dd9cd208135e8bfc4788ceaf264c61a24a85255f6696a934a0101f7
+checksum=ed136a842c996d25c835da405c4775c77106b46470e75bdc242bdd59ec0d61a0
 
 # Manually declare shlibs used by the subpkgs.
 shlib_provides="libgvfscommon.so libgvfsdaemon.so"
@@ -99,7 +102,6 @@ gvfs-mtp_package() {
 gvfs-smb_package() {
 	short_desc+=" - SMB/CIFS (Windows client) backend"
 	depends="gvfs-${version}_${revision}"
-	triggers="gsettings-schemas"
 	pkg_install() {
 		vmove usr/libexec/gvfsd-smb
 		vmove usr/libexec/gvfsd-smb-browse

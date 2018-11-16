@@ -57,12 +57,18 @@ update_check() {
                 url="https://bitbucket.org/$bbname/downloads"
                 rx='/(get|downloads)/(v?|\Q'"$pkgname"'\E-)?\K[\d\.]+(?=\.tar)';;
             *ftp.gnome.org*)
-                : ${pattern="\Q$pkgname\E-\K[0-9]\.[0-9]*[02468]\.[0-9.]*[0-9](?=)"}
+                : ${pattern="\Q$pkgname\E-\K[0-9]+\.[0-9]*[02468]\.[0-9.]*[0-9](?=)"}
                 url="http://ftp.gnome.org/pub/GNOME/sources/$pkgname/cache.json";;
             *kernel.org/pub/linux/kernel/*)
                 rx=linux-'\K'${version%.*}'[\d.]+(?=\.tar\.xz)';;
             *cran.r-project.org/src/contrib*)
                 rx='\b\Q'"${pkgname#R-cran-}"'\E_\K\d+(\.\d+)*(-\d+)?(?=\.tar)';;
+            *download.kde.org/stable/applications*|*download.kde.org/stable/frameworks*|*download.kde.org/stable/plasma*)
+                url="${url%%${version%.*}*}"
+                rx='href="\K[\d\.]+(?=/")';;
+            *rubygems.org*)
+                url="https://rubygems.org/gems/${pkgname#ruby-}"
+                rx='versions/\K[\d\.]+' ;;
             esac
         fi
 
@@ -72,7 +78,7 @@ update_check() {
         if [ -n "$XBPS_UPDATE_CHECK_VERBOSE" ]; then
             echo "fetching $url" 1>&2
         fi
-        curl -A "xbps-src-update-check/$XBPS_SRC_VERSION" --max-time 10 -Lsk "$url" |
+        curl -H 'Accept: text/html,application/xhtml+xml,application/xml,text/plain,application/rss+xml' -A "xbps-src-update-check/$XBPS_SRC_VERSION" --max-time 10 -Lsk "$url" |
             grep -Po -i "$rx"
     done |
     tr _ . |

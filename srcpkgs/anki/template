@@ -1,36 +1,22 @@
 # Template file for 'anki'
 pkgname=anki
-version=2.0.50
+version=2.1.5
 revision=1
 noarch=yes
-depends="python-PyQt4-webkit python-httplib2 python-SQLAlchemy"
+build_style=gnu-makefile
+pycompile_version="${py3_ver}"
 pycompile_dirs="/usr/share/anki/anki /usr/share/anki/aqt"
+depends="python3-PyQt5-webengine python3-requests python3-SQLAlchemy
+ python3-PyAudio python3-mpv python3-Markdown python3-send2trash
+ python3-BeautifulSoup4 python3-decorator"
 short_desc="Spaced repetition flashcard program"
 maintainer="Steve Prybylski <sa.prybylx@gmail.com>"
-license="AGPL-3"
-homepage="http://ankisrs.net"
-distfiles="http://ankisrs.net/downloads/current/${pkgname}-${version}-source.tgz"
-checksum=37b2c601762ea8bfc7b9fc3e3067b82b0ad48c27b58076f6fd636f52930b1816
+license="AGPL-3.0-or-later"
+homepage="https://apps.ankiweb.net"
+changelog="https://apps.ankiweb.net/docs/changes.html"
+distfiles="https://apps.ankiweb.net/downloads/current/anki-${version}-source.tgz"
+checksum=56eef02545160388770ec4c923354b485269bcca666a8def7403216555a26117
 
-do_install() {
-	vmkdir usr/share/anki
-	for f in anki aqt designer locale oldanki anki.xml; do
-		vcopy $f usr/share/anki
-	done
-
-	# thirdparty
-	vmkdir usr/share/anki/thirdparty
-	vcopy thirdparty/BeautifulSoup.py usr/share/anki/thirdparty
-	vcopy thirdparty/send2trash usr/share/anki/thirdparty
-
-	# icons
-	vmkdir usr/share/pixmaps
-	for p in anki.xpm anki.png; do
-		vcopy $p usr/share/pixmaps
-	done
-	vinstall anki.desktop 644 usr/share/applications
-	vbin runanki anki
-	vman anki.1
-
+post_install() {
 	vlicense LICENSE
 }

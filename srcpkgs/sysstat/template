@@ -1,6 +1,6 @@
 # Template file for 'sysstat'
 pkgname=sysstat
-version=11.6.3
+version=12.0.2
 revision=1
 build_style=gnu-configure
 configure_args="--enable-copy-only --disable-file-attr
@@ -11,10 +11,10 @@ hostmakedepends="pkg-config"
 depends="lm_sensors"
 short_desc="Collection of performance monitoring tools"
 maintainer="Leah Neukirchen <leah@vuxu.org>"
-license="GPL-2"
+license="GPL-2.0-or-later"
 homepage="http://pagesperso-orange.fr/sebastien.godard/"
 distfiles="http://pagesperso-orange.fr/sebastien.godard/${pkgname}-${version}.tar.xz"
-checksum=54b306a1634e39710767936d4d1be17e8b65062aa04c837b41479c4b28b511bd
+checksum=2d30947c8fabbb5015c229fbc149f2891db4926cdf165e5f099310795d8dac80
 
 post_extract() {
 	sed -i 's/lib64/lib/' configure

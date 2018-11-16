@@ -1,6 +1,6 @@
 # Template file for 'mate-applets'
 pkgname=mate-applets
-version=1.20.1
+version=1.20.2
 revision=1
 build_style=gnu-configure
 configure_args="--disable-static --enable-ipv6"
@@ -9,13 +9,13 @@ makedepends="NetworkManager-devel gtksourceview-devel libSM-devel libgtop-devel
  libmate-panel-devel libmateweather-devel libnotify-devel libwnck-devel
  mate-desktop-devel mate-icon-theme mate-settings-daemon-devel polkit-devel
  upower-devel wireless_tools-devel"
-depends="mate-icon-theme"
+depends="mate-icon-theme mate-applets-data-${version}_${revision}"
 short_desc="Applets for MATE panel"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
 license="GPL-2.0-or-later"
 homepage="https://mate-desktop.org"
 distfiles="https://pub.mate-desktop.org/releases/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=8c0723644a49d465c616ab611e9b1e4f532cac3e7c891151cbf2649dc84b21a8
+checksum=9a2609dbb3ea4e0bdee67d819c899a6ce7c06f4447be804464fbc2bbba070631
 
 case "$XBPS_TARGET_MACHINE" in
 	i686|x86_64)
@@ -23,3 +23,11 @@ case "$XBPS_TARGET_MACHINE" in
 		makedepends+=" libcpupower-devel"
 		;;
 esac
+
+mate-applets-data_package() {
+	noarch=yes
+	short_desc+=" - architecture independent data"
+	pkg_install() {
+		vmove usr/share
+	}
+}

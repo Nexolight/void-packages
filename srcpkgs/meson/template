@@ -1,24 +1,33 @@
 # Template file for 'meson'
 pkgname=meson
-version=0.46.1
+version=0.48.2
 revision=1
 noarch=yes
 build_style=python3-module
 pycompile_module="mesonbuild"
-hostmakedepends="python3-devel"
-depends="ninja python3"
+hostmakedepends="python3-devel python3-setuptools"
+depends="ninja python3-setuptools"
 checkdepends="glib-devel gobject-introspection libsanitizer-devel ninja
  pkg-config vala python-devel"
 short_desc="Super fast build system"
 maintainer="Dylan Katz <muddmaker.97@gmail.com>"
 license="Apache-2.0"
 homepage="http://mesonbuild.com"
+changelog="https://raw.githubusercontent.com/mesonbuild/meson/master/docs/markdown/Release-notes-for-${version%.?}.0.md"
 distfiles="https://github.com/mesonbuild/meson/archive/${version}.tar.gz"
-checksum=2d917692d2cc194e12295f00469fbdf3c045e85d0295e5e59ced69115920ffa0
+checksum=1daac2fd3d97f26a28f6f7e9addccc85a526a471dbd836613ce34130f69adcc0
 
 do_check() {
 	# meson depends on trillion of things to perform actual tests
 	# see checkdepends=() on arch
 	# 3 tests still fails
 	./run_unittests.py
+}
+
+post_install() {
+	vmkdir usr/share/vim/vimfiles
+	cp -rt ${DESTDIR}/usr/share/vim/vimfiles data/syntax-highlighting/vim/*/
+
+	vinstall data/syntax-highlighting/emacs/meson.el 644 usr/share/emacs/site-lisp
+	vinstall data/shell-completions/zsh/_meson 644 usr/share/zsh/site-functions
 }

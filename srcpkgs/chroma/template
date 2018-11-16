@@ -1,17 +1,17 @@
 # Template file for 'chroma'
 pkgname=chroma
-version=0.4.0
+version=0.6.0
 revision=1
 build_style=go
-hostmakedepends="git"
 go_import_path="github.com/alecthomas/${pkgname}"
 go_package="${go_import_path}/cmd/chroma"
+hostmakedepends="git"
 short_desc="A general purpose syntax highlighter"
 maintainer="Daniel Lewan <vision360.daniel@gmail.com>"
 license="MIT"
-distfiles="https://${go_import_path}/archive/v${version}.tar.gz"
 homepage="https://github.com/alecthomas/chroma"
-checksum=dac48b59829eedda44185820d5fc0aedba55b984a34d54919d558781f7f22ba7
+distfiles="https://${go_import_path}/archive/v${version}.tar.gz"
+checksum=be30aa45fac2d401f28fc49c87b1fa315f61273da2097eaba412802e76de17dd
 
 post_install() {
 	vlicense COPYING

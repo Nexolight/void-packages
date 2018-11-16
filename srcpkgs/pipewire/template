@@ -1,27 +1,70 @@
 # Template file for 'pipewire'
 pkgname=pipewire
-version=0.1.9
+version=0.2.3
 revision=1
-configure_args="-Denable_man=true -Denable_gstreamer=false"
 build_style=meson
-hostmakedepends="pkg-config xmltoman"
-makedepends="dbus-devel jack-devel alsa-lib-devel v4l-utils-devel SDL2-devel
- ffmpeg-devel libX11-devel"
+configure_args="-Dman=true -Dgstreamer=true -Ddocs=true -Dsystemd=false"
+hostmakedepends="doxygen graphviz pkg-config xmltoman"
+makedepends="SDL2-devel ffmpeg-devel gst-plugins-base1-devel jack-devel
+ sbc-devel v4l-utils-devel libva-devel"
 short_desc="Server and user space API to deal with multimedia pipelines"
 maintainer="maxice8 <thinkabit.ukim@gmail.com>"
-license="LGPL-2.1"
+license="LGPL-2.1-or-later"
 homepage="https://pipewire.org/"
+changelog="https://raw.githubusercontent.com/PipeWire/pipewire/master/NEWS"
 distfiles="https://github.com/PipeWire/pipewire/archive/${version}.tar.gz"
-checksum=d7dc591d60c3544f3c24b2b0ab1db458991dd69d0610337fd0accf136373916b
+checksum=ffff3f4305791d19239cdba938b3432292802f8fe6f426577e159e11c68d95cb
 
-# XXX: There is potential to further divide into more subpkgs one for libpipewire
-# and another for libspa
-pipewire-devel_package() {
-	depends="${sourcepkg}>=${version}_${revision}"
-	short_desc+=" - development files"
+post_install() {
+	# Quick hack to get manapge to correct spot
+	vmkdir usr/share/man/man5
+	mv ${DESTDIR}/usr/share/man/man1/pipewire.conf.5 ${DESTDIR}/usr/share/man/man5
+}
+
+libpipewire_package() {
+	short_desc+=" - pipewire library"
 	pkg_install() {
-		vmove usr/include
-		vmove usr/lib/pkgconfig
-		vmove "usr/lib/*.so"
+		vmove "usr/lib/libpipewire-0.2.so.*"
+	}
+}
+
+pipewire-devel_package() {
+	depends="libpipewire-${version}_${revision}"
+	short_desc+=" - pipewire and libspa development files"
+	pkg_install() {
+		vmove usr/include/pipewire
+		vmove usr/include/spa
+		vmove usr/lib/pkgconfig/libpipewire-0.2.pc
+		vmove usr/lib/pkgconfig/libspa-0.1.pc
+		vmove usr/lib/libpipewire-0.2.so
+	}
+}
+
+libspa-ffmpeg_package() {
+	short_desc+=" - ffmpeg plugins"
+	pkg_install() {
+		vmove usr/lib/spa/ffmpeg
+	}
+}
+
+libspa-bluetooth_package() {
+	short_desc+=" - bluetooth plugins"
+	pkg_install() {
+		vmove usr/lib/spa/bluez5
+	}
+}
+
+gstreamer1-pipewire_package() {
+	short_desc+=" - gstreamer plugin"
+	pkg_install() {
+		vmove usr/lib/gstreamer-1.0
+	}
+}
+
+pipewire-doc_package() {
+	noarch=yes
+	short_desc+=" - documentation"
+	pkg_install() {
+		vmove usr/share/doc
 	}
 }

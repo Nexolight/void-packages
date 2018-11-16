@@ -1,0 +1,25 @@
+# Template file for 'SPIRV-Headers'
+pkgname=SPIRV-Headers
+version=1.3.44
+revision=1
+_githash=a2c529b5dda18838ab4b52f816acfebd774eaab3
+noarch=yes
+wrksrc="${pkgname}-${_githash}"
+build_style=cmake
+short_desc="Machine-readable files for the SPIR-V Registry"
+maintainer="maxice8 <thinkabit.ukim@gmail.com>"
+license="GPL-3.0-or-later"
+homepage="https://github.com/KhronosGroup/SPIRV-Headers"
+distfiles="https://github.com/KhronosGroup/SPIRV-Headers/archive/${_githash}.tar.gz"
+checksum=ff732d21622bb7b2180c794949a5ad2cda71850e2f46cce70b02556d7c789342
+
+post_install() {
+	vlicense LICENSE
+}
+
+# This package has no stable releases from upstream so we use the version
+# of the standard followed by the number of commits taken from their GitHub
+# since the standard was introduced
+#
+# for the current version 1.3 use:
+# git rev-list --count 02ffc719aa9f9c1dce5ce05743fb1afe6cbf17ea..HEAD

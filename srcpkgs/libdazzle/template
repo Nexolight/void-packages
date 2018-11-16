@@ -1,24 +1,30 @@
 # Template file for 'libdazzle'
 pkgname=libdazzle
-version=3.28.2
+version=3.30.2
 revision=1
+build_style=meson
 configure_args="-Denable_gtk_doc=false -Dwith_vapi=$(vopt_if gir true false)
  -Dwith_introspection=$(vopt_if gir true false)"
-build_style=meson
 hostmakedepends="glib-devel pkg-config
  $(vopt_if gir 'gobject-introspection vala')"
-makedepends="gtk+3-devel"
+makedepends="gtk+3-devel libglib-devel"
 short_desc="A library to delight your users with fancy features"
-maintainer="maxice8 <thinkabit.ukim@gmail.com>"
+maintainer="Rasmus Thomsen <rasmus.thomsen@protonmail.com>"
 license="GPL-3.0-or-later"
 homepage="https://wiki.gnome.org/Apps/Builder"
+changelog="https://raw.githubusercontent.com/GNOME/libdazzle/libdazzle-3-30/NEWS"
 distfiles="${GNOME_SITE}/libdazzle/${version%.*}/libdazzle-${version}.tar.xz"
-checksum=56519e13bd14b7f3280cc404d7ada924b5195990a9e4bb4843392c2eb1b7ddcd
+checksum=78770eae9fa15ac5acb9c733d29459330b2540affbf72933119e36dbd90b36d5
 
 build_options="gir"
 if [ -z "$CROSS_BUILD" ]; then
 	build_options_default+=" gir"
 fi
+
+do_check() {
+	# Needs X
+	:
+}
 
 libdazzle-devel_package() {
 	depends="${sourcepkg}-${version}_${revision} gtk+3-devel"
@@ -30,7 +36,6 @@ libdazzle-devel_package() {
 		if [ "$build_option_gir" ]; then
 			vmove usr/share/gir-1.0
 			vmove usr/share/vala
-			vmove usr/lib/girepository-1.0
 		fi
 	}
 }

@@ -1,0 +1,33 @@
+# Template file for 'libxmlb'
+pkgname=libxmlb
+version=0.1.4
+revision=1
+build_style=meson
+configure_args="-Dgtkdoc=false -Dtests=false -Dstemmer=false
+ -Dintrospection=$(vopt_if gir true false)"
+hostmakedepends="pkg-config python3"
+makedepends="libglib-devel libuuid-devel $(vopt_if gir gobject-introspection)"
+short_desc="Library to help create and query binary XML blobs"
+maintainer="maxice8 <thinkabit.ukim@gmail.com>"
+license="LGPL-2.1-or-later"
+homepage="https://github.com/hughsie/libxmlb"
+distfiles="https://github.com/hughsie/libxmlb/archive/${version}.tar.gz"
+checksum=07f43e24b898a1acc06cb895d07f3989f0eddc6b0467da37e27f49bfb6e9ffae
+
+build_options="gir"
+if [ -z "$CROSS_BUILD" ]; then
+	build_options_default="gir"
+fi
+
+libxmlb-devel_package() {
+	depends="libxmlb-${version}_${revision} libglib-devel libuuid-devel"
+	short_desc+=" - development files"
+	pkg_install() {
+		vmove usr/include
+		vmove usr/lib/pkgconfig
+		vmove "usr/lib/*.so"
+		if [ "$build_options_gir" ]; then
+			vmove usr/share/gir-1.0
+		fi
+	}
+}

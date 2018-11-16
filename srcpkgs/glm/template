@@ -1,22 +1,19 @@
 # Template file for 'glm'
 pkgname=glm
-version=0.9.9.0
-revision=1
-wrksrc=glm
+version=0.9.9.2
+reverts="0.9.9.3_1"
+revision=2
 noarch=yes
+wrksrc=glm
 build_style=cmake
+configure_args="-DGLM_TEST_ENABLE=OFF"
 hostmakedepends="dos2unix unzip"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
 short_desc="A C++ mathematics library for graphics programming"
+maintainer="Juan RP <xtraeme@voidlinux.eu>"
 license="MIT"
 homepage="http://glm.g-truc.net"
 distfiles="https://github.com/g-truc/glm/releases/download/${version}/glm-${version}.zip"
-checksum=e1c707407c43589e8eeb8b69b902f1a34aaaa59bda1ca144181c2d2d6e531246
-
-post_extract() {
-	# Fix compiler version detection: GCC >= 7.2
-	sed -i glm/simd/platform.h -e "/(__GNUC__ == 7)/s/ == 2/>= 2/"
-}
+checksum=209b5943d393925e1a6ecb6734e7507b8f6add25e72a605b25d0d0d382e64fd4
 
 post_install() {
 	local f

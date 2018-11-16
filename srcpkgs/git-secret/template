@@ -1,0 +1,24 @@
+# Template file for 'git-secret'
+pkgname=git-secret
+version=0.2.4
+revision=1
+noarch=yes
+build_style=gnu-makefile
+make_install_args="PREFIX=/usr"
+depends="bash gawk gnupg coreutils"
+short_desc="Bash-tool to store your private data inside a git repository"
+maintainer="shizonic <realtiaz@gmail.com>"
+license="MIT"
+homepage="http://git-secret.io/"
+distfiles="https://github.com/sobolevn/git-secret/archive/v${version}.tar.gz"
+checksum=dd9962935f242a94bb00af6a31171de0fdba357171a6c626efc2635751d52bc4
+
+do_install() {
+	vbin git-secret
+	vinstall ${pkgname}.plugin.zsh 644 usr/share/zsh/plugins/${pkgname} ${pkgname}.zsh
+	vdoc README.md
+	for f in man/*/*.{1,7}; do
+		vman $f
+	done
+	vlicense LICENSE.md
+}

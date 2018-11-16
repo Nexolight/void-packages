@@ -1,8 +1,8 @@
 # Template file for 'webkit2gtk'
 pkgname=webkit2gtk
-version=2.20.0
+version=2.22.3
 revision=1
-wrksrc="webkitgtk-$version"
+wrksrc="webkitgtk-${version}"
 build_style=cmake
 configure_args="-DPORT=GTK -DENABLE_GTKDOC=OFF -DCMAKE_LINKER=${XBPS_CROSS_TRIPLET}-gcc
  -DUSE_GSTREAMER_GL=OFF"
@@ -11,13 +11,9 @@ configure_args+=" -DUSE_WOFF2=OFF"
 short_desc="GTK+3 port of the WebKit2 browser engine"
 maintainer="Enno Boland <gottox@voidlinux.eu>"
 homepage="https://webkitgtk.org/"
-license="LGPL-2.1, 2-clause-BSD"
+license="LGPL-2.1, BSD-2-Clause"
 distfiles="${homepage}/releases/webkitgtk-${version}.tar.xz"
-checksum=57f640f720bd9a8a7207f3321cf803a15c2f207b4e7b75ff1be17bc1eeb00a3c
-case "$XBPS_TARGET_MACHINE" in
-	armv[56]*) broken=https://build.voidlinux.eu/builders/armv6l_builder/builds/8588/steps/shell_3/logs/stdio ;;
-esac
-
+checksum=9dfd542902953be9af8ff32bd37fe662ca3d75f7348514ebac15c6252a6ccd72
 
 # ETOOHUGE
 nodebug=1
@@ -27,10 +23,10 @@ CXXFLAGS="-Wno-expansion-to-defined"
 hostmakedepends="perl python pkg-config intltool gperf flex ruby glib-devel geoclue2"
 makedepends="
  at-spi2-core-devel libjpeg-turbo-devel libpng-devel sqlite-devel
- harfbuzz-devel gst-plugins-base1-devel libsoup-devel libxslt-devel
- gnutls-devel icu-devel enchant-devel dbus-glib-devel libwebp-devel
- gtk+-devel gtk+3-devel libgudev-devel libsecret-devel ruby-devel
- geoclue2-devel libnotify-devel hyphen-devel"
+ harfbuzz-devel gst-plugins-base1-devel gst-plugins-bad1-devel
+ libsoup-devel libxslt-devel gnutls-devel icu-devel enchant-devel
+ dbus-glib-devel libwebp-devel gtk+-devel gtk+3-devel libgudev-devel
+ libsecret-devel ruby-devel geoclue2-devel libnotify-devel hyphen-devel"
 
 case "$XBPS_TARGET_MACHINE" in
 armv[56]*|mips*) configure_args+=" -DENABLE_JIT=0"
@@ -51,33 +47,39 @@ if [ -z "$CROSS_BUILD" ]; then
 	build_options_default+=" gir"
 else
 	# Make cmake detect Ruby headers in cross base
-	configure_args+=" -DRUBY_VERSION=2.4 -DRUBY_CONFIG_INCLUDE_DIR=${XBPS_CROSS_BASE}/usr/include/ruby-2.4.0"
-	# Fix non-working target CPU detection
-	configure_args+=" -DCMAKE_SYSTEM_PROCESSOR=${XBPS_TARGET_MACHINE%-musl}"
+	configure_args+=" -DRUBY_VERSION=2.5 -DRUBY_CONFIG_INCLUDE_DIR=${XBPS_CROSS_BASE}/usr/include/ruby-2.5.0"
 fi
 
 if [ "$build_option_gir" ]; then
-	configure_args+=" --enable-introspection"
+	configure_args+=" -DENABLE_INTROSPECTION=1"
 	hostmakedepends+=" gobject-introspection"
 else
-	configure_args+=" --disable-introspection"
 	configure_args+=" -DENABLE_INTROSPECTION=0"
 fi
 
 if [ "$build_option_wayland" ]; then
-	configure_args+=" --enable-wayland-target"
+	configure_args+=" -DENABLE_WAYLAND_TARGET=1"
 	hostmakedepends+=" wayland-devel"
-	makedepends+=" MesaLib-devel libxkbcommon-devel wayland-devel"
+	makedepends+=" MesaLib-devel libxkbcommon-devel wayland-devel wayland-protocols"
 else
-	configure_args+=" --disable-wayland-target"
+	configure_args+=" -DENABLE_WAYLAND_TARGET=0"
 fi
 
 if [ "$build_option_x11" ]; then
-	configure_args+=" --enable-x11-target"
+	configure_args+=" -DENABLE_X11_TARGET=1"
 	makedepends+=" libXt-devel"
 else
-	configure_args+=" --disable-x11-target"
+	configure_args+=" -DENABLE_X11_TARGET=0"
 fi
+
+pre_configure() {
+	case "$XBPS_TARGET_MACHINE" in
+	armv[56]*) # Add -latomic to the targets
+		find -name "CMakeLists.txt" -exec sed -i "{}" \
+		-e "/target_link_libraries/s/)/ atomic)/" \;
+		;;
+	esac
+}
 
 post_install() {
 	vlicense Source/WebCore/LICENSE-APPLE

@@ -1,0 +1,18 @@
+# Template file for 'deepin-icon-theme'
+pkgname=deepin-icon-theme
+version=15.12.64
+revision=1
+noarch=yes
+build_style=gnu-makefile
+depends="papirus-icon-theme"
+short_desc="Deepin Icon Theme"
+maintainer="John <johnz@posteo.net>"
+license="GPL-3.0-or-later"
+homepage="https://github.com/linuxdeepin/deepin-icon-theme"
+changelog="https://github.com/linuxdeepin/deepin-icon-theme/blob/master/CHANGELOG.md"
+distfiles="https://github.com/linuxdeepin/deepin-icon-theme/archive/${version}.tar.gz"
+checksum=dd8901d58e96109cc65a559df5161b71283ab01e7aa64753265a617f025e3ca4
+
+do_build() {
+	:
+}

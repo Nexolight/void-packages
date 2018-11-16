@@ -1,23 +1,33 @@
 # Template file for 'gopass'
 pkgname=gopass
-version=1.7.2
-revision=1
+version=1.8.2
+revision=2
 build_style=go
-go_import_path="github.com/justwatchcom/gopass"
-depends="gnupg2 git"
+go_import_path=github.com/gopasspw/gopass
 makedepends="gnupg2"
+depends="gnupg2 git"
 short_desc="The slightly more awesome standard unix password manager for teams"
 maintainer="Dominic Monroe <monroef4@googlemail.com>"
 license="MIT"
 homepage="https://www.justwatch.com/gopass/"
-#changelog="https://raw.githubusercontent.com/justwatchcom/gopass/master/CHANGELOG.md"
-distfiles="https://github.com/justwatchcom/gopass/archive/v${version}.tar.gz"
-checksum=71fece96684e36f4765e913bf30bf93c9bf7a1df9638b9187732d49d8b2f22cb
-nocross=yes
+changelog="https://raw.githubusercontent.com/justwatchcom/gopass/master/CHANGELOG.md"
+distfiles="https://github.com/gopasspw/gopass/archive/v${version}.tar.gz"
+checksum=6dc423448c0672fd5087ab75e4c3d8584fb75c93789c9fd68bf14576ab46d1ed
+
+broken="go-1.11/runtime.support_avx2"
+
+if [ "$CROSS_BUILD" ]; then
+	# Depend on system gopass to generate completions
+	hostmakedepends="gopass"
+fi
 
 post_build() {
 	local GOPASS=${GOPATH}/bin/gopass
 	local completions=(zsh bash fish)
+
+	if [ "$CROSS_BUILD" ]; then
+		GOPASS=/usr/bin/gopass
+	fi
 
 	for completion in "${completions[@]}"; do
 		$GOPASS completion $completion > ${completion}.completion;

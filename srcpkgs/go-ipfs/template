@@ -1,9 +1,9 @@
 # Template file for 'go-ipfs'
 pkgname=go-ipfs
-version=0.4.15
-revision=1
+version=0.4.17
+revision=2
 create_wrksrc=yes
-build_wrksrc=${pkgname}-${version}
+build_wrksrc="${pkgname}-${version}"
 build_style=go
 hostmakedepends="gx-go"
 go_import_path="github.com/ipfs/${pkgname}"
@@ -13,16 +13,15 @@ short_desc="Global versioned P2P merkle DAG file system"
 maintainer="Christopher Brannon <chris@the-brannons.com>"
 license="MIT"
 homepage="https://ipfs.io"
+changelog="https://github.com/ipfs/go-ipfs/blob/master/CHANGELOG.md"
 distfiles="https://${go_import_path}/archive/v${version}.tar.gz"
-checksum=b7e58e86e6abaf97687a566747376f13d8b5dde8b51033e3ff17f0d7fa8d5232
+checksum=2562401bee0609d321bbf5e9c383de4124f634dcfd9394f1d23146a49f281718
 
 pre_build() {
 	# Disable the dynamic plugin loader for now; breaks cross.
 	if [ "$CROSS_BUILD" ]; then
 		rm plugin/loader/load_linux.go
 	fi
-
-	echo "ipldgit github.com/ipfs/go-ipfs/plugin/plugins/git 0" >> plugin/loader/preload_list
 
 	gx install
 }

@@ -1,6 +1,6 @@
 # Template file for 'gnuplot'
 pkgname=gnuplot
-version=5.2.3
+version=5.2.5
 revision=1
 configure_args="--with-readline=builtin"
 hostmakedepends="pkg-config lua52"
@@ -11,11 +11,11 @@ maintainer="Leah Neukirchen <leah@vuxu.org>"
 homepage="http://www.gnuplot.info/"
 license="gnuplot"
 distfiles="${SOURCEFORGE_SITE}/gnuplot/gnuplot/${version}/gnuplot-${version}.tar.gz"
-checksum=feb58c9358d9d129e00507f3b34d4b13c4caea3f004325c587f8caafe5dbe724
+checksum=039db2cce62ddcfd31a6696fe576f4224b3bc3f919e66191dfe2cdb058475caa
 
 subpackages="gnuplot-common"
 if [ -z "$CROSS_BUILD" ]; then
-	makedepends+=" cairo-devel pango-devel wxWidgets-devel qt5-tools-devel qt5-svg-devel"
+	makedepends+=" cairo-devel pango-devel wxWidgets-gtk3-devel qt5-tools-devel qt5-svg-devel"
 	subpackages+=" gnuplot-wx gnuplot-qt"
 fi
 
@@ -46,7 +46,7 @@ do_configure() {
 		cd ${wrksrc}/x11
 		./configure ${configure_args} --disable-wxwidgets --without-cairo --without-qt
 		cd ${wrksrc}/wx
-		./configure ${configure_args} --without-qt ac_cv_path_WX_CONFIG=/usr/bin/wx-config-3.0 LIBS="-lX11"
+		./configure ${configure_args} --without-qt ac_cv_path_WX_CONFIG=wx-config-gtk3 LIBS="-lX11"
 		cd ${wrksrc}/qt
 		./configure ${configure_args} --with-qt --disable-wxwidgets
 	else

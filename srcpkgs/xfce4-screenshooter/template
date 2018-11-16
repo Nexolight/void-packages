@@ -1,14 +1,14 @@
 # Template file for 'xfce4-screenshooter'
 pkgname=xfce4-screenshooter
-version=1.8.2
-revision=3
+version=1.9.3
+revision=1
 build_style=gnu-configure
 hostmakedepends="pkg-config intltool glib-devel"
 makedepends="libxfce4ui-devel xfce4-panel-devel exo-devel libsoup-devel"
 depends="desktop-file-utils hicolor-icon-theme"
 short_desc="Plugin that makes screenshots for the Xfce panel"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
-homepage="http://goodies.xfce.org/projects/applications/xfce4-screenshooter"
-license="GPL-2"
-distfiles="http://archive.xfce.org/src/apps/$pkgname/${version%.*}/$pkgname-$version.tar.bz2"
-checksum=9dce2ddfaa87f703e870e29bae13f3fc82a1b3f06b44f8386640e45a135f5f69
+license="GPL-2.0-or-later"
+homepage="https://goodies.xfce.org/projects/applications/xfce4-screenshooter"
+distfiles="https://archive.xfce.org/src/apps/${pkgname}/${version%.*}/${pkgname}-${version}.tar.bz2"
+checksum=364ebddc4c9971b4023aa8019d4e3bd08f091b65dc98b218beb55851f69ceda2

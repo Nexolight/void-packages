@@ -3,29 +3,29 @@
 # THIS PKG MUST BE SYNCHRONIZED WITH "srcpkgs/firefox-i18n".
 #
 pkgname=firefox
-version=60.0.1
+version=63.0
 revision=1
 short_desc="Mozilla Firefox web browser"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
 homepage="https://www.mozilla.org/firefox/"
 license="MPL-2.0, GPL-2, LGPL-2.1"
 distfiles="${MOZILLA_SITE}/${pkgname}/releases/${version}/source/${pkgname}-${version}.source.tar.xz"
-checksum=c8e621c7dfccbef14cce41a6847b83bee15b5276cd0c35771c3874e464e6a662
+checksum=3f95b028571ab9ffb3bf637761534a685aed224de3b87eb8ad7e1d0831995c07
 
 only_for_archs="i686 i686-musl x86_64 x86_64-musl"
 lib32disabled=yes
 
-hostmakedepends="autoconf213 unzip zip pkg-config perl python yasm rust cargo
- llvm clang"
+hostmakedepends="autoconf213 unzip zip pkg-config perl python3 yasm rust cargo
+ llvm clang nodejs cbindgen"
 makedepends="nss-devel libjpeg-turbo-devel gtk+-devel gtk+3-devel icu-devel
  pixman-devel sqlite-devel libevent-devel libnotify-devel libvpx-devel
- libXrender-devel hunspell-devel libXcomposite-devel libSM-devel libXt-devel
+ libXrender-devel libXcomposite-devel libSM-devel libXt-devel
  libXdamage-devel $(vopt_if alsa alsa-lib-devel)
  $(vopt_if dbus dbus-glib-devel) $(vopt_if pulseaudio pulseaudio-devel)
  $(vopt_if startup_notification startup-notification-devel)
  $(vopt_if xscreensaver libXScrnSaver-devel)
  $(vopt_if sndio sndio-devel)"
-depends="nss>=3.37 desktop-file-utils hicolor-icon-theme"
+depends="nss>=3.37.3 desktop-file-utils hicolor-icon-theme"
 conflicts="firefox-esr>=0"
 
 build_options="alsa dbus pulseaudio startup_notification xscreensaver sndio"
@@ -115,11 +115,6 @@ do_install() {
 		vinstall ${wrksrc}/browser/branding/official/default${i%x*}.png 644 \
 			usr/share/icons/hicolor/${i}/apps firefox.png
 	done
-
-	# Use system-provided dictionaries
-	rm -rf ${DESTDIR}/usr/lib/firefox/{dictionaries,hyphenation}
-	ln -s /usr/share/hunspell ${DESTDIR}/usr/lib/firefox/dictionaries
-	ln -s /usr/share/hyphen ${DESTDIR}/usr/lib/firefox/hyphenation
 
 	# We don't want the development stuff
 	rm -rf ${DESTDIR}/usr/{include,lib/firefox-devel,share/idl}

@@ -132,6 +132,7 @@ hook() {
 	generic_wrapper net-snmp-config
 	generic_wrapper wx-config
 	generic_wrapper wx-config-3.0
+	generic_wrapper wx-config-gtk3
 	generic_wrapper2 curl-config
 	generic_wrapper2 gpg-error-config
 	generic_wrapper2 libassuan-config
@@ -153,5 +154,5 @@ hook() {
 	generic_wrapper3 libetpan-config
 	generic_wrapper3 giblib-config
 	python_wrapper python-config 2.7
-	python_wrapper python3.4-config 3.4m
+	python_wrapper python3-config 3.6m
 }

@@ -1,26 +1,32 @@
 # Template file for 'python-lxml'
 pkgname=python-lxml
-version=4.2.1
+version=4.2.5
 revision=1
 wrksrc="lxml-lxml-${version}"
 build_style=python-module
+pycompile_module="lxml"
 hostmakedepends="libxslt-devel python-Cython python-setuptools python3-Cython python3-setuptools"
 makedepends="libxslt-devel python-devel python3-devel"
-checkdepends="python3"
-pycompile_module="lxml"
+checkdepends="python3-cssselect python3-BeautifulSoup4 python3-html5lib"
 short_desc="Python2 binding for the libxml2 and libxslt libraries"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-homepage="http://lxml.de/"
-license="BSD-3-Clause, ElementTree, GPL-2.0-or-later, ZPL-2.0" # ElementTree isn't SPDX
+maintainer="Alessio Sergi <al3hex@gmail.com>"
+homepage="https://lxml.de/"
+license="BSD-3-Clause, ElementTree"
 distfiles="https://github.com/lxml/lxml/archive/lxml-${version}.tar.gz"
-checksum=e09b4ae8bdc55bd1983dbacc467ef2da62591faec42e6c8a8864f12c1844028d
+checksum=07ead0189c2800d9f6fde2fee6407de23dafe75e00a0f577ccc732e3a52f6c4b
 
 do_check() {
-	python3 test.py
+	# https://bugs.launchpad.net/lxml/+bug/1782078
+	sed -i '/assertEqual(4, len(log)/d' src/lxml/tests/test_threading.py
+
+	cp -f build-3.*/lib.linux-*/lxml/*.so src/lxml
+	python3 test.py -vv --all-levels -p
 }
 
 post_install() {
-	vlicense LICENSES.txt LICENSES
+	vlicense LICENSES.txt
+	vlicense doc/licenses/BSD.txt
+	vlicense doc/licenses/elementtree.txt
 }
 
 python3-lxml_package() {
@@ -28,6 +34,8 @@ python3-lxml_package() {
 	short_desc="${short_desc/Python2/Python3}"
 	pkg_install() {
 		vmove usr/lib/python3*
-		vlicense LICENSES.txt LICENSES
+		vlicense LICENSES.txt
+		vlicense doc/licenses/BSD.txt
+		vlicense doc/licenses/elementtree.txt
 	}
 }

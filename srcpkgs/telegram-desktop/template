@@ -1,75 +1,117 @@
 # Template file for 'telegram-desktop'
 pkgname=telegram-desktop
-version=1.2.17
+version=1.4.3
 revision=2
-_libtgvoip_commit=6e0e1026147364cfb1234489980a2625ab50b598
-_GSL_commit=9d65e74400976b3509833f49b16d401600c7317d
+_libtgvoip_commit=9b292fdbc84f148f736407176facc920e20592f9
+_GSL_commit=d846fe50a3f0bb7767c7e087a05f4be95f4da0ec
 _variant_commit=550ac2f159ca883d360c196149b466955c77a573
-_crl_commit=344cbde9ae8d89a6530408d3176d2754ae0ff0e2
+_crl_commit=4291015efab76bda5886a56b5007f4531be17d46
 _Catch_commit=5ca44b68721833ae3731802ed99af67c6f38a53a
-wrksrc="tdesktop-${version}"
 build_style=cmake
-build_wrksrc="out/Release"
-hostmakedepends="gyp pkg-config"
-makedepends="qt5-devel gtk+3-devel libappindicator-devel libdbusmenu-glib-devel
- opus-devel alsa-lib-devel pulseaudio-devel range-v3 minizip-devel ffmpeg-devel
- libopenal-devel"
+create_wrksrc=yes
+build_wrksrc="tdesktop-${version}/Telegram"
+cmake_builddir=build-telegram
+configure_args="-DENABLE_CRASH_REPORTS=OFF -DENABLE_GTK_INTEGRATION=ON
+ -DENABLE_PULSEAUDIO=$(vopt_if pulseaudio 'ON' 'OFF')
+ -DUSE_CUSTOM_API_ID=$(vopt_if custom_api_id 'ON' 'OFF')"
+hostmakedepends="pkg-config qt5-qmake qt5-host-tools python"
+makedepends="alsa-lib-devel ffmpeg-devel gtk+3-devel libappindicator-devel
+ libdbusmenu-glib-devel libopenal-devel minizip-devel opus-devel xxHash-devel
+ $(vopt_if pulseaudio 'pulseaudio-devel') qt5-devel range-v3 libva-devel"
 depends="qt5-imageformats"
 short_desc="Telegram Desktop messaging app"
 maintainer="John <johnz@posteo.net>"
-license="GPL-3"
+license="GPL-3.0-or-later WITH OpenSSL"
 homepage="https://desktop.telegram.org/"
+changelog="https://github.com/telegramdesktop/tdesktop/blob/v${version}/changelog.txt"
 distfiles="https://github.com/telegramdesktop/tdesktop/archive/v${version}.tar.gz
  https://github.com/telegramdesktop/libtgvoip/archive/${_libtgvoip_commit}.tar.gz
  https://github.com/Microsoft/GSL/archive/${_GSL_commit}.tar.gz
  https://github.com/mapbox/variant/archive/${_variant_commit}.tar.gz
  https://github.com/telegramdesktop/crl/archive/${_crl_commit}.tar.gz
  https://github.com/catchorg/Catch2/archive/${_Catch_commit}.tar.gz"
-checksum="775614e70372b2e18ef1b2940fa043599240975597e4c5e4431c6deb041a613d
- 55569944e609bc817a454a43407bbbe1cd6dcfdbbb43579678e0d9e4340ddb14
- 1aab15abd08fd377524df9dc6a71c977f8617d4a2a8f8a2aa1ce07f3c3ff4371
+checksum="bc57654d3d014252dd128c8b5699ca843b8b6dbb926a3e31d10221be16826cc8
+ cbfb0955ee56be06b519418b8d22c5a27538e2e9ae5382d558f85f78c9ca761a
+ be81db4ab1b57102a0fa1cd0c4a6469294eb9daf24294347592245b754f65ff6
  aa794dfefe0a90501587e36d977b958d0df888503117a8d9aa43dc14f8526d9d
- c8ad2e354b13aa162a1f6104cfbf353bd6c2d19af7a439b55ffaa2b38e040ce5
+ aee42a2fe003888d0d0133cd208a1524f5d95af6af506c1cd7e07e268d0d9081
  d24e6d9df2b8aa5739d3b9077c6b0ff0ef4d5ef8acc52c3a57e32893854d8d18"
-nocross="gyp build script doesn't support cross compiling"
+
+build_options="clang custom_api_id pulseaudio"
+build_options_default="pulseaudio custom_api_id"
+
+if [ "$build_option_clang" ]; then
+	CFLAGS="-fPIE -fPIC -fstack-protector-strong"
+	CXXFLAGS="-fPIE -fPIC -fstack-protector-strong"
+	LDFLAGS="-pie"
+	hostmakedepends+=" clang"
+	configure_args+=" -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++"
+	nocross=yes
+fi
 
 case $XBPS_TARGET_MACHINE in
 	i686*) nodebug=yes;; # ENOMEM
-	*-musl) makedepends+=" libexecinfo-devel";;
-	mips*) broken="unsuported";;
+	mips*) broken="unsupported";;
 esac
 
+case $XBPS_TARGET_MACHINE in
+	*-musl) makedepends+=" libexecinfo-devel" ;;
+esac
+
+case "$XBPS_TARGET_MACHINE" in
+	arm*|mips*)
+		makedepends+=" libatomic-devel"
+		configure_args+=" -DUSE_LIBATOMIC=ON" ;;
+esac
+
+if [ "$CROSS_BUILD" ]; then
+	hostmakedepends+=" qt5-devel"
+fi
+
 post_extract() {
-	mv ${wrksrc}/../libtgvoip-${_libtgvoip_commit}/* ${wrksrc}/Telegram/ThirdParty/libtgvoip
-	mv ${wrksrc}/../GSL-${_GSL_commit}/* ${wrksrc}/Telegram/ThirdParty/GSL
-	mv ${wrksrc}/../variant-${_variant_commit}/* ${wrksrc}/Telegram/ThirdParty/variant
-	mv ${wrksrc}/../crl-${_crl_commit}/* ${wrksrc}/Telegram/ThirdParty/crl
-	mv ${wrksrc}/../Catch2-${_Catch_commit}/* ${wrksrc}/Telegram/ThirdParty/Catch
-	mkdir out/Release -p
+	cp -rup ${wrksrc}/libtgvoip-${_libtgvoip_commit}/* ${build_wrksrc}/ThirdParty/libtgvoip
+	cp -rup ${wrksrc}/GSL-${_GSL_commit}/* ${build_wrksrc}/ThirdParty/GSL
+	cp -rup ${wrksrc}/variant-${_variant_commit}/* ${build_wrksrc}/ThirdParty/variant
+	cp -rup ${wrksrc}/crl-${_crl_commit}/* ${build_wrksrc}/ThirdParty/crl
+	cp -rup ${wrksrc}/Catch2-${_Catch_commit}/* ${build_wrksrc}/ThirdParty/Catch
+
+	cp ${FILESDIR}/Telegram.cmake ${build_wrksrc}/CMakeLists.txt
+	cp ${FILESDIR}/ThirdParty-crl.cmake ${build_wrksrc}/ThirdParty/crl/CMakeLists.txt
+	cp ${FILESDIR}/ThirdParty-libtgvoip.cmake ${build_wrksrc}/ThirdParty/libtgvoip/CMakeLists.txt
+	cp ${FILESDIR}/ThirdParty-libtgvoip-webrtc.cmake \
+		${build_wrksrc}/ThirdParty/libtgvoip/webrtc_dsp/webrtc/CMakeLists.txt
+
+	mkdir -p ${build_wrksrc}/cmake
+	cp ${FILESDIR}/FindBreakpad.cmake ${build_wrksrc}/cmake
+	cp ${FILESDIR}/TelegramCodegen.cmake ${build_wrksrc}/cmake
+	cp ${FILESDIR}/TelegramTests.cmake ${build_wrksrc}/cmake
+
+	mkdir -p ${build_wrksrc}/native
+	cp ${FILESDIR}/TelegramCodegenTools.cmake ${build_wrksrc}/native/CMakeLists.txt
+
+	mkdir ${wrksrc}/TelegramPrivate
+	if [ -r "$FILESDIR/custom_api_id.h" ]; then
+		cp "${FILESDIR}/custom_api_id.h" "${wrksrc}/TelegramPrivate"
+	else
+		# This Keys are only intended for use in Void Linux
+		cat > ${wrksrc}/TelegramPrivate/custom_api_id.h <<_EOF
+static const int32 ApiId = 209235;
+static const char *ApiHash= "169ee702e1df4b6e66d80311db36cc43";
+_EOF
+	fi
+
+	# change wrksrc temporarily so that patches can be applied
+	wrksrc="${wrksrc}/tdesktop-${version}"
 }
 
 pre_configure() {
-	export GYP_DEFINES="TDESKTOP_DISABLE_CRASH_REPORTS,TDESKTOP_DISABLE_AUTOUPDATE,TDESKTOP_DISABLE_REGISTER_CUSTOM_SCHEME,TDESKTOP_DISABLE_UNITY_INTEGRATION"
-	cd ${wrksrc} && \
-	gyp2 \
-	 -Dbuild_defines=${GYP_DEFINES} \
-	 -Gconfig=Release \
-	 --depth=Telegram/gyp --generator-output=../.. \
-	 -Goutput_dir=out Telegram/gyp/Telegram.gyp --format=cmake
-
-	NUM=$(($(wc -l < out/Release/CMakeLists.txt) - 2))
-	sed -i "$NUM r ${FILESDIR}/CMakeLists.inj" out/Release/CMakeLists.txt
-	export ASM=gcc
+	cd native
+	CC= CXX= CPP= LD= AR= AS= RANLIB= CFLAGS= CXXFLAGS= LDFLAGS= cmake .
+	make ${makejobs}
 }
 
-do_install() {
-	vbin build/Telegram telegram-desktop
-
+post_install() {
 	for i in 16 32 48 64 128 256 512; do
-		vinstall ${wrksrc}/Telegram/Resources/art/icon$i.png 644 usr/share/icons/hicolor/${i}x${i} telegram-desktop.png
+		vinstall Resources/art/icon$i.png 644 usr/share/icons/hicolor/${i}x${i} telegram.png
 	done
-
-	vinstall ${wrksrc}/lib/xdg/telegramdesktop.desktop 644 usr/share/applications/
-	vinstall ${wrksrc}/lib/xdg/tg.protocol 644 usr/share/kservice5/
-	vinstall ${wrksrc}/lib/xdg/telegramdesktop.appdata.xml 644 usr/share/metainfo
 }

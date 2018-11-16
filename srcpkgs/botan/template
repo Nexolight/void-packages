@@ -1,7 +1,7 @@
 # Template file for 'botan'
 pkgname=botan
 version=2.6.0
-revision=2
+revision=5
 wrksrc="${pkgname^}-${version}"
 build_style=gnu-makefile
 hostmakedepends="doxygen epstopdf python"
@@ -62,9 +62,9 @@ do_configure() {
 		;;
 	esac
 
-	python configure.py \
+	python2 configure.py \
 		--distribution-info="Void Linux botan-${version}_${revision}" \
-		--cc-abi-flags="-arch ${_arch} -stdlib=libc++" \
+		--cc-abi-flags="-std=c++14" \
 		--cpu=${_cpu} \
 		${_args}
 }

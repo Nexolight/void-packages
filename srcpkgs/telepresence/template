@@ -1,0 +1,24 @@
+# Template file for 'telepresence'
+pkgname=telepresence
+version=0.93
+revision=1
+noarch=yes
+build_style=python3-module
+pycompile_module="telepresence"
+hostmakedepends="python3-pip python3-setuptools git"
+depends="fuse-sshfs torsocks socat conntrack-tools"
+short_desc="Local development against a remote Kubernetes or OpenShift cluster"
+maintainer="Daniel Santana <daniel@santana.tech>"
+license="Apache-2.0"
+homepage="https://www.telepresence.io"
+distfiles="https://github.com/datawire/telepresence/archive/${version}.tar.gz"
+checksum=3b988f2904276c2b9daf4459042e130b1e7234c3cd7cab0f3ef9fd5dabdb6a41
+
+post_build() {
+	packaging/build-sshuttle.py
+}
+
+post_install() {
+	vbin dist/sshuttle-telepresence
+	vlicense LICENSE
+}

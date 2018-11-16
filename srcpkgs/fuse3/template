@@ -1,22 +1,22 @@
 # Template file for 'fuse3'
 pkgname=fuse3
-version=3.2.3
+version=3.3.0
 revision=1
-build_style=meson
-configure_args="--sbindir=bin"
 wrksrc="fuse-${version}"
+build_style=meson
+configure_args="--sbindir=bin -Db_lto=false"
 hostmakedepends="pkg-config"
 makedepends="eudev-libudev-devel"
 short_desc="Filesystem in Userspace 3.x"
-maintainer="Michael Gehring <mg@ebfe.org>"
-license="GPL-2"
+maintainer="Orphaned <orphan@voidlinux.eu>"
+license="GPL-2.0-or-later, LGPL-2.1-or-later"
 homepage="https://github.com/libfuse/libfuse"
 distfiles="https://github.com/libfuse/libfuse/releases/download/fuse-${version}/fuse-${version}.tar.xz"
-checksum=70375bbaedc0aef243164f9088edbe01719c13650cd65ff2242e97fd07df77d6
+checksum=c554863405477cd138c38944be9cdc3781a51d78c369ab878083feb256111b65
+conf_files="/etc/fuse.conf"
 
 post_install() {
 	chmod u+s ${DESTDIR}/usr/bin/fusermount3
-	mv ${DESTDIR}/usr/share/man/man8/mount.fuse{,3}.8.gz
 }
 
 fuse3-devel_package() {

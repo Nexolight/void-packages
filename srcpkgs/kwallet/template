@@ -1,20 +1,21 @@
 # Template file for 'kwallet'
 pkgname=kwallet
-version=5.43.0
+version=5.52.0
 revision=1
 build_style=cmake
 make_build_args="VERBOSE=1"
 configure_args="-DBUILD_TESTING=OFF"
 hostmakedepends="extra-cmake-modules"
-makedepends="kdoctools-devel gpgmepp-devel libgcrypt-devel kservice-devel knotifications-devel kiconthemes-devel boost-devel"
+makedepends="kdoctools-devel gpgmepp-devel libgcrypt-devel
+ kservice-devel knotifications-devel kiconthemes-devel boost-devel"
 short_desc="KDE Safe desktop-wide storage for passwords"
-maintainer="Denis Revin <denis.revin@gmail.com>"
-license="LGPL-2"
+maintainer="John <johnz@posteo.net>"
+license="LGPL-2.1-or-later"
 homepage="https://projects.kde.org/projects/frameworks/kwallet"
-distfiles="http://download.kde.org/stable/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=b26abb94566441df1e87d950bc26960f2a0917c37b06b59bb9f3dd650da0bd06
+distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
+checksum=b03a797654dd677f15f758e4258d1821b71b13c383146c879b782b8b790e84db
 
-if [ -n "$CROSS_BUILD" ]; then
+if [ "$CROSS_BUILD" ]; then
 	hostmakedepends+=" qt5-host-tools qt5-qmake python kdoctools"
 fi
 
@@ -25,6 +26,6 @@ kwallet-devel_package() {
 		vmove usr/include
 		vmove usr/lib/qt5/mkspecs
 		vmove usr/lib/cmake
-		vmove usr/lib/*.so
+		vmove "usr/lib/*.so"
 	}
 }

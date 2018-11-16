@@ -1,27 +1,37 @@
 # Template file for 'containerd'
 pkgname=containerd
-version=1.0.3
-revision=2
+version=1.1.4
+revision=1
 build_style=go
 go_import_path=github.com/containerd/containerd
-hostmakedepends="git"
-makedepends="libbtrfs-devel"
+go_package="${go_import_path}/cmd/containerd
+ ${go_import_path}/cmd/containerd-release
+ ${go_import_path}/cmd/containerd-shim
+ ${go_import_path}/cmd/ctr"
+go_ldflags="-X ${go_import_path}/version.Version=${version} -X ${go_import_path}/version.Revision=UNSET"
+go_build_tags="seccomp apparmor"
+hostmakedepends="pkg-config go-md2man"
+makedepends="libbtrfs-devel libseccomp-devel"
 depends="runc"
 short_desc="An open and reliable container runtime"
 maintainer="Paul Knopf <pauldotknopf@gmail.com>"
 license="Apache-2.0"
 homepage="https://github.com/containerd/containerd"
 distfiles="https://github.com/containerd/containerd/archive/v${version}.tar.gz"
-checksum=299e3a93eac232c1259fe058e724bfc274741b13b9de96116d1f61619bb2789e
+checksum=7482bf738cf4ec3712c7719006b4b7874f5e35f076d15efc8f10e03fa35bedaf
 make_dirs="/var/lib/containerd 0755 root root"
 
-do_build() {
-	cd ${GOSRCPATH}
-	make
+post_build() {
+	# Build the man pages
+	for _i in ctr.1 containerd.1 config.toml.5 containerd-config.1 ; do
+		go-md2man -in "docs/man/$_i.md" -out "docs/man/$_i"
+	done
 }
 
-do_install() {
+post_install() {
 	vsv containerd
-	cd ${GOSRCPATH}
-	make install DESTDIR=${DESTDIR}/usr/
+
+	for _i in ctr.1 containerd.1 config.toml.5 containerd-config.1 ; do
+		vman docs/man/$_i
+	done
 }

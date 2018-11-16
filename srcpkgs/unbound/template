@@ -1,7 +1,7 @@
 # Template file for 'unbound'
 pkgname=unbound
-version=1.7.1
-revision=1
+version=1.8.1
+revision=2
 build_style=gnu-configure
 configure_args="--with-libevent --with-conf-file=/etc/unbound/unbound.conf
  --with-pidfile=/run/unbound.pid --with-ssl=${XBPS_CROSS_BASE}/usr
@@ -15,7 +15,7 @@ maintainer="Leah Neukirchen <leah@vuxu.org>"
 license="BSD-3-Clause"
 homepage="https://unbound.net/"
 distfiles="https://unbound.net/downloads/${pkgname}-${version}.tar.gz"
-checksum=56e085ef582c5372a20207de179d0edb4e541e59f87be7d4ee1d00d12008628d
+checksum=c362b3b9c35d1b8c1918da02cdd5528d729206c14c767add89ae95acae363c5d
 conf_files="/etc/unbound/unbound.conf"
 system_accounts="_unbound"
 

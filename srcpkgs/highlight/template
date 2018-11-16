@@ -1,6 +1,6 @@
 # Template file for 'highlight'
 pkgname=highlight
-version=3.43
+version=3.47
 revision=1
 build_style=gnu-makefile
 make_cmd="make QMAKE=qmake"
@@ -11,10 +11,8 @@ maintainer="Steve Prybylski <sa.prybylx@gmail.com>"
 license="GPL-3.0-or-later"
 homepage="http://www.andre-simon.de/doku/highlight/en/highlight.php"
 distfiles="http://www.andre-simon.de/zip/${pkgname}-${version}.tar.bz2"
-checksum=db957ebd73048dcb46347f44a1fe8a949fda40b5ecb360bf0df2da0d8d92e902
+checksum=cec440d4a5e56d371009c45baeb19caa9040c97b52916b7a29ddd2520e722d76
 conf_files="/etc/highlight/filetypes.conf"
-
-#CFLAGS="-std=c++11"
 
 do_check() {
 	# No check target, fails spetarcularly when asked

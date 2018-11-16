@@ -1,21 +1,23 @@
 # Template file for 'harfbuzz'
 pkgname=harfbuzz
-version=1.7.6
+version=2.1.1
 revision=1
 build_style=gnu-configure
 configure_args="--with-glib --with-freetype --with-cairo --with-icu --with-graphite2"
-hostmakedepends="automake libtool pkg-config glib-devel"
-makedepends="libglib-devel icu-devel freetype-devel cairo-devel graphite-devel"
+hostmakedepends="automake glib-devel libtool pkg-config"
+makedepends="cairo-devel graphite-devel icu-devel"
 short_desc="An OpenType text shaping engine"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-homepage="http://www.freedesktop.org/wiki/Software/HarfBuzz/"
+maintainer="maxice8 <thinkabit.ukim@gmail.com>"
 license="MIT"
+homepage="http://www.freedesktop.org/wiki/Software/HarfBuzz/"
+changelog="https://raw.githubusercontent.com/harfbuzz/harfbuzz/master/NEWS"
 distfiles="${FREEDESKTOP_SITE}/harfbuzz/release/${pkgname}-${version}.tar.bz2"
-checksum=da7bed39134826cd51e57c29f1dfbe342ccedb4f4773b1c951ff05ff383e2e9b
+checksum=83bf5d552df72c52969332f294cd97d8f6b46b77b41b61346ca56ebb81884e14
 
 pre_configure() {
 	autoreconf -fi
 }
+
 post_install() {
 	vlicense COPYING LICENSE
 }
@@ -26,6 +28,7 @@ libharfbuzz_package() {
 		vmove "usr/lib/*.so.*"
 	}
 }
+
 harfbuzz-devel_package() {
 	depends="${makedepends} libharfbuzz>=${version}_${revision}"
 	short_desc+=" - development files"

@@ -1,7 +1,7 @@
 # Template file for 'gst-plugins-bad1'
 pkgname=gst-plugins-bad1
-version=1.14.1
-revision=2
+version=1.14.4
+revision=4
 wrksrc="${pkgname/1/}-${version}"
 lib32disabled=yes
 build_style=gnu-configure
@@ -22,7 +22,7 @@ maintainer="Juan RP <xtraeme@voidlinux.eu>"
 license="GPL-2.0-or-later, LGPL-2.1-or-later"
 homepage="https://gstreamer.freedesktop.org"
 distfiles="${homepage}/src/${pkgname/1/}/${pkgname/1/}-${version}.tar.xz"
-checksum=2a77c6908032aafdf2cd2e5823fec948f16a25c2d1497a953828d762dc20d61a
+checksum=910b4e0e2e897e8b6d06767af1779d70057c309f67292f485ff988d087aa0de5
 
 pre_configure() {
 	NOCONFIGURE=1 ./autogen.sh

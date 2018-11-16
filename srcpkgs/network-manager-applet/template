@@ -1,36 +1,29 @@
 # Template file for 'network-manager-applet'
 pkgname=network-manager-applet
-version=1.8.10
-revision=2
-lib32disabled=yes
+version=1.8.18
+revision=1
 build_style=gnu-configure
 configure_args="--disable-static --without-selinux $(vopt_enable gir introspection)"
-hostmakedepends="pkg-config intltool glib-devel dbus-glib-devel
- $(vopt_if gir gobject-introspection)"
-makedepends="
- dbus-glib-devel libgnome-keyring-devel libsecret-devel
- NetworkManager-devel gtk+3-devel libnotify-devel
- ModemManager-devel polkit-devel libgudev-devel iso-codes
- jansson-devel"
-depends="iso-codes NetworkManager>=1.0 hicolor-icon-theme"
+hostmakedepends="dbus-glib-devel glib-devel intltool pkg-config
+ $(vopt_if gir 'gobject-introspection')"
+makedepends="ModemManager-devel NetworkManager-devel iso-codes jansson-devel
+ libgnome-keyring-devel libgudev-devel libnotify-devel libsecret-devel
+ polkit-devel mobile-broadband-provider-info"
+depends="NetworkManager hicolor-icon-theme iso-codes"
 short_desc="NetworkManager panel applet for GNOME"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-homepage="http://www.gnome.org/projects/NetworkManager/"
-license="GPL-2"
-distfiles="${GNOME_SITE}/$pkgname/${version%.*}/$pkgname-$version.tar.xz"
-checksum=0adc4bfae8b49f7a1d929c22ef20933bd41fb4a8b458280f44c65f9e45b4c9c3
+maintainer="Rasmus Thomsen <rasmus.thomsen@protonmail.com>"
+license="GPL-2.0-or-later"
+homepage="https://wiki.gnome.org/Projects/NetworkManager"
+changelog="https://raw.githubusercontent.com/NetworkManager/network-manager-applet/master/NEWS"
+distfiles="${GNOME_SITE}/${pkgname}/${version%.*}/${pkgname}-${version}.tar.xz"
+checksum=23dc1404f1e0622b7c4718b6d978b101d5e4d9be0b92133b3863a4dc29786178
+lib32disabled=yes
 
 # Package build options
 build_options="gir"
 # Enable gir for non-cross builds
 if [ -z "$CROSS_BUILD" ]; then
 	build_options_default+=" gir"
-fi
-
-CFLAGS="-O2 -pipe"
-if [ ${XBPS_GCC_VERSION_MAJOR} -gt 5 ]; then
-	# Fix gcc6 build error for warning -Wmisleading-indentation
-	CFLAGS+=" -Wno-error=misleading-indentation"
 fi
 
 libnm-gtk_package() {
