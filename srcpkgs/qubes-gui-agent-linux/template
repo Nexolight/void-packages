@@ -1,33 +1,20 @@
 # Template file for 'qubes-gui-agent-linux'
 pkgname=qubes-gui-agent-linux
-version=4.0.10
-revision=7
-#wrksrc=
-#create_wrksrc=yes
-#only_for_archs="i686 x86_64"
+version=4.0.18
+revision=1
 build_style=gnu-makefile
-#configure_args=""
-
-#this doesn't work!
-#make_build_args=""
-#make_install_args=""
-
-#conf_files=""
-#make_dirs=""
 hostmakedepends="pkg-config"
 makedepends="patch automake autoconf libltdl-devel
  pulseaudio-devel xorg-server-devel xorg-util-macros libXcomposite-devel
  qubes-gui-common-devel qubes-core-vchan-xen-devel qubes-core-qubesdb libXt libtool git"
-
 depends="xinit libXcomposite zenity qubes-core-vchan-xen xcb-proto xorg-server
  qubes-vmm-xen alsa-lib alsa-utils alsa-plugins-pulseaudio pulseaudio elogind xcffib"
-
 short_desc="The Qubes GUI Agent for AppVMs xcffib"
 maintainer="nexolight <snow.dream.ch@gmail.com>"
 license="GPL"
 homepage="http://qubes-os.org"
 distfiles="https://github.com/QubesOS/${pkgname}/archive/v${version}.tar.gz"
-checksum="035701f41cf207a06e02408be0dcedd6692eae4b8dc959b3fdb4687d45940313"
+checksum="7e0434834b2ae114de9de2e448d87700f1d9bac046d1f44582c99684b4d195c0"
 
 do_configure(){
 	echo "Skip configure"
