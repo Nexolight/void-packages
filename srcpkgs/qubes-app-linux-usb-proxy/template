@@ -1,16 +1,8 @@
 # Template file for 'qubes-app-linux-usb-proxy'
 pkgname=qubes-app-linux-usb-proxy
-version=1.0.18
+version=1.0.19
 revision=1
-#wrksrc=
-#create_wrksrc=yes
-#only_for_archs="i686 x86_64"
 build_style=gnu-makefile
-#configure_args=""
-#make_build_args=""
-#make_install_args=""
-#conf_files=""
-#make_dirs="/var/log/dir 0755 root root"
 hostmakedepends=""
 makedepends=""
 depends="qubes-core-agent-linux usbutils"
@@ -19,7 +11,7 @@ maintainer="nexolight <snow.dream.ch@gmail.com>"
 license="GPL"
 homepage="http://qubes-os.org"
 distfiles="https://github.com/QubesOS/${pkgname}/archive/v${version}.tar.gz"
-checksum=5e7107810301e949acd2e5204cf12320e73a792b77d420f0f22b6f26b72c992f
+checksum="0aba99f46989dba03b33fed47df653ded44605b3b166a13e937e1dade523ff09"
 
 do_build(){
 	echo "nothing to build"
