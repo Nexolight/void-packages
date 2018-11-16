@@ -1,19 +1,8 @@
 # Template file for 'qubes-linux-utils'
 pkgname=qubes-linux-utils
-version=4.0.20
+version=4.0.22
 revision=1
-#wrksrc=
-#create_wrksrc=yes
-#only_for_archs="i686 x86_64"
 build_style=gnu-configure
-#configure_args=""
-
-#this doesn't work!
-#make_build_args="BACKEND_VMM=xen all"
-#make_install_args="DESTDIR=${DESTDIR} LIBDIR=/usr/lib SYSLIBDIR=/usr/lib SBINDIR=/usr/bin"
-
-#conf_files=""
-#make_dirs="/var/log/dir 0755 root root"
 hostmakedepends="pkg-config"
 makedepends="python-setuptools python3-setuptools qubes-vmm-xen qubes-core-vchan-xen-devel"
 depends="qubes-vmm-xen ImageMagick python-cairo python-Pillow python-numpy python3-Pillow python3-numpy qubes-core-vchan-xen fork-wrapper"
@@ -23,7 +12,7 @@ license="GPL"
 homepage="http://qubes-os.org"
 shlib_provides="libqrexec-utils.so.2 libqubes-rpc-filecopy.so libqubes-rpc-filecopy.so.2 libqrexec-utils.so libqrexec-utils.so.2"
 distfiles="https://github.com/QubesOS/${pkgname}/archive/v${version}.tar.gz"
-checksum="2c200f2288858e477be83749539c12014fb0fbda80d4b268eee0c50538784c8d"
+checksum="6c15ddeb8e065b5c12c7f6b40652f8111f9e0afecc5425665c4220f0c0c7dbb0"
 
 do_configure(){
 	echo "Skip configure"
