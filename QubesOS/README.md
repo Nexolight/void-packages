@@ -113,17 +113,16 @@ This will install everything required.
 **Enable the services:**
 
 ```
-ln -s /etc/sv/iptables /var/service/
 ln -s /etc/sv/haveged /var/service/
 ln -s /etc/sv/qubes-meminfo-writer /var/service/
 ln -s /etc/sv/qubes-gui-agent /var/service/
 
 optionally:
-ln -s /etc/sv/ip6tables /var/service/
-ln -s /etc/sv/pulseaudio /var/service/
-
-ln -s /etc/sv/NetworkManager /var/service/
-ln -s /etc/sv/dhcpcd /var/service/
+ln -s /etc/sv/iptables /var/service/ - might be started by qubes
+ln -s /etc/sv/ip6tables /var/service/ - might be started by qubes
+ln -s /etc/sv/pulseaudio /var/service/ - is started by qubes
+ln -s /etc/sv/NetworkManager /var/service/ - ip is set by qubes
+ln -s /etc/sv/dhcpcd /var/service/ - ip is set by qubes
 
 ```
 
