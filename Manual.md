@@ -24,6 +24,7 @@ packages for XBPS, the `Void Linux` native packaging system.
 		* [Package defined repositories](#pkg_defined_repo)
 	* [Checking for new upstream releases](#updates)
 	* [Build style scripts](#build_scripts)
+	* [Build helper scripts](#build_helper)
 	* [Functions](#functions)
 	* [Build options](#build_options)
 		* [Runtime dependencies](#deps_runtime)
@@ -310,9 +311,20 @@ The following functions are defined by `xbps-src` and can be used on any templat
 
 	Installs `service` from `${FILESDIR}` to /etc/sv. The service must
 	be a directory containing at least a run script. Note the `supervise`
-	symlink will be created automatically by `vsv`.
+	symlink will be created automatically by `vsv` and that the run script
+	is automatically made executable by this function.
 	For further information on how to create a new service directory see
 	[The corresponding section the FAQ](http://smarden.org/runit/faq.html#create).
+
+- *vsed()* `vsed -i <file> -e <regex>`
+
+	Wrapper around sed that checks sha256sum of a file before and after running
+	the sed command to detect cases in which the sed call didn't change anything.
+	Takes any arbitrary amount of files and regexes by calling `-i file` and
+	`-e regex` repeatedly, at least one file and one regex must be specified.
+
+	Note that vsed will call the sed command for every regex specified against
+	every file specified, in the order that they are given.
 
 > Shell wildcards must be properly quoted, Example: `vmove "usr/lib/*.a"`.
 
@@ -344,7 +356,7 @@ as part of the source package.
 set to `<masterdir>/builddir`. The package `wrksrc` is always stored
 in this directory such as `${XBPS_BUILDDIR}/${wrksrc}`.
 
-- `XBPS_MACHINE` The machine architecture as returned by `uname -m`.
+- `XBPS_MACHINE` The machine architecture as returned by `xbps-uhelper arch`.
 
 - `XBPS_SRCDISTDIR` Full path to where the `source distfiles` are stored, i.e `$XBPS_HOSTDIR/sources`.
 
@@ -353,6 +365,12 @@ in this directory such as `${XBPS_BUILDDIR}/${wrksrc}`.
 - `XBPS_TARGET_MACHINE` The target machine architecture when cross compiling a package.
 
 - `XBPS_FETCH_CMD` The utility to fetch files from `ftp`, `http` of `https` servers.
+
+- `XBPS_WRAPPERDIR` Full path to where xbps-src's wrappers for utilities are stored.
+
+- `XBPS_CROSS_BASE` Full path to where cross-compile dependencies are installed, varies according to the target architecture triplet. i.e `aarch64` -> `aarch64-unknown-linux-gnu`.
+
+- `XBPS_RUST_TARGET` The target architecture triplet used by `rustc` and `cargo`.
 
 <a id="available_vars"></a>
 ### Available variables
@@ -473,6 +491,9 @@ binaries sources or when the program is written in assembly. Example:
 - `build_style` This specifies the `build method` for a package. Read below to know more
 about the available package `build methods` or effect of leaving this not set.
 
+- `build_helper` Whitespace-separated list of files in `common/build-helper` to be
+sourced and its variables be made available on the template. i.e. `build_helper="rust"`.
+
 - `configure_script` The name of the `configure` script to execute at the `configure` phase if
 `${build_style}` is set to `configure` or `gnu-configure` build methods.
 By default set to `./configure`.
@@ -549,6 +570,9 @@ by all supported architectures.
 
 - `nostrip` If set, the ELF binaries with debugging symbols won't be stripped. By
 default all binaries are stripped.
+
+- `nostrip_files` White-space separated list of ELF binaries that won't be stripped of
+debugging symbols.
 
 - `noshlibprovides` If set, the ELF binaries won't be inspected to collect the provided
 sonames in shared libraries.
@@ -637,6 +661,8 @@ the package is updated, reinstalled or removed. This is mostly useful for kernel
 that shouldn't remove the kernel files when they are removed in case it might break the
 user's booting and module loading. Otherwise in the majority of cases it should not be
 used.
+
+- `fetch_cmd` Executable to be used to fetch URLs in `distfiles` during the `do_fetch` phase.
 
 <a id="explain_depends"></a>
 #### About the many types of `depends` variable.
@@ -772,7 +798,9 @@ set in the body of the template.
 - `meta` For `meta-packages`, i.e packages that only install local files or simply
 depend on additional packages. This build style does not install
 dependencies to the root directory, and only checks if a binary package is
-available in repositories.
+available in repositories. If your meta-package doesn't include any files
+which thus have and require no license, then you should also set
+`license="metapackage"`.
 
 - `R-cran` For packages that are available on The Comprehensive R Archive
 Network (CRAN). The build style requires the `pkgname` to start with
@@ -800,6 +828,9 @@ Additional install arguments can be specified via `make_install_args`.
 
 - `perl-module` For packages that use the Perl
 [ExtUtils::MakeMaker](http://perldoc.perl.org/ExtUtils/MakeMaker.html) build method.
+
+- `perl6-dist` For packages that use the Rakudo Perl 6
+`perl6-install-dist` build method with rakudo.
 
 - `waf3` For packages that use the Python3 `waf` build method with python3.
 
@@ -831,6 +862,20 @@ Environment variables for a specific `build_style` can be declared in a filename
 matching the `build_style` name, Example:
 
     `common/environment/build-style/gnu-configure.sh`
+
+<a id="build_helper"></a>
+### build helper scripts
+
+The `build_helper` variable specifies shell snippets to be sourced that will create a
+suitable environment for working with certain sets of packages.
+
+The current list of available `build_helper` scripts is the following:
+
+- `rust` specifies environment variables required for cross-compiling crates via cargo and
+for compiling cargo -sys crates.
+
+- `gir` specifies dependencies for native and cross builds to deal with
+GObject Introspection
 
 <a id="functions"></a>
 ### Functions
@@ -1206,8 +1251,11 @@ following subset of files from the main package:
     * Header files `usr/include`
     * Static libraries `usr/lib/*.a`
     * Shared library symbolic links `usr/lib/*.so`
-    * Cmake rules `usr/lib/cmake`
-    * Package config files `usr/lib/pkgconfig`
+    * Cmake rules `usr/lib/cmake` `usr/share/cmake`
+    * Package config files `usr/lib/pkgconfig` `usr/share/pkgconfig`
+    * Autoconf macros `usr/share/aclocal`
+    * Gobject introspection XML files `usr/share/gir-1.0`
+    * Vala bindings `usr/share/vala`
 
 <a id="pkgs_data"></a>
 ### Data packages
@@ -1253,7 +1301,9 @@ at post-install time:
 - `pycompile_module`: this variable expects the python modules that should be `byte-compiled`
 at post-install time. Python modules are those that are installed into the `site-packages`
 prefix: `usr/lib/pythonX.X/site-packages`. Multiple python modules may be specified separated
-by blanks, Example: `pycompile_module="foo blah"`.
+by blanks, Example: `pycompile_module="foo blah"`. If a python module installs a file into
+`site-packages` rather than a directory, use the name of the file, Example:
+`pycompile_module="fnord.py"`.
 
 - `pycompile_dirs`: this variable expects the python directories that should be `byte-compiled`
 recursively by the target python version. This differs from `pycompile_module` in that any
@@ -1307,6 +1357,10 @@ The following variables influence how Go packages are built:
   packages; using a versioned distfile is preferred.
 - `go_build_tags`: An optional, space-separated list of build tags to
   pass to Go.
+- `go_mod_mode`: The module download mode to use. May be `off` to ignore
+  any go.mod files, `default` to use Go's default behavior, or anything
+  accepted by `go build -mod MODE`.  Defaults to `vendor` if there's
+  a vendor directory, otherwise `default`.
 
 Occasionally it is necessary to perform operations from within the Go
 source tree.  This is usually needed by programs using go-bindata or
@@ -1368,11 +1422,28 @@ common/shlibs.
 generally those packages are the same but have been split as to avoid
 cyclic dependencies. Make sure that the package you're removing is not
 the source of those patches/files.
+- Replace the package template with the following:
 
-For the one doing the merge of the removal:
+```
+# Template file for '$pkgname'
+pkgname=$pkgname
+version=$version
+revision=$((revision + 1))
+noarch=yes
+build_style=meta
+short_desc="${short_desc} (removed package)"
+license="metapackage"
+homepage="${homepage}"
+```
 
-- Remove the package from the repository index or contact a team member
-that can do so.
+- Add (or replace) the INSTALL.msg with the following:
+
+```
+$pkgname is no longer provided by Void Linux, and will be fully removed from the repos on $(date -d '+3 months' '+%Y/%m/%d')
+```
+
+- After the specified time remove the package from the repository index
+or contact a team member that can do so.
 
 <a id="xbps_triggers"></a>
 ### XBPS Triggers
@@ -1681,8 +1752,9 @@ anything unless it is defined.
 The system-accounts trigger is responsible for creating and disabling system accounts
 and groups.
 
-During removal it will disable the account by setting the Shell to /bin/false and appending
-' - for uninstalled package $pkgname' to the Description.
+During removal it will disable the account by setting the Shell to /bin/false,
+Home to /var/empty, and appending ' - for uninstalled package $pkgname' to the
+Description.
 Example: `transmission unprivileged user - for uninstalled package transmission`
 
 This trigger can only be used by using the `system_accounts` variable.

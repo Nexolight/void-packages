@@ -1,6 +1,6 @@
 # Template file for 'deja-dup'
 pkgname=deja-dup
-version=38.0
+version=38.3
 revision=1
 build_style=meson
 hostmakedepends="appstream-glib dbus glib-devel intltool itstool
@@ -13,4 +13,4 @@ maintainer="John <johnz@posteo.net>"
 license="GPL-3.0-or-later"
 homepage="https://launchpad.net/deja-dup"
 distfiles="https://launchpad.net/deja-dup/${version%.*}/${version}/+download/${pkgname}-${version}.tar.xz"
-checksum=bb98dae64b889edbde97f7b06ac737dd7f14dd8cd20c28c270dd6cb089507ad0
+checksum=9199bc30bf91f9892af99b0933d3eb3e047fec8c5b9d1e73bed38d2b67f5b186

@@ -1,6 +1,6 @@
 # Template file for 'cozy'
 pkgname=cozy
-version=0.6.4
+version=0.6.7
 revision=1
 noarch=yes
 build_style=meson
@@ -13,5 +13,5 @@ maintainer="johannes <johannes.brechtmann@gmail.com>"
 license="GPL-3.0-only, LGPL-3.0-only"
 homepage="https://github.com/geigi/cozy"
 distfiles="https://github.com/geigi/cozy/archive/${version}.tar.gz"
-checksum=a64a59e45b7876643201c6fffc2628ff22e8e62c3032fd6721f95ac81991f1a0
+checksum=d007bc1aa5aa08e1aca06af1b5504323b53be4597ab3998c7abf24efc6673722
 nocross="requires python3-gobject"

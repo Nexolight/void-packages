@@ -1,6 +1,6 @@
 # Template file for 'kturtle'
 pkgname=kturtle
-version=18.08.3
+version=18.12.2
 revision=1
 build_style=cmake
 hostmakedepends="extra-cmake-modules pkg-config kdoctools python qt5-host-tools qt5-qmake"
@@ -9,5 +9,5 @@ short_desc="Educational Programming Environment"
 maintainer="Piotr Wójcik <chocimier@tlen.pl>"
 license="GPL-2.0-or-later, GFDL-1.2-only"
 homepage="https://www.kde.org/applications/education/kturtle/"
-distfiles="${KDE_SITE}/applications/${version}/src/${pkgname}-${version}.tar.xz"
-checksum=8d7a83016ee726824f5cc44e5306895138335c0ec3f1fb245c3fba665c50cddc
+distfiles="${KDE_SITE}/applications/${version}/src/kturtle-${version}.tar.xz"
+checksum=1153b156c3b9999e60075bcd4edc1948d249afd522f5bed789c3abb65987e850

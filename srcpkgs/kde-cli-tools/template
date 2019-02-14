@@ -1,6 +1,6 @@
 # Template file for 'kde-cli-tools'
 pkgname=kde-cli-tools
-version=5.13.5
+version=5.15.0
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
@@ -9,13 +9,13 @@ makedepends="kactivities5-devel kcmutils-devel kdelibs4support-devel
  kdesu-devel plasma-workspace-devel"
 depends="xdg-utils"
 short_desc="KDE CLI tools"
-maintainer="Denis Revin <denis.revin@gmail.com>"
+maintainer="John <johnz@posteo.net>"
 license="LGPL-2.1-or-later, GPL-2.0-or-later"
 homepage="https://cgit.kde.org/kde-cli-tools.git"
 distfiles="${KDE_SITE}/plasma/${version}/${pkgname}-${version}.tar.xz"
-checksum=170aee9169a7e5e8b46f950f4732a8ad095292a1bc4ddbab8d8d920b04f92a5c
+checksum=a0a5c175b9a5908d765bd81fe21c345eeeb8d15473339bb3e4119afca2a5c9a0
 
-if [ -n "$CROSS_BUILD" ]; then
+if [ "$CROSS_BUILD" ]; then
 	hostmakedepends+=" kdoctools python qt5-host-tools qt5-qmake"
 fi
 

@@ -1,7 +1,7 @@
 # Template file for 'evolution-data-server'
 pkgname=evolution-data-server
-version=3.30.2
-revision=2
+version=3.30.5
+revision=1
 build_style=cmake
 configure_args="-DENABLE_UOA=OFF
  $(vopt_if gir '-DENABLE_INTROSPECTION=ON -DENABLE_VALA_BINDINGS=ON' '-DENABLE_WEATHER=OFF')"
@@ -11,12 +11,12 @@ makedepends="libcanberra-devel libgdata-devel $(vopt_if gir libgweather-devel)
  libical-devel libsecret-devel mit-krb5-devel $(vopt_if gir 'vala-devel') webkit2gtk-devel"
 depends="$(vopt_if gir libgweather) libsoup-gnome"
 short_desc="Centralized access to appointments and contacts"
-maintainer="Enno Boland <gottox@voidlinux.eu>"
+maintainer="Enno Boland <gottox@voidlinux.org>"
 license="LGPL-2.1-only"
 homepage="https://wiki.gnome.org/Apps/Evolution"
 changelog="https://raw.githubusercontent.com/GNOME/evolution-data-server/gnome-3-30/NEWS"
 distfiles="${GNOME_SITE}/${pkgname}/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=5b3ab1557ea27475e5f78014ae5a4a989179cbf8c98ce7e26bd70b7767388e40
+checksum=91d6312f60752bb5229e35975b3c1f30f8f64bd8e5cce76cc275b1073d1725e9
 
 build_options="gir"
 if [ -z "$CROSS_BUILD" ]; then

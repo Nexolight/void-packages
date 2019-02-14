@@ -1,10 +1,10 @@
 # Template file for 'ImageMagick6'
 pkgname=ImageMagick6
 _majorver=6.9.10
-_patchver=14
+_patchver=26
 version="${_majorver}.${_patchver}"
 revision=1
-wrksrc="ImageMagick-${_majorver}-${_patchver}"
+wrksrc="${pkgname}-${_majorver}-${_patchver}"
 build_style=gnu-configure
 configure_args="--without-autotrace --with-wmf=yes
  --without-dps --without-fpx --without-gvc --without-jbig --with-gslib=yes
@@ -19,8 +19,8 @@ short_desc="Package for display and interactive manipulation of images"
 maintainer="Johannes <johannes.brechtmann@gmail.com>"
 license="ImageMagick"
 homepage="https://www.imagemagick.org/"
-distfiles="https://www.imagemagick.org/download/ImageMagick-${_majorver}-${_patchver}.tar.xz"
-checksum=d123d4ad4e5bf72c51a6f528a2dbbbd4bf4249f25b36045017c9c634db968e6d
+distfiles="https://github.com/ImageMagick/ImageMagick6/archive/${_majorver}-${_patchver}.tar.gz"
+checksum=14a5a0b318aafe11affde85d01a6dfcd81e15899191f1da88bfa570c717fa26b
 
 keep_libtool_archives=yes
 conf_files="/etc/ImageMagick-${_majorver%%.*}/*.xml"
@@ -36,13 +36,13 @@ if [ -z "$CROSS_BUILD" ]; then
 	subpackages+=" libmagick6-perl"
 fi
 
-post_extract() {
-	sed -i '/VERSION/s/6\.9A/6.99/g' version.sh PerlMagick/Makefile.PL \
-		PerlMagick/*/Makefile.PL PerlMagick/quantum/quantum.pm
-}
-
 pre_configure() {
 	autoreconf -if
+}
+
+post_configure() {
+	sed -i '/VERSION/s/6\.9A/6.99/g' version.sh PerlMagick/Makefile.PL \
+		PerlMagick/*/Makefile.PL PerlMagick/quantum/quantum.pm
 }
 
 do_check() {

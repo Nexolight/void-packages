@@ -1,12 +1,12 @@
 # Template file for 'netpgp'
 pkgname=netpgp
 version=20140220
-revision=15
+revision=16
 build_style=gnu-configure
 hostmakedepends="automake libtool pkg-config"
 makedepends="zlib-devel bzip2-devel libressl-devel"
 short_desc="PGP signing, verification, encryption and decryption program"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
 license="3-clause-BSD"
 homepage="http://www.netbsd.org"
 distfiles="ftp://ftp.netbsd.org/pub/pkgsrc/distfiles/LOCAL_PORTS/netpgp-${version}.tar.gz"

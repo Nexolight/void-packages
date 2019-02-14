@@ -1,18 +1,22 @@
 # Template file for 'libraw'
 pkgname=libraw
-version=0.19.0
-revision=1
+version=0.19.2
+revision=2
 wrksrc="LibRaw-${version}"
 build_style=gnu-configure
-hostmakedepends="pkg-config"
+hostmakedepends="pkg-config automake libtool"
 makedepends="jasper-devel lcms2-devel"
 short_desc="Raw image decoder library"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
 license="LGPL-2.1-only, CDDL-1.0"
 homepage="https://www.libraw.org"
 changelog="https://github.com/LibRaw/LibRaw/raw/${version%.*}-stable/Changelog.txt"
 distfiles="https://www.libraw.org/data/LibRaw-${version}.tar.gz"
-checksum=e83f51e83b19f9ba6b8bd144475fc12edf2d7b3b930d8d280bdebd8a8f3ed259
+checksum=400d47969292291d297873a06fb0535ccce70728117463927ddd9452aa849644
+
+pre_configure() {
+	autoreconf -fi
+}
 
 post_install() {
 	vmkdir usr/share/licenses

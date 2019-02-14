@@ -1,6 +1,6 @@
 # Template file for 'perl-Date-Manip'
 pkgname=perl-Date-Manip
-version=6.73
+version=6.75
 revision=1
 noarch=yes
 wrksrc="${pkgname/perl-/}-${version}"
@@ -14,4 +14,4 @@ maintainer="John Regan <john@jrjrtech.com>"
 license="Artistic-1.0-Perl, GPL-1.0-or-later"
 homepage="https://metacpan.org/release/Date-Manip"
 distfiles="${CPAN_SITE}/Date/${pkgname/perl-/}-${version}.tar.gz"
-checksum=d39295c7c3f19b43470d1203dded8cb649b41a1098e51b5b7c7cf17b662ca255
+checksum=c1fbcfbe2ab1a84e57f191807e87c97985da00926f64d1aae598c8756acbb67d

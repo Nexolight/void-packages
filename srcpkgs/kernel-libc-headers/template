@@ -1,7 +1,7 @@
 # Template file for 'kernel-libc-headers'
 pkgname=kernel-libc-headers
 version=4.19.0
-revision=1
+revision=2
 bootstrap=yes
 nostrip=yes
 noverifyrdeps=yes
@@ -22,6 +22,7 @@ case "$XBPS_TARGET_MACHINE" in
 	arm*) _arch="arm";;
 	aarch64*) _arch="arm64";;
 	mips*) _arch="mips";;
+	ppc*) _arch="powerpc";;
 	*) msg_error "$pkgname: unknown architecture.\n";;
 esac
 

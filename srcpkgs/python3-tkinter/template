@@ -7,7 +7,7 @@
 _desc="Interpreted, interactive, object-oriented programming language"
 
 pkgname=python3-tkinter
-version=3.6.7
+version=3.6.8
 revision=1
 wrksrc="Python-${version}"
 pycompile_dirs="
@@ -18,11 +18,11 @@ hostmakedepends="pkg-config"
 makedepends="libffi-devel readline-devel gdbm-devel libressl-devel expat-devel
  sqlite-devel bzip2-devel zlib-devel liblzma-devel tk-devel"
 short_desc="${_desc} - GUI toolkit for Python3"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
 homepage="https://www.python.org"
 license="Python-2.0"
 distfiles="https://www.python.org/ftp/python/${version}/Python-${version}.tar.xz"
-checksum=81fd1401a9d66533b0a3e9e3f4ea1c7c6702d57d5b90d659f971e6f1b745f77d
+checksum=35446241e995773b1bed7d196f4b624dadcadc8429f26282e756b2fb8a351193
 
 pre_configure() {
 	# Ensure that internal copies of zlib, expat and libffi are not used.

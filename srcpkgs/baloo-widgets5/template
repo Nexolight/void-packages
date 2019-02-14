@@ -1,18 +1,18 @@
 # Template file for 'baloo-widgets5'
 pkgname=baloo-widgets5
-version=18.08.3
+version=18.12.2
 revision=1
-wrksrc="${pkgname%5}-${version}"
+wrksrc="baloo-widgets-${version}"
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
 hostmakedepends="extra-cmake-modules python qt5-host-tools qt5-qmake"
 makedepends="baloo5-devel"
 short_desc="Baloo widgets"
-maintainer="Denis Revin <denis.revin@gmail.com>"
+maintainer="John <johnz@posteo.net>"
 license="LGPL-2.1-or-later, GPL-2.0-or-later"
 homepage="https://cgit.kde.org/baloo-widgets.git/"
-distfiles="${KDE_SITE}/applications/${version}/src/${pkgname%5}-${version}.tar.xz"
-checksum=3a8583adbd9bf9f1c38918c11972ef8aa2db5e94bee36695823c1360a7d47d1c
+distfiles="${KDE_SITE}/applications/${version}/src/baloo-widgets-${version}.tar.xz"
+checksum=9ca599e755b293a424b3075232facc7920717adef5e15193ae652ede4102ff28
 
 baloo-widgets5-devel_package() {
 	short_desc+=" - development"

@@ -1,6 +1,6 @@
 # Template file for 'threadweaver'
 pkgname=threadweaver
-version=5.52.0
+version=5.55.0
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
@@ -11,7 +11,7 @@ maintainer="John <johnz@posteo.net>"
 license="LGPL-2.1-or-later"
 homepage="https://projects.kde.org/projects/frameworks/threadweaver"
 distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=a262abf07336a6085060c5f7ae9dbb3841064070834af0e019e9303bade396c2
+checksum=144302a7644d80a6bcd5cef3865f61e6d220e8c4f891c79aaf1bc0f36fa11564
 
 threadweaver-devel_package() {
 	short_desc+=" - development"

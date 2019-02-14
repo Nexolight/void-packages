@@ -1,6 +1,6 @@
 # Template file for 'kdav'
 pkgname=kdav
-version=18.08.3
+version=18.12.2
 revision=1
 build_style=cmake
 hostmakedepends="extra-cmake-modules qt5-qmake qt5-host-tools python3"
@@ -10,7 +10,7 @@ maintainer="John <johnz@posteo.net>"
 license="GPL-2.0-or-later"
 homepage="https://community.kde.org/KDE_PIM"
 distfiles="${KDE_SITE}/applications/${version}/src/${pkgname}-${version}.tar.xz"
-checksum=f31bb1b41c3f9d86e2af0d58cf0d94cf2fe718cbb4de79748e0d1d16f7aa6401
+checksum=b47af6e301af1f991ba095320cb0109f097c7411ccdb61ed602c9b3260937cfc
 
 kdav-devel_package() {
 	depends="${sourcepkg}>=${version}_${revision} ${makedepends}"

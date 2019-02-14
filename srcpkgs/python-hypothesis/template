@@ -1,6 +1,6 @@
 # Template file for 'python-hypothesis'
 pkgname=python-hypothesis
-version=3.82.1
+version=4.5.9
 revision=1
 noarch=yes
 wrksrc="hypothesis-hypothesis-python-${version}"
@@ -12,20 +12,17 @@ depends="python-attrs python-coverage python-enum34"
 checkdepends="python-coverage python-enum34 python-pytest python3-coverage
  python3-flaky python3-pytest python3-pytz python3-numpy"
 short_desc="Python2 library for property based testing"
-maintainer="Orphaned <orphan@voidlinux.eu>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="MPL-2.0"
 homepage="https://hypothesis.works/"
 changelog="https://github.com/HypothesisWorks/hypothesis/raw/master/hypothesis-python/docs/changes.rst"
 distfiles="https://github.com/HypothesisWorks/hypothesis/archive/hypothesis-python-${version}.tar.gz"
-checksum=021859ee1bd132b45dabd1d413c692f82601a8f11848174caaa43fdf3525e22e
+checksum=7f972389d2fa8210de885afaa6e5736e5fc9c8fc8955fac2ae5c8a049a13e176
 
 do_check() {
-	# pytest doesn't recognize -n switch
-	sed -i 's/ -n 2$//' tox.ini
-
 	# In python3 mock is actually unittest.mock
-	sed -i 's/from mock/from unittest.mock/' tests/cover/test_regressions.py
-	sed -i 's/from mock/from unittest.mock/' tests/cover/test_reflection.py
+	vsed -e 's/from mock/from unittest.mock/' -i tests/cover/test_regressions.py
+	vsed -e 's/from mock/from unittest.mock/' -i tests/cover/test_reflection.py
 
 	# Add variables that will be used by python to find the local
 	# hypothesis build

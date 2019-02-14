@@ -1,9 +1,9 @@
 # Template file for 'MEGAsync'
 pkgname=MEGAsync
 version=3.7.1.0
-revision=3
+revision=6
 wrksrc="${pkgname}-${version}_Linux"
-build_wrksrc="src"
+build_wrksrc=src
 build_style=qmake
 configure_args='"CONFIG-=with_tools"'
 hostmakedepends="libtool qt5-qmake qt5-host-tools"
@@ -19,7 +19,7 @@ restricted=yes
 nocross=yes
 
 case "$XBPS_TARGET_MACHINE" in
-	*-musl) broken="google breakpad";;
+	*-musl|ppc64*) broken="google breakpad";;
 esac
 
 post_extract() {

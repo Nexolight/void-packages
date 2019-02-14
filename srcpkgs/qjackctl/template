@@ -1,18 +1,18 @@
 # Template file for 'qjackctl'
 pkgname=qjackctl
-version=0.5.3
-revision=2
+version=0.5.5
+revision=1
 build_style=gnu-configure
 configure_args="--enable-jack-version"
 hostmakedepends="pkg-config"
 makedepends="qt5-devel jack-devel qt5-x11extras-devel"
 depends="desktop-file-utils hicolor-icon-theme jack"
 short_desc="JACK Audio Connection Kit - Qt GUI Interface"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
 license="GPL-2.0-or-later"
 homepage="http://qjackctl.sourceforge.net"
 distfiles="${SOURCEFORGE_SITE}/${pkgname}/${pkgname}-${version}.tar.gz"
-checksum=813be3b92442ee89a1894407980cb3c95b549e6e94b6b155f218d15291530874
+checksum=e5eb7b9249ba22f5301645f792eb34e7306b9002594eb945c9941a9586c2ffe7
 
 if [ "${CROSS_BUILD}" ]; then
 	hostmakedepends+=" qt5-host-tools qt5-devel qt5-x11extras-devel"

@@ -7,7 +7,7 @@ build_wrksrc=source
 build_style=gnu-configure
 hostmakedepends="pkg-config"
 short_desc="Robust and full-featured Unicode services"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
 license="ICU"
 homepage="http://www.icu-project.org/"
 distfiles="http://download.icu-project.org/files/icu4c/${version}/icu4c-${version//./_}-src.tgz"
@@ -35,7 +35,7 @@ pre_configure() {
 		cd host-build
 		env CC=cc LD=ld CXX=g++ AR=ar RANLIB=ranlib \
 			AS=as STRIP=strip CFLAGS="-Os -fPIE" CXXFLAGS="-Os -fPIE" \
-			../configure --prefix=/
+			LDFLAGS="" ../configure --prefix=/
 		make ${makejobs}
 		mkdir -p ${wrksrc}/host-icu/config
 		cp config/icucross.* ${wrksrc}/host-icu/config

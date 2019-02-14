@@ -1,6 +1,6 @@
 # Template file for 'tryton'
 pkgname=tryton
-version=5.0.1
+version=5.0.5
 revision=1
 noarch=yes
 build_style=python3-module
@@ -8,11 +8,12 @@ pycompile_module="tryton"
 hostmakedepends="python3-setuptools"
 depends="gtk+3 python3-dateutil python3-gobject"
 short_desc="Three-tier high-level general purpose application platform"
-maintainer="Orphaned <orphan@voidlinux.eu>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="GPL-3.0-or-later"
 homepage="https://www.tryton.org"
 distfiles="${PYPI_SITE}/t/tryton/tryton-${version}.tar.gz"
-checksum=3d2bdd675e9fda586dd0643105b1b8f7c167c022d3ad3efa821b518f1ae5e367
+checksum=f8bb722ceaf8d46cec799315ac5999ac08c07e1b8b714e0783c472ed3f23f5a5
+nocross="gobject-introspection"
 
 post_install() {
 	vinstall tryton.desktop 644 usr/share/applications

@@ -1,16 +1,16 @@
 # Template file for 'libuv'
 pkgname=libuv
-version=1.24.0
+version=1.26.0
 revision=1
 build_style=gnu-configure
 hostmakedepends="automake libtool pkg-config"
 short_desc="Multi-platform support library with a focus on asynchronous I/O"
-maintainer="Enno Boland <gottox@voidlinux.eu>"
+maintainer="Enno Boland <gottox@voidlinux.org>"
 license="MIT, CC-BY-SA-4.0"
 homepage="https://libuv.org/"
 changelog="https://raw.githubusercontent.com/libuv/libuv/v1.x/ChangeLog"
 distfiles="https://github.com/libuv/libuv/archive/v${version}.tar.gz"
-checksum=55587c525196a7a550fa7e5eb61794c377ec23b44adb435fdded86e8f7f31a16
+checksum=e414cf74615b7dae768f0f5667092f1d4975f5067c087bcbe0641e241ebe4693
 
 LDFLAGS="-pthread"
 

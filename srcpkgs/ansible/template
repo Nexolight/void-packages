@@ -1,6 +1,6 @@
 # Template file for 'ansible'
 pkgname=ansible
-version=2.7.1
+version=2.7.7
 revision=1
 noarch=yes
 build_style=python3-module
@@ -9,11 +9,11 @@ hostmakedepends="python3-setuptools"
 depends="${hostmakedepends} python3-cryptography python3-Jinja2 python3-paramiko
  python3-yaml"
 short_desc="Simple deployment, configuration management and execution framework"
-maintainer="Michael Aldridge <maldridge@VoidLinux.eu>"
+maintainer="Michael Aldridge <maldridge@voidlinux.org>"
 license="GPL-3.0-or-later"
 homepage="https://www.ansible.com/"
 distfiles="https://releases.ansible.com/ansible/${pkgname}-${version}.tar.gz"
-checksum=e7953472347fcc6dca10839111b576a9f790e00056344f2dcf448e6c452fe939
+checksum=040cc936f959b947800ffaa5f940d2508aaa41f899efe56b47a7442c89689150
 
 post_install() {
 	vsconf examples/ansible.cfg

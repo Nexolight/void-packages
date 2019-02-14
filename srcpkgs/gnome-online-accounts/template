@@ -1,8 +1,9 @@
 # Template file for 'gnome-online-accounts'
 pkgname=gnome-online-accounts
-version=3.30.0
+version=3.30.2
 revision=1
 build_style=gnu-configure
+build_helper="gir"
 configure_args="$(vopt_enable gir introspection)
  --enable-documentation --enable-backend
  --enable-google --enable-kerberos --enable-flickr --enable-telepathy
@@ -10,21 +11,23 @@ configure_args="$(vopt_enable gir introspection)
  --enable-owncloud --enable-windows-live --enable-yahoo --enable-pocket
  --enable-todoist --enable-lastfm --enable-media-server"
 hostmakedepends="docbook-xsl gettext-devel glib-devel gnome-common
- gobject-introspection intltool libxslt pkg-config vala-devel"
+ intltool libxslt pkg-config $(vopt_if vala vala)"
 makedepends="gcr-devel gtk+3-devel json-glib-devel libnotify-devel libsecret-devel
  libsoup-devel mit-krb5-devel rest-devel telepathy-glib-devel webkit2gtk-devel"
 depends="hicolor-icon-theme"
 short_desc="GNOME service to access online accounts"
-maintainer="Enno Boland <gottox@voidlinux.eu>"
-homepage="https://wiki.gnome.org/Projects/GnomeOnlineAccounts"
+maintainer="Enno Boland <gottox@voidlinux.org>"
 license="LGPL-2.0-or-later"
-distfiles="${GNOME_SITE}/$pkgname/${version%.*}/$pkgname-$version.tar.xz"
-checksum=27d9d88942aa02a1f8d003dfe515483d8483f216ba1e297a8ef67a42cf4bcfc3
+homepage="https://wiki.gnome.org/Projects/GnomeOnlineAccounts"
+distfiles="${GNOME_SITE}/${pkgname}/${version%.*}/${pkgname}-${version}.tar.xz"
+checksum=05c7e588c884a4145db376880303588f74b76d1fa11afbeccb74c6eff36b2fdc
 
-build_options="gir"
-if [ -z "$CROSS_BUILD" ]; then
-	build_options_default+=" gir"
-fi
+build_options="gir vala"
+case "$XBPS_TARGET_MACHINE" in
+	x86_64-musl) build_options_default+=" gir vala" ;;
+	*-musl) ;;
+	*) build_options_default+=" gir vala" ;;
+esac
 
 gnome-online-accounts-devel_package() {
 	depends="gtk+3-devel ${sourcepkg}>=${version}_${revision}"
@@ -35,8 +38,10 @@ gnome-online-accounts-devel_package() {
 		vmove "usr/lib/*.so"
 		vmove usr/lib/goa-1.0
 		if [ "$build_option_gir" ]; then
-			vmove usr/share/vala
 			vmove usr/share/gir-1.0
+		fi
+		if [ "$build_option_vala" ]; then
+			vmove usr/share/vala
 		fi
 	}
 }

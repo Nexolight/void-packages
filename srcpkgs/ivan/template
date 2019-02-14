@@ -1,0 +1,14 @@
+# Template file for 'ivan'
+pkgname=ivan
+version=055
+revision=1
+build_style=cmake
+hostmakedepends="pkg-config"
+makedepends="libpng-devel pcre-devel SDL2-devel SDL2_mixer-devel"
+short_desc="Iter Vehemens ad Necem - a graphical roguelike game"
+maintainer="travankor <travankor@tuta.io>"
+license="GPL-2.0-or-later"
+homepage="https://attnam.com/wiki/Main_Page"
+changelog="https://raw.githubusercontent.com/Attnam/ivan/master/NEWS"
+distfiles="https://github.com/Attnam/ivan/archive/v${version}.tar.gz"
+checksum=ca22f0a650b6bdff34cb4b1c96583c18093b6d7b6b0fdd064fba8608a5b6ea05

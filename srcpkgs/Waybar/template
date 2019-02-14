@@ -1,6 +1,6 @@
 # Template file for 'Waybar'
 pkgname=Waybar
-version=0.2.0
+version=0.3.0
 revision=1
 build_style=meson
 configure_args="-Dlibnl=$(vopt_if libnl enabled disabled)
@@ -15,8 +15,9 @@ short_desc="Polybar-like Wayland Bar for Sway and Wlroots based compositors"
 maintainer="maxice8 <thinkabit.ukim@gmail.com>"
 license="MIT"
 homepage="https://github.com/Alexays/Waybar"
+changelog="https://github.com/Alexays/Waybar/releases"
 distfiles="https://github.com/Alexays/Waybar/archive/${version}.tar.gz"
-checksum=2e2d01d75d2a8352e241d2ea991e3c1ab46ca9848c217c9fe00659822960eeb4
+checksum=5813da72a86f3641157ae026f7b5be2945c8130cac7f4492232c0cade35193d8
 
 build_options="libnl pulseaudio dbusmenugtk"
 build_options_default="pulseaudio"

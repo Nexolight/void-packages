@@ -5,13 +5,14 @@ revision=8
 bootstrap=yes
 build_style=configure
 short_desc="The XBPS package system utilities"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
 homepage="https://github.com/void-linux/xbps"
 license="BSD-2-Clause"
 distfiles="https://github.com/void-linux/xbps/archive/${version}.tar.gz"
 checksum=360b3149141fec46dd6da9019605bcee48ee4d29bffe5aa47a9fd5fa68ccd5f4
 
 hostmakedepends="pkg-config"
+checkdepends="kyua"
 makedepends="zlib-devel libressl-devel libarchive-devel"
 depends="ca-certificates xbps-triggers"
 

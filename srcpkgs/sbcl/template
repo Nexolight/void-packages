@@ -1,6 +1,6 @@
 # Template file for 'sbcl'
 pkgname=sbcl
-version=1.4.13
+version=1.4.16
 revision=1
 only_for_archs="i686 x86_64 x86_64-musl armv7l aarch64"
 
@@ -13,7 +13,7 @@ license="custom"
 homepage="http://www.sbcl.org/"
 changelog="http://www.sbcl.org/news.html"
 distfiles="${SOURCEFORGE_SITE}/${pkgname}/${pkgname}-${version}-source.tar.bz2"
-checksum=75bfef4e2eba160cf0242b6adcd1380d2c525becc8512ce999f49881beb51988
+checksum=8d93ad1b64815854d0db042c00473fc04b284316c67734be2dd62ddb2727cfd7
 nocross=yes
 nopie=yes
 
@@ -21,7 +21,7 @@ _bootstrap_lisp="bash ../sbcl-*-linux/run-sbcl.sh --no-sysinit --no-userinit --d
 case "$XBPS_TARGET_MACHINE" in
 x86_64)
 	distfiles+=" ${SOURCEFORGE_SITE}/${pkgname}/${pkgname}-${version}-x86-64-linux-binary.tar.bz2"
-	checksum+=" 534613dad3459a3416a351215b39e91f4e77fb2137e72f193dae65f6ca11deef"
+	checksum+=" df3d905d37656a7eeeba72d703577afc94a21d756a4dde0949310200f82ce575"
 	;;
 i686)
 	distfiles+=" ${SOURCEFORGE_SITE}/${pkgname}/${pkgname}-1.4.3-x86-linux-binary.tar.bz2"
@@ -47,7 +47,6 @@ do_build() {
 	bash make.sh \
 		"$_bootstrap_lisp" \
 		--without-sb-test --with-sb-core-compression --prefix=/usr
-	make -C doc/manual info
 }
 
 do_install() {

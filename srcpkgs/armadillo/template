@@ -1,9 +1,9 @@
 # Template file for 'armadillo'
 pkgname=armadillo
-version=9.100.6
+version=9.200.7
 revision=1
 build_style=cmake
-configure_args="$(vopt_if hdf5 -DDETECT_HDF5=ON)"
+configure_args="-DDETECT_HDF5=$(vopt_if hdf5 ON OFF)"
 hostmakedepends="pkg-config openblas-devel"
 makedepends="openblas-devel superlu-devel $(vopt_if hdf5 hdf5-devel)"
 short_desc="C++ linear algebra library"
@@ -11,9 +11,10 @@ maintainer="Julien Dehos <dehos@lisic.univ-littoral.fr>"
 license="Apache-2.0"
 homepage="http://arma.sourceforge.net/"
 distfiles="${SOURCEFORGE_SITE}/arma/${pkgname}-${version}.tar.xz"
-checksum=6349163da682d237ee6fedfa31b936b07ff0c1c12a48631be700a89aa37c39ee
+checksum=e2787d40bcd46edf70f65ba4efd523ccb8b96a93fdb8f76da6adf1e921cb7df8
 
 build_options="hdf5"
+desc_option_hdf5="HDF5 support"
 if [ -z "$CROSS_BUILD" ]; then
 	build_options_default="hdf5"
 fi

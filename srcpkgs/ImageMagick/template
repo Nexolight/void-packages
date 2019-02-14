@@ -1,7 +1,7 @@
 # Template file for 'ImageMagick'
 pkgname=ImageMagick
 _majorver=7.0.8
-_patchver=14
+_patchver=26
 version="${_majorver}.${_patchver}"
 revision=1
 wrksrc="${pkgname}-${_majorver}-${_patchver}"
@@ -16,11 +16,12 @@ makedepends="djvulibre-devel fftw-devel ghostscript-devel glib-devel lcms2-devel
  libXt-devel libgomp-devel libltdl-devel librsvg-devel libwebp-devel libwmf-devel
  ocl-icd-devel pango-devel"
 short_desc="Package for display and interactive manipulation of images"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
 license="ImageMagick"
 homepage="https://www.imagemagick.org/"
-distfiles="https://www.imagemagick.org/download/ImageMagick-${_majorver}-${_patchver}.tar.xz"
-checksum=70c3d8c800cfd0282c0e0d9930b83f472f9593a882adc77532aa82c0d7ca0bb1
+changelog="https://imagemagick.org/script/changelog.php"
+distfiles="https://github.com/ImageMagick/ImageMagick/archive/${_majorver}-${_patchver}.tar.gz"
+checksum=ea3ddd6085ce6af4488d751f58b25d8410ea36c077861d254dfaf53cadf41a6a
 
 subpackages="libmagick libmagick-devel"
 

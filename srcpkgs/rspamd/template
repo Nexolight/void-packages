@@ -1,7 +1,7 @@
 # Template file for 'rspamd'
 pkgname=rspamd
-version=1.8.1
-revision=3
+version=1.8.3
+revision=1
 build_style=cmake
 configure_args="-DRSPAMD_USER=rspamd -DCONFDIR=/etc/rspamd
  -DDBDIR=/var/lib/rspamd"
@@ -9,12 +9,12 @@ hostmakedepends="perl pkg-config ragel"
 makedepends="LuaJIT-devel fann-devel file-devel gd-devel gmime-devel
  hiredis-devel icu-devel libevent-devel sqlite-devel"
 short_desc="Fast, free and open-source spam filtering system"
-maintainer="Enno Boland <gottox@voidlinux.eu>"
+maintainer="Enno Boland <gottox@voidlinux.org>"
 license="Apache-2.0"
 homepage="https://rspamd.com/"
 changelog="https://raw.githubusercontent.com/vstakhov/rspamd/master/ChangeLog"
 distfiles="https://github.com/vstakhov/rspamd/archive/${version}.tar.gz"
-checksum=cd25dab6fbd2b20b3bf0c871b133d08a5107696e012c798c6e93cd9e53537555
+checksum=09ad1808e8b56db954b29622976efca54785223beaa7b859b2cdb900408de8d7
 system_accounts="rspamd"
 rspamd_homedir=/var/lib/rspamd
 conf_files="/etc/rspamd/*.conf /etc/rspamd/*.inc /etc/rspamd/modules.d/*.conf"

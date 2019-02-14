@@ -1,6 +1,6 @@
 # Template file for 'prosody'
 pkgname=prosody
-version=0.10.2
+version=0.10.3
 revision=2
 build_style=configure
 configure_args="
@@ -17,17 +17,17 @@ conf_files="
  /etc/prosody/certs/localhost.cnf
  /etc/prosody/certs/openssl.cnf
  /etc/prosody/certs/Makefile"
-system_accounts="prosody"
-prosody_homedir="/var/lib/prosody"
 make_dirs="/var/lib/prosody 0755 prosody prosody"
 makedepends="lua51-devel libressl-devel libidn-devel"
 depends="luasocket luafilesystem luaexpat lua51-luasec lua51-BitOp"
 short_desc="Lightweight and extensible Jabber/XMPP server written in Lua"
-maintainer="Duncaen <duncaen@voidlinux.eu>"
+maintainer="Duncaen <duncaen@voidlinux.org>"
 license="MIT"
 homepage="https://prosody.im/"
 distfiles="https://prosody.im/downloads/source/${pkgname}-${version}.tar.gz"
-checksum=75b5f035e7a74d5f208eeeaf8419b94a85d09b40252d444cff8033fde3c9768e
+checksum=0c72e221aa0bb2e6cd990a3cff72ee28d3d519493915dadde0e8eebb0b3f1871
+system_accounts="prosody"
+prosody_homedir="/var/lib/prosody"
 
 case "$XBPS_TARGET_MACHINE" in
 *-musl) CFLAGS="-DWITHOUT_MALLINFO" ;;

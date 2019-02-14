@@ -1,10 +1,12 @@
 # Template file for 'scrcpy'
 pkgname=scrcpy
-version=1.3
+version=1.6
 revision=1
+#XXX: Just release a new patchversion...
 build_style=meson
 configure_args="-Db_lto=true
- -Dprebuilt_server=scrcpy-server-v${version}.jar"
+ -Dbuild_server=false
+ -Doverride_server_path=/usr/share/scrcpy/scrcpy-server-v${version}.jar"
 hostmakedepends="pkg-config"
 makedepends="SDL2-devel ffmpeg-devel"
 depends="android-tools"
@@ -14,10 +16,11 @@ license="Apache-2.0"
 homepage="https://github.com/Genymobile/scrcpy"
 distfiles="${homepage}/archive/v${version}.tar.gz
  ${homepage}/releases/download/v${version}/scrcpy-server-v${version}.jar"
-checksum="e0e157341f6c052dc2e50ee6e912cf94df0bdda039759f19abb1eece37345f75
- 0f9a5a217f33f0ed7a1498ceb3c0cccf31c53533893aa952e674c1571d2740c1"
+checksum="b41925d087420cbe24d7fa901cbb537f492c28c50d875fcf738e7fe4b26d7d05
+ 08df924bf6d10943df9eaacfff548a99871ebfca4641f8c7ddddb73f27cb905b"
 skip_extraction="scrcpy-server-v${version}.jar"
 
-post_extract() {
-	cp ${XBPS_SRCDISTDIR}/scrcpy-${version}/scrcpy-server-v${version}.jar server
+post_install() {
+	vinstall ${XBPS_SRCDISTDIR}/scrcpy-${version}/scrcpy-server-v${version}.jar \
+		644 /usr/share/scrcpy/
 }

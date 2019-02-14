@@ -4,21 +4,21 @@
 # A CYCLIC DEPENDENCY: qt5 -> cups -> poppler -> qt5.
 #
 pkgname=poppler-qt5
-version=0.71.0
+version=0.74.0
 revision=1
 wrksrc="poppler-${version}"
 build_style=cmake
-configure_args="-DENABLE_XPDF_HEADERS=on -DENABLE_GLIB=off
- -DENABLE_QT5=on -DENABLE_UTILS=off -DENABLE_CPP=off"
+configure_args="-DENABLE_UNSTABLE_API_ABI_HEADERS=ON -DENABLE_GLIB=OFF
+ -DENABLE_QT5=ON -DENABLE_UTILS=OFF -DENABLE_CPP=OFF"
 hostmakedepends="pkg-config qt5-devel"
 makedepends="libpng-devel tiff-devel lcms2-devel libcurl-devel
  fontconfig-devel cairo-devel libopenjpeg2-devel qt5-devel"
 short_desc="PDF rendering library - Qt5 bindings"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
 license="GPL-2.0-or-later, GPL-3.0-or-later"
 homepage="http://poppler.freedesktop.org"
 distfiles="${homepage}/poppler-${version}.tar.xz"
-checksum=badbecd2dddf63352fd85ec08a9c2ed122fdadacf2a34fcb4cc227c4d01f2cf9
+checksum=92e09fd3302567fd36146b36bb707db43ce436e8841219025a82ea9fb0076b2f
 
 if [ "$CROSS_BUILD" ]; then
 	configure_args+=" -DTHREADS_PTHREAD_ARG=2"

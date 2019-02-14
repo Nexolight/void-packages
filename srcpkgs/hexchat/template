@@ -1,7 +1,7 @@
 # Template file for 'hexchat'
 pkgname=hexchat
 version=2.14.2
-revision=3
+revision=4
 build_style=meson
 configure_args="-Dwith-dbus=true -Dwith-ssl=true -Dwith-text=false
  -Dwith-perl=/usr/bin/perl -Dwith-python=python3
@@ -12,7 +12,7 @@ makedepends="gtk+-devel libressl-devel dbus-glib-devel perl libnotify-devel
  iso-codes python3-devel $(vopt_if LuaJIT LuaJIT-devel lua-devel)"
 depends="desktop-file-utils enchant"
 short_desc="A GTK+ based IRC client successor of Xchat"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
 license="GPL-2.0-or-later"
 homepage="https://hexchat.github.io/"
 changelog="https://hexchat.readthedocs.org/en/latest/changelog.html"
@@ -22,7 +22,6 @@ build_options="LuaJIT"
 
 case "$XBPS_TARGET_MACHINE" in
 	arm*-musl) : "LuaJIT is broken for musl cross arches" ;;
-	aarch64*) : "LuaJIT is not supported on aarch64" ;;
 	*) build_options_default+=" LuaJIT" ;;
 esac
 lib32disabled=yes

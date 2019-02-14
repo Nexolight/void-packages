@@ -1,6 +1,6 @@
 # Template file for 'kcachegrind'
 pkgname=kcachegrind
-version=18.08.3
+version=18.12.2
 revision=1
 build_style=cmake
 hostmakedepends="extra-cmake-modules pkg-config"
@@ -10,8 +10,8 @@ short_desc="Visualization of Performance Profiling Data"
 maintainer="Piotr Wójcik <chocimier@tlen.pl>"
 license="GPL-2.0-only, GFDL-1.2-only"
 homepage="https://kde.org/applications/development/kcachegrind/"
-distfiles="${KDE_SITE}/applications/${version}/src/${pkgname}-${version}.tar.xz"
-checksum=dd88029bd77be28584fbde9436e7fd2378de533f82bcab6b29753d5d7a0b21ed
+distfiles="${KDE_SITE}/applications/${version}/src/kcachegrind-${version}.tar.xz"
+checksum=c21f3ac2568739b45919b13c2d77f79af9ea3beb51ec7339e700ae59b68d5fa9
 
 if [ -n "$CROSS_BUILD" ]; then
 	hostmakedepends+=" kconfig kdoctools python qt5-host-tools qt5-qmake"

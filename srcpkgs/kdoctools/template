@@ -1,6 +1,6 @@
 # Template file for 'kdoctools'
 pkgname=kdoctools
-version=5.52.0
+version=5.55.0
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
@@ -12,7 +12,7 @@ maintainer="John <johnz@posteo.net>"
 license="LGPL-2.1-or-later"
 homepage="https://projects.kde.org/projects/frameworks/kdoctools"
 distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=368ef2d68a50ec006a6a05fbbd95574bb0620151b493d0fcdca32e964a2c2139
+checksum=d490fc6b7c52a2b02ed21cedbd0e1e84878871cf2c43b76080beb83e37a08a36
 
 if [ "$CROSS_BUILD" ]; then
 	hostmakedepends+=" qt5-host-tools qt5-qmake python kdoctools-devel"
@@ -26,6 +26,8 @@ kdoctools-devel_package() {
 	depends="${makedepends} ${sourcepkg}>=${version}_${revision}"
 	pkg_install() {
 		vmove usr/lib/cmake
+		vmove usr/include
+		vmove "usr/lib/*.so"
 		vbin build/bin/docbookl10nhelper
 	}
 }

@@ -1,13 +1,13 @@
 # Template file for 'units'
 pkgname=units
 version=2.18
-revision=1
+revision=2
 build_style=gnu-configure
 hostmakedepends="python"
 makedepends="readline-devel"
 depends="python python-Unidecode"
 short_desc="Converts between different units"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
 license="GPL-3.0-or-later"
 homepage="https://www.gnu.org/software/units/units.html"
 distfiles="${GNU_SITE}/${pkgname}/${pkgname}-${version}.tar.gz"

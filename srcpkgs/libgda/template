@@ -1,7 +1,7 @@
 # Template file for 'libgda'
 pkgname=libgda
 version=5.2.4
-revision=12
+revision=13
 build_style=gnu-configure
 configure_args="--with-ui --with-gtksourceview --with-graphviz --enable-json
  --enable-system-sqlite"
@@ -12,7 +12,7 @@ makedepends="gtk+3-devel libxml2-devel libxslt-devel
  json-glib-devel readline-devel libmysqlclient-devel"
 conf_files="/etc/libgda-5.0/config"
 short_desc="Database and data abstraction layer"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
 license="GPL-2"
 homepage="http://www.gnome-db.org/"
 distfiles="${GNOME_SITE}/${pkgname}/${version%.*}/${pkgname}-${version}.tar.xz"

@@ -1,6 +1,6 @@
 # Template file for 'ddcutil'
 pkgname=ddcutil
-version=0.9.2
+version=0.9.4
 revision=1
 build_style=gnu-configure
 hostmakedepends="automake libtool pkg-config"
@@ -11,7 +11,7 @@ maintainer="lemmi <lemmi@nerd2nerd.org>"
 license="GPL-2.0-or-later"
 homepage="http://www.ddcutil.com"
 distfiles="https://github.com/rockowitz/ddcutil/archive/v${version}.tar.gz"
-checksum=88a94a9bf21ccb821681b0aa41e20fefdf9dafdebe6155aea73e36fbcb319db3
+checksum=e3dd3df48791462d1e877bc95e0e2e64d76562dad76e7a1606d52ff91b87cb2d
 
 case "$XBPS_TARGET_MACHINE" in
 	*-musl) makedepends+=" libexecinfo-devel"

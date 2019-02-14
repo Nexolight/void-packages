@@ -1,6 +1,6 @@
 # Template file for 'dbeaver'
 pkgname=dbeaver
-version=5.2.4
+version=5.3.4
 revision=1
 only_for_archs="i686 x86_64"
 hostmakedepends="apache-maven-bin"
@@ -9,7 +9,7 @@ maintainer="Kyle Nusbaum <knusbaum+void@sdf.org>"
 license="Apache-2.0"
 homepage="https://dbeaver.io"
 distfiles="https://github.com/dbeaver/dbeaver/archive/${version}.tar.gz"
-checksum=959aecbee0a1c0735595608bc3a08fb9ada6b30d953e4c10418eaa2f70ae634f
+checksum=230672d5c4abe3ef325691066f299a854986362b6b2c6d7d127739fd546e98aa
 nopie=true
 
 do_build() {
@@ -25,9 +25,9 @@ do_install() {
 			_target_dir=x86
 			;;
 	esac
-	vmkdir /usr/share
-	vcopy "product/standalone/target/products/org.jkiss.dbeaver.core.product/linux/gtk/${_target_dir}/dbeaver" /usr/share/
+	vmkdir /usr/lib
+	vcopy "product/standalone/target/products/org.jkiss.dbeaver.core.product/linux/gtk/${_target_dir}/dbeaver" /usr/lib/
 
 	vmkdir /usr/bin
-	ln -s /usr/share/dbeaver/dbeaver ${DESTDIR}/usr/bin/dbeaver
+	ln -s /usr/lib/dbeaver/dbeaver ${DESTDIR}/usr/bin/dbeaver
 }

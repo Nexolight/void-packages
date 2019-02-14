@@ -1,6 +1,6 @@
 # Template file for 'xtools'
 pkgname=xtools
-version=0.52
+version=0.54
 revision=1
 noarch=yes
 build_style=gnu-makefile
@@ -10,4 +10,4 @@ maintainer="Leah Neukirchen <leah@vuxu.org>"
 license="Public Domain"
 homepage="http://git.vuxu.org/xtools"
 distfiles="http://git.vuxu.org/xtools/snapshot/xtools-${version}.tar.gz"
-checksum=8ef8149e55f81922f0101a8a34148156737f0574e3d3ff0425da87539bc96ff4
+checksum=c84d8f3864d34842ddd8717578b96060d2502bbc8ececebc325e73d83423fcb1

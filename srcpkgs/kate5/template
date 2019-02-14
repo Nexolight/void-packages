@@ -1,6 +1,6 @@
 # Template file for 'kate5'
 pkgname=kate5
-version=18.08.3
+version=18.12.2
 revision=1
 wrksrc="${pkgname%5}-${version}"
 build_style=cmake
@@ -10,11 +10,11 @@ makedepends="kitemmodels-devel knewstuff-devel ktexteditor-devel
  plasma-framework-devel threadweaver-devel"
 depends="hicolor-icon-theme"
 short_desc="KDE Text editor"
-maintainer="Denis Revin <denis.revin@gmail.com>"
+maintainer="John <johnz@posteo.net>"
 license="GPL-3.0-or-later, LGPL-2.0-or-later, GPL-2.0-or-later"
 homepage="https://projects.kde.org/projects/applications/kate"
 distfiles="${KDE_SITE}/applications/${version}/src/${pkgname%5}-${version}.tar.xz"
-checksum=d0a95d777f7638ffb6ba4e6b064c1eee79f291d01945e93286e708d7a05fd811
+checksum=9056385b71ca115daa0f69c5e59c6e5261aea5f5320412de8a63bf43fe847fb1
 
 if [ "$CROSS_BUILD" ]; then
 	configure_args+=" -DKF5_HOST_TOOLING=/usr/lib/cmake"

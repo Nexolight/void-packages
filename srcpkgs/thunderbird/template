@@ -3,22 +3,22 @@
 # THIS PKG MUST BE SYNCHRONIZED WITH "srcpkgs/thunderbird-i18n".
 #
 pkgname=thunderbird
-version=60.3.0
+version=60.5.0
 revision=2
 short_desc="Standalone Mail/News reader"
-maintainer="Enno Boland <gottox@voidlinux.eu>"
+maintainer="Enno Boland <gottox@voidlinux.org>"
 homepage="https://www.thunderbird.net/"
 license="MPL-2.0, GPL-2.0-or-later, LGPL-2.1-or-later"
 distfiles="${MOZILLA_SITE}/${pkgname}/releases/${version}/source/${pkgname}-${version}.source.tar.xz"
-checksum=23fc097a5aa62006919029df890e5e2bec38c2c3e6081723040ef702ff6e4a7b
+checksum=6f96e87e832e4089c69418db64e19afd54a0acefe3e0364087a8bc6f442b9566
 
 only_for_archs="i686 i686-musl x86_64 x86_64-musl"
 lib32disabled=yes
 
-hostmakedepends="autoconf213 unzip zip pkg-config perl python3 yasm rust cargo
+hostmakedepends="autoconf213 unzip zip pkg-config perl python yasm rust cargo
  llvm clang"
 makedepends="nss-devel libjpeg-turbo-devel gtk+-devel gtk+3-devel icu-devel
- pixman-devel sqlite-devel libevent-devel libnotify-devel libvpx-devel
+ pixman-devel sqlite-devel libevent-devel libnotify-devel libvpx5-devel
  libXrender-devel libXcomposite-devel libSM-devel libXt-devel
  libXdamage-devel hunspell-devel $(vopt_if alsa alsa-lib-devel)
  $(vopt_if dbus dbus-glib-devel) $(vopt_if pulseaudio pulseaudio-devel)

@@ -1,6 +1,6 @@
 # Template file for 'chroma'
 pkgname=chroma
-version=0.6.0
+version=0.6.2
 revision=1
 build_style=go
 go_import_path="github.com/alecthomas/${pkgname}"
@@ -11,7 +11,7 @@ maintainer="Daniel Lewan <vision360.daniel@gmail.com>"
 license="MIT"
 homepage="https://github.com/alecthomas/chroma"
 distfiles="https://${go_import_path}/archive/v${version}.tar.gz"
-checksum=be30aa45fac2d401f28fc49c87b1fa315f61273da2097eaba412802e76de17dd
+checksum=6cb44776c7d4ec2f769abf6ce6bbaddef849ad209985d33ddf18c81d724fac73
 
 post_install() {
 	vlicense COPYING

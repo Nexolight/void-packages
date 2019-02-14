@@ -1,14 +1,14 @@
 # Template file for 'python-jellyfish'
 pkgname=python-jellyfish
 version=0.6.1
-revision=1
+revision=2
 wrksrc="${pkgname#*-}-${version}"
 build_style=python-module
 pycompile_module="jellyfish"
 hostmakedepends="python-setuptools python3-setuptools"
 makedepends="python-devel python3-devel"
 short_desc="Python2 library for approximate and phonetic matching of strings"
-maintainer="Duncaen <duncaen@voidlinux.eu>"
+maintainer="Duncaen <duncaen@voidlinux.org>"
 license="BSD-2-Clause"
 homepage="https://github.com/sunlightlabs/jellyfish"
 distfiles="${PYPI_SITE}/j/jellyfish/jellyfish-${version}.tar.gz"

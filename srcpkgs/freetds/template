@@ -1,7 +1,7 @@
 # Template file for 'freetds'
 pkgname=freetds
-version=1.00.94
-revision=1
+version=1.00.111
+revision=2
 build_style=gnu-configure
 configure_args="--sysconfdir=/etc/freetds"
 hostmakedepends="pkg-config"
@@ -10,8 +10,8 @@ short_desc="Open source implementation of the Tabular Data Stream protocol"
 maintainer="Diogo Leal <diogo@diogoleal.com>"
 license="LGPL-2.0-or-later"
 homepage="http://www.freetds.org/"
-distfiles="ftp://ftp.freetds.org/pub/freetds/stable/freetds-${version}.tar.gz"
-checksum=0712de3b11be154c633cedeac4b8923316f2bca843d2f3d438e58071d7cd239d
+distfiles="http://www.freetds.org/files/stable/freetds-${version}.tar.gz"
+checksum=77b8d949670d534f36d6d7509732959dffaccd7a5ea1167890cd8ee03f327fc9
 conf_files="/etc/freetds/freetds.conf
  /etc/freetds/locales.conf
  /etc/freetds/pool.conf"

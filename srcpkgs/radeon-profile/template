@@ -1,0 +1,17 @@
+# Template file for 'radeon-profile'
+pkgname=radeon-profile
+version=20190211
+revision=1
+build_wrksrc=radeon-profile
+build_style=qmake
+makedepends="qt5-devel qt5-charts-devel libdrm-devel libXrandr-devel"
+short_desc="Application to read current clocks of ATi Radeon cards"
+maintainer="SolitudeSF <solitudesf@protonmail.com>"
+license="GPL-2.0-or-later"
+homepage="https://github.com/marazmista/radeon-profile"
+distfiles="${homepage}/archive/${version}.tar.gz"
+checksum=1578c02950624c2a64bb016abc95368147fd386c798fc76b34ef2cd59f232df6
+
+if [ "$CROSS_BUILD" ]; then
+	hostmakedepends="qt5-qmake qt5-charts-devel"
+fi

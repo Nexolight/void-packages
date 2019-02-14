@@ -1,6 +1,6 @@
 # Template file for 'getmail'
 pkgname=getmail
-version=5.8
+version=5.11
 revision=1
 noarch=yes
 build_style=python2-module
@@ -12,4 +12,4 @@ maintainer="maxice8 <thinkabit.ukim@gmail.com>"
 license="GPL-2.0-only"
 homepage="http://pyropus.ca/software/getmail"
 distfiles="http://pyropus.ca/software/getmail/old-versions/${pkgname}-${version}.tar.gz"
-checksum=819441c7e8ef49d7036c2bc83e1568a7184f0393245fe28368a9dd310e63846e
+checksum=086647c7ccde5b1346354d924ca3020660dc096a41b67207217d6b0a81b92ba2

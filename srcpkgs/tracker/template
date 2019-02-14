@@ -1,7 +1,7 @@
 # Template file for 'tracker'
 pkgname=tracker
-version=2.1.5
-revision=2
+version=2.1.7
+revision=1
 build_style=gnu-configure
 configure_args="--enable-libflac --enable-libvorbis --disable-unit-tests
  --enable-libtiff --disable-static --enable-network-manager
@@ -16,11 +16,11 @@ makedepends="enca-devel exempi-devel giflib-devel gupnp-dlna-devel
  libvorbis-devel libxslt-devel network-manager-applet-devel poppler-glib-devel
  taglib-devel totem-pl-parser-devel upower-devel"
 short_desc="Personal search tool and storage system"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
 license="GPL-2.0-or-later"
 homepage="https://live.gnome.org/Tracker"
-distfiles="${GNOME_SITE}/${pkgname}/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=b234b7573773b904dc3e885ff5ec44e86b035767cde783bc50d65d12cd72861e
+distfiles="${GNOME_SITE}/tracker/${version%.*}/tracker-${version}.tar.xz"
+checksum=fb4e7b71929dbc56045bc5920bd0e47b6081a094c131e991e5a411e44b24a24a
 
 # Package build options
 build_options="gir"

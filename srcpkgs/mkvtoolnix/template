@@ -1,6 +1,6 @@
 # Template file for 'mkvtoolnix'
 pkgname=mkvtoolnix
-version=28.2.0
+version=31.0.0
 revision=1
 build_style=gnu-configure
 configure_args="--with-docbook-xsl-root=/usr/share/xsl/docbook --enable-qt"
@@ -13,8 +13,8 @@ maintainer="Jürgen Buchmüller <pullmoll@t-online.de>"
 license="GPL-2.0-only"
 homepage="https://www.bunkus.org/videotools/mkvtoolnix/"
 changelog="https://mkvtoolnix.download/doc/NEWS.md"
-distfiles="${homepage}/sources/${pkgname}-${version}.tar.xz"
-checksum=aa54b39790e619b2cfdefdd083c735503834eb05c665cd85f9b5a8383bcc5843
+distfiles="https://www.bunkus.org/videotools/${pkgname}/sources/${pkgname}-${version}.tar.xz"
+checksum=f98a8c3a00e48ceb9a56ec5cb1f89b7663bbc5ace88713f9f087fdaaa2501b35
 
 if [ "$CROSS_BUILD" ]; then
 	configure_args+=" --with-boost=${XBPS_CROSS_BASE}/usr"

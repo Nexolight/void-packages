@@ -1,14 +1,14 @@
 # Template file for 'linux4.4'
 pkgname=linux4.4
-version=4.4.163
+version=4.4.173
 revision=1
 wrksrc="linux-${version}"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
 homepage="https://www.kernel.org"
 license="GPL-2.0-only"
 short_desc="The Linux kernel and modules (${version%.*} series)"
 distfiles="${KERNEL_SITE}/kernel/v4.x/linux-${version}.tar.xz"
-checksum=61b3d63a960a55046a7324d5724c262831952b223fe9ca02be0607f26d8f2ef4
+checksum=0e287ce29d8d40dfeac7609ded0f7ea0fbde5caf992cf8cc35b53025bcf14272
 
 nocross=yes
 nodebug=yes

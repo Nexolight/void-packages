@@ -1,17 +1,17 @@
 # Template file for 'atlantis'
 pkgname=atlantis
-version=0.4.11
+version=0.4.14
 revision=1
 build_style=go
-go_import_path="github.com/runatlantis/atlantis"
+go_import_path=github.com/runatlantis/atlantis
 hostmakedepends="dep"
 depends="terraform"
 short_desc="Terraform Automation By Pull Request"
-maintainer="Michael Aldridge <maldridge@VoidLinux.eu>"
+maintainer="Michael Aldridge <maldridge@voidlinux.org>"
 license="Apache-2.0"
 homepage="https://runatlantis.io"
-distfiles="https://github.com/runatlantis/atlantis/archive/v$version.tar.gz"
-checksum=d76e17ef02895d56b4b56a7a40331c6c37623477108e01887952a2d4af663b82
+distfiles="https://github.com/runatlantis/atlantis/archive/v${version}.tar.gz"
+checksum=214dbedd90d626ddb8e9c93ef343100ece46ac3e92d5d6d8010ac1a9b6a535df
 
 pre_build() {
 	cd $GOSRCPATH

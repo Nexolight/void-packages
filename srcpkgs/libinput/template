@@ -1,17 +1,23 @@
 # Template file for 'libinput'
 pkgname=libinput
-version=1.12.3
+version=1.12.6
 revision=1
 build_style=meson
-configure_args="-Ddebug-gui=false -Ddocumentation=false"
-hostmakedepends="pkg-config valgrind"
-makedepends="libevdev-devel libwacom-devel mtdev-devel check-devel"
+configure_args="-Ddebug-gui=false -Ddocumentation=false
+ -Dtests=false"
+hostmakedepends="pkg-config"
+makedepends="libevdev-devel libwacom-devel mtdev-devel"
+checkdepends="valgrind check-devel"
 short_desc="Provides handling input devices in Wayland compositors and X"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
+maintainer="maxice8 <thinkabit.ukim@gmail.com>"
 license="MIT"
 homepage="https://www.freedesktop.org/wiki/Software/libinput"
 distfiles="${FREEDESKTOP_SITE}/${pkgname}/${pkgname}-${version}.tar.xz"
-checksum=f266ff861a2e7a97e1402c4345e3547b900efde68adbd40e56403e2617fee255
+checksum=12b4023a3fc683d3d8127db573bdf925a2ef366615042f69c87e57c32a50f45d
+
+if [ "$XBPS_CHECK_PKGS" ]; then
+	configure_args+=" -Dtests=true"
+fi
 
 post_install() {
 	vlicense COPYING

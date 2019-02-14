@@ -1,18 +1,18 @@
 # Template file for 'kcoreaddons'
 pkgname=kcoreaddons
-version=5.52.0
+version=5.55.0
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
 hostmakedepends="extra-cmake-modules qt5-qmake qt5-host-tools qt5-tools-devel"
-makedepends="qt5-devel qt5-tools-devel gamin-devel"
+makedepends="qt5-devel qt5-tools-devel"
 depends="shared-mime-info"
 short_desc="Qt5 addon library with a collection of non-GUI utilities"
 maintainer="John <johnz@posteo.net>"
 license="LGPL-2.0-or-later, LGPL-2.1-or-later"
 homepage="https://projects.kde.org/projects/frameworks/kcoreaddons"
 distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=49aaae09f4196f2aef7b78ea2ee4d290bbedd9fe3831680197e3a767697c78d3
+checksum=3cd840b3f308b4529012d16aeee05494b5e55c938b6ad7f6580d4d055d61ebc8
 
 kcoreaddons-devel_package() {
 	short_desc+=" - development"

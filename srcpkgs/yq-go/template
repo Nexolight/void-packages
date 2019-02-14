@@ -1,7 +1,7 @@
 # Template file for 'yq-go'
 pkgname=yq-go
-version=2.1.2
-revision=2
+version=2.2.1
+revision=1
 wrksrc="yq-${version}"
 build_style=go
 go_import_path=github.com/mikefarah/yq
@@ -11,7 +11,7 @@ maintainer="maxice8 <thinkabit.ukim@gmail.com>"
 license="MIT"
 homepage="https://github.com/mikefarah/yq"
 distfiles="https://github.com/mikefarah/yq/archive/${version}.tar.gz"
-checksum=884b32796c5189d032d2df381868b6151729edc13a9664f6960d0276bb406e59
+checksum=f0522bfd3adaf4cc3fc45b2faee7656b156324bff01f563737f39f5519fe76dd
 
 do_check() {
 	go test -v

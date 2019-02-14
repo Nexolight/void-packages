@@ -1,6 +1,6 @@
 # Template file for 'python-pycryptodome'
 pkgname=python-pycryptodome
-version=3.7.0
+version=3.7.3
 revision=1
 wrksrc="pycryptodome-${version}"
 build_style=python-module
@@ -9,10 +9,10 @@ hostmakedepends="python-setuptools python3-setuptools"
 makedepends="python-devel python3-devel"
 short_desc="Python2 package of low-level cryptographic primitives"
 maintainer="Wietse Kuipers <wietse@kuiprs.nl>"
-homepage="https://www.pycryptodome.org/"
 license="Public Domain, BSD-2-Clause"
+homepage="https://www.pycryptodome.org/"
 distfiles="${PYPI_SITE}/p/pycryptodome/pycryptodome-${version}.tar.gz"
-checksum=4444a26fc3830c0d438bca6975ff10d1eb9c0b88f747fdc25b5ab81fb46713d7
+checksum=1a222250e43f3c659b4ebd5df3e11c2f112aab6aef58e38af55ef5678b9f0636
 
 provides="python-crypto-${version}_1"
 replaces="python-crypto>=0"

@@ -1,19 +1,18 @@
 # Template file for 'spotify'
 pkgname=spotify
-version=1.0.92
+version=1.0.98
 revision=1
-short_desc="Proprietary music streaming client"
-maintainer="Stefan Mühlinghaus <jazzman@alphabreed.com>"
-homepage="https://www.spotify.com"
-license="Proprietary"
 create_wrksrc=yes
 only_for_archs="x86_64"
-repository=nonfree
 build_style=fetch
 depends="binutils gtk+ nss GConf libXScrnSaver libatomic"
-_sversion=".390.g2ce5ec7d-18_amd64"
-_schecksum=039443c918f44f853ef293b5804481b503ae5a5ec63e2bc670e7aecfb6c84f80
-
+short_desc="Proprietary music streaming client"
+maintainer="Stefan Mühlinghaus <jazzman@alphabreed.com>"
+license="Proprietary"
+homepage="https://www.spotify.com"
+repository=nonfree
+_sversion=".78.gb45d2a6b-10_amd64"
+_schecksum="917a025985b2f27d4d7448e8128e93c22e76deff740faf69977dad558b85660a"
 do_install() {
 	vbin ${FILESDIR}/spotify
 	vmkdir usr/share/spotify

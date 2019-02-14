@@ -1,6 +1,6 @@
 # Template file for 'kfilemetadata5'
 pkgname=kfilemetadata5
-version=5.52.0
+version=5.55.0
 revision=1
 wrksrc="${pkgname%5}-${version}"
 build_style=cmake
@@ -13,7 +13,7 @@ maintainer="John <johnz@posteo.net>"
 license="LGPL-2.1-or-later"
 homepage="https://projects.kde.org/projects/frameworks/kfilemetadata5"
 distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname%5}-${version}.tar.xz"
-checksum=bcaa271e4234016b7f12a64c9cd8f3e9827ff1eb49f9cf2aaecea1a8535d51fe
+checksum=b1a62f1d62ad0e45f523cbf96b872d3617a65c193483f7a5cbc6b8e48c11123b
 
 if [ "$CROSS_BUILD" ]; then
 	hostmakedepends+=" qt5-host-tools qt5-qmake python"

@@ -1,7 +1,7 @@
 # Template file for 'gcsf'
 pkgname=gcsf
-version=0.1.18
-revision=2
+version=0.1.24
+revision=1
 build_style=cargo
 hostmakedepends="pkg-config"
 makedepends="fuse-devel libressl-devel"
@@ -10,14 +10,14 @@ maintainer="Benjamín Albiñana <benalb@gmail.com>"
 license="MIT"
 homepage="https://github.com/harababurel/gcsf"
 distfiles="https://github.com/harababurel/gcsf/archive/${version}.tar.gz"
-checksum=0753bf3de49af4f0983b65681f6755b6602875300a168dd0abc54884ecb7986d
+checksum=db407f2422bb6734346eb54d2ffad4758b85de7ef6b395e976714506855c7fa2
 
 case "$XBPS_TARGET_MACHINE" in
-       aarch64-musl) broken="https://github.com/nix-rust/nix/issues/951" ;;
+	aarch64-musl) broken="https://github.com/nix-rust/nix/issues/951" ;;
 esac
 
 pre_build() {
-	cargo update --package openssl-sys --precise 0.9.39
+	cargo update --package openssl-sys --precise 0.9.40
 }
 
 post_install() {

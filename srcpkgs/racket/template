@@ -1,6 +1,6 @@
 # Template file for 'racket'
 pkgname=racket
-version=7.0
+version=7.2
 revision=1
 build_style=gnu-configure
 build_wrksrc=src
@@ -11,8 +11,8 @@ short_desc="A programmable programming language"
 maintainer="Andrea Brancaleoni <abc@pompel.me>"
 license="LGPL-3"
 homepage="http://racket-lang.org/"
-distfiles="http://mirror.racket-lang.org/installers/$version/$pkgname-$version-src.tgz"
-checksum=2a4960292379da84c8356a506fc0567ece54211c267bd20022b7a7abab2a9bbe
+distfiles="http://mirror.racket-lang.org/installers/${version}/${pkgname}-${version}-src.tgz"
+checksum=e42d1ff0bb8c6b483a720387e5e9e68d39c1386cfdb14c565fc9d517e3049889
 nostrip=yes
 
 if [ "$CROSS_BUILD" ]; then
@@ -23,6 +23,8 @@ fi
 case "$XBPS_TARGET_MACHINE" in
 *-musl)
 	makedepends+=" libucontext-devel";;
+i686)
+	broken="make[1]: *** [Makefile:177: install-3m] Aborted";;
 esac
 
 pre_configure() {

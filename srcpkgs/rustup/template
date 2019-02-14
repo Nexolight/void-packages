@@ -1,7 +1,7 @@
 # Template file for 'rustup'
 pkgname=rustup
-version=1.14.0
-revision=4
+version=1.16.0
+revision=1
 wrksrc="${pkgname}.rs-${version}"
 build_style=cargo
 configure_args="--features no-self-update --bin rustup-init"
@@ -12,14 +12,10 @@ maintainer="Daniel Lee Ramírez <dleeram@protonmail.com>"
 license="Apache-2.0, MIT"
 homepage="https://www.rustup.rs"
 distfiles="https://github.com/rust-lang-nursery/${pkgname}.rs/archive/${version}.tar.gz"
-checksum=ab125d9b12bf0f3f7e7ad98e826035fa1ae3dbe6ba8b78be4c82f9cde00bc59f
-
-pre_build() {
-	cargo update --package openssl-sys --precise 0.9.35
-}
+checksum=8c4ffeda2088dbdd5ea2eac8acef5ddd57dfcfe1f06a503e3da790f93161e1a6
 
 do_install() {
-	vbin target/${RUST_TARGET}/release/rustup-init rustup
+	vbin target/${RUST_TARGET}/release/rustup-init
 
 	if ! [ "$CROSS_BUILD" ]; then
 		# generate shell completions

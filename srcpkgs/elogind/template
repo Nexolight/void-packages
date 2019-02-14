@@ -1,7 +1,7 @@
 # Template file for 'elogind'
 pkgname=elogind
-version=239.1
-revision=1
+version=239.3
+revision=2
 build_style=meson
 configure_args="-Dcgroup-controller=elogind -Dhalt-path=/usr/bin/halt
  -Drootlibexecdir=/usr/libexec/elogind -Dreboot-path=/usr/bin/reboot
@@ -12,15 +12,12 @@ makedepends="acl-devel eudev-libudev-devel gettext-devel glib-devel libcap-devel
  libseccomp-devel pam-devel"
 depends="dbus"
 short_desc="Standalone logind fork"
-maintainer="Enno Boland <gottox@voidlinux.eu>"
+maintainer="Enno Boland <gottox@voidlinux.org>"
 license="GPL-2.0-or-later, LGPL-2.0-or-later"
 homepage="https://github.com/elogind/elogind"
 distfiles="https://github.com/${pkgname}/${pkgname}/archive/v${version}.tar.gz"
-checksum=530a3df94d5880e1d3d7e344ff04659b7c97455f5ac288aa01f17cd229f03b56
+checksum=fde2791134ec14f17f7a5f0257c7337e4976826ce6ce86da7eedae54bccf2945
 conf_files="/etc/elogind/logind.conf"
-
-# This fixes statx detection
-CFLAGS="-D_GNU_SOURCE"
 
 pre_check() {
 	# test-fs-util checks for /etc/machine-id/foo and expects ENOTDIR
@@ -47,8 +44,9 @@ post_install() {
 	vinstall ./src/systemd/sd-id128.h 644 usr/include
 	vinstall ./src/systemd/_sd-common.h 644 usr/include
 	vinstall $FILESDIR/elogind.wrapper 755 usr/libexec/elogind
-	vmkdir etc/dracut.conf.d
-	echo "install_items+=\" /usr/libexec/elogind/elogind-uaccess-command \"" >> ${DESTDIR}/etc/dracut.conf.d/elogind.conf
+	vmkdir usr/lib/dracut/dracut.conf.d
+	vsed -e 's/#KillUserProcesses=.*/KillUserProcesses=no/' -i ${DESTDIR}/etc/elogind/logind.conf
+	echo "install_items+=\" /usr/libexec/elogind/elogind-uaccess-command \"" >> ${DESTDIR}/usr/lib/dracut/dracut.conf.d/elogind.conf
 }
 
 elogind-devel_package() {

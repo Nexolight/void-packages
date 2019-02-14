@@ -1,14 +1,14 @@
 # Template file for 'python-bitarray'
 pkgname=python-bitarray
 version=0.8.3
-revision=1
+revision=2
 wrksrc="bitarray-${version}"
 build_style=python-module
 pycompile_module="bitarray"
 hostmakedepends="python-setuptools python3-setuptools"
 makedepends="python-devel python3-devel libcurl-devel"
 short_desc="Python2 module for efficiently representing arrays of booleans"
-maintainer="Toyam Cox <Vaelatern@voidlinux.eu>"
+maintainer="Toyam Cox <Vaelatern@voidlinux.org>"
 license="Python-2.0"
 homepage="https://github.com/ilanschnell/bitarray"
 distfiles="https://github.com/ilanschnell/bitarray/archive/${version}.tar.gz"

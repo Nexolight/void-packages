@@ -1,6 +1,6 @@
 # Template file for 'qv4l2'
 pkgname=qv4l2
-version=1.16.2
+version=1.16.3
 revision=1
 wrksrc="v4l-utils-${version}"
 build_style=gnu-configure
@@ -9,11 +9,11 @@ hostmakedepends="perl pkg-config"
 makedepends="alsa-lib-devel libjpeg-turbo-devel libsysfs-devel qt5-devel"
 depends="desktop-file-utils hicolor-icon-theme"
 short_desc="Qt v4l2 control panel application"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
 license="GPL-2.0-or-later, LGPL-2.1-or-later"
 homepage="https://linuxtv.org/"
 distfiles="https://linuxtv.org/downloads/v4l-utils/v4l-utils-${version}.tar.bz2"
-checksum=6c3208c9a1c73455d30bae83096d161e57bec5008594f270a2a67df8c86d8e47
+checksum=7c5c0d49c130cf65d384f28e9f3a53c5f7d17bf18740c48c40810e0fbbed5b54
 
 nocross="detects X11/GL support incorrectly"
 

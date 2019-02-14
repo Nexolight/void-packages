@@ -1,7 +1,7 @@
 # Template file for 'gpgme'
 pkgname=gpgme
 version=1.12.0
-revision=1
+revision=2
 build_style=gnu-configure
 configure_args="--enable-fd-passing --disable-gpgconf-test
  --disable-gpg-test --disable-gpgsm-test
@@ -11,7 +11,7 @@ hostmakedepends="gnupg2 pkg-config qt5-host-tools qt5-qmake"
 makedepends="libassuan-devel qt5-tools-devel"
 depends="gnupg2"
 short_desc="GnuPG Made Easy"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
 license="GPL-2.0-or-later, LGPL-2.1-or-later"
 homepage="https://www.gnupg.org/software/gpgme/index.html"
 distfiles="https://www.gnupg.org/ftp/gcrypt/gpgme/gpgme-${version}.tar.bz2"
@@ -31,8 +31,15 @@ post_extract() {
 		lang/qt/tests/Makefile.* lang/python/tests/Makefile.*
 }
 
+libgpgme_package() {
+	short_desc+=" - library"
+	pkg_install() {
+		vmove "usr/lib/*.so.*"
+	}
+}
+
 gpgme-devel_package() {
-	depends="${makedepends/qt5-tools-devel/} gpgme>=${version}_${revision}"
+	depends="${makedepends/qt5-tools-devel/} libgpgme>=${version}_${revision}"
 	short_desc+=" - development files"
 	pkg_install() {
 		vmove usr/bin/gpgme-config
