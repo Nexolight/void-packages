@@ -19,13 +19,12 @@ license="GPL-3.0-or-later"
 homepage="https://qubes-os.org"
 distfiles="https://github.com/QubesOS/${pkgname}/archive/v${version}.tar.gz"
 checksum=bf816405eadd71837cfc934aee43517ec5740b95edf2c2abc17b530ebab43cc5
-env="DESTDIR=${DESTDIR} LIBDIR=/usr/lib USRLIBDIR=/usr/lib SYSLIBDIR=/usr/lib"
 
 do_build(){
 	(export ${env}; make -j ${makejobs} -C src)
 }
 
 do_install(){
-	pwd
+	env="DESTDIR=${DESTDIR} LIBDIR=/usr/lib USRLIBDIR=/usr/lib SYSLIBDIR=/usr/lib"
         (export ${env}; make -j ${makejobs} install-vm)
 }

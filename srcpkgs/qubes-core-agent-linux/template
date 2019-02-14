@@ -13,7 +13,7 @@ license="GPL"
 homepage="http://qubes-os.org/"
 shlib_provides=""
 distfiles="https://github.com/QubesOS/${pkgname}/archive/v${version}.tar.gz"
-checksum="8a232ac2c5f073439347de383cf77c6d128ba165"
+checksum="c0fa885653b5dd72b709232b92a131891b2ca34c2158810391d436d6e40c6da0"
 system_groups="qubes:98 user:1100"
 system_accounts="user:1100"
 user_homedir="/home/user"
@@ -60,5 +60,9 @@ do_install(){
 	#Some stuff doesn't seem to work at stage 1.
 	#Since some of them are no real services let's put them in rc.local at stage 3
 	vinstall ${FILESDIR}/rc.local 755 /etc/rc.local-qubes/${pkgname}
+
+	#Fix folders
+	vmkdir /usr/lib/udev/rules.d/
+	mv ${DESTDIR}/etc/udev/rules.d/* ${DESTDIR}/usr/lib/udev/rules.d/
 }
 

@@ -112,4 +112,8 @@ do_install(){
 	
 	# config gile only used for hotplug - we're using eudev
 	rm -f ${DESTDIR}/etc/sysconfig/xend
+
+	#fix paths
+	vmkdir /usr/share/bash-completion/completions
+	mv ${DESTDIR}/etc/bash_completion.d ${DESTDIR}/usr/share/bash-completion/completions/
 }

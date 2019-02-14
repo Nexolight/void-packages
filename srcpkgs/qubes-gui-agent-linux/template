@@ -4,17 +4,17 @@ version=4.0.20
 revision=1
 build_style=gnu-makefile
 hostmakedepends="pkg-config"
-makedepends="patch automake autoconf libltdl-devel
+makedepends="patch automake autoconf libltdl-devel pam-devel
  pulseaudio-devel xorg-server-devel xorg-util-macros libXcomposite-devel
  qubes-gui-common-devel qubes-core-vchan-xen-devel qubes-core-qubesdb libXt libtool git"
 depends="xinit libXcomposite zenity qubes-core-vchan-xen xcb-proto xorg-server
- qubes-vmm-xen alsa-lib alsa-utils alsa-plugins-pulseaudio pulseaudio elogind xcffib"
+ qubes-vmm-xen alsa-lib alsa-utils alsa-plugins-pulseaudio pulseaudio elogind xcffib pam"
 short_desc="The Qubes GUI Agent for AppVMs xcffib"
 maintainer="nexolight <snow.dream.ch@gmail.com>"
 license="GPL"
 homepage="http://qubes-os.org"
 distfiles="https://github.com/QubesOS/${pkgname}/archive/v${version}.tar.gz"
-checksum="85ceee6c65587c1c9e09030d3ca48eef07cba79f"
+checksum="7f4d3a9da7fdc33a5a42e34e9962183abbae7af2ebe43e399c28c0d652b29c64"
 
 do_configure(){
 	echo "Skip configure"
