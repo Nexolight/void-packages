@@ -1,18 +1,19 @@
 # Template file for 'qubes-vm-meta'
 pkgname=qubes-vm-meta
 version=1.0.0
-revision=13
+revision=14
 build_style=meta
 hostmakedepends=""
 makedepends=""
 depends="
  qubes-vmm-xen-4.8.4_6
  qubes-core-vchan-xen-4.0.5_1
- qubes-core-agent-linux-4.0.38_1
+ qubes-core-agent-linux-4.0.41_2
  qubes-core-qubesdb-4.0.10_1
  qubes-linux-utils-dkms-4.0.22_1
- qubes-gui-agent-linux-4.0.18_1
+ qubes-gui-agent-linux-4.0.20_1
  qubes-app-linux-usb-proxy-1.0.19_1
+ qubes-app-linux-split-gpg-2.0.34_1
 "
 short_desc="The meta package for proper functionality of a void qubes VM"
 maintainer="nexolight <snow.dream.ch@gmail.com>"

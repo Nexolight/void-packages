@@ -1,6 +1,6 @@
 # Template file for 'qubes-gui-agent-linux'
 pkgname=qubes-gui-agent-linux
-version=4.0.18
+version=4.0.20
 revision=1
 build_style=gnu-makefile
 hostmakedepends="pkg-config"
@@ -14,7 +14,7 @@ maintainer="nexolight <snow.dream.ch@gmail.com>"
 license="GPL"
 homepage="http://qubes-os.org"
 distfiles="https://github.com/QubesOS/${pkgname}/archive/v${version}.tar.gz"
-checksum="7e0434834b2ae114de9de2e448d87700f1d9bac046d1f44582c99684b4d195c0"
+checksum="85ceee6c65587c1c9e09030d3ca48eef07cba79f"
 
 do_configure(){
 	echo "Skip configure"

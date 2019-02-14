@@ -1,0 +1,31 @@
+# Template file for 'qubes-app-linux-split-gpg'
+pkgname=qubes-app-linux-split-gpg
+version=2.0.34
+revision=1
+#create_wrksrc=yes
+#only_for_archs="i686 x86_64"
+build_style=gnu-makefile
+#configure_args=""
+#make_build_args=""
+#make_install_args=""
+#conf_files=""
+#make_dirs="/var/log/dir 0755 root root"
+hostmakedepends="pkg-config pandoc"
+makedepends=""
+depends="gnupg zenity"
+short_desc="Qubes service for secure gpg separation"
+maintainer="nexolight <snow.dream.ch@gmail.com>"
+license="GPL-3.0-or-later"
+homepage="https://qubes-os.org"
+distfiles="https://github.com/QubesOS/${pkgname}/archive/v${version}.tar.gz"
+checksum=bf816405eadd71837cfc934aee43517ec5740b95edf2c2abc17b530ebab43cc5
+env="DESTDIR=${DESTDIR} LIBDIR=/usr/lib USRLIBDIR=/usr/lib SYSLIBDIR=/usr/lib"
+
+do_build(){
+	(export ${env}; make -j ${makejobs} -C src)
+}
+
+do_install(){
+	pwd
+        (export ${env}; make -j ${makejobs} install-vm)
+}

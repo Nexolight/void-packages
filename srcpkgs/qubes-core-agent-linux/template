@@ -1,19 +1,19 @@
 # Template file for 'qubes-core-agent-linux'
 pkgname=qubes-core-agent-linux
-version=4.0.38
-revision=1
+version=4.0.41
+revision=2
 build_style=gnu-makefile
 make_build_args="PKG_CONFIG_PATH=/usr/lib/pkgconfig BACKEND_VMM=xen C_INCLUDE_PATH=/usr/include/vchan-xen:${C_INCLUDE_PATH}"
-hostmakedepends=""
-makedepends="qubes-core-vchan-xen-devel qubes-linux-utils qubes-vmm-xen libX11-devel python python3 pam-devel pkg-config python-setuptools python-pip pandoc"
-depends="qubes-core-vchan-xen qubes-core-qubesdb python pandoc python-xdg ethtool ntp net-tools ImageMagick fakeroot notification-daemon dconf zenity haveged python-gobject python-dbus xdg-utils gawk sed procps-ng librsvg socat gnome-keyring gnome-settings-daemon python python-setuptools iptables NetworkManager"
+hostmakedepends="pandoc"
+makedepends="qubes-core-vchan-xen-devel qubes-linux-utils qubes-vmm-xen libX11-devel python python3 pam-devel pkg-config python-setuptools python-pip"
+depends="qubes-core-vchan-xen qubes-core-qubesdb python python-xdg ethtool ntp net-tools ImageMagick fakeroot notification-daemon dconf zenity haveged python-gobject python-dbus xdg-utils gawk sed procps-ng librsvg socat gnome-keyring gnome-settings-daemon python python-setuptools iptables NetworkManager e2fsprogs iproute2"
 short_desc="The qubes qrexec agent"
 maintainer="nexolight <snow.dream.ch@gmail.com>"
 license="GPL"
 homepage="http://qubes-os.org/"
 shlib_provides=""
 distfiles="https://github.com/QubesOS/${pkgname}/archive/v${version}.tar.gz"
-checksum="90f404a72ec1f8e9ff0842f0fc0b059d85b09dfa259fa1d837a5f0b4c2944b23"
+checksum="8a232ac2c5f073439347de383cf77c6d128ba165"
 system_groups="qubes:98 user:1100"
 system_accounts="user:1100"
 user_homedir="/home/user"
