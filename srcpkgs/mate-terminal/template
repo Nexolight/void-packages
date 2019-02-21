@@ -1,14 +1,14 @@
 # Template file for 'mate-terminal'
 pkgname=mate-terminal
-version=1.20.0
+version=1.20.2
 revision=1
 build_style=gnu-configure
 hostmakedepends="glib-devel intltool itstool pkg-config"
-makedepends="libSM-devel mate-desktop-devel vte3-devel"
-depends="dbus dconf"
+makedepends="libSM-devel vte3-devel dconf-devel"
+depends="dbus mate-desktop"
 short_desc="The MATE Terminal Emulator"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
 license="GPL-3.0-or-later"
 homepage="https://mate-desktop.org"
 distfiles="https://pub.mate-desktop.org/releases/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=5f81ac98793880c03fea143c49b997c4c616d6bc77146faab15ff57a3434660c
+checksum=78dc43f14042ddb002931457aa4f632d3381b53eadfa57a67fa12bf215881e3b

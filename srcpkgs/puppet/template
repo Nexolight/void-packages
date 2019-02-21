@@ -1,24 +1,25 @@
 # Template file for 'puppet'
 pkgname=puppet
-version=5.3.3
-revision=2
-noarch=yes
+version=6.2.0
+revision=1
+archs=noarch
 build_style=ruby-module
-hostmakedepends="ruby facter hiera"
+hostmakedepends="ruby facter-devel hiera"
 makedepends="facter-devel"
-depends="ruby>=2.2 facter hiera"
+depends="ruby facter hiera ruby-semantic_puppet"
 short_desc="Server automation framework and application"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
 license="Apache-2.0"
-homepage="http://puppetlabs.com/facter"
-distfiles="http://downloads.puppetlabs.com/$pkgname/$pkgname-$version.tar.gz"
-checksum=45360f64fe0375df617571d58e929515e2094daa1d0dc78e2b6718d7cbeaf18e
+homepage="https://puppetlabs.com/facter"
+distfiles="https://downloads.puppetlabs.com/${pkgname}/${pkgname}-${version}.tar.gz"
+checksum=d891970ecd4c47b93d952b02463107c09cc44094ffc58e5c81b6f4a9e8c8798b
 
 system_accounts="puppet"
 puppet_homedir="/var/lib/puppet"
 conf_files="
  /etc/puppetlabs/puppet/puppet.conf
  /etc/puppetlabs/puppet/auth.conf"
+make_dirs="/var/lib/puppet 0755 puppet puppet"
 
 post_install() {
 	vlicense LICENSE

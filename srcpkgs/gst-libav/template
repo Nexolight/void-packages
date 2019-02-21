@@ -1,20 +1,21 @@
 # Template file for 'gst-libav'
 pkgname=gst-libav
-version=1.14.0
+version=1.14.4
 revision=1
 lib32disabled=yes
 wrksrc="${pkgname}-${version}"
 build_style=gnu-configure
 configure_args="--with-system-libav"
+patch_args="-Np1"
 hostmakedepends="pkg-config yasm python"
 makedepends="orc-devel gst-plugins-base1-devel ffmpeg-devel"
 depends="orc>=0.4.18 gst-plugins-base1>=${version}"
 short_desc="GStreamer libav plugin (1.x)"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-license="GPL-2"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
+license="LGPL-2.0-or-later"
 homepage="https://gstreamer.freedesktop.org"
 distfiles="${homepage}/src/${pkgname}/${pkgname}-${version}.tar.xz"
-checksum=fb134b4d3e054746ef8b922ff157b0c7903d1fdd910708a45add66954da7ef89
+checksum=dfd78591901df7853eab7e56a86c34a1b03635da0d3d56b89aa577f1897865da
 
 case "$XBPS_TARGET_MACHINE" in
 	*-musl) # Required by musl for M_SQRT1_2

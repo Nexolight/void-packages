@@ -1,12 +1,12 @@
 # Template file for 'astyle'
 pkgname=astyle
 version=3.1
-revision=1
+revision=2
 wrksrc="$pkgname"
 build_wrksrc="build/gcc"
 build_style=gnu-makefile
 short_desc="Free, fast and small formatter for C, C++, C#, and Java source code"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
 license="LGPL-3"
 homepage="http://astyle.sourceforge.net"
 distfiles="${SOURCEFORGE_SITE}/$pkgname/${pkgname}_${version}_linux.tar.gz"

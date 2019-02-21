@@ -1,1 +1,2 @@
-/usr/share/riot-desktop/dist/electron /usr/share/riot-desktop/electron_app "$@"
+#!/bin/sh
+/usr/lib/riot-desktop/dist/electron /usr/lib/riot-desktop/electron_app "$@"

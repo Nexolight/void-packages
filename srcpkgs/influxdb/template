@@ -1,30 +1,32 @@
 # Template file for 'influxdb'
 pkgname=influxdb
-version=1.5.2
-revision=2
+version=1.7.4
+revision=1
 build_style=go
-go_import_path="github.com/influxdata/influxdb"
+go_import_path=github.com/influxdata/influxdb
 go_package="${go_import_path}/cmd/influx
  ${go_import_path}/cmd/influxd
  ${go_import_path}/cmd/influx_tsm
  ${go_import_path}/cmd/influx_inspect
  ${go_import_path}/cmd/influx_stress"
 go_ldflags="-X main.version=${version}"
-hostmakedepends="git go-gdm"
+hostmakedepends="dep"
+short_desc="Scalable datastore for metrics, events, and real-time analytics"
+maintainer="Michael Aldridge <maldridge@voidlinux.org>"
+license="MIT"
+homepage="https://influxdata.com/time-series-platform/influxdb/"
+changelog="https://raw.githubusercontent.com/influxdata/influxdb/master/CHANGELOG.md"
+distfiles="https://${go_import_path}/archive/v${version}.tar.gz"
+checksum=503b03e74a18d6f77ad3948efc04ec5cadc37f7db15307487260555abf901c98
+
 system_accounts="_influxdb"
 _influxdb_homedir="/var/lib/influxdb"
 make_dirs="${_influxdb_homedir} 0755 _influxdb _influxdb"
 conf_files="/etc/${pkgname}/${pkgname}.conf"
-short_desc="Scalable datastore for metrics, events, and real-time analytics"
-maintainer="Michael Aldridge <maldridge@VoidLinux.eu>"
-license="MIT"
-homepage="https://influxdata.com/time-series-platform/influxdb/"
-distfiles="https://${go_import_path}/archive/v${version}.tar.gz"
-checksum=3a021524337dc91336b8bb4155681ea55bed27ba8918fc1df8499f66c1851473
 
 pre_build() {
 	cd $GOSRCPATH
-	gdm restore
+	dep ensure
 }
 
 post_install() {

@@ -1,20 +1,20 @@
 # Template file for 'clearine'
 pkgname=clearine
-version=0.2
+version=0.5
 revision=1
+noarch=yes
 build_style=gnu-makefile
-conf_files="/etc/clearine.conf"
 depends="gtk+3 python3-gobject"
 short_desc="GTK3-based logout-window overlay for independent windowmanager"
-maintainer="cr6git <quark6@protonmail.com>"
-homepage="https://github.com/yuune/clearine"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="MIT"
+homepage="https://github.com/yuune/clearine"
 distfiles="https://github.com/yuune/clearine/archive/${version}.tar.gz"
-checksum=efc693928888e40c7e810572bfeb2e7aa6a2007d7070af05555f3757d9adb2e4
-noarch=yes
+checksum=029d5ece64a0471d1978daa620f5f06c5757245f3fec240aade38c514b3a5145
+conf_files="/etc/clearine.conf"
 
 do_build() {
-	sed -i data/config-* \
+	sed -i data/clearine.conf \
 		-e "s;^\(restart =\) .*;\1 reboot;" \
 		-e "s;^\(shutdown =\) .*;\1 poweroff;"
 }
@@ -23,10 +23,10 @@ do_install() {
 	local f
 
 	vmkdir usr/share/themes/Clearine-Fallback/clearine
-	vinstall data/config-1080 644 etc clearine.conf
-	for f in data/theme-default/*.svg; do
+	vconf data/clearine.conf
+	for f in data/*.svg; do
 		vinstall $f 644 usr/share/themes/Clearine-Fallback/clearine
 	done
-	vbin clearine.py clearine
+	vbin clearine
 	vlicense LICENSE
 }

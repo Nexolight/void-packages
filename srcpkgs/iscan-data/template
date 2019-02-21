@@ -1,11 +1,11 @@
 # Template file for 'iscan-data'
 pkgname=iscan-data
 version=1.39.0
-revision=1
+revision=2
 _srcrev=1
 noarch=yes
 build_style=gnu-configure
-maintainer="Orphaned <orphan@voidlinux.eu>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 hostmakedepends="libxslt"
 license="GPL-2"
 homepage="http://download.ebz.epson.net/dsc/search/01/search/?OSC=LX"

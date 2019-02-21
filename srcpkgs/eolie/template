@@ -1,0 +1,17 @@
+# Template file for 'eolie'
+pkgname=eolie
+version=0.9.51
+revision=1
+_eolie_hash=0736cec89442b16b37d3b09ebfcc44c3
+build_style=meson
+pycompile_module="eolie"
+hostmakedepends="appstream-glib desktop-file-utils glib-devel pkg-config gobject-introspection"
+makedepends="gtk+3-devel libglib-devel python-gobject-devel webkit2gtk-devel"
+depends="gtkspell3 python3-dateutil python3-gobject webkit2gtk python3-PyFxA"
+short_desc="Web browser for GNOME"
+maintainer="Rasmus Thomsen <rasmus.thomsen@protonmail.com>"
+license="GPL-3.0-or-later"
+homepage="https://wiki.gnome.org/Apps/Eolie"
+distfiles="https://gitlab.gnome.org/World/eolie/uploads/${_eolie_hash}/eolie-${version}.tar.xz"
+checksum=a866fef312350bbf6b9d70fc77ab799e69bc64ea2a612e84bb12d696b8a583bf
+nocross="Hard dependency on gobject-introspection"

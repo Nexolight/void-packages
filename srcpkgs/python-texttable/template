@@ -1,19 +1,24 @@
 # Template file for 'python-texttable'
 pkgname=python-texttable
-version=1.2.1
+version=1.6.1
 revision=1
-noarch=yes
+archs=noarch
 wrksrc="texttable-${version}"
 build_style=python-module
+pycompile_module="texttable.py"
 hostmakedepends="python-setuptools python3-setuptools"
 depends="python"
-pycompile_module="texttable.py"
+checkdepends="python3-pytest"
 short_desc="Python2 module for creating simple ASCII tables"
 maintainer="Sergi Alvarez <pancake@nopcode.org>"
+license="LGPL-3.0-or-later"
 homepage="https://github.com/foutaise/texttable/"
-license="LGPL-3"
 distfiles="${PYPI_SITE}/t/texttable/texttable-${version}.tar.gz"
-checksum=c89dc0148ae29645917aab7e970a30d1af565b3ca276cef8ab1a60469f0d8100
+checksum=2b60a5304ccfbeac80ffae7350d7c2f5d7a24e9aab5036d0f82489746419d9b2
+
+do_check() {
+	pytest3 tests.py
+}
 
 python3-texttable_package() {
 	noarch=yes

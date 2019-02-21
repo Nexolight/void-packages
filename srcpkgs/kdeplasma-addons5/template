@@ -1,15 +1,21 @@
 # Template file for 'kdeplasma-addons5'
 pkgname=kdeplasma-addons5
-version=5.12.0
+version=5.15.1
 revision=1
+wrksrc="${pkgname%5}-${version}"
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
-wrksrc="${pkgname%5}-${version}"
-hostmakedepends="extra-cmake-modules"
-makedepends="kross-devel kdesignerplugin-devel kdoctools-devel plasma-workspace-devel"
+hostmakedepends="extra-cmake-modules qt5-qmake qt5-host-tools kcoreaddons"
+makedepends="kross-devel kdesignerplugin-devel kdoctools-devel kholidays-devel
+ plasma-workspace-devel"
 short_desc="Various Plasma addons"
-maintainer="Denis Revin <denis.revin@gmail.com>"
-license="GPL-2"
+maintainer="John <johnz@posteo.net>"
+license="GPL-2.0-or-later, LGPL-2.1-or-later"
 homepage="https://projects.kde.org/projects/plasma/kdeplasma-addons5"
-distfiles="http://download.kde.org/stable/plasma/${version}/${pkgname%5}-${version}.tar.xz"
-checksum=1717f67907faee002006d4c11b95ec0100afbc6c0794aae065f1e226999fc49d
+distfiles="${KDE_SITE}/plasma/${version}/${pkgname%5}-${version}.tar.xz"
+checksum=7ef707bce7cfc7777ec6803faa239f400cebaca10940f54b9dcc7a6ba452e710
+
+if [ "$CROSS_BUILD" ]; then
+	hostmakedepends+=" kconfig-devel kcoreaddons-devel plasma-framework"
+	configure_args+=" -DKF5_HOST_TOOLING=/usr/lib/cmake"
+fi

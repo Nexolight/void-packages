@@ -1,16 +1,16 @@
 # Template file for 'mate-sensors-applet'
 pkgname=mate-sensors-applet
-version=1.20.1
-revision=1
+version=1.20.3
+revision=2
 build_style=gnu-configure
 configure_args="--disable-schemas-compile --disable-static"
 hostmakedepends="dbus-glib-devel glib-devel intltool itstool libxslt pkg-config"
 makedepends="dbus-glib-devel libatasmart-devel libmate-panel-devel
- libnotify-devel libsensors-devel mate-desktop-devel"
+ libnotify-devel libsensors-devel"
 depends="dconf"
 short_desc="Sensors applet for MATE"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
 license="GPL-2.0-or-later"
 homepage="https://mate-desktop.org"
 distfiles="https://pub.mate-desktop.org/releases/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=bd00e792ec3948bf895c8ff590184da30fa5614bc6969d450cfc8381a51cd952
+checksum=e609e83c4774caa95866156c95b0ba1a33001aced739dc0bfc29e62987c72869

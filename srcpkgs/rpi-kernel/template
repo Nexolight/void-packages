@@ -5,19 +5,19 @@
 #
 #   https://www.raspberrypi.org/forums/viewtopic.php?f=29&t=197689
 
-_githash="865ddc1393f558198e7e7ce70928ff2e49c4f7f6"
+_githash="28c5c6ab2a4a8ae0a4dffae2237da2e56cd943c9"
 _gitshort="${_githash:0:7}"
 
 pkgname=rpi-kernel
-version=4.14.39
+version=4.14.97
 revision=1
 wrksrc="linux-${_githash}"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
 homepage="http://www.kernel.org"
-license="GPL-2"
+license="GPL-2.0-only"
 short_desc="The Linux kernel for Raspberry Pi (${version%.*} series [git ${_gitshort}])"
 distfiles="https://github.com/raspberrypi/linux/archive/${_githash}.tar.gz"
-checksum=6ff5d214fba204f7fc15ea89805f3b622aa4567b05c9526edf38243b6d2af980
+checksum=9fa498c743dcd0db572ec2f2dd33354cd1bb1eef312747245908007ced8c6fed
 
 _kernver="${version}_${revision}"
 

@@ -1,21 +1,16 @@
 # Template file for 'hyperfine'
 pkgname=hyperfine
-version=1.0.0
+version=1.5.0
 revision=1
-hostmakedepends="cargo"
-short_desc="A command-line benchmarking tool "
+build_style=cargo
+short_desc="Command-line benchmarking tool"
 maintainer="Wilson Birney <wpb@360scada.com>"
 license="MIT"
 homepage="https://github.com/sharkdp/hyperfine"
+changelog="https://github.com/sharkdp/hyperfine/releases"
 distfiles="https://github.com/sharkdp/hyperfine/archive/v${version}.tar.gz"
-checksum=24f7802b7ab22ef7722c7920406a50a598f4adfffd37fd54eece0c352d8978a1
-nocross=yes
+checksum=d5183611348e696e579dda846cee92b7b78c8ef18c00bfb9b0a62d0a63034823
 
-do_build() {
-	cargo build --release ${makejobs}
-}
-
-do_install() {
+post_install() {
 	vlicense LICENSE-MIT
-	vbin target/release/${pkgname}
 }

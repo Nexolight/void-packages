@@ -1,7 +1,7 @@
 # Template file for 'slurm-wlm'
 pkgname=slurm-wlm
-version=17.11.5.1
-revision=3
+version=18.08.5.2
+revision=1
 _distver="${version//./-}"
 wrksrc="slurm-slurm-${_distver}"
 build_style=gnu-configure
@@ -12,11 +12,11 @@ makedepends="munge-devel lua-devel pam-devel libressl-devel gtk+-devel
  ncurses-devel readline-devel libmysqlclient-devel json-c-devel libhwloc-devel
  freeipmi-devel"
 short_desc="Workload manager for Linux clusters of all sizes"
-maintainer="Toyam Cox <Vaelatern@voidlinux.eu>"
-license="GPL-2"
+maintainer="Toyam Cox <Vaelatern@voidlinux.org>"
+license="GPL-2.0-or-later"
 homepage="http://slurm.schedmd.com/slurm.html"
 distfiles="https://github.com/SchedMD/slurm/archive/slurm-${_distver}.tar.gz"
-checksum=37ff1896294a1d0bbd84feae26635178f7e85fe55bbe5b5ae74892721e594fed
+checksum=1f76767003708a83d469f083987c7cf7cf806a4125931758659a527bed7fc15b
 
 case "${XBPS_TARGET_MACHINE}" in
 	# Undefined: inet_nsap_addr and getgrent_r

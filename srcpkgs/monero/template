@@ -1,24 +1,24 @@
 # Template file for 'monero'
 pkgname=monero
-version=0.12.0.0
-revision=3
-conf_files="/etc/monerod.conf"
+version=0.13.0.4
+revision=4
 build_style=cmake
-hostmakedepends="pkg-config git qt5-host-tools"
 configure_args="-DBUILD_GUI_DEPS=ON -DHAVE_LIBRESSL=1"
-makedepends="libressl-devel boost-devel libldns-devel libunwind-devel
- readline-devel unbound-devel miniupnpc-devel libldns-devel expat-devel
- cppzmq czmq-devel"
-system_accounts="monero"
+conf_files="/etc/monerod.conf"
 make_dirs="
  /var/lib/monero 0750 monero monero
  /var/log/monero 0755 monero monero"
+hostmakedepends="pkg-config qt5-host-tools"
+makedepends="libressl-devel boost-devel libldns-devel libunwind-devel
+ readline-devel unbound-devel miniupnpc-devel libldns-devel expat-devel
+ cppzmq czmq-devel rapidjson libsodium-devel"
 short_desc="Private, secure, untraceable, decentralised digital currency"
 maintainer="Helmut Pozimski <helmut@pozimski.eu>"
-license="3-clause-BSD"
+license="BSD-3-Clause"
 homepage="https://getmonero.org"
 distfiles="https://github.com/monero-project/monero/archive/v${version}.tar.gz"
-checksum=5e8303900a39e296c4ebaa41d957ab9ee04e915704e1049f82a9cbd4eedc8ffb
+checksum=93158879f2890021ae75b31f4b81ad8026ce5b626da1f2fc44ab70657bfa512c
+system_accounts="monero"
 
 if [ "$CROSS_BUILD" ]; then
 	configure_args+=" -DTHREADS_PTHREAD_ARG=OFF"
@@ -41,6 +41,8 @@ case "$XBPS_TARGET_MACHINE" in
 		makedepends+=" libatomic-devel"
 		CFLAGS+=" -latomic"
 	;;
+	ppc64*) configure_args+=" -DARCH=ppc64"
+	;;
 	*) configure_args+=" -DARCH=default"
 	;;
 esac
@@ -54,7 +56,7 @@ pre_configure() {
 }
 
 pre_build() {
-	if [ -n "$CROSS_BUILD" ]; then
+	if [ "$CROSS_BUILD" ]; then
 		# The generate_translations_header binary is executed during the build
 		# but is not included in the binary package. It thus needs to be
 		# built for the host

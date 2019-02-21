@@ -1,19 +1,25 @@
 # Template file for 'python-parsing'
 pkgname=python-parsing
-version=2.2.0
-revision=2
+version=2.3.0
+revision=1
 noarch=yes
-wrksrc="pyparsing-${version}"
+wrksrc="pyparsing-pyparsing_${version}"
 build_style=python-module
 hostmakedepends="python-setuptools python3-setuptools"
 depends="python"
 pycompile_module="pyparsing.py"
 short_desc="Python parsing module (Python2)"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
+maintainer="Alessio Sergi <al3hex@gmail.com>"
 license="MIT"
-homepage="http://pyparsing.wikispaces.com/"
-distfiles="${PYPI_SITE}/p/pyparsing/pyparsing-${version}.tar.gz"
-checksum=0832bcf47acd283788593e7a0f542407bd9550a55a8a8435214a1960e04bcb04
+homepage="https://github.com/pyparsing/pyparsing"
+changelog="https://github.com/pyparsing/pyparsing/raw/master/CHANGES"
+distfiles="https://github.com/pyparsing/pyparsing/archive/pyparsing_${version}.tar.gz"
+checksum=1c43865daf37c14b183c8c46be537a31797973ec4db79a8b9f83dd1a4adf23cc
+
+do_check() {
+	python2 unitTests.py
+	python3 unitTests.py
+}
 
 post_install() {
 	vlicense LICENSE

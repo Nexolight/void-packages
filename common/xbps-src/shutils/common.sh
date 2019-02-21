@@ -286,7 +286,7 @@ setup_pkg() {
 
     unset_package_funcs
 
-    ( . $XBPS_CONFIG_FILE 2>/dev/null )
+    . $XBPS_CONFIG_FILE 2>/dev/null
 
     if [ -n "$cross" ]; then
         source_file $XBPS_CROSSPFDIR/${cross}.sh
@@ -313,6 +313,7 @@ setup_pkg() {
         export XBPS_TARGET_MACHINE=${XBPS_ARCH:-$XBPS_MACHINE}
         unset XBPS_CROSS_BASE XBPS_CROSS_LDFLAGS XBPS_CROSS_FFLAGS
         unset XBPS_CROSS_CFLAGS XBPS_CROSS_CXXFLAGS XBPS_CROSS_CPPFLAGS
+        unset XBPS_CROSS_RUSTFLAGS XBPS_CROSS_RUST_TARGET
 
         XBPS_INSTALL_XCMD="$XBPS_INSTALL_CMD"
         XBPS_QUERY_XCMD="$XBPS_QUERY_CMD"
@@ -325,9 +326,6 @@ setup_pkg() {
 
     export XBPS_INSTALL_XCMD XBPS_QUERY_XCMD XBPS_RECONFIGURE_XCMD \
         XBPS_REMOVE_XCMD XBPS_RINDEX_XCMD XBPS_UHELPER_XCMD
-
-    export XBPS_GCC_VERSION_MAJOR XBPS_GCC_VERSION_MINOR XBPS_GCC_VERSION_BUILD \
-        XBPS_GCC_VERSION
 
     # Source all sourcepkg environment setup snippets.
     # Source all subpkg environment setup snippets.
@@ -348,6 +346,22 @@ setup_pkg() {
         unset CROSS_BUILD
         source_file ${XBPS_SRCPKGDIR}/${basepkg}/template
     fi
+
+    # Backward compatibility to noarch and only_for_archs
+    if [ -n "$only_for_archs" ] && [ -n "$noarch" ]; then
+        msg_error "only_for_archs and noarch can't be used together\n"
+    fi
+    if [ -n "$only_for_archs" ]; then
+        archs="$only_for_archs"
+        unset only_for_archs
+        msg_warn "deprecated property 'only_for_archs'. Use archs=\"$only_for_archs\" instead!\n"
+    fi
+    if [ -n "$noarch" ]; then
+        archs=noarch
+        unset noarch
+        msg_warn "deprecated property 'noarch'. Use archs=noarch instead!\n"
+    fi
+
 
     # Check if required vars weren't set.
     _vars="pkgname version short_desc revision homepage license"
@@ -413,7 +427,8 @@ setup_pkg() {
     fi
     makejobs="-j$XBPS_MAKEJOBS"
 
-    if [ -n "$noarch" ]; then
+    # strip whitespaces to make "  noarch  " valid too.
+    if [ "${archs// /}" = "noarch" ]; then
         arch="noarch"
     else
         arch="$XBPS_TARGET_MACHINE"
@@ -522,6 +537,10 @@ setup_pkg() {
         export CXXFLAGS_host="$XBPS_CXXFLAGS"
         export CPPFLAGS_host="$XBPS_CPPFLAGS"
         export LDFLAGS_host="$XBPS_LDFLAGS"
+        # Rust flags which are passed to rustc
+        export RUSTFLAGS="$XBPS_CROSS_RUSTFLAGS"
+        # Rust target, which differs from our triplets
+        export RUST_TARGET="$XBPS_CROSS_RUST_TARGET"
     else
         export CC="cc"
         export CXX="g++"
@@ -537,13 +556,15 @@ setup_pkg() {
         export OBJCOPY="objcopy"
         export NM="nm"
         export READELF="readelf"
-        # Unse cross evironment variables
+        export RUST_TARGET="$XBPS_RUST_TARGET"
+        # Unset cross evironment variables
         unset CC_target CXX_target CPP_target GCC_target FC_target LD_target AR_target AS_target
         unset RANLIB_target STRIP_target OBJDUMP_target OBJCOPY_target NM_target READELF_target
         unset CFLAGS_target CXXFLAGS_target CPPFLAGS_target LDFLAGS_target
         unset CC_host CXX_host CPP_host GCC_host FC_host LD_host AR_host AS_host
         unset RANLIB_host STRIP_host OBJDUMP_host OBJCOPY_host NM_host READELF_host
         unset CFLAGS_host CXXFLAGS_host CPPFLAGS_host LDFLAGS_host
+        unset RUSTFLAGS
     fi
 
     # Setup some specific package vars.
@@ -577,4 +598,12 @@ setup_pkg() {
     fi
 
     source_file $XBPS_COMMONDIR/environment/build-style/${build_style}.sh
+
+    # Source all build-class files that are defined
+    for f in $build_helper; do
+        if [ ! -r $XBPS_BUILDHELPERDIR/${f}.sh ];  then
+            msg_error "$pkgver: cannot find build helper $XBPS_BUILDHELPERDIR/${f}.sh!\n"
+        fi
+        . $XBPS_BUILDHELPERDIR/${f}.sh
+    done
 }

@@ -1,23 +1,25 @@
 # Template file for 'xapps'
 pkgname=xapps
-version=1.2.1
+version=1.4.5
 revision=1
 build_style=meson
-hostmakedepends="glib-devel gnome-common pkg-config vala"
+hostmakedepends="glib-devel gnome-common pkg-config vala python python3"
 makedepends="gettext-devel gobject-introspection libgnomekbd-devel
  python-gobject-devel"
 depends="gist inxi xfconf"
 short_desc="Cross-desktop libraries and common resources from Linux Mint"
-maintainer="Michael Aldridge <maldridge@VoidLinux.eu>"
+maintainer="Michael Aldridge <maldridge@voidlinux.org>"
 license="GPL-3.0-or-later, LGPL-3.0-or-later"
-#changelog="https://raw.githubusercontent.com/linuxmint/xapps/master/debian/changelog"
 homepage="https://github.com/linuxmint/xapps"
+changelog="https://raw.githubusercontent.com/linuxmint/xapps/master/debian/changelog"
 distfiles="https://github.com/linuxmint/xapps/archive/${version}.tar.gz"
-checksum=daf41acb021b4dfb1b313710eea812e315a9f49e6a2cc037691ec51799f4cf26
+checksum=6b139fba9b7a185ee9d3c81e5096591316b3e3b793ea448a3b49fb3cc1b9a706
+nocross="gobject-introspection"
 
 xapps-devel_package() {
 	short_desc+=" - development files"
-	depends="${sourcepkg}>=${version}_${revision}"
+	depends="${sourcepkg}>=${version}_${revision} libgnomekbd-devel libglib-devel
+	gdk-pixbuf-devel"
 	pkg_install() {
 		vmove usr/include
 		vmove usr/lib/pkgconfig

@@ -1,19 +1,21 @@
 # Template file for 'acpilight'
 pkgname=acpilight
-version=1.0.1
-revision=1
+version=1.1
+revision=4
 noarch=yes
-depends="python"
+wrksrc="acpilight-v${version}"
+depends="python3"
 short_desc="Backward-compatibile xbacklight replacement"
-maintainer="cr6git <quark6@protonmail.com>"
-homepage="https://github.com/wavexx/acpilight"
-license="GPL-3"
-distfiles="https://github.com/wavexx/acpilight/archive/v${version}.tar.gz"
-checksum=4ea6137a3cc4d9431526baa191d973ec18ccc2bb0fd0710ea8ddb5d8048a02e1
-conflicts="xbacklight>=0"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="GPL-3.0-or-later"
+homepage="https://gitlab.com/wavexx/acpilight"
+distfiles="https://gitlab.com/wavexx/acpilight/-/archive/v${version}/acpilight-v${version}.tar.gz"
+checksum=82505a58482e353c0ec4f1e6aed2a21d3e209041855332eb539b54a6e3458800
+replaces="xbacklight>=0"
+provides="xbacklight-${version}_${revision}"
 
 do_install() {
 	vbin xbacklight
 	vman xbacklight.1
-	vinstall 90-backlight.rules 644 etc/udev/rules.d
+	vinstall 90-backlight.rules 644 usr/lib/udev/rules.d
 }

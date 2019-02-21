@@ -1,32 +1,30 @@
 # Template file for 'nautilus'
 pkgname=nautilus
-version=3.28.1
-revision=1
+version=3.30.5
+revision=2
 build_style=meson
-configure_args="-Denable-selinux=false -Denable-nst-extension=false"
-hostmakedepends="glib-devel intltool pkg-config
- $(vopt_if gir 'gobject-introspection')"
-makedepends="exempi-devel gnome-autoar-devel gnome-desktop-devel libexif-devel
- libgexiv2-devel libnotify-devel tracker-devel"
+build_helper="gir"
+configure_args="-Dtests=headless -Dintrospection=$(vopt_if gir true false)"
+hostmakedepends="glib-devel libxslt pkg-config"
+makedepends="exempi-devel gnome-autoar-devel gnome-desktop-devel gtk+3-devel
+ libexif-devel libgexiv2-devel libglib-devel libnotify-devel libseccomp-devel
+ libX11-devel libxml2-devel tracker-devel"
 depends="desktop-file-utils gsettings-desktop-schemas hicolor-icon-theme"
-short_desc="The GNOME file manager"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-homepage="https://wiki.gnome.org/Nautilus"
+checkdepends="tracker"
+short_desc="GNOME file manager"
+maintainer="Rasmus Thomsen <rasmus.thomsen@protonmail.com>"
 license="GPL-2.0-or-later, LGPL-2.1-or-later"
-distfiles="${GNOME_SITE}/$pkgname/${version%.*}/$pkgname-$version.tar.xz"
-checksum=9ce878fc9d9f950475c504066ce5f8e98a8cfbf15051724469e865ea85bab0a5
-
-# no meson option to disable gir, gobject-introspection nocross
-nocross="https://build.voidlinux.eu/builders/aarch64-musl_builder/builds/5628/steps/shell_3/logs/stdio"
+homepage="https://wiki.gnome.org/Nautilus"
+distfiles="${GNOME_SITE}/${pkgname}/${version%.*}/${pkgname}-${version}.tar.xz"
+checksum=dbbe3f7c81ecbeab0c1c4be30100ac7ef359c093ef39f334f389a395fc259990
 
 build_options="gir"
-if [ -z "$CROSS_BUILD" ]; then
-	build_options_default="gir"
-fi
 
-if [ ${XBPS_GCC_VERSION_MAJOR} -gt 5 ]; then
-	CFLAGS="-Wno-error=format-nonliteral"
-fi
+case "$XBPS_TARGET_MACHINE" in
+	x86_64-musl) build_options_default+=" gir" ;;
+	*-musl) ;;
+	*) build_options_default+=" gir" ;;
+esac
 
 libnautilus_package() {
 	short_desc+=" - shared libraries"

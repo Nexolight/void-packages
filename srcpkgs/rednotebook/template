@@ -1,16 +1,17 @@
 # Template file for 'rednotebook'
 pkgname=rednotebook
-version=2.4
+version=2.8
 revision=1
 noarch=yes
 build_style=python3-module
 pycompile_module="rednotebook"
 hostmakedepends="python3"
-depends="desktop-file-utils hicolor-icon-theme
- python3-enchant python3-gobject python3-yaml webkit2gtk"
-maintainer="cr6git <quark6@protonmail.com>"
+depends="desktop-file-utils gtksourceview hicolor-icon-theme python3-enchant
+ python3-gobject python3-yaml webkit2gtk"
 short_desc="Cross-platform, modern desktop journal"
+maintainer="prspkt <prspkt@protonmail.com>"
+license="GPL-2.0-or-later"
 homepage="https://rednotebook.sourceforge.io"
-license="GPL-2"
+changelog="https://raw.githubusercontent.com/jendrikseipp/rednotebook/master/CHANGELOG"
 distfiles="https://github.com/jendrikseipp/rednotebook/archive/v${version}.tar.gz"
-checksum=3211623d63832152bf51533034db4b482f418e05c3726788afdbfc1e1269bf06
+checksum=3c4a0bc60ecf513b524d0bbcb6f6f16da8cc189ec03d5dfa0206fceb8342cd7d

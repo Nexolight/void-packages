@@ -1,18 +1,18 @@
 # Template file for 'qtfm'
 pkgname=qtfm
-version=5.9
+version=6.1.7
 revision=1
 build_style=qmake
-hostmakedepends="unzip"
-makedepends="file-devel qt5-devel"
-depends="desktop-file-utils"
-maintainer="cr6git <quark6@protonmail.com>"
+configure_args="CONFIG+=release"
+makedepends="qt5-devel"
+depends="hicolor-icon-theme"
 short_desc="Lightweight file manager for Linux desktops based on pure Qt"
-homepage="https://www.linux-apps.com/content/show.php/QtFM?content=158787"
-license="GPL-2"
-distfiles="https://dl.opendesktop.org/api/files/downloadfile/id/1466643163/s/3379f6266beb0e774ff9f1a134463b9e/t/1524253617/u/265658/158787-qtfm.zip"
-checksum=07ffd61dd5d4aa7c16f1c544804517b621e3ef1a30eeda97c087219a3cb35128
-wrksrc="qtfm"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="GPL-2.0-or-later"
+homepage="https://github.com/rodlie/qtfm"
+changelog="https://raw.githubusercontent.com/rodlie/qtfm/master/ChangeLog"
+distfiles="https://github.com/rodlie/qtfm/archive/${version}.tar.gz"
+checksum=294d714100c1265c3be1b88fd109c72bf71ea64774909998a110e85f54741013
 
 if [ "$CROSS_BUILD" ]; then
 	hostmakedepends+=" qt5-devel"

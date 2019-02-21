@@ -1,30 +1,17 @@
 # Template file for 'git-lfs'
 pkgname=git-lfs
-version=2.3.4
-revision=6
-nocross=1
+version=2.6.1
+revision=1
 build_style=go
 go_import_path="github.com/git-lfs/git-lfs"
-hostmakedepends="go"
-depends="git"
+hostmakedepends="go git"
 short_desc="Git extension for versioning large files"
-maintainer="Michael Aldridge <maldridge@VoidLinux.eu>"
+maintainer="Michael Aldridge <maldridge@voidlinux.org>"
 license="MIT"
 homepage="https://git-lfs.github.com/"
 distfiles="https://github.com/git-lfs/${pkgname}/archive/v${version}.tar.gz"
-checksum=2594fe7bd8cc29d71effd087623b78cadab04a74e506ceeb4971a4ed9a7fbb94
+checksum=e17cd9d4e66d1116be32f7ddc7e660c7f8fabbf510bc01b01ec15a22dd934ead
 
-pre_build() {
-	chmod +x script/bootstrap
-	mkdir -p src/github.com/git-lfs
-	ln -s $(pwd) src/github.com/git-lfs/${pkgname}
-}
-
-do_build() {
-	GOPATH=$(pwd) ./script/bootstrap
-}
-
-do_install() {
-	vbin bin/git-lfs
+post_install() {
 	vlicense LICENSE.md
 }

@@ -1,13 +1,13 @@
 # Template file for 'iso-codes'
 pkgname=iso-codes
-version=3.79
+version=4.2
 revision=1
 noarch=yes
 build_style=gnu-configure
 hostmakedepends="python3"
 short_desc="List of country, language and currency names"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-license="LGPL-2.1"
-homepage="http://pkg-isocodes.alioth.debian.org/"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
+license="LGPL-2.1-or-later"
+homepage="https://salsa.debian.org/iso-codes-team/iso-codes"
 distfiles="${DEBIAN_SITE}/main/i/iso-codes/${pkgname}_${version}.orig.tar.xz"
-checksum=cbafd36cd4c588a254c0a5c42e682190c3784ceaf2a098da4c9c4a0cbc842822
+checksum=2b7f66c81808ac52e1ed0efe4ce8ae8e43309eedcc411f94f71a3f603cc21f42

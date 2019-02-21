@@ -1,21 +1,21 @@
 # Template file for 'dar'
 pkgname=dar
-version=2.5.15
+version=2.5.20
 revision=1
 build_style=gnu-configure
 configure_args="--disable-upx --disable-build-html"
-hostmakedepends="automake gettext-devel gpgme-devel libtool pkg-config"
+conf_files="/etc/darrc"
+hostmakedepends="automake gettext-devel gpgme-devel libtool pkgconf"
 makedepends="acl-devel bzip2-devel e2fsprogs-devel libgcrypt-devel liblzma-devel
  lzo-devel"
 short_desc="Shell command that backs up directory trees and files"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
 license="GPL-2.0-or-later"
 homepage="http://dar.linux.free.fr/"
 distfiles="${SOURCEFORGE_SITE}/dar/dar-${version}.tar.gz"
-checksum=58d860299e0b2ee61cf1cac549f1e7b228060aed3ee5575c2e9c88324504e0c0
-conf_files="/etc/darrc"
+checksum=01e352e81a0d578ff1333be0453afdb9c4af22685ee3d30d8f82a96b3ff893a5
 
-if [ -n "$CROSS_BUILD" ]; then
+if [ "$CROSS_BUILD" ]; then
 	configure_args+=" --with-gpgme-prefix=${XBPS_CROSS_BASE}/usr
 	 ac_cv_lib_gcrypt_gcry_check_version=false"
 	LDFLAGS="-L${XBPS_CROSS_BASE}/usr/lib -lgcrypt"

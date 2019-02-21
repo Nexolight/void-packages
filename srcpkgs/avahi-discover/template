@@ -1,13 +1,12 @@
 # Template file for 'avahi-discover'
 #
 # WARNING: THIS TEMPLATE MUST BE SYNCHRONIZED WITH AVAHI. IT IS SPLITTED TO DROP
-# ADDITIONAL DEPENDENCIES LIKE GTK3 AND PYGTK.
+# ADDITIONAL DEPENDENCIES LIKE GTK3 AND PyGI.
 #
 pkgname=avahi-discover
 version=0.7
-revision=4
+revision=7
 wrksrc="avahi-${version}"
-noarch=yes
 build_style=gnu-configure
 configure_args="--disable-qt3 --disable-qt4 --disable-mono --disable-monodoc
  --disable-doxygen-doc --enable-compat-libdns_sd --enable-compat-howl
@@ -19,17 +18,18 @@ configure_args="--disable-qt3 --disable-qt4 --disable-mono --disable-monodoc
  --enable-glib --enable-gobject --enable-gtk --enable-gtk3
  $(vopt_enable gir introspection) $(vopt_enable gir pygobject)"
 short_desc="Service discover user interface for avahi"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
 license="LGPL-2.1-or-later"
 homepage="https://github.com/lathiat/avahi"
 distfiles="${homepage}/releases/download/v${version}/avahi-${version}.tar.gz"
 checksum=57a99b5dfe7fdae794e3d1ee7a62973a368e91e414bd0dfa5d84434de5b14804
 
-hostmakedepends="automake libtool pkg-config intltool pygtk-devel
+hostmakedepends="automake libtool pkg-config intltool
  python-dbus gobject-introspection glib-devel"
 makedepends="dbus-devel libcap-devel libdaemon-devel gdbm-devel
- pygtk-devel python-dbus gtk+3-devel $(vopt_if gir python-gobject-devel)"
-depends="avahi>=$version python avahi-python>=$version python-dbus pygtk desktop-file-utils"
+ python-dbus gtk+-devel gtk+3-devel $(vopt_if gir python-gobject-devel)"
+depends="avahi>=${version} avahi-python>=${version}
+ $(vopt_if gir 'gtk+3 python-gobject') desktop-file-utils"
 pycompile_module="avahi_discover"
 
 # Package build options
@@ -83,9 +83,9 @@ do_install() {
 }
 
 avahi-python-utils_package() {
-	noarch=yes
 	depends="avahi-python>=$version"
 	short_desc="Avahi python utilities"
+	archs=noarch
 	pkg_install() {
 		vmove usr/bin/avahi-bookmarks
 		vmove "usr/share/man/man1/avahi-bookmarks*"
@@ -93,9 +93,9 @@ avahi-python-utils_package() {
 }
 
 avahi-python_package() {
-	depends="python python-dbus"
+	depends="python-dbus"
 	short_desc="Python utility package for Avahi"
-	noarch=yes
+	archs=noarch
 	pycompile_module="avahi"
 	pkg_install() {
 		vmove usr/lib/python2.7/site-packages/avahi

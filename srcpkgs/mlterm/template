@@ -1,6 +1,6 @@
 # Template file for 'mlterm'
 pkgname=mlterm
-version=3.8.5
+version=3.8.7
 revision=1
 build_style=gnu-configure
 configure_args="--disable-static
@@ -15,16 +15,18 @@ maintainer="Leah Neukirchen <leah@vuxu.org>"
 license="BSD-3-Clause"
 homepage="http://mlterm.sourceforge.net/"
 distfiles="${SOURCEFORGE_SITE}/${pkgname}/${pkgname}-${version}.tar.gz"
-checksum=6452181ffac4735aa6659c75babca532df61798bac960db271b08ffb72f6da61
+checksum=7412cb5b3efae155a64e3b527bfc3e30dcf960571525146837683233f3c14782
 nocross=yes
 
 pre_configure() {
 	export ac_cv_func_posix_openpt=yes
 }
+
 do_check() {
 	# requires xserver
 	:
 }
+
 post_install() {
 	vlicense LICENCE
 }

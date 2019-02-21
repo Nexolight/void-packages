@@ -1,21 +1,28 @@
 # Template file for 'txr'
 pkgname=txr
-version=190
+version=211
 revision=1
 build_style=configure
+make_check_target=tests
 hostmakedepends="bison flex"
 short_desc="Programming language for convenient data munging"
 maintainer="Oliver Kiddle <okiddle@yahoo.co.uk>"
-license="2-clause-BSD"
+license="BSD-2-Clause"
 homepage="http://www.nongnu.org/txr/"
 distfiles="http://www.kylheku.com/cgit/txr/snapshot/${pkgname}-${version}.tar.bz2"
-checksum=dd67529a260144d61cecd9e74e9a433b09d4ed5308619a6a646929c7e244affa
-make_check_target="tests"
+checksum=c5a3c1ffa429e35fcd5e2d8363d0096b137eff0733902db769cd9a5b6f4426bd
+
+if [ "$CROSS_BUILD" ]; then
+	hostmakedepends+=" txr"
+fi
 
 do_configure() {
 	./configure --prefix=/usr --ccname="${CC}" \
 		--platform-cflags="${CFLAGS}" \
 		--platform-ldflags="${LDFLAGS}"
+	if [ "$CROSS_BUILD" ]; then
+		sed -i 's#^TXR :=.*#TXR = /usr/bin/txr#' Makefile
+	fi
 }
 
 pre_check() {

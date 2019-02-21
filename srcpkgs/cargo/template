@@ -1,54 +1,87 @@
 # Template file for 'cargo'
 pkgname=cargo
-version=0.26.0
-revision=2
+version=0.33.0
+revision=1
+build_helper=rust
 hostmakedepends="rust python curl cmake pkg-config"
 makedepends="libcurl-devel libgit2-devel"
 depends="rust"
 short_desc="Rust package manager"
-maintainer="Enno Boland <gottox@voidlinux.eu>"
+maintainer="Enno Boland <gottox@voidlinux.org>"
 license="MIT, Apache-2.0"
 homepage="https://crates.io/"
 distfiles="https://github.com/rust-lang/cargo/archive/${version}.tar.gz"
-checksum=1a4bae6910ca895157a1abe8225eb2b7e9b49ee1ee1e4e72fb81cb8e1446bff9
-nocross=yes
+checksum=914d715ff1a4ac4280b63d05c0f848d38889900a5559888d4a20c9600f87e6a4
+_cargo_dist_version=0.33.0
 
-case "$XBPS_MACHINE" in
-x86_64-musl)
-	distfiles+="
-	 https://repo.voidlinux.eu/distfiles/cargo-0.26.0-x86_64-unknown-linux-musl.tar.gz"
-	checksum+="
-	 406a348567577cb2859749f1b1e1a843de20e7c1f305de89d3a3760635c4979e"
-	;;
-x86_64)
-	distfiles+="
-	 https://static.rust-lang.org/dist/cargo-0.20.0-x86_64-unknown-linux-gnu.tar.gz"
-	checksum+="
-	 a677d13b01d00ad13edf75c7d1b484421c7fc09338bf9ed6d456b4685bb42ed1"
-	;;
-i686)
-	distfiles+="
-	 https://static.rust-lang.org/dist/cargo-0.20.0-i686-unknown-linux-gnu.tar.gz"
-	checksum+="
-	 1a6b45f04d63d54c5d265e8bf1d647df171c1624ca1c081d75971eb8bb741d53"
-	;;
-esac
+if [ "$CROSS_BUILD" ]; then
+	hostmakedepends+=" cargo"
+	makedepends+=" rust"
+else
+	case "$XBPS_MACHINE" in
+	x86_64-musl)
+		distfiles+="
+		 https://alpha.de.repo.voidlinux.org/distfiles/cargo-${_cargo_dist_version}-x86_64-unknown-linux-musl.tar.xz"
+		checksum+="
+		 6c519f5103e422650c3f69ac9b19303f829e9f9bb7e088d84dcd0318fd1b56c0"
+		;;
+	x86_64)
+		distfiles+="
+		 https://static.rust-lang.org/dist/cargo-${_cargo_dist_version}-x86_64-unknown-linux-gnu.tar.gz"
+		checksum+="
+		 9dd7f79a0ab882ed7c892731514a4aed6435f7bc8a20381a8346b471c8a14209"
+		;;
+	i686)
+		distfiles+="
+		 https://static.rust-lang.org/dist/cargo-${_cargo_dist_version}-i686-unknown-linux-gnu.tar.gz"
+		checksum+="
+		 163f46bd84ba6348dfe1ac3c10bc4730059f321791d2a7d4d4704fe8ddf8a755"
+		;;
+	ppc64le)
+		distfiles+="
+		 https://alpha.de.repo.voidlinux.org/distfiles/cargo-${_cargo_dist_version}-powerpc64le-unknown-linux-gnu.tar.xz"
+		checksum+="
+		 bd22f3c2fad2be544a80c890a659cb5f1c5bf2d80f3f6a14be23d19000545d01"
+		;;
+	ppc64le-musl)
+		distfiles+="
+		 https://alpha.de.repo.voidlinux.org/distfiles/cargo-${_cargo_dist_version}-powerpc64le-unknown-linux-musl.tar.xz"
+		checksum+="
+		 1db7c45306e3a424620ac2c6d07374a6ea0e3c6be0d3a546393188bf1fea1f02"
+		;;
+	ppc64-musl)
+		distfiles+="
+		 https://alpha.de.repo.voidlinux.org/distfiles/cargo-${_cargo_dist_version}-powerpc64-unknown-linux-musl.tar.xz"
+		checksum+="
+		 a6b3f9ba055bb78ae70d31aed05d37969dee864fc003135f34f1bb92b6cd13b5"
+		;;
+	esac
+fi
 
 post_extract() {
-	mkdir -p target/snapshot
-	case "$XBPS_MACHINE" in
-		x86_64-musl) cp ../cargo cargo;;
-		*) cp ../cargo-*/cargo/bin/cargo cargo;;
-	esac
+	if [ -z "$CROSS_BUILD" ]; then
+		mkdir -p target/snapshot
+		case "$XBPS_MACHINE" in
+			x86_64-musl|ppc64*) cp ../cargo cargo;;
+			*) cp ../cargo-${_cargo_dist_version}-${RUST_TARGET}/cargo/bin/cargo cargo;;
+		esac
+	fi
 }
+
 do_build() {
-	export LIBGIT2_SYS_USE_PKG_CONFIG=yes
-	export CARGO_HOME="${wrksrc}/.cargo"
-	export RUST_BACKTRACE=1
-	./cargo build --release
+	if [ "$CROSS_BUILD" ]; then
+		cargo build --release
+	else
+		./cargo build --release
+	fi
 }
+
 do_install() {
-	vbin target/release/cargo
+	if [ "$CROSS_BUILD" ]; then
+		vbin target/${RUST_TARGET}/release/cargo
+	else
+		vbin target/release/cargo
+	fi
 	for f in src/etc/man/*.?; do
 		vman $f
 	done

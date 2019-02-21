@@ -1,19 +1,19 @@
 # Template file for 'font-awesome5'
 pkgname=font-awesome5
-version=5.0.13
+version=5.7.2
 revision=1
 noarch=yes
-wrksrc=Font-Awesome-${version}
+wrksrc="Font-Awesome-${version}"
 depends="font-util"
-font_dirs="/usr/share/fonts/OTF"
-short_desc="An iconic font (version 5)"
-maintainer="cr6git <quark6@protonmail.com>"
+short_desc="Iconic font (version 5)"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="OFL-1.1"
 homepage="https://fontawesome.com"
 distfiles="https://github.com/FortAwesome/Font-Awesome/archive/${version}.tar.gz"
-checksum=fae40b4aeb6505edb0b641631ff4a5d8c97e5972fb6643f3b2eb626c752e5a83
+checksum=926a5df0f33595f672ae21d9a0eb29f1109b5e4d56c1a1c2b9d4bab5445b6cd5
 conflicts="font-awesome>=0"
+font_dirs="/usr/share/fonts/OTF"
 
 do_install() {
-	install -Dm644 use-on-desktop/*.otf -t ${DESTDIR}/usr/share/fonts/OTF
+	install -Dm644 otfs/*.otf -t ${DESTDIR}/usr/share/fonts/OTF
 }

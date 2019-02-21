@@ -12,7 +12,7 @@ or queried through the `xbps-install(1)` and `xbps-query(1)` utilities, respecti
 - GNU bash
 - xbps >= 0.46
 
-`xbps-src` requires an utility to chroot and bind mount existing directories
+`xbps-src` requires a utility to chroot and bind mount existing directories
 into a `masterdir` that is used as its main `chroot` directory. `xbps-src` supports
 multiple utilities to accomplish this task:
 
@@ -79,7 +79,7 @@ To enable it:
 Clone the `void-packages` git repository, install the bootstrap packages:
 
 ```
-$ git clone git://github.com/voidlinux/void-packages.git
+$ git clone git://github.com/void-linux/void-packages.git
 $ cd void-packages
 $ ./xbps-src binary-bootstrap
 ```
@@ -180,9 +180,9 @@ any xbps configuration file (see xbps.d(5)) or by explicitly appending them via 
 
 By default **xbps-src** will try to resolve package dependencies in this order:
 
- - If dependency exists in the local repository, use it (`hostdir/binpkgs`).
- - If dependency exists in a remote repository, use it.
- - If dependency exists in a source package, use it.
+ - If a dependency exists in the local repository, use it (`hostdir/binpkgs`).
+ - If a dependency exists in a remote repository, use it.
+ - If a dependency exists in a source package, use it.
 
 It is possible to avoid using remote repositories completely by using the `-N` flag.
 
@@ -238,7 +238,7 @@ First a RSA key must be created with `openssl(1)` or `ssh-keygen(1)`:
 
 or
 
-	$ ssh-keygen -t rsa -b 4096 -f privkey.pem
+	$ ssh-keygen -t rsa -b 4096 -m PEM -f privkey.pem
 
 > Only RSA keys in PEM format are currently accepted by xbps.
 
@@ -350,7 +350,7 @@ xbps-src can be used in any recent Linux distribution matching the CPU architect
 
 To use xbps-src in your Linux distribution use the following instructions. Let's start downloading the xbps static binaries:
 
-    $ wget http://repo.voidlinux.eu/static/xbps-static-latest.<arch>-musl.tar.xz
+    $ wget http://alpha.de.repo.voidlinux.org/static/xbps-static-latest.<arch>-musl.tar.xz
     $ mkdir ~/XBPS
     $ tar xvf xbps-static-latest.<arch>.tar.xz -C ~/XBPS
     $ export PATH=~/XBPS/usr/bin:$PATH
@@ -363,7 +363,7 @@ If your system does not support `user namespaces`, a privileged group is require
 
 Clone the `void-packages` git repository:
 
-    $ git clone git://github.com/voidlinux/void-packages
+    $ git clone git://github.com/void-linux/void-packages
 
 and `xbps-src` should be fully functional; just start the `bootstrap` process, i.e:
 
@@ -415,7 +415,7 @@ Wait until all packages are built and when ready, prepare a new masterdir with t
 
     $ ./xbps-src -m masterdir-x86_64-musl binary-bootstrap x86_64-musl
 
-Your new masterdir is now ready to build natively packages for the musl C library. Try:
+Your new masterdir is now ready to build packages natively for the musl C library. Try:
 
     $ ./xbps-src -m masterdir-x86_64-musl chroot
     $ ldd
@@ -438,38 +438,9 @@ Once the build has finished, you can specify the path to the local repository to
     # make
     # ./mklive.sh ... -r /path/to/hostdir/binpkgs
 
-### Breaking out of a dependency loop
-
-The package gtk+3 can not be built using *-N* with its default options because
-there is a dependency loop: colord depends on gtk+3 and gtk+3 depends on colord.
-
-The following steps are required to build a temporary gtk+3 without colord and
-later on rebuild gtk+3 with colord enabled, once all dependencies are available:
-
-    $ ./xbps-src -N pkg gtk+3
-
-Break this build with Ctrl+C once you see vala, colord, gtk+3 being looped over.
-
-    $ ./xbps-src -o ~gir,~colord -N pkg gtk+3
-
-Now you have a gtk+3 without colord registered and can build the other dependencies.
-
-    $ ./xbps-src -N pkg gtk+3
-
-Here gtk+3 will not be updated because the package already exists. In the
-next step we force a re-registration of gtk+3 with colord enabled.
-
-    $ ./xbps-src -f pkg gtk+3
-
-Be careful with -f (force) building packages, if your repository contains
-multiple architectures. Force registering noarch packages will break them
-for architectures which already had them registered in their repodata file.
-
-Now you can continue to build packages and their dependencies with *-N*.
-
 ### Contributing
 
-See [Contributing](https://github.com/voidlinux/xbps-packages/blob/master/CONTRIBUTING.md)
+See [Contributing](https://github.com/void-linux/void-packages/blob/master/CONTRIBUTING.md)
 for a general overview of how to contribute and the
-[Manual](https://github.com/voidlinux/xbps-packages/blob/master/Manual.md)
+[Manual](https://github.com/void-linux/void-packages/blob/master/Manual.md)
 for details of how to create source packages.

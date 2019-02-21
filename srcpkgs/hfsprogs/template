@@ -2,13 +2,13 @@
 pkgname=hfsprogs
 _distver=540.1
 _patchver=3
-version=${_distver}.linux${_patchver}
-revision=2
+version="${_distver}.linux${_patchver}"
+revision=3
 wrksrc="diskdev_cmds-${version}"
 hostmakedepends="clang"
 makedepends="libressl-devel libuuid-devel"
 short_desc="Apple's mkfs and fsck for HFS and HFS+ file systems"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
 license="APSL-2.0"
 homepage="http://www.opensource.apple.com/"
 distfiles="http://cavan.codon.org.uk/~mjg59/diskdev_cmds/diskdev_cmds-${version}.tar.gz"

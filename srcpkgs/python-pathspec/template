@@ -1,6 +1,6 @@
 # Template file for 'python-pathspec'
 pkgname=python-pathspec
-version=0.5.6
+version=0.5.9
 revision=1
 noarch=yes
 wrksrc="pathspec-${version}"
@@ -13,7 +13,11 @@ maintainer="Sir_Boops <admin@boops.me>"
 license="MPL-2.0"
 homepage="https://github.com/cpburnz/python-path-specification"
 distfiles="${PYPI_SITE}/p/pathspec/pathspec-${version}.tar.gz"
-checksum=be664567cf96a718a68b33329862d1e6f6803ef9c48a6e2636265806cfceb29d
+checksum=54a5eab895d89f342b52ba2bffe70930ef9f8d96e398cccf530d21fa0516a873
+
+do_check() {
+	python3 setup.py test
+}
 
 python3-pathspec_package() {
 	noarch=yes

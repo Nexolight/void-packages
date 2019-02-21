@@ -1,18 +1,20 @@
 # Template file for 'dynamips'
 pkgname=dynamips
-version=0.2.18
+version=0.2.20
 revision=1
+archs="i686* x86_64*"
 build_style=cmake
 makedepends="elfutils-devel libpcap-devel"
 depends="iouyap"
 short_desc="Hardware emulation for Cisco IOS capable devices"
-maintainer="Michael Aldridge <maldridge@VoidLinux.eu>"
+maintainer="Michael Aldridge <maldridge@voidlinux.org>"
 license="GPL-2.0-or-later"
 homepage="https://github.com/GNS3/dynamips"
 distfiles="https://github.com/GNS3/${pkgname}/archive/v${version}.tar.gz"
-checksum=39b8ab22f410d56db3161eaf7a16a70cf55aed200a7ac53bb737c71f34decac0
+checksum=c6535177c175422b741a4660697f7d9a29f19b6e42dd049e027fd7e3e152520e
 
 # Dynamips does processor instruction translation.  This is already
 # painfully slow on powerful x86 hardware and is unlikely to work
 # reliably on arm processors.
-only_for_archs="i686 i686-musl x86_64 x86_64-musl"
+#
+# So restrict to x86_64* and i686*

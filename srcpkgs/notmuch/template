@@ -1,25 +1,26 @@
 # Template file for 'notmuch'
 pkgname=notmuch
-version=0.26.2
-revision=2
-hostmakedepends="perl pkg-config python-Sphinx python-devel"
-makedepends="bash-completion gmime-devel talloc-devel xapian-core-devel"
+version=0.28.2
+revision=1
+hostmakedepends="perl pkg-config python-devel python3-Sphinx python3-devel"
+makedepends="bash-completion gmime3-devel talloc-devel xapian-core-devel"
 short_desc="Thread-based email index, search, and tagging"
 maintainer="Jan S. <jan.schreib@gmail.com>"
 license="GPL-3.0-or-later"
 homepage="https://notmuchmail.org"
-distfiles="http://http.debian.net/debian/pool/main/n/notmuch/notmuch_${version}.orig.tar.gz"
-checksum=109c1865db7a035d08707421d13e9b6b82ee8e9f1534db70c28c51bc39370e3b
+distfiles="https://notmuchmail.org/releases/notmuch-${version}.tar.gz"
+checksum=85a6498033451e188bcebbb3a4841e77c8d07b7fb1db89f17a74d6038f73e931
 
-subpackages="libnotmuch libnotmuch-devel notmuch-mutt notmuch-python"
+subpackages="libnotmuch libnotmuch-devel notmuch-mutt notmuch-python notmuch-python3"
 
 case "$XBPS_TARGET_MACHINE" in
-	i686*|x86_64*)
+	i686*|x86_64*|ppc64*)
 		makedepends+=" emacs"
 		subpackages+=" notmuch-emacs"
 		_args="--emacslispdir=/usr/share/emacs/site-lisp/notmuch
 			--emacsetcdir=/usr/share/emacs/site-lisp/notmuch"
 		;;
+	armv7l-musl) broken="https://build.voidlinux.org/builders/armv7l-musl_builder/builds/15480/steps/shell_3/logs/stdio";;
 	*) _args="--without-emacs";;
 esac
 
@@ -36,13 +37,16 @@ do_build() {
 	make -C contrib/notmuch-mutt
 	make -C bindings
 	cd bindings/python
-	python setup.py build --build-base=build-2
+	python2 setup.py build --build-base=build-2
+	python3 setup.py build --build-base=build-3
 }
 
 do_install() {
 	make DESTDIR=${DESTDIR} install
 	cd bindings/python
 	python2 setup.py build --build-base=build-2 \
+		install --prefix=/usr --root=${DESTDIR}
+	python3 setup.py build --build-base=build-3 \
 		install --prefix=/usr --root=${DESTDIR}
 }
 
@@ -88,5 +92,14 @@ notmuch-python_package() {
 	pycompile_module="notmuch"
 	pkg_install() {
 		vmove ${py2_sitelib}
+	}
+}
+
+notmuch-python3_package() {
+	depends="libnotmuch-devel>=${version}_${revision}"
+	short_desc+=" - Python3 bindings"
+	pycompile_module="notmuch"
+	pkg_install() {
+		vmove ${py3_sitelib}
 	}
 }

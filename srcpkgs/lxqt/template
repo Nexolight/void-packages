@@ -1,14 +1,13 @@
 # Template file for 'lxqt'
 pkgname=lxqt
-version=0.12.0
-revision=2
+version=0.14.0
+revision=1
 build_style=meta
 depends="
 	lxqt-about>=${version}
 	lxqt-admin>=${version}
 	lxqt-config>=${version}
 	lxqt-globalkeys>=${version}
-	lxqt-l10n>=${version}
 	lxqt-notificationd>=${version}
 	lxqt-openssh-askpass>=${version}
 	lxqt-panel>=${version}
@@ -21,15 +20,15 @@ depends="
 	lxqt-themes>=${version}
 	obconf-qt>=${version}
 	pcmanfm-qt>=${version}
-	lximage-qt>=0.6.0
+	lximage-qt>=${version}
 	lxmenu-data
-	qterminal>=0.8.0
+	qterminal>=${version}
 	openbox
 	breeze-icons
 	xdg-utils
 	ConsoleKit2
 	upower"
-short_desc="The LXQt meta-package for Void Linux"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-homepage="http://www.lxqt.org"
-license="LGPL-2.1"
+short_desc="LXQt meta-package for Void Linux"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
+license="LGPL-2.1-or-later"
+homepage="https://www.lxqt.org/"

@@ -1,9 +1,9 @@
 # Template file for 'gnome-chess'
 pkgname=gnome-chess
-version=3.28.0
+version=3.30.1
 revision=1
 build_style=meson
-hostmakedepends="pkg-config vala glib-devel itstool"
+hostmakedepends="pkg-config vala glib-devel itstool librsvg-devel"
 makedepends="gtk+3-devel librsvg-devel"
 depends="gnuchess"
 short_desc="GNOME chess user interface"
@@ -11,8 +11,8 @@ maintainer="Jürgen Buchmüller <pullmoll@t-online.de>"
 license="GPL-3.0-or-later"
 homepage="https://wiki.gnome.org/Apps/Chess"
 distfiles="${GNOME_SITE}/${pkgname}/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=800fe0c8f5c267dca98e7db404d7bc469bbc7342adf3dbde1a9b6c69cd58afef
+checksum=f4f13791a0b46da5afdc9d23a3845f8ddc4ce718cf0403a901bd4f52bea9edbf
 
 pre_configure() {
-	sed -i -e '/meson.add_install_script/d' meson.build
+	vsed -e '/meson.add_install_script/d' -i meson.build
 }

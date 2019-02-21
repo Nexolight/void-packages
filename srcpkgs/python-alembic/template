@@ -1,0 +1,32 @@
+# Template file for 'python-alembic'
+pkgname=python-alembic
+version=1.0.7
+revision=1
+noarch=yes
+wrksrc="alembic-${version}"
+build_style=python-module
+pycompile_module="alembic"
+hostmakedepends="python-setuptools python3-setuptools"
+depends="python-Mako python-SQLAlchemy python-dateutil python-editor"
+short_desc="Database migration tool for SQLAlchemy (Python2)"
+maintainer="Piotr Wójcik <chocimier@tlen.pl>"
+license="MIT"
+homepage="https://bitbucket.org/zzzeek/alembic"
+distfiles="${PYPI_SITE}/a/alembic/alembic-${version}.tar.gz"
+checksum=16505782b229007ae905ef9e0ae6e880fddafa406f086ac7d442c1aaf712f8c2
+
+post_install() {
+	vlicense LICENSE
+}
+
+python3-alembic_package() {
+	noarch=yes
+	pycompile_module="alembic"
+	depends="python3-Mako python3-SQLAlchemy python3-dateutil python3-editor"
+	short_desc="${short_desc/Python2/Python3}"
+	pkg_install() {
+		vmove usr/bin/*3
+		vmove usr/lib/python3*
+		vlicense LICENSE
+	}
+}

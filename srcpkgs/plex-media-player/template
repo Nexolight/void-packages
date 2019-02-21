@@ -1,0 +1,52 @@
+# Template file for 'plex-media-player'
+pkgname=plex-media-player
+version=2.27.0.949
+revision=1
+_commit_rev=542ba3ed
+# See CMakeModules/WebClient.cmake
+_buildid_version=99-ed0f3670043312
+# See https://artifacts.plex.tv/web-client-pmp/${_buildid_version}/buildid.cmake
+_clientdesktop_version=3.83.1-0043312
+_clienttv_version=3.86.1-ed0f367
+wrksrc="plex-media-player-${version}-${_commit_rev}"
+build_style=cmake
+configure_args="-DQTROOT="${XBPS_CROSS_BASE}/usr" -DFULL_GIT_REVISION=${_commit_rev}"
+hostmakedepends="pkg-config python3"
+makedepends="libcec-devel libX11-devel libXext-devel libXrandr-devel
+ MesaLib-devel mpv-devel qt5-devel qt5-declarative-devel qt5-location-devel
+ qt5-webchannel-devel qt5-webengine-devel qt5-x11extras-devel SDL2-devel zlib-devel"
+depends="qt5-quickcontrols"
+short_desc="Next generation Plex Desktop/Embedded Client"
+maintainer="Rasmus Thomsen <rasmus.thomsen@protonmail.com>"
+license="LGPL-2.1-or-later"
+homepage="https://github.com/plexinc/plex-media-player"
+distfiles="https://github.com/plexinc/plex-media-player/archive/v${version}-${_commit_rev}.tar.gz
+ https://artifacts.plex.tv/web-client-pmp/${_buildid_version}/buildid.cmake>buildid-${_buildid_version}.cmake
+ https://artifacts.plex.tv/web-client-pmp/${_buildid_version}/web-client-desktop-${_clientdesktop_version}.tar.xz
+ https://artifacts.plex.tv/web-client-pmp/${_buildid_version}/web-client-desktop-${_clientdesktop_version}.tar.xz.sha1
+ https://artifacts.plex.tv/web-client-pmp/${_buildid_version}/web-client-tv-${_clienttv_version}.tar.xz
+ https://artifacts.plex.tv/web-client-pmp/${_buildid_version}/web-client-tv-${_clienttv_version}.tar.xz.sha1"
+checksum="345eb76bc9b72b00b406cdb9a0d5e22f03a934399a69fddf6700748aab2cf7de
+ 8e7b1b3ec98375ac49bf461ad600c39519206b56a89bcc4791985dbf38926c9b
+ 1ed9c35616d62f16b5f06e8c5818a7eed11094dd247041871becb90944db3399
+ a84395fefca1461f337b87752d40d3a7d8e2026f220762375cff8386e740c29d
+ ed8fe85b9b2d3b6973b4e5aba76a64c2311e3d3c3bb4f7610afe6883b74ba0d6
+ 4c798dac8e9584c882dd036bd1b0d54c885c7d9f5cb4e133b21681791e76592b"
+skip_extraction="buildid-${_buildid_version}.cmake
+ web-client-desktop-${_clientdesktop_version}.tar.xz
+ web-client-desktop-${_clientdesktop_version}.tar.xz.sha1
+ web-client-tv-${_clienttv_version}.tar.xz
+ web-client-tv-${_clienttv_version}.tar.xz.sha1"
+
+if [ "$CROSS_BUILD" ]; then
+	hostmakedepends+=" qt5-devel qt5-host-tools"
+fi
+
+post_extract() {
+	mkdir -p "${wrksrc}/build/dependencies"
+	cp "${XBPS_SRCDISTDIR}/plex-media-player-${version}/buildid-${_buildid_version}.cmake" "${wrksrc}/build/dependencies"
+	cp "${XBPS_SRCDISTDIR}/plex-media-player-${version}/web-client-desktop-${_clientdesktop_version}.tar.xz" "${wrksrc}/build/dependencies"
+	cp "${XBPS_SRCDISTDIR}/plex-media-player-${version}/web-client-desktop-${_clientdesktop_version}.tar.xz.sha1" "${wrksrc}/build/dependencies"
+	cp "${XBPS_SRCDISTDIR}/plex-media-player-${version}/web-client-tv-${_clienttv_version}.tar.xz" "${wrksrc}/build/dependencies"
+	cp "${XBPS_SRCDISTDIR}/plex-media-player-${version}/web-client-tv-${_clienttv_version}.tar.xz.sha1" "${wrksrc}/build/dependencies"
+}

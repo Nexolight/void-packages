@@ -1,8 +1,8 @@
 # Template file for 'MEGAsdk'
 pkgname=MEGAsdk
-version=3.3.1
-revision=2
-wrksrc=sdk-${version}
+version=3.4.7
+revision=1
+wrksrc="sdk-${version}"
 build_style=gnu-configure
 configure_args="--enable-chat --disable-examples $(vopt_with libuv)"
 make_build_args='LIBTOOLFLAGS="--tag=CXX"'
@@ -11,20 +11,24 @@ makedepends="libcurl-devel c-ares-devel libressl-devel crypto++-devel
  zlib-devel sqlite-devel freeimage-devel libsodium-devel fuse-devel
  libuv-devel $(vopt_if mediainfo libmediainfo-devel)"
 checkdepends="gtest-devel"
-short_desc="The official client for cloud service mega.nz"
+short_desc="Official client for cloud service mega.nz"
 maintainer="John <johnz@posteo.net>"
-license="2-clause-BSD"
+license="BSD-2-Clause"
 homepage="https://mega.nz"
 distfiles="https://github.com/meganz/sdk/archive/v${version}.tar.gz"
-checksum=da00cbff64eba5b83a98c78347f8def3350fcf2c74ba4d4f03e099e42a1566e6
+checksum=4d49b551829a260f9e57c7f68f4474c79f7473bc28d3520650bd786b3679b50f
 replaces="libmega>=0"
 
 build_options="libuv mediainfo"
 
 case "$XBPS_TARGET_MACHINE" in
-	*-musl);;
+	*-musl) build_options_default="libuv";;
 	*) build_options_default="libuv mediainfo";;
 esac
+
+do_check() {
+	: #requires static gtest libs
+}
 
 pre_configure() {
 	./autogen.sh

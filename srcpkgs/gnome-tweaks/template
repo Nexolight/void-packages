@@ -1,20 +1,18 @@
 # Template file for 'gnome-tweaks'
 pkgname=gnome-tweaks
-version=3.28.1
-revision=2
+version=3.30.2
+revision=1
 noarch=yes
 replaces="gnome-tweak-tool>=0"
 build_style=meson
 pycompile_module="gtweak"
-hostmakedepends="intltool pkg-config"
-makedepends="gsettings-desktop-schemas-devel gtk+3-devel python-gobject-devel"
-depends="dconf gnome-settings-daemon mutter python-notify python3-gobject"
+depends="gtk+3 dconf gnome-settings-daemon mutter libnotify python3-gobject"
 short_desc="GNOME3 tool to customize advanced options"
-maintainer="Enno Boland <gottox@voidlinux.eu>"
+maintainer="Enno Boland <gottox@voidlinux.org>"
 license="GPL-3.0-or-later, CC0-1.0"
 homepage="http://live.gnome.org/GnomeTweaks"
 distfiles="${GNOME_SITE}/${pkgname}/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=d719af9376db6109b6d5d3d1ba7fbbb18668945d7b3703131ae42b0872f3bddc
+checksum=3f78551515eadf848c9140482e08842a5552acdc2987d8cc13f496187cd4c348
 nocross=yes
 
 gnome-tweak-tool_package() {

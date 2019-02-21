@@ -1,20 +1,20 @@
 # Template file for 'xkcdpass'
 pkgname=xkcdpass
-version=1.16.3
+version=1.17.2
 revision=1
-wrksrc="XKCD-password-generator-xkcdpass-${version}"
 noarch=yes
+wrksrc="XKCD-password-generator-xkcdpass-${version}"
 build_style=python3-module
 pycompile_module="xkcdpass"
 hostmakedepends="python3-setuptools"
-checkdepends="python3-pytest"
 depends="python3-setuptools"
-maintainer="cr6git <quark6@protonmail.com>"
+checkdepends="python3-pytest"
 short_desc="Generate secure multiword passwords/passphrases, inspired by XKCD"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="BSD-3-Clause"
 homepage="https://github.com/redacted/XKCD-password-generator"
-license="BSD"
 distfiles="https://github.com/redacted/XKCD-password-generator/archive/xkcdpass-${version}.tar.gz"
-checksum=99e62b8519f453b88f533d9cc7d0d47d8fc6e3c5bd286852e321c327d5a2c4df
+checksum=060b80b33ccd2cfdbd689021374cfb0a16c19e4a121e814c4b039dabe76cc8b6
 
 do_check() {
 	pytest3

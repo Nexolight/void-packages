@@ -1,26 +1,27 @@
 # Template file for 'nbd'
 pkgname=nbd
-version=3.17
+version=3.19
 revision=1
 build_style=gnu-configure
-configure_args="--enable-syslog --sbindir=/usr/bin"
+configure_args="--enable-syslog"
 hostmakedepends="pkg-config"
 makedepends="libglib-devel"
-system_accounts="nbd"
-nbd_homedir="/var/chroot"
-conf_files="/etc/nbd-server/config"
 short_desc="Network Block Device utilities"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
 license="GPL-2.0-or-later"
 homepage="https://nbd.sourceforge.io/"
 distfiles="${SOURCEFORGE_SITE}/nbd/nbd-${version}.tar.gz"
-checksum=d6775f1d66696609503b3b1e0b792e12ce6c9dc821c9d44d50bd5ee5a4111b75
+checksum=f0b52d03f35fee3a00d2f7c27974dce8fc797f35c708786e36fd2cd2fe48879d
+
+system_accounts="nbd"
+nbd_homedir="/var/chroot"
+conf_files="/etc/nbd-server/config"
 
 CFLAGS+="-DPROG_NAME='\"nbd-client\"'"
 
 post_configure() {
 	# skip systemd unit
-	sed -i '/^SUBDIRS =/s/systemd//' -i Makefile
+	vsed -e '/^SUBDIRS =/s/systemd//' -i Makefile
 }
 
 post_install() {

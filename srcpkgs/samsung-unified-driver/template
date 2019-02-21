@@ -1,11 +1,11 @@
-# Template file for 'samsung-unified-driver-nonfree'
+# Template file for 'samsung-unified-driver'
 pkgname=samsung-unified-driver
 version=1.00.37
-revision=1
+revision=3
 create_wrksrc=yes
 only_for_archs="i686 x86_64"
 repository=nonfree
-depends="libxml2 libusb-compat cups sane ghostscript"
+depends="cups ghostscript libusb-compat sane"
 short_desc="Unified Linux Driver for Samsung printers and scanners"
 maintainer="Thomas Bernard <thomas@famillebernardgouriou.fr>"
 license="Propietary"
@@ -20,9 +20,8 @@ post_extract() {
 
 do_install() {
 
-	vmkdir "$DESTDIR"/usr/share/licenses/$pkgbase
-	vcopy uld/noarch/license/eula.txt "$DESTDIR"/usr/share/licenses/$pkgbase/LICENSE
-	vcopy uld/noarch/license/eula-fr.txt "$DESTDIR"/usr/share/licenses/$pkgbase
+	vlicense uld/noarch/license/eula.txt
+	vlicense uld/noarch/license/eula-fr.txt
 
 	# install the printer driver
 	vmkdir /usr/lib
@@ -58,10 +57,12 @@ do_install() {
 
 	vmkdir /etc/sane.d/dll.d
 	echo smfp > "$DESTDIR"/etc/sane.d/dll.d/smfp-scanner
-	echo $FILESDIR/xerox_mfp-smfp > "$DESTDIR"/etc/sane.d/dll.d/smfp-scanner-fix
+	echo xerox_mfp-smfp > "$DESTDIR"/etc/sane.d/dll.d/smfp-scanner-fix
 
 	vmkdir /usr/lib/sane
 	vcopy uld/$XBPS_TARGET_MACHINE/libsane-smfp.so.1.0.1 /usr/lib/sane
+	ln -s libsane-smfp.so.1.0.1 "$DESTDIR"/usr/lib/sane/libsane-smfp.so.1
+	ln -s libsane-smfp.so.1 "$DESTDIR"/usr/lib/sane/libsane-smfp.so
 
 	vmkdir /usr/lib/udev/rules.d
 	(

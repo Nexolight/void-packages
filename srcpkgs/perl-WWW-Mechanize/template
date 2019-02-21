@@ -1,23 +1,23 @@
-# Template build file for 'perl-WWW-Mechanize'.
+# Template file for 'perl-WWW-Mechanize'
 pkgname=perl-WWW-Mechanize
-version=1.88
+version=1.91
 revision=1
+noarch=yes
 wrksrc="${pkgname/perl-/}-${version}"
 build_style=perl-module
 hostmakedepends="perl-CGI perl-HTML-Form perl-HTML-Tree
  perl-HTTP-Response-Encoding perl-HTTP-Server-Simple perl-Test-Warn"
-checkdepends="perl-Test-Deep perl-Test-Fatal perl-Test-Output
- perl-Test-Warnings"
 makedepends="perl-CGI perl-HTML-Form perl-HTML-Tree perl-HTTP-Response-Encoding
  perl-HTTP-Server-Simple perl-Test-Warn"
-depends="${makedepends}"
+depends="$makedepends"
+checkdepends="perl-Test-Deep perl-Test-Exception perl-Test-Fatal
+ perl-Test-NoWarnings perl-Test-Output perl-Test-Warnings"
 short_desc="WWW::Mechanize - Handy web browsing in a Perl object"
 maintainer="Leah Neukirchen <leah@vuxu.org>"
-homepage="http://search.cpan.org/dist/WWW-Mechanize"
 license="Artistic-1.0-Perl, GPL-1.0-or-later"
+homepage="https://metacpan.org/release/WWW-Mechanize"
 distfiles="${CPAN_SITE}/WWW/${pkgname/perl-/}-${version}.tar.gz"
-checksum=36d97e778ab911ab5a762d551541686cbf3463c571f474322f7b5da77f50a879
-noarch=yes
+checksum=eb887afa401cf8c7f5294fe00bcf890e76712a2c916327ecabc029b843256131
 
 pre_configure() {
 	unset configure_args

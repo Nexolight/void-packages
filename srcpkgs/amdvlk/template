@@ -1,0 +1,68 @@
+# Template file for 'amdvlk'
+pkgname=amdvlk
+version=2019.Q1.5
+revision=1
+_llpc_commit=a1ee25169453ba909ba940d7d25e2739d2f453ed
+_xgl_commit=dbabc93bc9c3a5a1e7e73672b3d4594b0611fa36
+_pal_commit=3bb2d4082ef9b95a114258a90c7044939a5f0638
+_llvm_commit=d3c2b9d104f0de0be59d914578a28275c8b4784d
+_wsa_commit=f558403d3292039de4d17334e562bda58abfc72c
+create_wrksrc=yes
+build_wrksrc="xgl"
+only_for_archs="i686 i686-musl x86_64 x86_64-musl"
+build_style=cmake
+configure_args="-DBUILD_WAYLAND_SUPPORT=ON -DBUILD_WSA=ON"
+hostmakedepends="pkg-config python3 perl"
+makedepends="libxml2-devel xorg-server-devel libXrandr-devel"
+depends="vulkan-loader"
+short_desc="AMD Open Source Driver For Vulkan"
+maintainer="John <johnz@posteo.net>"
+license="MIT"
+homepage="https://github.com/GPUOpen-Drivers/AMDVLK"
+distfiles="https://github.com/GPUOpen-Drivers/AMDVLK/archive/v-${version}.tar.gz
+ https://github.com/GPUOpen-Drivers/llpc/archive/${_llpc_commit}.tar.gz
+ https://github.com/GPUOpen-Drivers/xgl/archive/${_xgl_commit}.tar.gz
+ https://github.com/GPUOpen-Drivers/pal/archive/${_pal_commit}.tar.gz
+ https://github.com/GPUOpen-Drivers/llvm/archive/${_llvm_commit}.tar.gz
+ https://github.com/GPUOpen-Drivers/wsa/archive/${_wsa_commit}.tar.gz"
+checksum="337817144721afb14fb2ee8e040c500da3d49701d09de0fb64fc5a307eb4a0b0
+ f93d7f23969316dc576ef7ffbdf0c21d9dd306ab8df5544a7c5f966f0dea9846
+ 9be9dbe5a0b493e5d1a5839d62d3021f971400ef2fd0ac29b47b444be15dcc27
+ 95bcc4905d80268d9324a09df16100704ecf571deaa2a9701040f8828d9f7015
+ b8437e2ab9a192af534516c5b1bed4c975cbb77b4ff75a1d58cabc25dbcda80a
+ b23e9453fa7b14bb13157fb645936ec74b18b12cdef301758452a92b23f27705"
+nocross=yes
+
+post_extract() {
+	mv ${wrksrc}/AMDVLK-v-${version} ${wrksrc}/AMDVLK
+	mv ${wrksrc}/xgl-${_xgl_commit} ${wrksrc}/xgl
+	mv ${wrksrc}/pal-${_pal_commit} ${wrksrc}/pal
+	mv ${wrksrc}/llpc-${_llpc_commit} ${wrksrc}/llpc
+	mv ${wrksrc}/llvm-${_llvm_commit} ${wrksrc}/llvm
+	mv ${wrksrc}/wsa-${_wsa_commit} ${wrksrc}/wsa
+}
+
+pre_configure() {
+	case "$XBPS_TARGET_MACHINE" in
+		i686*) _arch="X86";;
+		x86_64*) _arch="X86";;
+	esac
+	configure_args+=" -DLLVM_TARGET_ARCH=${_arch}"
+	configure_args+=" -DLLVM_DEFAULT_TARGET_TRIPLE=${XBPS_CROSS_TRIPLET:-$XBPS_TRIPLET}"
+}
+
+do_install() {
+	case $XBPS_TARGET_MACHINE in
+		i686*|mips*|arm*|ppc|ppc-musl)
+			vinstall build/icd/amdvlk32.so 644 usr/lib/
+			vinstall ${wrksrc}/AMDVLK/json/Redhat/amd_icd32.json 644 usr/share/vulkan/icd.d/
+			;;
+		*)
+			vinstall build/icd/amdvlk64.so 644 usr/lib/
+			vinstall ${wrksrc}/AMDVLK/json/Redhat/amd_icd64.json 644 usr/share/vulkan/icd.d/
+			vsed -i ${DESTDIR}/usr/share/vulkan/icd.d/amd_icd64.json -e 's#/usr/lib64/#/usr/lib/#g'
+			;;
+	esac
+	vinstall build/wsa/wayland/libamdgpu_wsa_wayland.so 644 usr/lib/
+	vlicense ${wrksrc}/AMDVLK/LICENSE.txt
+}

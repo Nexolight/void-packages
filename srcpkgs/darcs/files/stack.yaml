@@ -1,6 +1,6 @@
-resolver: lts-11.3
+resolver: lts-13.5
+packages:
+- .
 extra-deps:
-- fgl-5.5.4.0
-- graphviz-2999.19.0.0
-- sandi-0.4.2
-- shelly-1.6.9
+- sandi-0.4.3
+- graphviz-2999.20.0.3

@@ -1,15 +1,17 @@
 # Template file for 'rclone'
 pkgname=rclone
-version=1.41
-revision=2
+version=1.46
+revision=1
+wrksrc="rclone-v${version}"
 build_style=go
-go_import_path="github.com/ncw/rclone"
-short_desc="A rsync for cloud storage"
+go_import_path=github.com/ncw/rclone
+hostmakedepends="git"
+short_desc="Rsync for cloud storage"
 maintainer="Diogo Leal <diogo@diogoleal.com>"
 license="MIT"
 homepage="https://rclone.org/downloads/"
-distfiles="https://github.com/ncw/rclone/archive/v${version}.tar.gz"
-checksum=4f4cadb4db3a7daff7fa6539eb45273fad5203a0cc9c3a2bd8c2bdb8b349d872
+distfiles="https://github.com/ncw/rclone/releases/download/v${version}/rclone-v${version}.tar.gz"
+checksum=3277e9aca1178707b12d7b7e63247ef3dd0c922d46d63b231f2d60d71e41ade2
 
 post_install() {
 	vlicense COPYING

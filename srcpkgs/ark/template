@@ -1,18 +1,18 @@
 # Template file for 'ark'
 pkgname=ark
-version=18.04.1
+version=18.12.2
 revision=1
 build_style=cmake
 hostmakedepends="extra-cmake-modules qt5-devel qt5-qmake kdoctools kconfig"
 makedepends="libarchive-devel kpty-devel kparts-devel kitemmodels-devel libzip-devel"
 short_desc="KDE Archiving Tool"
 maintainer="Andrea Brancaleoni <abc@pompel.me>"
-license="GPL-2"
+license="GPL-2.0-or-later"
 homepage="https://kde.org/applications/utilities/ark"
-distfiles="https://download.kde.org/stable/applications/${version}/src/${pkgname}-${version}.tar.xz"
-checksum=63f6bdfb54cdeb99696e64fbc8b5c4e5a83ac8251f20510c7d5e6bfd41aaf781
+distfiles="${KDE_SITE}/applications/${version}/src/${pkgname}-${version}.tar.xz"
+checksum=cbeb31893611fe52181a78761acd4e862e4ad0dd007d03ce9e78993ef143f62b
 
-if [ -n "$CROSS_BUILD" ]; then
+if [ "$CROSS_BUILD" ]; then
 	hostmakedepends+=" python kcoreaddons kparts"
 	configure_args="-DDESKTOPTOJSON_EXECUTABLE=/usr/bin/desktoptojson"
 fi

@@ -1,16 +1,20 @@
 # Template file for 'kscreen'
 pkgname=kscreen
-version=5.12.0
+version=5.15.1
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
 hostmakedepends="extra-cmake-modules qt5-devel qt5-qmake kcoreaddons"
-makedepends="kxmlgui-devel libkscreen-devel"
+makedepends="kxmlgui-devel libkscreen-devel plasma-framework-devel"
 depends="hicolor-icon-theme"
 short_desc="KDE screen management software"
-maintainer="Denis Revin <denis.revin@gmail.com>"
-license="GPL-2"
+maintainer="John <johnz@posteo.net>"
+license="GPL-2.0-or-later, LGPL-2.1-or-later"
 homepage="https://projects.kde.org/projects/plasma/kscreen"
-distfiles="http://download.kde.org/stable/plasma/${version}/${pkgname}-${version}.tar.xz"
-checksum=9b661ef8a21a4a5bfc47e76f92c62c6893da4081de12eac07e549a87c14a9cfb
-nocross="Exec format error on compiling"
+distfiles="${KDE_SITE}/plasma/${version}/${pkgname}-${version}.tar.xz"
+checksum=fea779efbcaa33c42d978d661a39606fc145d7676fa7f25d6564521644fad7af
+
+if [ "$CROSS_BUILD" ]; then
+	hostmakedepends+=" kconfig-devel kcoreaddons-devel plasma-framework"
+	configure_args+=" -DKF5_HOST_TOOLING=/usr/lib/cmake"
+fi

@@ -1,22 +1,18 @@
 # Template file for 'cava-gui'
 pkgname=cava-gui
-version=0.6.1
+version=0.6.1.1
 revision=1
-wrksrc="cava-${version}"
-build_style=gnu-configure
+wrksrc="xava-${version}"
+build_style=cmake
 hostmakedepends="automake libtool"
-makedepends="SDL2-devel iniparser-devel ncurses-devel sndio-devel"
+makedepends="SDL2-devel iniparser-devel ncurses-devel sndio-devel portaudio-devel"
 short_desc="Console-based Audio Visualizer for ALSA (GUI branch)"
 maintainer="nik123 <pavlica.nikola@gmail.com>"
 license="MIT"
-homepage="https://github.com/nikp123/cava"
-distfiles="https://github.com/nikp123/cava/archive/${version}.tar.gz"
-checksum=e639c55521e18786d15ac348c5130ca41637c10b0ef0a7aa340da1c62b9387f9
+homepage="https://github.com/nikp123/xava"
+distfiles="https://github.com/nikp123/xava/archive/${version}.tar.gz"
+checksum=53704343b33025a0d4de552e96af67a5b5ab4f6efc8956296aee5a74bebb9bdf
 conflicts=cava
-
-pre_configure() {
-	NOCONFIGURE=1 ./autogen.sh
-}
 
 post_install() {
 	vlicense LICENSE

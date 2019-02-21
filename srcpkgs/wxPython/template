@@ -1,17 +1,17 @@
 # Template file for 'wxPython'
 pkgname=wxPython
 version=3.0.2.0
-revision=5
+revision=10
 wrksrc="${pkgname}-src-${version}"
 hostmakedepends="pkg-config"
 makedepends="
  zlib-devel libpng-devel libjpeg-turbo-devel tiff-devel expat-devel gtk+-devel
- libSM-devel MesaLib-devel glu-devel webkitgtk2-devel
+ libSM-devel MesaLib-devel glu-devel
  libnotify-devel python-devel wxWidgets-devel"
 depends="python"
 pycompile_module="wx-3.0-gtk2 wxversion.py"
 short_desc="The wxWidgets GUI toolkit library (Python Bindings)"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
 homepage="http://www.wxpython.org/"
 license="wxWindows"
 distfiles="${SOURCEFORGE_SITE}/wxpython/${pkgname}-src-${version}.tar.bz2"

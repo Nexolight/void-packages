@@ -1,6 +1,6 @@
 # Template file for 'roswell'
 pkgname=roswell
-version=18.3.10.89
+version=18.10.10.95
 revision=1
 build_style=gnu-configure
 hostmakedepends="automake"
@@ -9,11 +9,12 @@ short_desc="Lisp installer and launcher for major environment that just works"
 maintainer="Liam Howley <liam.howley@hotmail.com>"
 license="MIT"
 homepage="https://github.com/roswell/roswell"
-distfiles="https://github.com/roswell/roswell/releases/download/v${version}/roswell_$version.orig.tar.gz"
-checksum=3606469a787bd83f5f9bf887c49ebb264339ef18977097f63270356ce50c20b7
+changelog="https://raw.githubusercontent.com/roswell/roswell/master/ChangeLog"
+distfiles="https://github.com/roswell/roswell/releases/download/v${version}/roswell_${version}.orig.tar.gz"
+checksum=9ad88ae0aed94feda679527f6ceb2732c39fd645921e91c048442be9874fff67
 
 pre_configure() {
-	sh bootstrap
+	./bootstrap
 }
 
 post_install() {

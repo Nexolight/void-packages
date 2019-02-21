@@ -1,25 +1,32 @@
 # Template file for 'shotcut'
 pkgname=shotcut
-version=18.03
-revision=1
+version=19.01.27
+revision=2
 build_style=qmake
-hostmakedepends="qt5-tools pkg-config"
-makedepends="
- qt5-declarative-devel qt5-graphicaleffects
- qt5-multimedia-devel qt5-quickcontrols qt5-webkit-devel
- qt5-websockets-devel qt5-x11extras-devel
- mlt-devel mlt-python movit-devel ffmpeg-devel
- x264-devel libvpx-devel lame-devel
- ladspa-sdk jack-devel libexif-devel
- gstreamer1-devel SDL_image-devel"
+configure_args="SHOTCUT_VERSION=VOID-$version DEFINES+=SHOTCUT_NOUPGRADE"
+hostmakedepends="pkg-config qt5-tools"
+makedepends="gstreamer1-devel lame-devel libvpx-devel mlt-devel mlt-python
+ qt5-declarative-devel qt5-graphicaleffects qt5-multimedia-devel
+ qt5-quickcontrols qt5-webkit-devel qt5-websockets-devel qt5-x11extras-devel
+ x264-devel"
 depends="frei0r-plugins qt5-quickcontrols"
 short_desc="Free, open source, cross-platform video editor"
-maintainer="Linux CompITech <linuxcompitech@gmail.com>"
-license="GPL-3"
+maintainer="John <johnz@posteo.net>"
+license="GPL-3.0-or-later"
 homepage="https://www.shotcut.org"
 distfiles="https://github.com/mltframework/shotcut/archive/v${version}.tar.gz"
-checksum=d1bbd9df4a58c084ac059f56b02737ead5e37c197fabaedc965260c377a0f6ab
+checksum=4e621615b272044ce3decaa4bb5ef7ebb9cef3932161422fedc9a77b474de240
+
+CXXFLAGS="-DHAVE_LOCALE_H=1"
 
 nocross="https://travis-ci.org/voidlinux/void-packages/jobs/292589547#L1332
 	https://travis-ci.org/voidlinux/void-packages/jobs/292589548#L1337"
 
+post_configure() {
+	# Hack to  make sure that the build_style does not override the
+	# value of LINK when calling the translations Makefile
+	cd translations
+	qmake PREFIX=/usr
+	cd ${wrksrc}
+	sed -i -e 's/^LINK/override LINK/g' translations/Makefile
+}

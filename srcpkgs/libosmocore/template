@@ -1,19 +1,18 @@
-# Template build file for 'libosmocore'
+# Template file for 'libosmocore'
 pkgname=libosmocore
-version=0.10.2
+version=1.0.1
 revision=1
 build_style=gnu-configure
-short_desc="Core libs for osmocom"
-maintainer="Enno Boland <gottox@voidlinux.eu>"
-license="GPL-2"
+configure_args="--exec-prefix=/usr --libexecdir=/usr/lib
+ --docdir=/usr/share/doc/libosmocore"
 hostmakedepends="autoconf automake libtool git pkg-config python"
-makedepends="pcsclite-devel talloc-devel"
+makedepends="pcsclite-devel talloc-devel gnutls-devel"
+short_desc="Core libs for osmocom"
+maintainer="Enno Boland <gottox@voidlinux.org>"
+license="GPL-2.0-or-later"
 homepage="https://bb.osmocom.org/trac/wiki/libosmocore"
-distfiles="https://git.osmocom.org/libosmocore/snapshot/libosmocore-$version.tar.xz"
-checksum=8841b1d44b8e488cda078732b74f65e8d3ccc5c107e165fe4994d541a647798b
-
-configure_args="--prefix=/usr --exec-prefix=/usr --bindir=/usr/bin --sbindir=/usr/sbin --datadir=/usr/share \
- --libexecdir=/usr/lib --localstatedir=/var --docdir=/usr/share/doc/libosmocore --libdir=/usr/lib/"
+distfiles="https://git.osmocom.org/libosmocore/snapshot/libosmocore-${version}.tar.gz"
+checksum=29dcdbec549b64b9c5114fbf8251c8a8dc2f8f390919f0a545139d9373eea09c
 
 pre_configure() {
 	autoreconf -i

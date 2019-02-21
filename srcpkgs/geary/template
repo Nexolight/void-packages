@@ -1,18 +1,18 @@
 # Template file for 'geary'
 pkgname=geary
-version=0.12.2
+version=0.13.0
 revision=1
-build_style=cmake
-configure_args="-DNO_FATAL_WARNINGS=ON"
-hostmakedepends="desktop-file-utils gnome-doc-utils intltool iso-codes
- pkg-config"
-makedepends="enchant-devel gcr-devel gmime-devel libcanberra-devel
- libgee08-devel libgirepository-devel libnotify-devel libsecret-devel
- libunique-devel vala-devel webkit2gtk-devel"
+build_style=meson
+configure_args="-Dcontractor=true"
+hostmakedepends="desktop-file-utils intltool iso-codes pkg-config itstool
+ gobject-introspection vala glib-devel"
+makedepends="enchant2-devel gcr-devel gmime-devel libsoup-devel libglib-devel
+ libgee08-devel libnotify-devel libsecret-devel webkit2gtk-devel libxml2-devel
+ gnome-online-accounts-devel json-glib-devel libunwind-devel libcanberra-devel"
 depends="gir-freedesktop gnome-keyring"
-short_desc="A lightweight email program for the GNOME desktop"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
+short_desc="Lightweight email program for the GNOME desktop"
+maintainer="Cameron Nemo <camerontnorman@gmail.com>"
 license="LGPL-2.1-or-later"
 homepage="https://wiki.gnome.org/Apps/Geary"
 distfiles="${GNOME_SITE}/${pkgname}/${version%.*}/geary-${version}.tar.xz"
-checksum=a9ef2889cf90a44462c374308eef7539193e6703c06fe6c5632e91fa097c4526
+checksum=4fd9bca851678b623c124e6e7ccb3629c304b7c025a370d0a6524bdb633dbe7f

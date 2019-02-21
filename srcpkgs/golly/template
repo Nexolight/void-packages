@@ -1,30 +1,20 @@
 # Template file for 'golly'
 pkgname=golly
-version=3.1
-revision=2
+version=3.2
+revision=4
 wrksrc="${pkgname}-${version}-src"
 build_style=gnu-configure
 configure_script="gui-wx/configure/configure"
 configure_args="LIBS=-lGL"
-hostmakedepends="automake"
+hostmakedepends="automake python"
 makedepends="MesaLib-devel glu-devel lua-devel python-devel wxWidgets-devel
  zlib-devel"
 short_desc="Simulator for Conway's Game of Life and other cellular automata"
 maintainer="Leah Neukirchen <leah@vuxu.org>"
-license="GPL-2"
+license="GPL-2.0-or-later"
 homepage="http://golly.sourceforge.net/"
 distfiles="${SOURCEFORGE_SITE}/${pkgname}/${pkgname}-${version}-src.tar.gz"
-checksum=c78951aca815d2897d966681d8999311676c3ef9f4106087001d529fc724c736
-
-if [ -n "${CROSS_BUILD}" ]; then
-	hostmakedepends+=" python"
-
-	# find python includes; golly uses python’s distutils.sysconfig module
-	# and not python-config
-	pre_configure() {
-		CXXFLAGS+=" $(python-config --includes)"
-	}
-fi
+checksum=4d02f78592b5ea211f1ceda2d5ba55eb10e013ecf95b8a61c7061357f9aae931
 
 post_extract() {
 	# POSIX name clash
@@ -32,3 +22,8 @@ post_extract() {
 	sed -i '/LDADD/s/ liblua\.a/ -llua5.3/g' gui-wx/configure/Makefile.in
 }
 
+pre_configure() {
+	if [ "$CROSS_BUILD" ]; then
+		sed -i "s,\(PYTHON_INCLUDE\)=.*,\1=-I${XBPS_CROSS_BASE}/usr/include/python2.7,g" gui-wx/configure/configure
+	fi
+}

@@ -1,8 +1,8 @@
 # Template file for 'pysolfc'
 pkgname=pysolfc
-version=2.2.0
+version=2.6.1
 revision=1
-noarch=yes
+arch="noarch"
 wrksrc="PySolFC-${pkgname}-${version}"
 build_style=python3-module
 pycompile_module=pysollib
@@ -13,7 +13,7 @@ maintainer="Leah Neukirchen <leah@vuxu.org>"
 license="GPL-3.0"
 homepage="http://pysolfc.sourceforge.net/"
 distfiles="https://github.com/shlomif/PySolFC/archive/${pkgname}-${version}.tar.gz"
-checksum=0610c72391a9972ebac2903107b22abc24b6a991795612506ba62e714a928564
+checksum=fc14cacec4a671c921d0e0ee94f841e70897f419e6f917f5afafc26c4b2eec88
 
 post_build() {
 	make mo rules

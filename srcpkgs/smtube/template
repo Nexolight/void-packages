@@ -1,6 +1,6 @@
 # Template file for 'smtube'
 pkgname=smtube
-version=18.3.0
+version=18.11.0
 revision=1
 build_wrksrc=src
 build_style=qmake
@@ -12,11 +12,11 @@ hostmakedepends="qt5-script-devel qt5-tools-devel qt5-webkit-devel"
 makedepends="qt5-script-devel qt5-tools-devel qt5-webkit-devel"
 depends="desktop-file-utils hicolor-icon-theme"
 short_desc="A small youtube browser"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
 license="GPL-2.0-or-later"
 homepage="http://www.smtube.org/"
-distfiles="${SOURCEFORGE_SITE}/$pkgname/$pkgname-$version.tar.bz2"
-checksum=ab0295be8dddfc65db6bea36e08ef3797948f904f758f63eb725c5c37eed2717
+distfiles="${SOURCEFORGE_SITE}/${pkgname}/${pkgname}-${version}.tar.bz2"
+checksum=173f7f0902d336ef423b2074654bef461326ee6fba669f54865c81ac5b3daa65
 
 post_build() {
 	lrelease smtube.pro

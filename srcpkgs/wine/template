@@ -1,16 +1,15 @@
 # Template file for 'wine'
 pkgname=wine
-version=3.9
+version=4.2
 revision=1
 build_style=gnu-configure
 configure_args="--without-gstreamer --prefix=/usr --libdir=/usr/lib --with-xattr"
 short_desc="Run Microsoft Windows applications"
-maintainer="Nexolight <snow.dream.ch@gmail.com>"
-license="LGPL-2.1"
+maintainer="Andrea Brancaleoni <abc@pompel.me>"
+license="LGPL-2.1-or-later"
 homepage="http://www.winehq.org/"
 distfiles="https://dl.winehq.org/wine/source/${version%.*}.x/wine-${version}.tar.xz"
-checksum="ccadc281966d5a94f1161dec22d29bf7bd6506b371b26f18f652d374e986b735"
-replaces="wine-staging>=0"
+checksum=a1d141f5f8dabb51475f21f90c63b6521c233fcf34ebcbe311f9c0eda5c05bfb
 
 nopie_files="/usr/bin/wine64 /usr/bin/wine /usr/bin/winetricks /usr/bin/widl /usr/bin/winebuild /usr/bin/wineserver /usr/bin/winedump /usr/bin/winegcc /usr/bin/wmc /usr/bin/wrc"
 
@@ -30,8 +29,7 @@ makedepends="gettext-devel lcms2-devel zlib-devel ncurses-devel
  libxslt-devel freetype-devel pulseaudio-devel
  mpg123-devel libgsm-devel libopenal-devel giflib-devel libpng-devel
  v4l-utils-devel fontconfig-devel gnutls-devel dbus-devel sane-devel
- libpcap-devel cups-devel dbus-devel ocl-icd-devel vulkan-loader glib-devel"
-
+ libpcap-devel cups-devel ocl-icd-devel vulkan-loader vkd3d-devel"
 depends="libXi libXinerama libXcomposite libXcursor libOSMesa
  desktop-file-utils hicolor-icon-theme liberation-fonts-ttf
  gnutls"

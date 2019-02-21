@@ -1,7 +1,7 @@
 # Template file for 'nmap'
 pkgname=nmap
 version=7.70
-revision=2
+revision=4
 build_style=gnu-configure
 build_options="lua"
 if [ -z "$CROSS_BUILD" ]; then
@@ -11,7 +11,7 @@ configure_args="--without-ndiff --with-openssl --with-zenmap $(vopt_with lua lib
 hostmakedepends="python"
 makedepends="libpcap-devel libressl-devel pcre-devel $(vopt_if lua lua52-devel)"
 short_desc="Utility for network discovery and security auditing"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
 license="GPL-2.0-or-later"
 homepage="https://nmap.org"
 distfiles="https://nmap.org/dist/nmap-${version}.tar.bz2"

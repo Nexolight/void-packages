@@ -1,26 +1,21 @@
 # Template file for 'just'
 pkgname=just
-version=0.3.11
+version=0.3.13
 revision=1
-hostmakedepends="cargo"
+build_style=cargo
 short_desc="Just a command runner"
 maintainer="Wilson Birney <wpb@360scada.com>"
 license="CC0-1.0"
-#changelog="https://raw.githubusercontent.com/casey/just/master/CHANGELOG.md"
 homepage="https://github.com/casey/just"
+changelog="https://raw.githubusercontent.com/casey/just/master/CHANGELOG.md"
 distfiles="https://github.com/casey/just/archive/v${version}.tar.gz"
-checksum=2ded5cbb140955e87e0edee5c9728146316a34fa0a23a4de1f7a28df569b25d0
-nocross=yes
+checksum=802241f8ab0b5f12ec84bf736c165fb1f81a108675223eddbea21834169a05e7
 
-do_build() {
-	cargo build --release ${makejobs}
-}
+case "$XBPS_TARGET_MACHINE" in
+	aarch64-musl) broken="https://travis-ci.org/void-linux/void-packages/jobs/451525539
+	    https://github.com/nix-rust/nix/issues/951" ;;
+esac
 
-do_check() {
-	cargo check --release
-}
-
-do_install() {
-	vbin target/release/just
+post_install() {
 	vlicense LICENSE
 }

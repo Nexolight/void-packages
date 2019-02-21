@@ -1,17 +1,18 @@
 # Template file for 'python-msgpack'
 pkgname=python-msgpack
+reverts="0.6.0_1"
 version=0.5.6
-revision=1
-wrksrc="msgpack-$version"
+revision=3
+wrksrc="msgpack-${version}"
 build_style=python-module
+pycompile_module="msgpack"
 hostmakedepends="python-setuptools python3-setuptools"
 makedepends="python-devel python3-devel"
 checkdepends="python3-pytest"
-pycompile_module="msgpack"
 short_desc="Python module for Msgpack serializer (Python2)"
-maintainer="Christian Neukirchen <chneukirchen@gmail.com>"
-homepage="https://github.com/msgpack/msgpack-python"
+maintainer="Leah Neukirchen <leah@vuxu.org>"
 license="Apache-2.0"
+homepage="https://github.com/msgpack/msgpack-python"
 distfiles="${PYPI_SITE}/m/msgpack/msgpack-${version}.tar.gz"
 checksum=0ee8c8c85aa651be3aa0cd005b5931769eaa658c948ce79428766f1bd46ae2c3
 

@@ -1,17 +1,17 @@
 # Template file for 'file'
 pkgname=file
-version=5.33
-revision=2
+version=5.36
+revision=1
 bootstrap=yes
 build_style=gnu-configure
 configure_args="--enable-static"
 makedepends="zlib-devel"
 short_desc="File type identification utility"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
 license="BSD-2-Clause"
 homepage="http://www.darwinsys.com/file/"
 distfiles="ftp://ftp.astron.com/pub/file/file-${version}.tar.gz"
-checksum=1c52c8c3d271cd898d5511c36a68059cda94036111ab293f01f83c3525b737c6
+checksum=fb608290c0fd2405a8f63e5717abf6d03e22e183fb21884413d1edd918184379
 
 if [ "$CROSS_BUILD" ]; then
 	# XXX cross compilation needs exactly the same version for the host

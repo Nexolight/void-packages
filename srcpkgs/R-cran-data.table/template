@@ -1,11 +1,11 @@
 # Template file for 'R-cran-data.table'
 pkgname=R-cran-data.table
-version=1.10.4r3
+version=1.12.0
 revision=1
 build_style=R-cran
 makedepends="libgomp-devel"
 short_desc="Extension of 'data.frame'"
 maintainer="Florian Wagner <florian@wagner-flo.net>"
-license="GPL-3"
-homepage="http://r-datatable.com"
-checksum=ba8b4f1b96b16e7f9765fc49c5028f21ef2210fc46cf962f4f7ea7901f9d8a89
+license="MPL-2.0"
+homepage="https://github.com/Rdatatable/data.table/wiki"
+checksum=611b112123dbd4ebd5200770fcdfaaeaab622adeb2b290d36018d3092742e3f7

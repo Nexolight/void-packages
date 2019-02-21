@@ -1,9 +1,8 @@
 # Template file for 'shotwell'
 pkgname=shotwell
-version=0.28.2
+version=0.30.2
 revision=1
-build_style=gnu-configure
-configure_args="--disable-schemas-compile"
+build_style=meson
 hostmakedepends="gcr-devel glib-devel gnome-doc-utils itstool libgee08-devel
  libgexiv2-devel pkg-config vala-devel"
 makedepends="gnome-doc-utils gst-plugins-base1-devel libgdata-devel
@@ -11,9 +10,9 @@ makedepends="gnome-doc-utils gst-plugins-base1-devel libgdata-devel
  libunique-devel rest-devel vala-devel webkit2gtk-devel"
 depends="desktop-file-utils hicolor-icon-theme"
 short_desc="Open source photo manager for GNOME"
-maintainer="Enno Boland <gottox@voidlinux.eu>"
+maintainer="Enno Boland <gottox@voidlinux.org>"
 license="LGPL-2.1-or-later, CC-BY-SA-3.0"
 homepage="https://wiki.gnome.org/Apps/Shotwell"
 distfiles="${GNOME_SITE}/shotwell/${version%.*}/shotwell-${version}.tar.xz"
-checksum=16d9e83d02b5e674144d697d7988b49946441a1aa99f0ccfb70d9238c6a2475d
+checksum=1945978be04ff6985275f70557fb4f2ea43d5fcd3415388b61738310a206555d
 lib32disabled=yes

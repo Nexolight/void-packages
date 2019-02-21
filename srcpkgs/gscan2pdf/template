@@ -1,7 +1,8 @@
 # Template file for 'gscan2pdf'
 pkgname=gscan2pdf
-version=2.1.1
+version=2.3.0
 revision=1
+noarch=yes
 build_style=perl-module
 hostmakedepends="perl"
 makedepends="ImageMagick djvulibre libmagick-perl perl-Config-General
@@ -10,13 +11,13 @@ makedepends="ImageMagick djvulibre libmagick-perl perl-Config-General
  perl-Linux-Distribution perl-List-MoreUtils perl-Locale-gettext
  perl-Log-Log4perl perl-PDF-API2 perl-Pango perl-Proc-ProcessTable perl-Readonly
  perl-Set-IntSpan perl-Try-Tiny unpaper xdg-utils"
-depends="${makedepends}"
+depends="$makedepends"
 short_desc="A GUI to produce PDFs or DjVus from scanned documents"
 maintainer="Helmut Pozimski <helmut@pozimski.eu>"
 license="GPL-3.0-or-later"
-homepage="http://gscan2pdf.sourceforge.net/"
+homepage="http://gscan2pdf.sourceforge.net"
 distfiles="${SOURCEFORGE_SITE}/${pkgname}/${pkgname}-${version}.tar.xz"
-checksum=d14c6bf1375f40b34815b56840e0190123019038e352ec0ae4727a8aefaaac2c
+checksum=694eb847311b12d9dbc0180230f6330c82a19c3619f96be0f7f526093cad9a55
 nocross=yes
 
 do_check() {

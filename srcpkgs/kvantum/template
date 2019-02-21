@@ -1,21 +1,23 @@
 # Template file for 'kvantum'
 pkgname=kvantum
-version=0.10.5
+version=0.10.9
 revision=1
+wrksrc="Kvantum-${version}"
+build_wrksrc=Kvantum
 build_style=qmake
-wrksrc=${pkgname^}-${version}
-build_wrksrc=${pkgname^}
 hostmakedepends="qt5-tools qt5-qmake"
-makedepends="qt5-devel qt5-svg-devel qt5-x11extras-devel"
+makedepends="qt5-devel qt5-svg-devel qt5-x11extras-devel
+ kwindowsystem-devel"
 short_desc="SVG-based theme engine for Qt4/Qt5, KDE and LXQt"
 maintainer="Giuseppe Fierro <gspe@ae-design.ws>"
-license="GPL-3"
+license="GPL-3.0-or-later"
 homepage="https://github.com/tsujan/Kvantum"
 distfiles="https://github.com/tsujan/Kvantum/archive/V${version}.tar.gz"
-checksum=3174dc68331e286a51c0288f5862363258ee2d11b7b10eac65f3bcb0ced6302e
+checksum=e588c2e7acbc00b2ccf197dc34e09a3bc4c1f5d4574f26b929ad372177183041
 
-if [ -n "$CROSS_BUILD" ]; then
-	hostmakedepends+=" qt5-host-tools qt5-devel qt5-svg-devel qt5-x11extras-devel"
+if [ "$CROSS_BUILD" ]; then
+	hostmakedepends+=" qt5-host-tools qt5-devel qt5-svg-devel qt5-x11extras-devel
+	 kwindowsystem-devel"
 fi
 
 post_install() {

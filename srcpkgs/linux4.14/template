@@ -1,15 +1,15 @@
 # Template file for 'linux4.14'
 pkgname=linux4.14
-version=4.14.35
-revision=2
+version=4.14.99
+revision=1
 patch_args="-Np1"
 wrksrc="linux-${version}"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
 homepage="http://www.kernel.org"
-license="GPL-2"
+license="GPL-2.0-only"
 short_desc="The Linux kernel and modules (${version%.*} series)"
 distfiles="https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-${version}.tar.xz"
-checksum=02ab727527e88a84e8f6a3a29024a1f09166a4728e22229a761079634e5bee07
+checksum=8ff98caed5b20b733dedcbe99559d71a0e09e239c0c2488b3fd799c96489eb0a
 
 nodebug=yes  # -dbg package is generated below manually
 nostrip=yes
@@ -23,6 +23,8 @@ hostmakedepends="bc elfutils-devel kmod libressl-devel perl uboot-mkimage gmp-de
 _kernver="${version}_${revision}"
 triggers="kernel-hooks"
 kernel_hooks_version="${_kernver}"
+
+broken="https://build.voidlinux.org/builders/x86_64-musl_builder/builds/17191/steps/shell_3/logs/stdio"
 
 # These files could be modified when an external module is built.
 mutable_files="

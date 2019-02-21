@@ -1,19 +1,19 @@
 # Template file for 'nss'
 
-_nsprver=4.19
+_nsprver=4.20
 
 pkgname=nss
-version=3.37
+version=3.42.1
 revision=1
 hostmakedepends="perl"
-makedepends="zlib-devel nspr-devel sqlite-devel"
+makedepends="nspr-devel sqlite-devel zlib-devel"
 depends="nspr>=${_nsprver}"
 short_desc="Mozilla Network Security Services"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-homepage="https://www.mozilla.org/projects/security/pki/nss"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
 license="MPL-2.0"
+homepage="https://www.mozilla.org/projects/security/pki/nss"
 distfiles="${MOZILLA_SITE}/security/nss/releases/NSS_${version//\./_}_RTM/src/nss-${version}.tar.gz"
-checksum=5821969e85d241833e96cb82bd4211ddea6d87003f2cccce25e0eab4aefa6268
+checksum=087db37d38fd49dfd584dd2a8b5baa7fc88de7c9bd97c0c2d5be4abcafc61fc6
 
 do_build() {
 	# Respect LDFLAGS
@@ -27,7 +27,7 @@ do_build() {
 	export FREEBL_NO_DEPEND=1
 
 	case "$XBPS_MACHINE" in
-		aarch64*|x86_64*) _native_use64="USE_64=1";;
+		aarch64*|x86_64*|ppc64*) _native_use64="USE_64=1";;
 	esac
 
 	cd nss
@@ -38,8 +38,10 @@ do_build() {
 	if [ "$CROSS_BUILD" ]; then
 		case "$XBPS_TARGET_MACHINE" in
 			aarch64*) _ARCH="aarch64"; _target_use64="USE_64=1"; CFLAGS+=" -DNS_PTR_GT_32";;
+			ppc64*) _ARCH="ppc64"; _target_use64="USE_64=1"; CFLAGS+=" -DNS_PTR_GT_32";;
 			arm*) _ARCH="arm";;
 			mips*) _ARCH="mips";;
+			ppc|ppc-musl) _ARCH="ppc";;
 			*) msg_error "$pkgver: unknown target machine\n";;
 		esac
 		# ... and then copy it to $wrksrc.
@@ -119,6 +121,6 @@ nss-devel_package() {
 		vmove usr/bin/nss-config
 		vmove usr/lib/pkgconfig
 		vmove usr/include
-		vmove usr/lib/*.a
+		vmove "usr/lib/*.a"
 	}
 }

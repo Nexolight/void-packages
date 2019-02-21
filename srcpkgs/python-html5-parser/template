@@ -1,7 +1,7 @@
 # Template file for 'python-html5-parser'
 pkgname=python-html5-parser
 version=0.4.5
-revision=1
+revision=2
 wrksrc="html5-parser-${version}"
 build_style=python-module
 pycompile_module="html5_parser"
@@ -9,7 +9,7 @@ hostmakedepends="python-setuptools python3-setuptools pkg-config"
 makedepends="python-devel python3-devel libxml2-devel"
 depends="python-chardet python-lxml"
 short_desc="Fast C-based HTML5 parsing (Python2)"
-maintainer="Andrea Brancaleoni <abc@pompel.me>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="Apache-2.0"
 homepage="https://html5-parser.readthedocs.io/"
 distfiles="${PYPI_SITE}/h/html5-parser/html5-parser-${version}.tar.gz"

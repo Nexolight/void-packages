@@ -1,25 +1,24 @@
 # Template file for 'flightgear'
 pkgname=flightgear
-version=2018.1.1
+version=2018.3.2
 revision=1
 build_style=cmake
 configure_args="-DFG_DATA_DIR:STRING=/usr/share/flightgear/fgdata -DSYSTEM_SQLITE=1"
 hostmakedepends="fltk pkg-config"
 makedepends="MesaLib-devel boost-devel freealut-devel libfreeglut-devel fltk-devel
  libgsm-devel glew-devel speex-devel sqlite-devel osg-devel plib-devel libcurl-devel
- simgear $(vopt_if qt 'qt5-devel qt5-declarative-devel')"
+ simgear $(vopt_if qt 'qt5-devel qt5-declarative-devel qt5-svg-devel')"
 depends="flightgear-data>=${version}"
 short_desc="Sophisticated flight simulator"
 maintainer="Jürgen Buchmüller <pullmoll@t-online.de>"
-license="GPL-3"
+license="GPL-2.0-or-later"
 homepage="http://www.flightgear.org/"
-#_mirror=http://mirror.netcologne.de/gentoo/distfiles
 distfiles="
  $SOURCEFORGE_SITE/project/flightgear/release-${version%.*}/${pkgname}-${version}.tar.bz2
  $SOURCEFORGE_SITE/project/flightgear/release-${version%.*}/FlightGear-${version}-data.tar.bz2"
 checksum="
- ed1aa7867e89757622f3faaab996028c4be2f79006dfb89a3059c77b9831aab9
- dfd80e09f6bf04bd25604788c080716007969d127d46d0e10c43c2f709fb8db8"
+ 5acbd008a31119877fefbdfae912ae8495f716288731c91add487fc98828fe53
+ 277e817a39edb917976441a808b750ee64be38e077897d0d77c55dfc8eba9640"
 
 nocross=https://build.voidlinux.eu/builders/armv7l-musl_builder/builds/4773/steps/shell_3/logs/stdio
 

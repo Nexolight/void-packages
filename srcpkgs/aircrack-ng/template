@@ -1,21 +1,17 @@
 # Template file for 'aircrack-ng'
 pkgname=aircrack-ng
-version=1.2
+version=1.5.2
 revision=1
 build_style=gnu-configure
 hostmakedepends="automake libtool pkg-config"
 makedepends="libnl3-devel libressl-devel sqlite-devel zlib-devel"
 short_desc="Complete suite of tools to assess WiFi network security"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
 license="GPL-2.0-or-later, BSD-3-Clause, OpenSSL"
-homepage="http://www.aircrack-ng.org/"
+homepage="https://www.aircrack-ng.org/"
+changelog="https://www.aircrack-ng.org/doku.php?id=changelog"
 distfiles="https://download.aircrack-ng.org/${pkgname}-${version}.tar.gz"
-checksum=794ffed5400f35cb78f3466eabb47546f050e0ac35287c174acce60763a0fa7c
-
-case "$XBPS_TARGET_MACHINE" in
-	armv6*) broken="https://travis-ci.org/voidlinux/void-packages/jobs/377975294#L1206";;
-	armv7*) broken="https://travis-ci.org/voidlinux/void-packages/jobs/377975296#L1091";;
-esac
+checksum=9e592fe7658046220e0ac0a6d05c4026903f3077b248893e0056ccbe4ee88241
 
 pre_configure() {
 	NOCONFIGURE=1 ./autogen.sh

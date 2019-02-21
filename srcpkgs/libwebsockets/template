@@ -1,18 +1,18 @@
 # Template file for 'libwebsockets'
 pkgname=libwebsockets
-version=3.0.0
+version=3.1.0
 revision=1
 build_style=cmake
 configure_args="-DLWS_WITH_LIBEV=ON -DLWS_WITH_HTTP2=ON -DLWS_IPV6=ON
  -DLWS_HAVE_LIBCAP=ON"
 makedepends="libcap-devel libev-devel libressl-devel zlib-devel"
 short_desc="Lightweight client and server websocket library"
-maintainer="Enno Boland <gottox@voidlinux.eu>"
+maintainer="Enno Boland <gottox@voidlinux.org>"
 license="LGPL-2.1-only"
-#changelog="https://raw.githubusercontent.com/warmcat/libwebsockets/v3.0-stable/changelog"
 homepage="https://libwebsockets.org"
-distfiles="https://github.com/warmcat/libwebsockets/archive/v$version.tar.gz"
-checksum=a6b611c212c52f161f70556339fdaa199b7e9b6a167c4638e086d19db75d6290
+#changelog="https://raw.githubusercontent.com/warmcat/libwebsockets/v3.0-stable/changelog"
+distfiles="https://github.com/warmcat/libwebsockets/archive/v${version}.tar.gz"
+checksum=db948be74c78fc13f1f1a55e76707d7baae3a1c8f62b625f639e8f2736298324
 
 CFLAGS="-Wno-error"
 

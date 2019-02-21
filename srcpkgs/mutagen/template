@@ -1,19 +1,20 @@
 # Template file for 'mutagen'
 pkgname=mutagen
-version=1.40.0
+version=1.42.0
 revision=1
 noarch=yes
 build_style=python-module
-hostmakedepends="python-devel python3-devel"
-makedepends="${hostmakedepends}"
-depends="python"
 pycompile_module="mutagen"
+hostmakedepends="python-devel python3-devel"
+makedepends="$hostmakedepends"
+depends="python"
 short_desc="Python2 multimedia tagging library"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
+license="GPL-2.0-or-later"
 homepage="https://github.com/quodlibet/mutagen"
-license="GPL-2"
+changelog="https://raw.githubusercontent.com/quodlibet/mutagen/master/NEWS"
 distfiles="${PYPI_SITE}/m/${pkgname}/${pkgname}-${version}.tar.gz"
-checksum=b2a2c2ce87863af12ed7896f341419cd051a3c72c3c6733db9e83060dcadee5e
+checksum=bb61e2456f59a9a4a259fbc08def6d01ba45a42da8eeaa97d00633b0ec5de71c
 
 alternatives="
  mutagen:mid3cp:/usr/bin/mid3cp2

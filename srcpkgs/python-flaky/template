@@ -1,11 +1,11 @@
 # Template file for 'python-flaky'
 pkgname=python-flaky
-version=3.4.0
-revision=2
+version=3.5.3
+revision=1
 noarch=yes
 wrksrc="${pkgname/python-//}-${version}"
 build_style=python-module
-pycompile_modules="flaky"
+pycompile_module="flaky"
 hostmakedepends="python-setuptools python3-setuptools"
 depends="python"
 short_desc="Plugin for nose/py.test that automatically reruns flaky tests (Python2)"
@@ -13,12 +13,12 @@ maintainer="maxice8 <thinkabit.ukim@gmail.com>"
 license="Apache-2.0"
 homepage="https://github.com/box/flaky"
 distfiles="${PYPI_SITE}/f/flaky/flaky-${version}.tar.gz"
-checksum=4ad7880aef8c35a34ddb394d4fa33047765bca1e3d67d182bf6eba9c8eabf3a2
+checksum=12bd5e41f372b2190e8d754b6e5829c2f11dbc764e10b30f57e59f829c9ca1da
 
 python3-flaky_package() {
 	noarch=yes
 	depends="python3"
-	pycompile_modules="flaky"
+	pycompile_module="flaky"
 	short_desc="${short_desc/Python2/Python3}"
 	pkg_install() {
 		vmove usr/lib/python3*
