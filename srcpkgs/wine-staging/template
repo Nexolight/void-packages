@@ -1,6 +1,6 @@
 # Template file for 'wine-staging'
 pkgname=wine-staging
-version=3.9
+version=4.2
 revision=1
 build_style=gnu-configure
 configure_args="--without-gstreamer --prefix=/usr --libdir=/usr/lib --with-xattr"
@@ -10,17 +10,14 @@ license="LGPL-2.1"
 homepage="http://www.winehq.org/"
 distfiles="https://dl.winehq.org/wine/source/${version%.*}.x/wine-${version}.tar.xz 
 https://github.com/${pkgname}/${pkgname}/archive/v${version}.tar.gz"
-checksum="ccadc281966d5a94f1161dec22d29bf7bd6506b371b26f18f652d374e986b735
- 4e919585aba04654a42290a9ba31fb0b62ec0960d149759d88c86c4ff3778bf8"
+checksum="a1d141f5f8dabb51475f21f90c63b6521c233fcf34ebcbe311f9c0eda5c05bfb 011f58ceb9f45a7f0c067052b4ea5c79a04af30112ba30a96c49d2f09447ccd8"
 wrksrc=wine-${version}
 replaces="wine>=0"
-
-enable_pba="yes"
 
 nopie_files="/usr/bin/wine64 /usr/bin/wine /usr/bin/winetricks /usr/bin/widl /usr/bin/winebuild /usr/bin/wineserver /usr/bin/winedump /usr/bin/winegcc /usr/bin/wmc /usr/bin/wrc"
 
 lib32mode=full
-only_for_archs="i686 x86_64"
+archs="i686 x86_64"
 case "$XBPS_TARGET_MACHINE" in
 x86_64*)
 	configure_args+=" --enable-win64"
@@ -54,18 +51,6 @@ pre_configure() {
 
 	../${pkgname}-${version}/patches/patchinstall.sh DESTDIR=./ --all
 	
-	if [ "$enable_pba" == "yes" ]; then
-		mkdir -p ../wine-pba
-		if [ ! -d ../wine-pba/.git ]; then
-			git clone https://github.com/acomminos/wine-pba.git ../wine-pba
-		fi
-		(cd ../wine-pba; git fetch origin master; git checkout origin/master)
-		for PATCH in ../wine-pba/patches/*; do
-			echo "Apply patch: $PATCH"
-			patch -p 1 < $PATCH
-		done
-	fi
-
 	sed -i '/libdir=/s/lib64/lib/' configure
 }
 
