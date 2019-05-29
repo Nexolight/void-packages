@@ -1,19 +1,20 @@
 # Template file for 'kdepim-runtime'
 pkgname=kdepim-runtime
-version=18.12.2
+version=19.04.1
 revision=1
 build_style=cmake
 # XXX KolabLibraries, Kolabxml
 hostmakedepends="extra-cmake-modules python3 kdoctools kdesignerplugin
  qt5-qmake qt5-host-tools"
 makedepends="akonadi-calendar-devel akonadi-notes-devel knotifyconfig-devel
- pimcommon-devel kdav-devel libkgapi-devel kalarmcal-devel kmbox-devel"
+ pimcommon-devel kdav-devel libkgapi-devel kalarmcal-devel kmbox-devel
+ qt5-networkauth-devel qca-qt5-devel"
 short_desc="KDE PIM runtime applications/libraries"
 maintainer="John <johnz@posteo.net>"
 license="GPL-2.0-or-later, GPL-3.0-or-later, LGPL-2.1-or-later, AGPL-3.0-or-later"
 homepage="https://projects.kde.org/projects/kde/kdepimlibs"
 distfiles="${KDE_SITE}/applications/${version}/src/${pkgname}-${version}.tar.xz"
-checksum=b7d5cd9e03688f62f4b36f1867ba681a2ce8d806817d3d2be1c615f07b3f6e45
+checksum=1587eca5a206768917443bd5274c03d8cbb2cbc6dcbe60449110c326b1aa0744
 
 post_install() {
 	vlicense COPYING.agpl3 COPYING.agpl3

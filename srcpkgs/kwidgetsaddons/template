@@ -1,17 +1,17 @@
 # Template file for 'kwidgetsaddons'
 pkgname=kwidgetsaddons
-version=5.55.0
+version=5.58.0
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
-hostmakedepends="extra-cmake-modules qt5-host-tools qt5-tools-devel"
+hostmakedepends="kcoreaddons extra-cmake-modules qt5-host-tools qt5-tools-devel"
 makedepends="qt5-devel qt5-tools-devel"
 short_desc="Large set of desktop widgets"
 maintainer="John <johnz@posteo.net>"
 license="LGPL-2.0-or-later, LGPL-2.1-or-later"
 homepage="https://projects.kde.org/projects/frameworks/kwidgetsaddons"
 distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=ec5b7ffd47c2b26763e363f741f0d57d280330fdc32c061896bdc32cebdeeb4e
+checksum=f4bcb1e22d8dfec214f4f55dbf4492229c4cb6ab63031f826ef68896c27ca6c0
 
 kwidgetsaddons-devel_package() {
 	short_desc+=" - development"

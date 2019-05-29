@@ -1,6 +1,6 @@
 # Template file for 'qt5dxcb-plugin'
 pkgname=qt5dxcb-plugin
-version=1.1.23
+version=1.2.1
 revision=1
 build_style=qmake
 make_build_args="VERSION=${version}"
@@ -15,7 +15,7 @@ license="GPL-3.0-or-later"
 homepage="https://github.com/linuxdeepin/qt5dxcb-plugin/"
 changelog="https://github.com/linuxdeepin/qt5dxcb-plugin/blob/master/CHANGELOG.md"
 distfiles="https://github.com/linuxdeepin/qt5dxcb-plugin/archive/${version}.tar.gz"
-checksum=6af0986c8c4330405cd7138f9f392fd7cbd3cc5708d2b07be14798a0176c22f2
+checksum=8e64220f4bcc9713e92eacb9e2c69587086ae241d11af21f194c0e2501549575
 patch_args="-Np1"
 
 pre_configure() {

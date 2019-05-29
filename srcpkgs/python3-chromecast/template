@@ -1,8 +1,8 @@
 # Template file for 'python3-chromecast'
 pkgname=python3-chromecast
-version=2.5.0
+version=3.2.0
 revision=1
-noarch=yes
+archs=noarch
 wrksrc="pychromecast-${version}"
 build_style=python3-module
 pycompile_module="pychromecast"
@@ -13,7 +13,7 @@ maintainer="maxice8 <thinkabit.ukim@gmail.com>"
 license="MIT"
 homepage="https://github.com/balloob/pychromecast"
 distfiles="https://github.com/balloob/pychromecast/archive/${version}.tar.gz"
-checksum=c8e96443d32ebd01b2f042c64cc901eaddb7cb3e4a811cb2268b7481b1f87188
+checksum=163a39e751ddc7bf361360c5610a99951a115e41d6656768c1bf70237a6cc74e
 
 post_install() {
 	vlicense LICENSE

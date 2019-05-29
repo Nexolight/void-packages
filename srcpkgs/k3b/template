@@ -1,6 +1,6 @@
 # Template file for 'k3b'
 pkgname=k3b
-version=18.12.2
+version=19.04.1
 revision=1
 build_style=cmake
 hostmakedepends="extra-cmake-modules pkg-config qt5-qmake"
@@ -14,5 +14,5 @@ maintainer="Enno Boland <gottox@voidlinux.org>"
 license="GPL-2.0-or-later"
 homepage="https://www.kde.org/applications/multimedia/k3b/"
 distfiles="${KDE_SITE}/applications/${version}/src/${pkgname}-${version}.tar.xz"
-checksum=0b36cdccd6628b471baa817a79fe04958724010a7b0157098d3e1f66c53678aa
+checksum=8de611bec14deee5b5c2b340fa4b32d22a7df93a72b657979118b510396f0942
 

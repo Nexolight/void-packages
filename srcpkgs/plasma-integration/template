@@ -1,10 +1,10 @@
 # Template file for 'plasma-integration'
 pkgname=plasma-integration
-version=5.15.0
+version=5.15.5
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
-hostmakedepends="extra-cmake-modules pkg-config qt5-qmake qt5-host-tools"
+hostmakedepends="extra-cmake-modules pkg-config qt5-qmake qt5-host-tools kcoreaddons"
 makedepends="kio-devel kwayland-devel libXcursor-devel qt5-quickcontrols2-devel
  breeze"
 depends="noto-fonts-ttf font-hack-ttf breeze qqc2-desktop-style"
@@ -13,4 +13,4 @@ maintainer="John <johnz@posteo.net>"
 license="LGPL-2.0-or-later"
 homepage="https://projects.kde.org/projects/plasma/plasma-integration"
 distfiles="${KDE_SITE}/plasma/${version}/${pkgname}-${version}.tar.xz"
-checksum=714c09ab2e4eaaaa0ab6a1b03e3e68039ad65e349fef08b694be82a002be0f51
+checksum=05920610c68981a9effb1a97395a22d281d3b61e42d55d66adf8bb587da29621

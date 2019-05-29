@@ -1,13 +1,13 @@
 # Template file for 'svgpart'
 pkgname=svgpart
-version=18.12.2
+version=19.04.1
 revision=1
 build_style=cmake
-hostmakedepends="extra-cmake-modules qt5-host-tools qt5-qmake"
+hostmakedepends="extra-cmake-modules kcoreaddons qt5-host-tools qt5-qmake"
 makedepends="kparts-devel"
 short_desc="KPart to display SVG images"
 maintainer="Piotr Wójcik <chocimier@tlen.pl>"
 license="GPL-2.0-or-later"
 homepage="https://cgit.kde.org/svgpart.git"
 distfiles="${KDE_SITE}/applications/${version}/src/svgpart-${version}.tar.xz"
-checksum=d91a2e545a7a2acb40a3bd085ff55a81f2242a87a75be0e6add686f6edc77c21
+checksum=3e30eb3b0f95073639697c73f1cc1d4689e53921cc87fe23cd0ec04ef6835624

@@ -1,17 +1,18 @@
 # Template file for 'libkcddb'
 pkgname=libkcddb
-version=18.12.2
+version=19.04.1
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
-hostmakedepends="extra-cmake-modules qt5-qmake qt5-host-tools python kdoctools kconfig"
+hostmakedepends="extra-cmake-modules kconfig kcoreaddons kdoctools python
+ qt5-host-tools qt5-qmake"
 makedepends="kio-devel libmusicbrainz5-devel"
 short_desc="KDE CDDB library"
 maintainer="Piotr Wójcik <chocimier@tlen.pl>"
 license="GPL-2.0-or-later, LGPL-2.0-or-later, BSD-3-Clause, GFDL-1.2-only"
 homepage="https://projects.kde.org/projects/kde/kdemultimedia/libkcddb"
 distfiles="${KDE_SITE}/applications/${version}/src/libkcddb-${version}.tar.xz"
-checksum=4eb3c60a099e905183a8e3a91d4c39cbd826c73c5312b3ea82f7d39bc5c17d32
+checksum=6773266408c0a68c128b08aca2df594249c210ff9b8fb3553b2bb82c591a2f51
 
 libkcddb-devel_package() {
 	depends="libkcddb>=${version}_${revision}"

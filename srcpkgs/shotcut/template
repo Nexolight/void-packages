@@ -1,7 +1,7 @@
 # Template file for 'shotcut'
 pkgname=shotcut
-version=19.01.27
-revision=2
+version=19.04.30
+revision=1
 build_style=qmake
 configure_args="SHOTCUT_VERSION=VOID-$version DEFINES+=SHOTCUT_NOUPGRADE"
 hostmakedepends="pkg-config qt5-tools"
@@ -9,13 +9,13 @@ makedepends="gstreamer1-devel lame-devel libvpx-devel mlt-devel mlt-python
  qt5-declarative-devel qt5-graphicaleffects qt5-multimedia-devel
  qt5-quickcontrols qt5-webkit-devel qt5-websockets-devel qt5-x11extras-devel
  x264-devel"
-depends="frei0r-plugins qt5-quickcontrols"
+depends="frei0r-plugins qt5-quickcontrols qt5-graphicaleffects"
 short_desc="Free, open source, cross-platform video editor"
 maintainer="John <johnz@posteo.net>"
 license="GPL-3.0-or-later"
 homepage="https://www.shotcut.org"
 distfiles="https://github.com/mltframework/shotcut/archive/v${version}.tar.gz"
-checksum=4e621615b272044ce3decaa4bb5ef7ebb9cef3932161422fedc9a77b474de240
+checksum=57c8e78c4a3d2749877249696a52e5d5e1483aba600f8c0ef0dbadcc4a7dbb2a
 
 CXXFLAGS="-DHAVE_LOCALE_H=1"
 

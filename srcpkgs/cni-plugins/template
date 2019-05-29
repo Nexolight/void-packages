@@ -1,7 +1,7 @@
 # Template file for 'cni-plugins'
 pkgname=cni-plugins
-version=0.7.4
-revision=2
+version=0.8.0
+revision=1
 wrksrc="plugins-${version}"
 build_style=go
 go_import_path="github.com/containernetworking/plugins"
@@ -10,10 +10,14 @@ maintainer="Cameron Nemo <camerontnorman@gmail.com>"
 license="Apache-2.0"
 homepage="https://github.com/containernetworking/plugins"
 distfiles="https://github.com/containernetworking/plugins/archive/v${version}.tar.gz"
-checksum=d47f2bda2bfd6699843a98d91a2e5c40aa58eacd3f2393c7696c158c410aad3c
+checksum=a75106511fccb500a0931018ee34612b1b5c0c8c4fef03b86e9715e81dc6f512
+
+case "$XBPS_TARGET_MACHINE" in
+	i686*) broken="https://build.voidlinux.org/builders/i686_builder/builds/17776/steps/shell_3/logs/stdio";;
+esac
 
 do_build() {
-	./build.sh
+	./build_linux.sh
 }
 
 do_install() {

@@ -1,9 +1,10 @@
 # Template file for 'messagelib'
 pkgname=messagelib
-version=18.12.2
+version=19.04.1
 revision=1
 build_style=cmake
-hostmakedepends="extra-cmake-modules qt5-qmake qt5-host-tools python kconfig"
+hostmakedepends="extra-cmake-modules qt5-qmake qt5-host-tools python
+ kcoreaddons kconfig"
 makedepends="akonadi-contacts-devel gpgmeqt-devel kdepim-apps-libs-devel
  kidentitymanagement-devel kmailtransport-devel kmbox-devel libgravatar-devel
  libkdepim-devel qt5-location-devel qt5-webchannel-devel qt5-webengine-devel"
@@ -12,8 +13,7 @@ maintainer="John <johnz@posteo.net>"
 license="GPL-2.0-or-later, LGPL-2.1-or-later"
 homepage="https://community.kde.org/KDE_PIM"
 distfiles="${KDE_SITE}/applications/${version}/src/messagelib-${version}.tar.xz"
-checksum=03bb331642b61fe5ea1e0d625594973f10797884d24c77f8894b894ea570cbfa
-patch_args="-Np1"
+checksum=7e4d0e2f2d6dfcb235408af0e4af235ab10dc8a8c4f1e169a672f03b37b180ad
 
 if [ "$CROSS_BUILD" ]; then
 	LDFLAGS=" -Wl,-rpath-link,../../bin"

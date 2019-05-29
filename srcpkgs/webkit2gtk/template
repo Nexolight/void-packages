@@ -1,59 +1,62 @@
 # Template file for 'webkit2gtk'
 pkgname=webkit2gtk
-version=2.22.6
+version=2.24.2
 revision=1
 wrksrc="webkitgtk-${version}"
 build_style=cmake
 build_helper="gir"
 configure_args="-DPORT=GTK -DENABLE_GTKDOC=OFF -DCMAKE_LINKER=${XBPS_CROSS_TRIPLET}-gcc
- -DUSE_GSTREAMER_GL=OFF -DRUBY_VERSION=2.6
+ -DUSE_GSTREAMER_GL=OFF -DRUBY_VERSION=2.6 -DENABLE_C_LOOP=$(vopt_if jit OFF ON)
  -DRUBY_CONFIG_INCLUDE_DIR=${XBPS_CROSS_BASE}/usr/include/ruby-2.6.0
  -DENABLE_INTROSPECTION=$(vopt_if gir ON OFF)
  -DENABLE_WAYLAND_TARGET=$(vopt_if wayland ON OFF)
  -DENABLE_X11_TARGET=$(vopt_if x11 ON OFF) -DENABLE_JIT=$(vopt_if jit ON OFF)
  -DENABLE_SAMPLING_PROFILER=$(vopt_if sampling_profiler ON OFF)"
-hostmakedepends="perl python pkg-config intltool gperf flex ruby glib-devel geoclue2
+hostmakedepends="perl python pkg-config gperf flex ruby glib-devel geoclue2
  $(vopt_if wayland wayland-devel)"
-makedepends=" at-spi2-core-devel libjpeg-turbo-devel libpng-devel
+makedepends="at-spi2-core-devel libjpeg-turbo-devel libpng-devel
  harfbuzz-devel gst-plugins-base1-devel gst-plugins-bad1-devel sqlite-devel
  libsoup-devel libxslt-devel gnutls-devel icu-devel enchant-devel
  dbus-glib-devel libwebp-devel gtk+-devel gtk+3-devel libgudev-devel
  libsecret-devel ruby-devel geoclue2-devel libnotify-devel hyphen-devel
- woff2-devel $(vopt_if x11 libXt-devel) $(vopt_if jit '' libatomic-devel)
+ woff2-devel freetype-devel libopenjpeg2-devel
+ $(vopt_if x11 libXt-devel) $(vopt_if jit '' libatomic-devel)
  $(vopt_if wayland 'MesaLib-devel libxkbcommon-devel wayland-devel wayland-protocols')"
 short_desc="GTK+3 port of the WebKit2 browser engine"
 maintainer="Enno Boland <gottox@voidlinux.org>"
 license="LGPL-2.1-or-later, BSD-2-Clause"
 homepage="https://webkitgtk.org/"
 distfiles="${homepage}/releases/webkitgtk-${version}.tar.xz"
-checksum=df90db9c0db0a2072b945fa3e1d45865922bd686c4659cce6cb5897ce357c85b
+checksum=019cb1f0d05bf6148b72c7a85734bcd006388a1c14132843ef9a1b2cb7b4321c
 
 # ETOOHUGE
 nodebug=1
 
 CXXFLAGS="-Wno-expansion-to-defined"
 
-case "$XBPS_TARGET_MACHINE" in
-	aarch64*) configure_args+=" -DUSE_LD_GOLD=0";;
-esac
-
 # Package build options
 build_options="gir wayland x11 jit sampling_profiler"
 build_options_default="wayland x11"
+
+case "$XBPS_TARGET_MACHINE" in
+	arm*-musl) # cross building hangs for hours in g-ir-scanner-qemuwrapper
+		broken="cross compiling from x86_64 to arm*-musl stalls the builders"
+		;;
+	*) build_options_default+=" gir"
+esac
 
 desc_option_jit="Enable JustInTime JS support"
 desc_option_sampling_profiler="Toggle sampling profiler support (disabled on musl)"
 
 case "$XBPS_TARGET_MACHINE" in
-	x86_64-musl) build_options_default+=" gir jit" ;;
-	ppc*-musl) ;;
-	mips-musl) ;;
-	armv[56]*-musl) ;;
+	aarch64*|arm*) configure_args+=" -DUSE_LD_GOLD=0";;
+esac
+
+# JIT conflicts with sampling_profiler
+case "$XBPS_TARGET_MACHINE" in
+	i686*|ppc*|mips*|arm*) ;;
 	*-musl) build_options_default+=" jit" ;;
-	armv[56]*) build_options_default+=" gir sampling_profiler" ;;
-	mips*) build_options_default+=" gir sampling_profiler" ;;
-	ppc*) build_options_default+=" gir sampling_profiler" ;;
-	*) build_options_default+=" gir jit sampling_profiler" ;;
+	*) build_options_default+=" jit sampling_profiler" ;;
 esac
 
 pre_configure() {

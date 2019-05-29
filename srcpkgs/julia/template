@@ -1,16 +1,16 @@
 # Template file for 'julia'
 pkgname=julia
-version=1.0.3
-revision=1
-only_for_archs="i686 x86_64 i686-musl x86_64-musl ppc64le ppc64le-musl"
+version=1.1.1
+revision=2
+archs="i686* x86_64* ppc64le*"
 build_style=gnu-makefile
 make_build_args="prefix=/usr sysconfdir=/etc USE_SYSTEM_LLVM=0 USE_LLVM_SHLIB=1
  USE_SYSTEM_PCRE=1 USE_SYSTEM_BLAS=1 USE_SYSTEM_LAPACK=1 USE_SYSTEM_GMP=1
  USE_SYSTEM_MPFR=1 USE_SYSTEM_LIBUV=0 USE_SYSTEM_LIBGIT2=1
  LIBLAPACK=-lopenblas LIBLAPACKNAME=libopenblas
  LIBBLAS=-lopenblas LIBBLASNAME=libopenblas"
-make_install_args=$make_build_args
-make_check_args=$make_build_args
+make_install_args="$make_build_args"
+make_check_args="$make_build_args"
 make_check_target=testall
 conf_files="/etc/julia/startup.jl"
 hostmakedepends="perl cmake python"
@@ -22,10 +22,10 @@ maintainer="Adam Beckmeyer <adam_git@thebeckmeyers.xyz>"
 license="MIT"
 homepage="https://julialang.org"
 distfiles="https://github.com/JuliaLang/julia/releases/download/v${version}/julia-${version}-full.tar.gz"
-checksum=618e6d29f1fba00f5b2bebf14e69a3a536c27c3132e021cf39774e8500dd29fa
+checksum=3c5395dd3419ebb82d57bcc49dc729df3b225b9094e74376f8c649ee35ed79c2
 nocross=yes
 # Falsely detects dependency on libllvm
-skiprdeps=/usr/lib/libjulia.so.1.0
+skiprdeps="/usr/lib/libjulia.so.1.1 /usr/lib/julia/libllvmcalltest.so"
 
 case "$XBPS_TARGET_MACHINE" in
 *-musl)

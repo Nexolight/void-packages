@@ -1,7 +1,7 @@
 # Template file for 'libosinfo'
 pkgname=libosinfo
-version=1.3.0
-revision=2
+version=1.5.0
+revision=1
 build_style=gnu-configure
 build_helper="gir"
 configure_args="--disable-static $(vopt_enable gir introspection)"
@@ -16,16 +16,11 @@ license="GPL-2.0-or-later, LGPL-2.1-or-later"
 homepage="https://libosinfo.org/"
 changelog="https://gitlab.com/libosinfo/libosinfo/raw/master/NEWS"
 distfiles="https://releases.pagure.org/libosinfo/${pkgname}-${version}.tar.gz"
-checksum=2159b969fe90715ee779eb3921365a9148e862e1ed60328ef1ba57714e511da5
+checksum=bf692567983478c92bde78d454c18d6196abb032b5a77f430b09a7ef92ec6089
 
 # Package build options
 build_options="gir vala"
-
-case "$XBPS_TARGET_MACHINE" in
-	x86_64-musl) build_options_default+=" gir vala" ;;
-	*-musl) ;;
-	*) build_options_default+=" gir vala" ;;
-esac
+build_options_default="gir vala"
 
 libosinfo-devel_package() {
 	depends="libglib-devel ${sourcepkg}-${version}_${revision}"

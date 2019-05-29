@@ -12,7 +12,9 @@ show_pkg() {
     for i in ${checksum}; do
         [ -n "$i" ] && echo "checksum:	$i"
     done
-    [ -n "$noarch" ] && echo "noarch:		yes"
+    for i in ${archs}; do
+        [ -n "$i" ] && echo "archs:		$i"
+    done
     echo "maintainer:	$maintainer"
     [ -n "$homepage" ] && echo "Upstream URL:	$homepage"
     [ -n "$license" ] && echo "License(s):	$license"
@@ -97,7 +99,8 @@ show_pkg_build_depends() {
             _pkgname="$f"
         fi
         _pkgname=${_pkgname/-32bit}
-        _srcpkg=$(basename $(readlink -f ${XBPS_SRCPKGDIR}/${_pkgname}))
+        _srcpkg=$(readlink -f ${XBPS_SRCPKGDIR}/${_pkgname})
+        _srcpkg=${_srcpkg##*/}
         echo "${_srcpkg}" >> $result
     done
     sort -u $result

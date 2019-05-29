@@ -1,7 +1,7 @@
 # Template file for 'gtk+3'
 pkgname=gtk+3
-version=3.24.5
-revision=1
+version=3.24.8
+revision=2
 wrksrc="gtk+-${version}"
 build_style=gnu-configure
 build_helper="gir"
@@ -22,11 +22,11 @@ makedepends="at-spi2-atk-devel gdk-pixbuf-devel libepoxy-devel pango-devel
  $(vopt_if cloudproviders 'libcloudproviders-devel')"
 depends="gtk-update-icon-cache shared-mime-info $(vopt_if x11 'dbus-x11')"
 short_desc="GTK+ toolkit (v3)"
-maintainer="Rasmus Thomsen <rasmus.thomsen@protonmail.com>"
+maintainer="Rasmus Thomsen <oss@cogitri.dev>"
 license="LGPL-2.1-or-later"
 homepage="https://www.gtk.org/"
 distfiles="${GNOME_SITE}/gtk+/${version%.*}/gtk+-${version}.tar.xz"
-checksum=0be5fb0d302bc3de26ab58c32990d895831e2b7c7418d0ffea1206d6a3ddb02f
+checksum=666962de9b9768fe9ca785b0e2f42c8b9db3868a12fa9b356b167238d70ac799
 
 # Package build options
 build_options="broadway colord cups gir cloudproviders wayland x11"
@@ -34,13 +34,7 @@ desc_option_broadway="Enable support for the HTML5 Broadway backend"
 desc_option_cloudproviders="Enable integration with cloudproviders, such as Nextcloud"
 
 # Enable all options (other than cloudproviders) by default.
-build_options_default="colord cups broadway wayland x11"
-
-case "$XBPS_TARGET_MACHINE" in
-	x86_64-musl) build_options_default+=" gir" ;;
-	*-musl) ;;
-	*) build_options_default+=" gir" ;;
-esac
+build_options_default="colord cups gir broadway wayland x11"
 
 do_check() {
 	# Requires xserver running

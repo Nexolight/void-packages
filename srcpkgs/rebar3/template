@@ -1,8 +1,8 @@
 # Template file for 'rebar3'
 pkgname=rebar3
-version=3.9.0
+version=3.10.0
 revision=1
-noarch=yes
+archs=noarch
 hostmakedepends=erlang
 depends=erlang
 short_desc="Erlang build tool to compile, test, and release applications"
@@ -10,7 +10,7 @@ maintainer="Noel Cower <ncower@gmail.com>"
 license="Apache-2.0"
 homepage="https://www.rebar3.org/"
 distfiles="https://github.com/erlang/rebar3/archive/${version}.tar.gz"
-checksum=9ea73ce4e60ad4b3108641eae73b4098fadb510142e672ad8e3a793f57e9f992
+checksum=656b4a0bd75f340173e67a33c92e4d422b5ccf054f93ba35a9d780b545ee827e
 
 do_build() {
 	./bootstrap

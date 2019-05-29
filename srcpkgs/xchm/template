@@ -1,13 +1,18 @@
 # Template file for 'xchm'
 pkgname=xchm
-version=1.23
-revision=8
+version=1.29
+revision=1
 build_style=gnu-configure
 configure_args="--with-wx-config=wx-config-gtk3"
+hostmakedepends="automake gettext-devel"
 makedepends="libchmlib-devel wxWidgets-gtk3-devel"
-short_desc="The CHM viewer for Unix"
+short_desc="CHM viewer for Unix"
 maintainer="Leah Neukirchen <leah@vuxu.org>"
 license="GPL-2.0-or-later"
-homepage="http://xchm.sourceforge.net/"
-distfiles="${SOURCEFORGE_SITE}/${pkgname}/${pkgname}-${version}.tar.gz"
-checksum=8f8f5c60954f340e50f1613913eaca6ff489c10ca36b2570b360d8ccba77c062
+homepage="https://github.com/rzvncj/xCHM"
+distfiles="https://github.com/rzvncj/xCHM/releases/download/${version}/xchm-${version}.tar.gz"
+checksum=cea900cf4252c7f2f6736e48a4f639b0bad00fdce249aa55ebb6a44dcf976b0a
+
+pre_configure() {
+	autoreconf -fi
+}

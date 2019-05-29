@@ -7683,6 +7683,7 @@ jaxer-manager    4328/udp
 publiqare-sync   4329/tcp
 dey-sapi         4330/tcp
 ktickets-rest    4331/tcp
+getty-focus      4332/tcp
 ahsp             4333/tcp
 ahsp             4333/udp
 ahsp             4333/sctp
@@ -9754,6 +9755,7 @@ http-alt         8008/tcp
 http-alt         8008/udp
 nvme-disc        8009/tcp
 cfg-cloud        8015/tcp
+ads-s            8016/tcp
 qbdb             8019/tcp
 qbdb             8019/udp
 intu-ec-svcdisc  8020/tcp
@@ -10034,6 +10036,7 @@ truecm           8804/udp
 pfcp             8805/udp
 hes-clip         8807/udp
 ssports-bcast    8808/udp
+3gpp-monp        8809/udp
 dxspider         8873/tcp
 dxspider         8873/udp
 cddbp-alt        8880/tcp
@@ -11100,6 +11103,7 @@ exoconfig       26487/udp
 exonet          26489/tcp
 exonet          26489/udp
 flex-lmadmin    27010/tcp
+mongodb         27017/tcp
 imagepump       27345/tcp
 imagepump       27345/udp
 jesmsjc         27442/tcp
@@ -11386,7 +11390,7 @@ nimgtw          48003/tcp
 nimgtw          48003/udp
 nimbusdb        48004/tcp
 nimbusdbctrl    48005/tcp
-juliar          48048/tcp
+juka            48048/tcp
 3gpp-cbsp       48049/tcp
 weandsf         48050/tcp
 isnetserv       48128/tcp

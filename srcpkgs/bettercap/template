@@ -1,17 +1,17 @@
 # Template file for 'bettercap'
 pkgname=bettercap
-version=2.14
+version=2.24
 revision=1
 build_style=go
 go_import_path=github.com/bettercap/bettercap
 hostmakedepends="git pkg-config"
-makedepends="libpcap-devel libnetfilter_queue-devel"
+makedepends="libpcap-devel libnetfilter_queue-devel libusb-devel"
 short_desc="Network attack and monitoring framework"
 maintainer="Andrea Brancaleoni <abc@pompel.me>"
 license="GPL-3.0-only"
 homepage="https://github.com/bettercap/bettercap"
 distfiles="${homepage}/archive/v${version}.tar.gz"
-checksum=b5b7af09e587292541dbd84175523485220d171182959cf4cc51302792bfa338
+checksum=1dcdde99d3bbf887bea33047042daf554ed7bc876478f93d33a51d4fb9c771a5
 
 case "$XBPS_TARGET_MACHINE" in
 	x86_64-musl|i686) broken="fails to build" ;;

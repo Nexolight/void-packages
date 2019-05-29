@@ -1,15 +1,15 @@
 # Template file for 'linux4.14'
 pkgname=linux4.14
-version=4.14.98
+version=4.14.122
 revision=1
 patch_args="-Np1"
 wrksrc="linux-${version}"
 maintainer="Juan RP <xtraeme@voidlinux.org>"
 homepage="http://www.kernel.org"
 license="GPL-2.0-only"
-short_desc="The Linux kernel and modules (${version%.*} series)"
+short_desc="Linux kernel and modules (${version%.*} series)"
 distfiles="https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-${version}.tar.xz"
-checksum=8f021171b1b1efb41326e603116a45126fc030d06aaa9b0784ae612323010c5f
+checksum=c8a3f40ef877e18b3d2890e0954f2d81b6d012a7321836ca4e5b036ef93f68f5
 
 nodebug=yes  # -dbg package is generated below manually
 nostrip=yes
@@ -17,17 +17,12 @@ noverifyrdeps=yes
 noshlibprovides=yes
 preserve=yes
 
-only_for_archs="i686 i686-musl x86_64 x86_64-musl armv5tel armv5tel-musl armv7l armv7l-musl aarch64 aarch64-musl"
+archs="i686* x86_64* armv5tel* armv7l* aarch64*"
 hostmakedepends="bc elfutils-devel kmod libressl-devel perl uboot-mkimage gmp-devel libmpc-devel"
 
 _kernver="${version}_${revision}"
 triggers="kernel-hooks"
 kernel_hooks_version="${_kernver}"
-
-
-case "$XBPS_TARGET_MACHINE" in
-	*-musl) broken="https://build.voidlinux.org/builders/x86_64-musl_builder/builds/17191/steps/shell_3/logs/stdio";;
-esac
 
 # These files could be modified when an external module is built.
 mutable_files="

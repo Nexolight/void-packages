@@ -1,0 +1,15 @@
+# Template file for 'kodi-addon-inputstream-adaptive'
+pkgname=kodi-addon-inputstream-adaptive
+version=2.3.18
+revision=1
+wrksrc="inputstream.adaptive-${version}"
+build_style=cmake
+makedepends="kodi-devel kodi-platform-devel p8-platform-devel tinyxml-devel
+ expat-devel"
+short_desc="Kodi inputstream addon for several manifest types"
+maintainer="Helmut Pozimski <helmut@pozimski.eu>"
+license="GPL-2.0-or-later"
+homepage="https://github.com/peak3d/inputstream.adaptive"
+distfiles="https://github.com/peak3d/inputstream.adaptive/archive/${version}.tar.gz"
+checksum=11dab0e791c8fd6314adbf1bfb1b4f161889dd765c68d175bdebeb3e9b41b6c0
+nocross="depends on kodi-platform"

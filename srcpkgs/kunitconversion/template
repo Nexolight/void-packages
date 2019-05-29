@@ -1,16 +1,16 @@
 # Template file for 'kunitconversion'
 pkgname=kunitconversion
-version=5.55.0
+version=5.58.0
 revision=1
 build_style=cmake
-hostmakedepends="extra-cmake-modules qt5-host-tools ki18n-devel"
+hostmakedepends="kcoreaddons extra-cmake-modules qt5-host-tools ki18n-devel"
 makedepends="qt5-devel ki18n-devel"
 short_desc="KDE Converting physical units"
 maintainer="John <johnz@posteo.net>"
 license="LGPL-2.1-or-later"
 homepage="https://projects.kde.org/projects/frameworks/kunitconversion"
 distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=1830eb3b068f928b21d76b5c6117ba9b871074a6f1e68d830bdc9c5d6677acec
+checksum=5716474c4d031d9b5fdb3fe460957d4ceecd1d9c4e441df81a42bfbb993232fa
 
 kunitconversion-devel_package() {
 	short_desc+=" - development"

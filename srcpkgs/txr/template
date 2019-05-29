@@ -1,6 +1,6 @@
 # Template file for 'txr'
 pkgname=txr
-version=209
+version=216
 revision=1
 build_style=configure
 make_check_target=tests
@@ -10,7 +10,7 @@ maintainer="Oliver Kiddle <okiddle@yahoo.co.uk>"
 license="BSD-2-Clause"
 homepage="http://www.nongnu.org/txr/"
 distfiles="http://www.kylheku.com/cgit/txr/snapshot/${pkgname}-${version}.tar.bz2"
-checksum=b455f3b128124e019d41173dae0846def20bace123ce49b262033e5fe63243bc
+checksum=672408dbbf503493b352e4d8e62a61dfb42b7103e0216304030deb9fd86d9d1d
 
 if [ "$CROSS_BUILD" ]; then
 	hostmakedepends+=" txr"
@@ -31,4 +31,6 @@ pre_check() {
 
 post_install() {
 	vlicense LICENSE
+	vmkdir usr/share/vim/vimfiles/syntax
+	vcopy *.vim usr/share/vim/vimfiles/syntax/
 }

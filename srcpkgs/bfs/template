@@ -1,6 +1,6 @@
 # Template file for 'bfs'
 pkgname=bfs
-version=1.3.3
+version=1.4.1
 revision=1
 build_style=gnu-makefile
 makedepends="acl-devel libcap-devel"
@@ -9,7 +9,7 @@ maintainer="maxice8 <thinkabit.ukim@gmail.com>"
 license="0BSD"
 homepage="https://github.com/tavianator/bfs"
 distfiles="https://github.com/tavianator/bfs/archive/${version}.tar.gz"
-checksum=b61ae66ae7b0d7a7220a2f8ef3b6121d8fb5d1d155bd03c7e7b0067d061ae8ab
+checksum=d3ba0aa70e04e8768a83e40eaf3d61b57bbedff562d2d27825776caee9ebce2d
 
 post_install() {
 	vlicense COPYING

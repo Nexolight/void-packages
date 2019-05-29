@@ -1,17 +1,18 @@
 # Template file for 'kconfigwidgets'
 pkgname=kconfigwidgets
-version=5.55.0
+version=5.58.0
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
-hostmakedepends="extra-cmake-modules qt5-devel qt5-host-tools kdoctools"
-makedepends="qt5-devel kauth-devel kcodecs-devel kconfig-devel kguiaddons-devel kdoctools-devel ki18n-devel kwidgetsaddons-devel"
+hostmakedepends="kcoreaddons extra-cmake-modules qt5-devel qt5-host-tools kcoreaddons kdoctools"
+makedepends="qt5-devel kauth-devel kcodecs-devel kconfig-devel kguiaddons-devel
+ kdoctools-devel ki18n-devel kwidgetsaddons-devel"
 short_desc="KDE Widgets for configuration dialogs"
 maintainer="John <johnz@posteo.net>"
 license="LGPL-2.0-or-later"
 homepage="https://projects.kde.org/projects/frameworks/kconfigwidgets"
 distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=b3acbce98798eb5fe897fae671b898697b5ffdd2e357aa8d4750305abeb9ee5a
+checksum=8d68cf5618b7123a39e62a8ee52a01af7f95325b1d7b7bcac097c0d723c054c0
 
 kconfigwidgets-devel_package() {
 	short_desc+=" - development"

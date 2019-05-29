@@ -1,0 +1,14 @@
+# Template file for 'pim-data-exporter'
+pkgname=pim-data-exporter
+version=19.04.1
+revision=1
+build_style=cmake
+hostmakedepends="extra-cmake-modules kdoctools qt5-host-tools qt5-qmake
+ kcoreaddons kconfig"
+makedepends="mailcommon-devel calendarsupport-devel messagelib-devel"
+short_desc="Import and export KDE PIM settings"
+maintainer="John <johnz@posteo.net>"
+license="GPL-2.0-or-later"
+homepage="https://kontact.kde.org/"
+distfiles="${KDE_SITE}/applications/${version}/src/${pkgname}-${version}.tar.xz"
+checksum=0fa9e20ef67f64d5a9c967f4ea32a476438b23ab8405774035cd4584e6100ebd

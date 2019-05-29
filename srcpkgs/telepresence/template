@@ -1,8 +1,8 @@
 # Template file for 'telepresence'
 pkgname=telepresence
-version=0.97
+version=0.99
 revision=1
-noarch=yes
+archs=noarch
 build_style=python3-module
 pycompile_module="telepresence"
 hostmakedepends="python3-pip python3-setuptools git"
@@ -13,7 +13,7 @@ license="Apache-2.0"
 homepage="https://www.telepresence.io"
 changelog="https://raw.githubusercontent.com/telepresenceio/telepresence/master/docs/reference/changelog.md"
 distfiles="https://github.com/datawire/telepresence/archive/${version}.tar.gz"
-checksum=2e02c12eddcc35417e7cfb06781201b8fafae1be241befbb6f742b6e9be5ff69
+checksum=a2d3ec550412ccc29ccf12afabd88769eb452a82b88af801b31413a8c6d47685
 
 post_build() {
 	packaging/build-sshuttle.py

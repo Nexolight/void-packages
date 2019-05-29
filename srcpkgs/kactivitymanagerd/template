@@ -1,10 +1,10 @@
 # Template file for 'kactivitymanagerd'
 pkgname=kactivitymanagerd
-version=5.15.0
+version=5.15.5
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
-hostmakedepends="extra-cmake-modules qt5-qmake qt5-host-tools"
+hostmakedepends="extra-cmake-modules qt5-qmake qt5-host-tools kcoreaddons"
 makedepends="kio-devel boost-devel qt5-plugin-mysql qt5-plugin-odbc
  qt5-plugin-pgsql qt5-plugin-sqlite qt5-plugin-tds"
 short_desc="Manage user's activities and track the usage patterns"
@@ -12,7 +12,7 @@ maintainer="John <johnz@posteo.net>"
 license="GPL-2.0-or-later"
 homepage="https://projects.kde.org/projects/plasma/kactivitymanagerd"
 distfiles="${KDE_SITE}/plasma/${version}/${pkgname}-${version}.tar.xz"
-checksum=0d0f43a769d73c4c47574ae0fd0c638a73a1d07a4e5572bfb2e51ea78030d8d6
+checksum=e38ec9074e0bc5c1a21bd5eee97b7d99e6528186918e832fecf1e3f95da239db
 
 if [ "$CROSS_BUILD" ]; then
 	configure_args+=" -DRUN_RESULT_VAR=0"

@@ -1,15 +1,14 @@
 # Template file for 'kdialog'
 pkgname=kdialog
-version=18.12.2
+version=19.04.1
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
-hostmakedepends="extra-cmake-modules kdoctools python qt5-host-tools qt5-qmake"
+hostmakedepends="extra-cmake-modules kcoreaddons kdoctools python qt5-host-tools qt5-qmake"
 makedepends="kio-devel"
 short_desc="Utility for displaying dialog boxes from shell scripts"
 maintainer="Denis Revin <denis.revin@gmail.com>"
 license="GPL-2.0-or-later"
 homepage="https://projects.kde.org/projects/applications/kdialog"
 distfiles="${KDE_SITE}/applications/${version}/src/kdialog-${version}.tar.xz"
-checksum=47d9c6ff3cf06aaeb5c94a70d995ac4dcdf7c4aa06f0656923e96d9ee1c5c342
-conflicts="kde-baseapps"
+checksum=48e77dc4827af2445f8ac583bef319b7fd274f9b84a19635bf673801e96b259a

@@ -1,21 +1,23 @@
 # Template file for 'kdenlive'
 pkgname=kdenlive
-version=18.12.2
+version=19.04.1
 revision=1
 build_style=cmake
 hostmakedepends="
- extra-cmake-modules kconfig kdoctools pkg-config python3 qt5-host-tools
- qt5-qmake"
+ extra-cmake-modules kconfig kcoreaddons kdoctools pkg-config python3
+ qt5-host-tools qt5-qmake"
 makedepends="
- kfilemetadata5-devel knewstuff-devel knotifyconfig-devel kplotting-devel
- mlt-devel qt5-webkit-devel v4l-utils-devel"
-depends="breeze-icons dvdauthor ffmpeg frei0r-plugins kinit qt5-quickcontrols vlc"
+ kdeclarative-devel kfilemetadata5-devel knewstuff-devel knotifyconfig-devel
+ kplotting-devel mlt-devel qt5-multimedia-devel qt5-webkit-devel purpose-devel
+ v4l-utils-devel"
+depends="breeze-icons dvdauthor ffmpeg frei0r-plugins kinit qt5-quickcontrols
+ qt5-quickcontrols2 vlc"
 short_desc="Non-linear video editor"
 maintainer="johannes <johannes.brechtmann@gmail.com>"
 license="GPL-3.0-or-later"
 homepage="https://kdenlive.org"
 distfiles="${KDE_SITE}/applications/${version}/src/${pkgname}-${version}.tar.xz"
-checksum=47675eca0af26b4716aa587612f05364b6e49da47eb42e9f19d2fbd8aa236d16
+checksum=feb3202ee1aa0f47acc12ad7d6ca78977a4c9af0d705f8792ca2f8e3e6defbe5
 
 # needed for mlt to work on musl
 CXXFLAGS="-DHAVE_LOCALE_H=1"

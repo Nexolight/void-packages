@@ -1,6 +1,6 @@
 # Template file for 'nautilus'
 pkgname=nautilus
-version=3.30.5
+version=3.32.1
 revision=2
 build_style=meson
 build_helper="gir"
@@ -8,23 +8,19 @@ configure_args="-Dtests=headless -Dintrospection=$(vopt_if gir true false)"
 hostmakedepends="glib-devel libxslt pkg-config"
 makedepends="exempi-devel gnome-autoar-devel gnome-desktop-devel gtk+3-devel
  libexif-devel libgexiv2-devel libglib-devel libnotify-devel libseccomp-devel
- libX11-devel libxml2-devel tracker-devel"
-depends="desktop-file-utils gsettings-desktop-schemas hicolor-icon-theme"
+ libX11-devel libxml2-devel tracker-devel gst-plugins-base1-devel"
+depends="desktop-file-utils gsettings-desktop-schemas hicolor-icon-theme
+ tracker-miners tracker"
 checkdepends="tracker"
 short_desc="GNOME file manager"
-maintainer="Rasmus Thomsen <rasmus.thomsen@protonmail.com>"
+maintainer="Rasmus Thomsen <oss@cogitri.dev>"
 license="GPL-2.0-or-later, LGPL-2.1-or-later"
 homepage="https://wiki.gnome.org/Nautilus"
 distfiles="${GNOME_SITE}/${pkgname}/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=dbbe3f7c81ecbeab0c1c4be30100ac7ef359c093ef39f334f389a395fc259990
+checksum=fa54038f9d09e3c989ba82f501df99dfe5c4448e604f22e3a00305b26bdcb96e
 
 build_options="gir"
-
-case "$XBPS_TARGET_MACHINE" in
-	x86_64-musl) build_options_default+=" gir" ;;
-	*-musl) ;;
-	*) build_options_default+=" gir" ;;
-esac
+build_options_default="gir"
 
 libnautilus_package() {
 	short_desc+=" - shared libraries"

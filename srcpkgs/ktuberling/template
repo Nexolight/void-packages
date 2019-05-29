@@ -1,14 +1,14 @@
 # Template file for 'ktuberling'
 pkgname=ktuberling
-version=18.12.2
+version=19.04.1
 revision=1
 build_style=cmake
 hostmakedepends="extra-cmake-modules qt5-host-tools qt5-qmake kdoctools
- perl"
+ perl kcoreaddons"
 makedepends="libkdegames-devel kdelibs4support-devel qt5-multimedia-devel"
 short_desc="Simple constructor game"
 maintainer="Helmut Pozimski <helmut@pozimski.eu>"
 license="GPL-3.0-or-later"
 homepage="https://www.kde.org/applications/games/ktuberling"
 distfiles="${KDE_SITE}/applications/${version}/src/ktuberling-${version}.tar.xz"
-checksum=efd0dd890ee03f9ba8b9355530760e44d4d85b63fff3ef76d21670234bc9c840
+checksum=f8146ecbe3a1005871a589054b996d059e5ff08b9d7fdeaa06591ae0ab05b8cb

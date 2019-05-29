@@ -1,9 +1,10 @@
 # Template file for 'kmymoney'
 pkgname=kmymoney
-version=5.0.3
+version=5.0.4
 revision=1
 build_style=cmake
-configure_args="-DDESKTOPTOJSON_EXECUTABLE=/usr/bin/desktoptojson"
+configure_args="-DDESKTOPTOJSON_EXECUTABLE=/usr/bin/desktoptojson
+ -DBUILD_TESTING=OFF"
 hostmakedepends="extra-cmake-modules kconfig kcoreaddons kdoctools pkg-config
  python qt5-host-tools qt5-qmake"
 makedepends="akonadi5-devel aqbanking-devel gmp-devel gmpxx-devel gpgmeqt-devel
@@ -17,7 +18,7 @@ maintainer="Helmut Pozimski <helmut@pozimski.eu>"
 license="GPL-2.0-or-later"
 homepage="https://kmymoney.org"
 distfiles="${KDE_SITE}/kmymoney/${version}/src/${pkgname}-${version}.tar.xz"
-checksum=698c0fc7ef2134c5c120a98b10f033e14dc37bff723b562c3b50a018c6ebdbf8
+checksum=1829bd921c59d310e8da37c26fe81616235edef0b50aadedf20cad44e1568b1a
 
 if [ "$CROSS_BUILD" ]; then
 	configure_args+=" -DENABLE_LIBICAL=0"

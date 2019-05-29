@@ -1,17 +1,17 @@
 # Template file for 'kconfig'
 pkgname=kconfig
-version=5.55.0
+version=5.58.0
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
-hostmakedepends="extra-cmake-modules qt5-host-tools qt5-tools-devel"
+hostmakedepends="kcoreaddons extra-cmake-modules qt5-host-tools qt5-tools-devel"
 makedepends="qt5-devel qt5-tools-devel"
 short_desc="KDE Persistent platform-independent application settings"
 maintainer="John <johnz@posteo.net>"
 license="LGPL-2.0-only, LGPL-2.0-or-later, LGPL-2.1-or-later"
 homepage="https://projects.kde.org/projects/frameworks/kconfig"
 distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=4a566842d566e9904d1478fa428cbf8b1caf49efe142ae237f24a4c16e64fa19
+checksum=6f464a63079f43f11deb7f1661dadaa12539b8a8c75e3fa7476dae8ab6886a5e
 
 kconfig-devel_package() {
 	short_desc+=" - development"

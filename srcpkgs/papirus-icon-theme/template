@@ -1,14 +1,14 @@
 # Template file for 'papirus-icon-theme'
 pkgname=papirus-icon-theme
-version=20190203
+version=20190521
 revision=1
-noarch=yes
+archs=noarch
 short_desc="SVG icon theme for Linux, based on Paper Icon Set"
 maintainer="Giuseppe Fierro <gspe@ae-design.ws>"
 license="GPL-3.0-or-later"
 homepage="https://github.com/PapirusDevelopmentTeam/papirus-icon-theme"
 distfiles="https://github.com/PapirusDevelopmentTeam/${pkgname}/archive/${version}.tar.gz"
-checksum=78e4ece96b050e81c18d3af9068dc049dd3dedb2246b4a370df7f2145e46645a
+checksum=608f3172bce36d684416c51397c5f2e84b91e755c5382b1ad81daf1946cb5acf
 
 do_install() {
 	vmkdir usr/share/icons

@@ -1,17 +1,17 @@
 # Template file for 'kparts'
 pkgname=kparts
-version=5.55.0
+version=5.58.0
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
-hostmakedepends="extra-cmake-modules"
+hostmakedepends="kcoreaddons extra-cmake-modules"
 makedepends="kio-devel"
 short_desc="KDE Plugin framework for user interface components"
 maintainer="John <johnz@posteo.net>"
 license="LGPL-2.1-or-later"
 homepage="https://projects.kde.org/projects/frameworks/kparts"
 distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=c5406995f66f7a901dedf028c46b56937e3f14c1520c1bde8228aa36b77d133f
+checksum=6fe1ca552f14dd262cf33e60d0c85536ca04617757e39f91dbfe061abf624bb4
 
 if [ "$CROSS_BUILD" ]; then
 	hostmakedepends+=" qt5-host-tools qt5-qmake python"

@@ -1,26 +1,28 @@
 # Template file for 'nomad'
 pkgname=nomad
-version=0.8.7
+version=0.9.1
 revision=1
 build_style=go
-go_import_path="github.com/hashicorp/nomad"
-hostmakedepends="git govendor"
+go_import_path="github.com/hashicorp/${pkgname}"
+go_build_tags="ui release"
+_git_commit=23c4597dbb6d1d46e020301b0f63db5cff80d3f0
+go_ldflags="-X ${go_import_path}/version.GitCommit=${_git_commit}"
+hostmakedepends="git"
 short_desc="Cluster scheduler designed to easily integrate into existing workflows"
 maintainer="iaroki <iaroki@protonmail.com>"
 license="MPL-2.0"
 homepage="https://www.nomadproject.io/"
 distfiles="https://${go_import_path}/archive/v${version}.tar.gz"
-checksum=f74eac627de69190e586358b1956573a0ae1a40d0755ecdee163016949f9c7fe
+checksum=19da9f2bcc4c521b777a7889ed2c1a28182d2048e134a56099ff54e9fb6c2347
 patch_args="-Np1"
 
-pre_build() {
-	# NOTE: This can probably be removed in nomad 0.9.x if Hashicorp updates
-	# their golang.org/x/crypto/blake2b dependency.
-	cd "$GOSRCPATH"
-	govendor fetch golang.org/x/sys/cpu@1b2967e3c290b7c545b3db0deeda16e9be4f98a2
-	govendor fetch golang.org/x/crypto/blake2b@de0752318171da717af4ce24d0a2e8626afaeb11
-	cd -
-}
+case "$XBPS_MACHINE" in
+	i686*) broken="yarn is broken on i686" ;;
+esac
+
+case "$XBPS_TARGET_MACHINE" in
+	*-musl) go_build_tags+=" nonvidia" ;;
+esac
 
 post_install() {
 	vlicense LICENSE

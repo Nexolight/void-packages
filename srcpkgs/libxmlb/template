@@ -1,6 +1,6 @@
 # Template file for 'libxmlb'
 pkgname=libxmlb
-version=0.1.6
+version=0.1.8
 revision=2
 build_style=meson
 build_helper="gir"
@@ -13,15 +13,14 @@ maintainer="maxice8 <thinkabit.ukim@gmail.com>"
 license="LGPL-2.1-or-later"
 homepage="https://github.com/hughsie/libxmlb"
 distfiles="https://github.com/hughsie/libxmlb/archive/${version}.tar.gz"
-checksum=3f45d438d112809c21de1abc91ef5edd65e689868f13ebf16be050a7c3f91ab3
+checksum=ed0ccede0cda9bcf76598f945d34be218840f60520e3e4fe508fca2b5e8e1d3f
 
 build_options="gir"
+build_options_default="gir"
 
-case "$XBPS_TARGET_MACHINE" in
-	x86_64-musl) build_options_default+=" gir" ;;
-	*-musl) ;;
-	*) build_options_default+=" gir" ;;
-esac
+post_install() {
+	rm -rf "${DESTDIR}"/usr/share/installed-tests
+}
 
 libxmlb-devel_package() {
 	depends="libxmlb-${version}_${revision} libglib-devel libuuid-devel"

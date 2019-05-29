@@ -1,7 +1,7 @@
 # Template file for 'python-PyICU'
 pkgname=python-PyICU
-version=2.2
-revision=3
+version=2.3.1
+revision=1
 wrksrc="PyICU-${version}"
 build_style=python-module
 pycompile_module="icu PyICU.py"
@@ -14,7 +14,7 @@ license="MIT"
 homepage="https://github.com/ovalhub/pyicu"
 changelog="https://raw.githubusercontent.com/ovalhub/pyicu/master/CHANGES"
 distfiles="${PYPI_SITE}/P/PyICU/PyICU-${version}.tar.gz"
-checksum=ea6ae8bb6845e2e145cf03cd80cf258487b80fca3669ae8a7bf0c5105df10973
+checksum=ddb2b453853b4c25db382bc5e8c4cde09b3f4696ef1e1494f8294e174f459cf4
 
 do_check() {
 	python3 setup.py test

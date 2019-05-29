@@ -1,6 +1,6 @@
 # Template file for 'radeon-profile'
 pkgname=radeon-profile
-version=20190211
+version=20190311
 revision=1
 build_wrksrc=radeon-profile
 build_style=qmake
@@ -10,8 +10,8 @@ maintainer="SolitudeSF <solitudesf@protonmail.com>"
 license="GPL-2.0-or-later"
 homepage="https://github.com/marazmista/radeon-profile"
 distfiles="${homepage}/archive/${version}.tar.gz"
-checksum=1578c02950624c2a64bb016abc95368147fd386c798fc76b34ef2cd59f232df6
+checksum=0347705897900c100f320c487befe6e1e56ba2f53b93dbecc166bbd3e9434a78
 
 if [ "$CROSS_BUILD" ]; then
-	hostmakedepends="qt5-qmake qt5-charts-devel"
+	hostmakedepends+=" qt5-qmake qt5-charts-devel"
 fi

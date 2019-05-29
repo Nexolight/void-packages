@@ -1,18 +1,18 @@
 # Template file for 'mailcommon'
 pkgname=mailcommon
-version=18.12.2
+version=19.04.1
 revision=1
 build_style=cmake
 hostmakedepends="extra-cmake-modules kconfig libxslt qt5-qmake
  qt5-host-tools python kgendesignerplugin"
 makedepends="mailimporter-devel messagelib-devel kdesignerplugin-devel
- pimcommon-devel libkleo-devel"
+ pimcommon-devel libkleo-devel qt5-multimedia-devel"
 short_desc="KDE PIM library providing support for mail applications"
 maintainer="John <johnz@posteo.net>"
 license="GPL-2.0-or-later, LGPL-2.1-or-later"
 homepage="https://community.kde.org/KDE_PIM"
 distfiles="${KDE_SITE}/applications/${version}/src/mailcommon-${version}.tar.xz"
-checksum=95dd65f57ac8b0ad98aa73c08dc9de1cda2f30c1c051d37ea82e1ddc0d4dd800
+checksum=37b06e85e74d6ef1801485b8d99529fde5ca11bb446c231a6f5406e99f9c4d0f
 
 mailcommon-devel_package() {
 	depends="${sourcepkg}>=${version}_${revision} ${makedpends}"

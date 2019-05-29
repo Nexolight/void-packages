@@ -8,8 +8,11 @@ generic_wrapper() {
 	[ ! -x ${XBPS_CROSS_BASE}/usr/bin/${wrapper} ] && return 0
 	[ -x ${XBPS_WRAPPERDIR}/${wrapper} ] && return 0
 
-	echo "#!/bin/sh" >> ${XBPS_WRAPPERDIR}/${wrapper}
-	echo "exec ${XBPS_CROSS_BASE}/usr/bin/${wrapper} --prefix=${XBPS_CROSS_BASE}/usr \"\$@\"" >> ${XBPS_WRAPPERDIR}/${wrapper}
+	cat >>${XBPS_WRAPPERDIR}/${wrapper}<<_EOF
+#!/bin/sh
+exec ${XBPS_CROSS_BASE}/usr/bin/${wrapper} --prefix=${XBPS_CROSS_BASE}/usr "\$@"
+_EOF
+
 	chmod 755 ${XBPS_WRAPPERDIR}/${wrapper}
 }
 
@@ -173,6 +176,7 @@ hook() {
 	generic_wrapper2 mysql_config
 	generic_wrapper2 taglib-config
 	generic_wrapper2 nspr-config
+	generic_wrapper2 gdal-config
 	generic_wrapper3 libpng-config
 	generic_wrapper3 xmlrpc-c-config
 	generic_wrapper3 krb5-config

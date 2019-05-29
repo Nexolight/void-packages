@@ -1,17 +1,17 @@
 # Template file for 'kidletime'
 pkgname=kidletime
-version=5.55.0
+version=5.58.0
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
-hostmakedepends="pkg-config extra-cmake-modules qt5-host-tools qt5-x11extras-devel"
+hostmakedepends="kcoreaddons pkg-config extra-cmake-modules qt5-host-tools qt5-x11extras-devel"
 makedepends="qt5-x11extras-devel libXScrnSaver-devel"
 short_desc="Framework for detection and notification of device idle time"
 maintainer="John <johnz@posteo.net>"
 license="LGPL-2.0-or-later"
 homepage="https://projects.kde.org/projects/frameworks/kidletime"
 distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=2f34d71383ed038318a21dddab7de71a8d67f80df430dba174ee43c90cfc06cf
+checksum=86d8c4ff13b864c07f98d0475683838708c43e4ba6275e05f21766e2a79cfd90
 
 kidletime-devel_package() {
 	short_desc+=" - development"

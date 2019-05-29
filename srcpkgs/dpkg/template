@@ -1,6 +1,6 @@
 # Template file for 'dpkg'
 pkgname=dpkg
-version=1.19.4
+version=1.19.6
 revision=1
 build_style=gnu-configure
 configure_args="--disable-start-stop-daemon --with-libz --with-libbz2
@@ -14,7 +14,7 @@ maintainer="Juan RP <xtraeme@voidlinux.org>"
 license="GPL-2.0-or-later"
 homepage="http://packages.debian.org/dpkg"
 distfiles="${DEBIAN_SITE}/main/d/dpkg/dpkg_${version}.tar.xz"
-checksum=c15234e98655689586bff2d517a6fdc6135d139c54d52ae9cfa6a90007fee0ae
+checksum=4eb1a12d1f5bd55478d2eab530dd188733e425f301e3b8c030f645f48ef43768
 
 dpkg-devel_package() {
 	short_desc+=" - development files"

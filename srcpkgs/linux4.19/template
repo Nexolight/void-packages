@@ -1,14 +1,14 @@
 # Template file for 'linux4.19'
 pkgname=linux4.19
-version=4.19.20
-revision=2
+version=4.19.46
+revision=1
 wrksrc="linux-${version}"
-short_desc="The Linux kernel and modules (${version%.*} series)"
+short_desc="Linux kernel and modules (${version%.*} series)"
 maintainer="Helmut Pozimski <helmut@pozimski.eu>"
 license="GPL-2.0-only"
 homepage="https://www.kernel.org"
 distfiles="https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-${version}.tar.xz"
-checksum=dc7d2776dad4bf738e741ed05e7d1bea685855cfb7a62d1706f5f7aeabfa04a4
+checksum=097b52fe8a872259f4a3dba571b2eaf7b9863d9cde5399c6b316dec0ef57e67a
 patch_args="-Np1"
 
 nodebug=yes  # -dbg package is generated below manually
@@ -17,7 +17,7 @@ noverifyrdeps=yes
 noshlibprovides=yes
 preserve=yes
 
-only_for_archs="i686 i686-musl x86_64 x86_64-musl armv5tel armv5tel-musl armv6l armv6l-musl armv7l armv7l-musl aarch64 aarch64-musl ppc64le ppc64le-musl ppc64-musl"
+archs="i686* x86_64* arm* aarch64* ppc*"
 hostmakedepends="bc elfutils-devel flex gmp-devel kmod libmpc-devel libressl-devel perl uboot-mkimage"
 
 _kernver="${version}_${revision}"
@@ -52,6 +52,7 @@ do_configure() {
 		aarch64*) arch=arm64;;
 		ppc64le*) arch=powerpc; subarch=ppc64le;;
 		ppc64*) arch=powerpc; subarch=ppc64;;
+		ppc*) arch=powerpc;;
 	esac
 
 	if [ "$CROSS_BUILD" ]; then
@@ -86,7 +87,7 @@ do_build() {
 		x86_64*) _args="bzImage modules"; arch=x86_64;;
 		arm*) _args="zImage modules dtbs"; arch=arm;;
 		aarch64*) _args="Image modules dtbs"; arch=arm64;;
-		ppc64*) _args="zImage modules"; arch=powerpc;;
+		ppc*) _args="zImage modules"; arch=powerpc;;
 	esac
 	if [ "$CROSS_BUILD" ]; then
 		_cross="CROSS_COMPILE=${XBPS_CROSS_TRIPLET}-"
@@ -106,7 +107,7 @@ do_install() {
 		x86_64*) arch=x86; subarch=x86_64;;
 		arm*) arch=arm;;
 		aarch64*) arch=arm64;;
-		ppc64*) arch=powerpc;;
+		ppc*) arch=powerpc;;
 	esac
 
 	# Run depmod after compressing modules.

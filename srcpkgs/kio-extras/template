@@ -1,21 +1,21 @@
 # Template file for 'kio-extras'
 pkgname=kio-extras
-version=18.12.2
+version=19.04.1
 revision=1
 build_style=cmake
-configure_args="-DBUILD_TESTING=OFF -DDESKTOPTOJSON_EXECUTABLE=/usr/bin/desktoptojson"
+configure_args="-DBUILD_TESTING=OFF"
 hostmakedepends="extra-cmake-modules pkg-config gperf qt5-qmake qt5-host-tools
  python kdoctools kcoreaddons kio"
 makedepends="kdesignerplugin-devel kactivities5-devel kdelibs4support-devel
  kdnssd-devel khtml-devel kpty-devel exiv2-devel libmtp-devel
  libopenexr-devel samba-devel taglib-devel qt5-webengine-devel qt5-webchannel-devel
- qt5-location-devel"
+ qt5-location-devel syntax-highlighting-devel"
 short_desc="Additional KIO components"
 maintainer="Denis Revin <denis.revin@gmail.com>"
 license="GPL-2.0-or-later, LGPL-2.0-or-later"
 homepage="https://cgit.kde.org/kio-extras.git"
-distfiles="${KDE_SITE}/applications/${version}/src/${pkgname}-${version}.tar.xz"
-checksum=16f76a1130fbfe01d3b72f15b1a5be763c9341e424b253b9025f6c6aa3beab45
+distfiles="${KDE_SITE}/applications/${version}/src/kio-extras-${version}.tar.xz"
+checksum=ddf389a50142211566124ba902bb9f6b2988b1b94fefed7620a6ec421e3ff0bd
 
 if [ -z "$CROSS_BUILD" ]; then
 	makedepends+=" libssh-devel"

@@ -1,6 +1,6 @@
 # Template file for 'gxi'
 pkgname=gxi
-version=0.5.1
+version=0.6.2
 revision=1
 build_style=meson
 build_helper=rust
@@ -8,19 +8,11 @@ hostmakedepends="cargo pkg-config rust gettext"
 makedepends="gtk+3-devel rust-std gettext-devel"
 checkdepends="appstream-glib desktop-file-utils"
 short_desc="GTK frontend for the xi text editor, written in Rust"
-maintainer="Rasmus Thomsen <rasmus.thomsen@protonmail.com>"
+maintainer="Rasmus Thomsen <oss@cogitri.dev>"
 license="MIT"
 homepage="https://github.com/Cogitri/gxi"
 distfiles="https://github.com/Cogitri/gxi/releases/download/v${version}/gxi-${version}.tar.xz"
-checksum=300a596afbdc9e743d439bcb91b7757615c5c82ccf7a53e02f36fdf7968dc24c
-
-case "$XBPS_TARGET_MACHINE" in
-	*-musl) broken="Fails to run subcommand" ;;
-esac
-
-if [ "$CROSS_BUILD" ]; then
-	configure_args+="-Drust-target=${RUST_TARGET}"
-fi
+checksum=28437dd81aed863f96666f8f4f608a1c76b1f82db103518fe22f08fca7973e87
 
 post_install() {
 	vlicense LICENSE

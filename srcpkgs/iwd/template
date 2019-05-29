@@ -1,11 +1,11 @@
 # Template file for 'iwd'
 pkgname=iwd
-version=0.14
-revision=2
+version=0.17
+revision=1
 build_style=gnu-configure
 configure_args="--disable-systemd-service --enable-docs --enable-pie
- --enable-external-ell"
-hostmakedepends="asciidoc pkg-config"
+ --enable-external-ell --enable-dbus-policy --enable-wired"
+hostmakedepends="asciidoc pkg-config automake libtool"
 makedepends="readline-devel dbus-devel ell-devel"
 depends="dbus"
 checkdepends="python3"
@@ -14,9 +14,13 @@ maintainer="maxice8 <thinkabit.ukim@gmail.com>"
 license="LGPL-2.1-or-later"
 homepage="https://iwd.wiki.kernel.org/"
 distfiles="${KERNEL_SITE}/network/wireless/iwd-${version}.tar.xz"
-checksum=c4258b5789a8074a2dfdc33ed5f02415b62ff1ce0b7cba636402883933d6a643
+checksum=3eda38305738a7992c03a02d29423bc5eaf5e76247bb45ae1dad8fd261e4f4d6
 make_dirs="/var/lib/iwd 0600 root root
  /etc/iwd 755 root root"
+
+pre_configure() {
+	autoreconf -fi
+}
 
 post_install() {
 	vsconf doc/main.conf

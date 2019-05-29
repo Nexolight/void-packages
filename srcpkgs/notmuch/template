@@ -1,15 +1,15 @@
 # Template file for 'notmuch'
 pkgname=notmuch
-version=0.28.1
+version=0.28.4
 revision=1
-hostmakedepends="perl pkg-config python-Sphinx python-devel python3-Sphinx python3-devel"
+hostmakedepends="perl pkg-config python-devel python3-Sphinx python3-devel"
 makedepends="bash-completion gmime3-devel talloc-devel xapian-core-devel"
 short_desc="Thread-based email index, search, and tagging"
 maintainer="Jan S. <jan.schreib@gmail.com>"
 license="GPL-3.0-or-later"
 homepage="https://notmuchmail.org"
 distfiles="https://notmuchmail.org/releases/notmuch-${version}.tar.gz"
-checksum=d111e938137d5a465afc2b133d14df1fa356537d9ce752c919fe5673f3749a55
+checksum=bab1cabb0542ce2bd4b41a15b84a8d81c8dc3332162705ded6f311dd898656ca
 
 subpackages="libnotmuch libnotmuch-devel notmuch-mutt notmuch-python notmuch-python3"
 
@@ -67,7 +67,7 @@ libnotmuch-devel_package() {
 }
 
 notmuch-emacs_package() {
-	noarch=yes
+	archs=noarch
 	short_desc+=" - Emacs interface"
 	depends="${sourcepkg}-${version}_${revision} virtual?emacs"
 	pkg_install() {
@@ -76,7 +76,7 @@ notmuch-emacs_package() {
 }
 
 notmuch-mutt_package() {
-	noarch=yes
+	archs=noarch
 	short_desc+=" - Mutt interface"
 	depends="${sourcepkg}-${version}_${revision} perl-Mail-Box perl-MailTools
 	 perl-String-ShellQuote perl-Term-ReadLine-Gnu perl-File-Which"
@@ -87,7 +87,7 @@ notmuch-mutt_package() {
 }
 
 notmuch-python_package() {
-	depends="libnotmuch-devel>=${version}_${revision}"
+	depends="libnotmuch>=${version}_${revision}"
 	short_desc+=" - Python2 bindings"
 	pycompile_module="notmuch"
 	pkg_install() {
@@ -96,7 +96,7 @@ notmuch-python_package() {
 }
 
 notmuch-python3_package() {
-	depends="libnotmuch-devel>=${version}_${revision}"
+	depends="libnotmuch>=${version}_${revision}"
 	short_desc+=" - Python3 bindings"
 	pycompile_module="notmuch"
 	pkg_install() {

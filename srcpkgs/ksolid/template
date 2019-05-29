@@ -1,11 +1,11 @@
 # Template file for 'ksolid'
 pkgname=ksolid
-version=5.55.0
+version=5.58.0
 revision=1
 wrksrc="${pkgname#k}-${version}"
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
-hostmakedepends="pkg-config flex extra-cmake-modules qt5-host-tools
+hostmakedepends="kcoreaddons pkg-config flex extra-cmake-modules qt5-host-tools
  qt5-tools-devel qt5-declarative-devel"
 makedepends="qt5-tools-devel qt5-declarative-devel"
 depends="upower udisks2 media-player-info"
@@ -14,7 +14,7 @@ maintainer="John <johnz@posteo.net>"
 license="LGPL-2.1-or-later"
 homepage="https://projects.kde.org/projects/frameworks/solid"
 distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname#k}-${version}.tar.xz"
-checksum=f68a9b56342313d641abc251dbb1cfdeb6a095be7bf9fdb1a864e0405e29bca1
+checksum=7d7f2daaffe8536ee9373375b866c94b949e58f0365990dfe16f9cc05f98bd00
 
 ksolid-devel_package() {
 	short_desc+=" - development"

@@ -23,6 +23,7 @@ packages for XBPS, the `Void Linux` native packaging system.
 		* [Repositories defined by Branch](#repo_by_branch)
 		* [Package defined repositories](#pkg_defined_repo)
 	* [Checking for new upstream releases](#updates)
+	* [Handling patches](#patches)
 	* [Build style scripts](#build_scripts)
 	* [Build helper scripts](#build_helper)
 	* [Functions](#functions)
@@ -31,6 +32,7 @@ packages for XBPS, the `Void Linux` native packaging system.
 	* [INSTALL and REMOVE files](#install_remove_files)
 	* [INSTALL.msg and REMOVE.msg files](#install_remove_files_msg)
 	* [Creating system accounts/groups at runtime](#runtime_account_creation)
+	* [Writing runit services](#writing_runit_services)
 	* [32bit packages](#32bit_pkgs)
 	* [Subpackages](#pkgs_sub)
 	* [Development packages](#pkgs_development)
@@ -146,6 +148,9 @@ the `distfiles` variable or `do_fetch()` function.
 - `extract` This phase extracts the `distfiles` files into `$wrksrc` or executes the `do_extract()`
 function, which is the directory to be used to compile the `source package`.
 
+- `patch` This phase applies all patches in the patches directory of the package and
+can be used to perform other operations before configuring the package.
+
 - `configure` This phase executes the `configuration` of a `source package`, i.e `GNU configure scripts`.
 
 - `build` This phase compiles/prepares the `source files` via `make` or any other compatible method.
@@ -210,7 +215,7 @@ a package providing the executable named `<name>` and the module named
 language prefix can be dropped. Short names for languages are no valid substitute
 for the language prefix.
 
-Example: python-pam, perl-URI, python-pyside
+Example: python-pam, perl-URI, python3-pyside2
 
 <a id="language_bindings"></a>
 #### Language Bindings
@@ -300,11 +305,13 @@ The following functions are defined by `xbps-src` and can be used on any templat
 	`$DESTDIR`. The optional 2nd argument can be used to change the
 	`file name`.
 
-- *vlicense()* `vlicense <file> [<name>]`
+- <a id="vlicense"></a>
+ *vlicense()* `vlicense <file> [<name>]`
 
 	Installs `file` into `usr/share/licenses/<pkgname>` in the pkg
 	`$DESTDIR`. The optional 2nd argument can be used to change the
-	`file name`. Note: Non-`GPL` licenses, `MIT`, `BSD` and `ISC` require the
+	`file name`. Note: Custom licenses,
+	non-`GPL` licenses, `MIT`, `BSD` and `ISC` require the
 	license file to	be supplied with the binary package.
 
 - *vsv()* `vsv <service>`
@@ -382,8 +389,9 @@ The list of mandatory variables for a template:
 
 - `homepage` A string pointing to the `upstream` homepage.
 
-- `license` A string matching the license's [SPDX Short identifier](https://spdx.org/licenses)
-Multiple licenses should be separated by commas, Example: `GPL-3.0-or-later, LGPL-2.1-only`.
+- `license` A string matching the license's [SPDX Short identifier](https://spdx.org/licenses),
+or string prefixed with `custom:` for licenses not listed there (see [vlicense](#vlicense)).
+Multiple licenses should be separated by commas, Example: `GPL-3.0-or-later, custom:Hugware`.
 
 - `maintainer` A string in the form of `name <user@domain>`.  The
   email for this field must be a valid email that you can be reached
@@ -482,12 +490,6 @@ set to `${pkgname}-${version}`.
 - `create_wrksrc` Enable it to create the `${wrksrc}` directory. Required if a package
 contains multiple `distfiles`.
 
-- `only_for_archs` This expects a separated list of architectures where
-the package can be built matching `uname -m` output. Reserved for uses
-where the program really only will ever work on certain architectures, like
-binaries sources or when the program is written in assembly. Example:
-`only_for_archs="x86_64 armv6l"`.
-
 - `build_style` This specifies the `build method` for a package. Read below to know more
 about the available package `build methods` or effect of leaving this not set.
 
@@ -533,7 +535,7 @@ if `${build_style}` is set to `configure`, `gnu-configure` or `gnu-makefile`
 build methods. By default set to `install`.
 
 - `patch_args` The arguments to be passed in to the `patch(1)` command when applying
-patches to the package sources after `do_extract()`. Patches are stored in
+patches to the package sources during `do_patch()`. Patches are stored in
 `srcpkgs/<pkgname>/patches` and must be in `-p0` format. By default set to `-Np0`.
 
 - `disable_parallel_build` If set the package won't be built in parallel
@@ -561,9 +563,6 @@ Example: `conf_files="/etc/foo.conf /etc/foo2.conf /etc/foo/*.conf"`.
   itself contain spaces. `make_dirs="/dir 0750 user group"`. User and group and
   mode are required on every line, even if they are `755 root root`. By
   convention, there is only one entry of `dir perms user group` per line.
-
-- `noarch` If set, the binary package is not architecture specific and can be shared
-by all supported architectures.
 
 - `repository` Defines the repository in which the package will be placed. See
   *Repositories* for a list of valid repositories.
@@ -631,14 +630,14 @@ A list is composed of three components separated by a colon: group, symlink and 
 Example: `alternatives="vi:/usr/bin/vi:/usr/bin/nvi ex:/usr/bin/ex:/usr/bin/nvi-ex"`.
 
 - `font_dirs` A white space separated list of directories specified by an absolute path where a
-font package installs its fonts.  
+font package installs its fonts.
 It is used in the `x11-fonts` xbps-trigger to rebuild the font cache during install/removal
-of the package.  
+of the package.
 Example: `font_dirs="/usr/share/fonts/TTF /usr/share/fonts/X11/misc"`
 
 - `dkms_modules` A white space separated list of Dynamic Kernel Module Support (dkms) modules
 that will be installed and removed by the `dkms` xbps-trigger with the install/removal of the
-package.  
+package.
 The format is a white space separated pair of strings that represent the name of the module,
 most of the time `pkgname`, and the version of the module, most of the time `version`.
 Example: `dkms_modules="$pkgname $version zfs 4.14"`
@@ -663,6 +662,22 @@ user's booting and module loading. Otherwise in the majority of cases it should 
 used.
 
 - `fetch_cmd` Executable to be used to fetch URLs in `distfiles` during the `do_fetch` phase.
+
+- `archs` Whitespace separated list of architectures that a package can be
+built for, available architectures can be found under `common/cross-profiles`
+alongside the `noarch` value for packages that do not contain any machine code.
+Examples:
+
+	```
+	# Build package only for musl architectures
+	archs="*-musl"
+	# Build package for x86_64-musl and any non-musl architecture
+	archs="x86_64-musl ~*-musl"
+	# Default value (all arches)
+	archs="*"
+	# Packages that do not depend on architecture-specific objects
+	archs=noarch
+	```
 
 <a id="explain_depends"></a>
 #### About the many types of `depends` variable.
@@ -747,6 +762,41 @@ versions.  Example: `ignore="*b*"`
 - `version` is the version number used to compare against
 upstream versions. Example: `version=${version//./_}`
 
+- `single_directory` can be set to disable
+detecting directory containing one version of sources in url,
+then searching new version in adjacent directories.
+
+- `vdprefix` is a perl-compatible regular expression matching
+part that precedes numeric part of version directory
+in url. Defaults to `(|v|$pkgname)[-_.]*`.
+
+- `vdsuffix` is a perl-compatible regular expression matching
+part that follows numeric part of version directory
+in url. Defaults to `(|\.x)`.
+
+<a id="patches"></a>
+### Handling patches
+
+Sometimes software needs to be patched, most commonly to fix bugs that have
+been found or to fix compilation with new software.
+
+To handle this, xbps-src has patching functionality. It will look for all files
+that match the glob `srcpkgs/$pkgname/patches/*.{diff,patch}` and will
+automatically apply all files it finds using `patch(1)` with `-Np0`. This happens
+during the `do_patch()` phase. The variable `PATCHESDIR` is
+available in the template, pointing to the `patches` directory.
+
+The patching behaviour can be changed in the following ways:
+
+- A file called `series` can be created in the `patches` directory with a newline
+separated list of patches to be applied in the order presented. When present
+xbps-src will only apply patches named in the `series` file.
+
+- A file with the same name as one of the patches but with `.args` as extension can
+be used to set the args passed to `patch(1)`. As an example, if `foo.patch` requires
+special arguments to be passed to `patch(1)` that can't be used when applying other
+patches, `foo.patch.args` can be created containing those args.
+
 <a id="build_scripts"></a>
 ### build style scripts
 
@@ -800,7 +850,7 @@ depend on additional packages. This build style does not install
 dependencies to the root directory, and only checks if a binary package is
 available in repositories. If your meta-package doesn't include any files
 which thus have and require no license, then you should also set
-`license="metapackage"`.
+`license="BSD-2-Clause"`.
 
 - `R-cran` For packages that are available on The Comprehensive R Archive
 Network (CRAN). The build style requires the `pkgname` to start with
@@ -816,9 +866,9 @@ can be used to pass arguments during compilation. If your package does not make 
 extensions consider using the `gem` build style instead.
 
 - `gem` For packages that are installed using gems from [RubyGems](https://rubygems.org/).
-The gem command can be overridden by `gem_cmd`. `noarch` is set unconditionally and `distfiles`
-is set by the build style if the template does not do so. If your gem provides extensions which
-must be compiled consider using the `gemspec` build style instead.
+The gem command can be overridden by `gem_cmd`. `archs` is set to `noarch` unconditionally
+and `distfiles` is set by the build style if the template does not do so. If your gem
+provides extensions which must be compiled consider using the `gemspec` build style instead.
 
 - `ruby-module` For packages that are ruby modules and are installable via `ruby install.rb`.
 Additional install arguments can be specified via `make_install_args`.
@@ -875,7 +925,12 @@ The current list of available `build_helper` scripts is the following:
 for compiling cargo -sys crates.
 
 - `gir` specifies dependencies for native and cross builds to deal with
-GObject Introspection
+GObject Introspection. The following variables may be set in the template to handle
+cross builds which require additional hinting or exhibit problems. `GIR_EXTRA_LIBS_PATH` defines
+additional paths to be searched when linking target binaries to be introspected.
+`GIR_EXTRA_OPTIONS` defines additional options for the `g-ir-scanner-qemuwrapper` calling
+`qemu-<target_arch>-static` when running the target binary. You can for example specify
+`GIR_EXTRA_OPTIONS="-strace"` to see a trace of what happens when running that binary.
 
 <a id="functions"></a>
 ### Functions
@@ -883,13 +938,25 @@ GObject Introspection
 The following functions can be defined to change the behavior of how the
 package is downloaded, compiled and installed.
 
+- `pre_fetch()` Actions to execute before `do_fetch()`.
+
 - `do_fetch()` if defined and `distfiles` is not set, use it to fetch the required sources.
+
+- `post_fetch()` Actions to execute after `do_fetch()`.
+
+- `pre_extract()` Actions to execute after `post_fetch()`.
 
 - `do_extract()` if defined and `distfiles` is not set, use it to extract the required sources.
 
 - `post_extract()` Actions to execute after `do_extract()`.
 
-- `pre_configure()` Actions to execute after `post_extract()`.
+- `pre_patch()` Actions to execute after `post_extract()`.
+
+- `do_patch()` if defined use it to prepare the build environment and run hooks to apply patches.
+
+- `post_patch()` Actions to execute after `do_patch()`.
+
+- `pre_configure()` Actions to execute after `post_patch()`.
 
 - `do_configure()` Actions to execute to configure the package; `${configure_args}` should
 still be passed in if it's a GNU configure script.
@@ -912,6 +979,17 @@ still be passed in if it's a GNU configure script.
 
 > A function defined in a template has preference over the same function
 defined by a `build_style` script.
+
+Current working directory for functions is set as follows:
+
+- For pre_fetch, pre_extract, do_clean: `<masterdir>`.
+
+- For do_fetch, post_fetch: `XBPS_BUILDDIR`.
+
+- For do_extract, post_extract, pre_patch, do_patch, post_patch: `wrksrc`.
+
+- For pre_configure through post_install: `build_wrksrc`
+if it is defined, otherwise `wrksrc`.
 
 <a id="build_options"></a>
 ### Build options
@@ -1145,6 +1223,45 @@ accounts.
 > NOTE: The underscore policy does not apply to old packages, due to the inevitable breakage of
 > changing the username only new packages should follow it.
 
+<a id="writing_runit_services"></a>
+### Writing runit services
+
+Void Linux uses [runit](http://smarden.org/runit/) for booting and supervision of services.
+
+Most information about how to write them can be found in their
+[FAQ](http://smarden.org/runit/faq.html#create). The following are guidelines specific to
+Void Linux on how to write services.
+
+If the service daemon supports CLI flags, consider adding support for changing it via the
+`OPTS` variable by reading a file called `conf` in the same directory as the daemon.
+
+```sh
+#!/bin/sh
+[ -r conf ] && . ./conf
+exec daemon ${OPTS:- --flag-enabled-by-default}
+```
+
+If the service requires the creation of a directory under `/run` or its link `/var/run`
+for storing runtime information (like Pidfiles) write it into the service file. It
+is advised to use `install` if you need to create it with specific permissions instead
+of `mkdir -p`.
+
+```sh
+#!/bin/sh
+install -d -m0700 /run/foo
+exec foo
+```
+
+```sh
+#!/bin/sh
+install -d -m0700 -o bar -g bar /run/bar
+exec bar
+```
+
+If the service requires directories in parts of the system that are not generally in
+temporary filesystems. Then use the `make_dirs` variable in the template to create
+those directories when the package is installed.
+
 <a id="32bit_pkgs"></a>
 ### 32bit packages
 
@@ -1265,7 +1382,7 @@ type used to split architecture independent, big(ger) or huge amounts
 of data from a package's main and architecture dependent part. It is up
 to you to decide, if a `-data` subpackage makes sense for your package.
 This type is common for games (graphics, sound and music), part libraries (CAD)
-or card material (maps). Data subpackages are almost always `noarch=yes`.
+or card material (maps). Data subpackages are almost always `archs=noarch`.
 The main package must then have `depends="${pkgname}-data-${version}_${revision}"`,
 possibly in addition to other, non-automatic depends.
 
@@ -1392,7 +1509,7 @@ The following variables influence how Haskell packages are built:
 Font packages are very straightforward to write, they are always set with the
 following variables:
 
-- `noarch=yes`: Font packages don't install arch specific files.
+- `archs=noarch`: Font packages don't install arch specific files.
 - `depends="font-util"`: because they are required for regenerating the font
 cache during the install/removal of the package
 - `font_dirs`: which should be set to the directory where the package
@@ -1429,17 +1546,17 @@ the source of those patches/files.
 pkgname=$pkgname
 version=$version
 revision=$((revision + 1))
-noarch=yes
+archs=noarch
 build_style=meta
 short_desc="${short_desc} (removed package)"
-license="metapackage"
+license="BSD-2-Clause"
 homepage="${homepage}"
 ```
 
 - Add (or replace) the INSTALL.msg with the following:
 
 ```
-$pkgname is no longer provided by Void Linux, and will be fully removed from the repos on $(date -d '+3 months' '+%Y/%m/%d')
+$pkgname is no longer provided by Void Linux, and will be fully removed from the repos on $(date -d '+3 months' '+%F')
 ```
 
 - After the specified time remove the package from the repository index

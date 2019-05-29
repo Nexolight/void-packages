@@ -1,6 +1,6 @@
 # Template file for 'milou'
 pkgname=milou
-version=5.15.0
+version=5.15.5
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
@@ -12,9 +12,9 @@ maintainer="John <johnz@posteo.net>"
 license="GPL-2.0-or-later, LPGL-2.1-or-later"
 homepage="https://projects.kde.org/projects/plasma/milou"
 distfiles="${KDE_SITE}/plasma/${version}/${pkgname}-${version}.tar.xz"
-checksum=37f8f6f81916318182fe57a2ed3bfbd03a6505a1b6bbc773b05fbacad076d721
+checksum=2740cbfae30483c402471349f4d1315b98edf054827ec70980bb966cd6b3fcf9
 
 if [ "$CROSS_BUILD" ]; then
-	hostmakedepends+=" kconfig-devel kcoreaddons-devel plasma-framework"
+	hostmakedepends+=" kpackage-devel kconfig-devel kcoreaddons-devel plasma-framework"
 	configure_args+=" -DKF5_HOST_TOOLING=/usr/lib/cmake"
 fi

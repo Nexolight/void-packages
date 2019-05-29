@@ -1,16 +1,16 @@
 # Template file for 'akonadi-import-wizard'
 pkgname=akonadi-import-wizard
-version=18.12.2
+version=19.04.1
 revision=1
 build_style=cmake
-hostmakedepends="extra-cmake-modules kdoctools qt5-host-tools qt5-qmake"
+hostmakedepends="extra-cmake-modules kcoreaddons kdoctools qt5-host-tools qt5-qmake"
 makedepends="mailcommon-devel mailimporter-devel messagelib-devel"
 short_desc="Import data from other mail clients to KMail"
 maintainer="John <johnz@posteo.net>"
 license="GPL-2.0-or-later, LGPL-2.1-or-later"
 homepage="https://community.kde.org/KDE_PIM"
 distfiles="${KDE_SITE}/applications/${version}/src/${pkgname}-${version}.tar.xz"
-checksum=e9d26776414376c6cf5bc4e547271d9770c44c5718b1ae0bae27f68d4a817137
+checksum=2699ca57ea6a04228875dd795255fd32a1120e2e5c4834290aea3270c43403e7
 
 akonadi-import-wizard-devel_package() {
 	depends="${sourcepkg}>=${version}_${revision}"

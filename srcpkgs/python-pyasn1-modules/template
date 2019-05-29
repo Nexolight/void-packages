@@ -1,8 +1,8 @@
 # Template file for 'python-pyasn1-modules'
 pkgname=python-pyasn1-modules
-version=0.2.4
+version=0.2.5
 revision=1
-noarch=yes
+archs=noarch
 wrksrc="${pkgname#*-}-${version}"
 build_style=python-module
 pycompile_module="pyasn1_modules"
@@ -14,7 +14,7 @@ maintainer="Peter Bui <pbui@github.bx612.space>"
 license="BSD-2-Clause"
 homepage="https://github.com/etingof/pyasn1-modules"
 distfiles="${PYPI_SITE}/p/pyasn1-modules/pyasn1-modules-${version}.tar.gz"
-checksum=a52090e8c5841ebbf08ae455146792d9ef3e8445b21055d3a3b7ed9c712b7c7c
+checksum=ef721f68f7951fab9b0404d42590f479e30d9005daccb1699b0a51bb4177db96
 
 do_check() {
 	python setup.py test
@@ -26,7 +26,7 @@ post_install() {
 }
 
 python3-pyasn1-modules_package() {
-	noarch=yes
+	archs=noarch
 	depends="python3-pyasn1"
 	pycompile_module="pyasn1_modules"
 	short_desc="${short_desc/Python2/Python3}"

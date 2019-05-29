@@ -1,6 +1,6 @@
 # Template file for 'kodi'
 pkgname=kodi
-version=18.0
+version=18.2
 revision=2
 _codename="Leia"
 wrksrc="xbmc-${version}-${_codename}"
@@ -11,13 +11,13 @@ maintainer="Helmut Pozimski <helmut@pozimski.eu>"
 license="GPL-2.0-or-later"
 homepage="http://www.kodi.tv"
 distfiles="https://github.com/xbmc/xbmc/archive/${version}-${_codename}.tar.gz"
-checksum=ac5d64d59c6f4811b41a869538506e56c342b530fac97ad9dc9715f3d480e633
+checksum=07b8cffc396473523a51354dc95dfffb54a6a456b82cda7ad67dc2c052d99f64
 patch_args="-Np1"
 LDFLAGS+=" -Wl,-z,stack-size=1048576"
 
 lib32disabled=yes
-only_for_archs="i686 i686-musl x86_64 x86_64-musl aarch64 aarch64-musl
- ppc64le ppc64le-musl ppc64-musl"
+archs="i686* x86_64* aarch64*
+ ppc64*"
 
 hostmakedepends="
  automake libtool pkg-config gperf cmake zip unzip nasm yasm python-devel
@@ -34,7 +34,7 @@ makedepends="
  taglib-devel libcap-devel lame-devel libbluray-devel libnfs-devel ffmpeg-devel
  giflib-devel libxslt-devel gnutls-devel libssh-devel libmicrohttpd-devel
  libcec-devel dcadec-devel crossguid flatbuffers-devel fmt-devel lcms2-devel
- libfstrcmp-devel rapidjson ffmpeg-devel"
+ libfstrcmp-devel rapidjson libcdio-paranoia"
 
 # The following dependencies are dlopen(3)ed.
 depends="libbluray libmad libvorbis libcurl libflac libmodplug libass libmpeg2
@@ -110,8 +110,11 @@ post_build() {
 	fi
 }
 
-post_install() {
-	# remove unused stuff
-	rm -rf ${DESTDIR}/usr/include
-	find ${DESTDIR}/usr/lib -name "*.cmake" -delete
+kodi-devel_package() {
+	short_desc+=" - development files"
+	depends="${sourcepkg}>=${version}_${revision}"
+	pkg_install() {
+		vmove usr/include
+		vmove usr/share/kodi/cmake
+	}
 }

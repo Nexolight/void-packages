@@ -1,8 +1,8 @@
 # Template file for 'python3-aiorpcx'
 pkgname=python3-aiorpcx
-version=0.10.4
+version=0.11.0
 revision=1
-noarch=yes
+archs=noarch
 wrksrc="aiorpcX-${version}"
 build_style=python3-module
 pycompile_module="aiorpcx"
@@ -15,7 +15,7 @@ license="MIT"
 homepage="https://github.com/kyuupichan/aiorpcX"
 # missing license in PyPI tarball
 distfiles="https://github.com/kyuupichan/aiorpcX/archive/${version}.tar.gz"
-checksum=df79b7a321043ce5e12f91ad197d6187cf5b0c6f85506d323ad8b44e330104a1
+checksum=87d1a297b9cfbb57a1c3ac4d06da5d3d114d1e751b2a9e81e9c82b04420dda5c
 
 do_check() {
 	python3 -m pytest

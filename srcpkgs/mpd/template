@@ -1,14 +1,14 @@
 # Template file for 'mpd'
 pkgname=mpd
-version=0.21.4
-revision=4
+version=0.21.9
+revision=2
 build_style=meson
 configure_args="-Dopus=enabled -Dmikmod=enabled -Dneighbor=true
  -Dsoundcloud=enabled -Dpipe=true -Dtwolame=enabled -Dbzip2=enabled
  -Dzzip=enabled -Dsmbclient=disabled -Dsystemd=disabled -Dqobuz=disabled
  -Dchromaprint=disabled -Dsoxr=enabled -Dshout=disabled -Dadplug=disabled
  -Dfluidsynth=disabled -Dgme=disabled -Dwildmidi=disabled -Dsidplay=disabled
- -Dshine=disabled -Ddocumentation=true -Daudiofile=enabled
+ -Dshine=disabled -Ddocumentation=true -Daudiofile=enabled -Dtremor=disabled
  -Djack=$(vopt_if jack enabled disabled) -Dlame=$(vopt_if lame enabled disabled)
  -Dao=$(vopt_if ao enabled disabled) -Dmpcdec=$(vopt_if mpcdec enabled disabled)
  -Dsndio=$(vopt_if sndio enabled disabled) -Dpulse=$(vopt_if pulseaudio enabled disabled)
@@ -28,12 +28,12 @@ makedepends="avahi-glib-libs-devel boost-devel faad2-devel ffmpeg-devel
  $(vopt_if wavpack 'wavpack-devel') $(vopt_if soxr 'libsoxr-devel')
  $(vopt_if openal 'libopenal-devel')"
 short_desc="Flexible, powerful, server-side application for playing music"
-maintainer="Juan RP <xtraeme@voidlinux.org>"
+maintainer="maxice8 <thinkabit.ukim@gmail.com>"
 license="GPL-2.0-or-later"
 homepage="https://www.musicpd.org/"
 changelog="https://raw.githubusercontent.com/MusicPlayerDaemon/MPD/v${version}/NEWS"
 distfiles="https://www.musicpd.org/download/mpd/${version%.*}/mpd-${version}.tar.xz"
-checksum=247112eabf1b818a4052db7f0f5917ab00831ebc60a1ec3bf1154da4dc16a5c7
+checksum=39e25376ac2f4db26c3d074eba2ebeba10879a29c71abab33571019c1e520d3e
 LDFLAGS+=" -Wl,-z,stack-size=1048576"
 
 system_accounts="mpd"

@@ -1,7 +1,7 @@
 # Template file for 'libhandy'
 pkgname=libhandy
-version=0.0.7
-revision=1
+version=0.0.9
+revision=2
 wrksrc="libhandy-v${version}"
 build_style=meson
 build_helper="gir"
@@ -12,20 +12,15 @@ configure_args="-Dexamples=false -Dtests=false $(vopt_bool vala vapi)
 hostmakedepends="glib-devel pkg-config $(vopt_if vala vala-devel)"
 makedepends="gtk+3-devel libglib-devel $(vopt_if glade glade3-devel)"
 short_desc="Library full of GTK+ widgets for mobile phones"
-maintainer="Rasmus Thomsen <rasmus.thomsen@protonmail.com>"
+maintainer="Rasmus Thomsen <oss@cogitri.dev>>"
 license="LGPL-2.0-or-later"
 homepage="https://source.puri.sm/Librem5/libhandy"
 distfiles="https://source.puri.sm/Librem5/libhandy/-/archive/v${version}/libhandy-v${version}.tar.gz"
-checksum=3464d4f508b4d2d9bdf351d6dccda1ef5bdeb62526ee8ce3a6377aaed2b4ca91
+checksum=a9f3c06eaa482efabc1d00dd2df65dc7d41253a71c0cb0402328a831a4f398a3
 
 build_options="gir vala glade"
 desc_option_glade="Generate glade modules and catalog files"
-
-case "$XBPS_TARGET_MACHINE" in
-	x86_64-musl) build_options_default+=" gir vala glade" ;;
-	*-musl) ;;
-	*) build_options_default+=" gir vala glade" ;;
-esac
+build_options_default="gir vala glade"
 
 libhandy-devel_package() {
 	depends="${sourcepkg}>=${version}_${revision} gtk+3-devel"

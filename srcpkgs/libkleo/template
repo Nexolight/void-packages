@@ -1,16 +1,17 @@
 # Template file for 'libkleo'
 pkgname=libkleo
-version=18.12.2
+version=19.04.1
 revision=1
 build_style=cmake
-hostmakedepends="extra-cmake-modules python qt5-qmake qt5-host-tools"
+hostmakedepends="extra-cmake-modules python qt5-qmake qt5-host-tools
+ kcoreaddons"
 makedepends="kitemmodels-devel kpimtextedit-devel gpgmeqt-devel gpgmepp-devel"
 short_desc="KDE PIM cryptographic library"
 maintainer="John <johnz@posteo.net>"
 license="GPL-2.0-or-later, LGPL-2.1-or-later"
 homepage="https://community.kde.org/KDE_PIM"
 distfiles="${KDE_SITE}/applications/${version}/src/libkleo-${version}.tar.xz"
-checksum=d88049fd5f4af3c52424ea0c4e01b41bad18cd3eb229bb6ead2a7022d104a60a
+checksum=a75084129e44028ff3f7742cdcb1800df94845d8c6ace38389da317144fa0529
 
 libkleo-devel_package() {
 	depends="${sourcepkg}>=${version}_${revision} ${makedepends}"

@@ -1,6 +1,6 @@
 # Template file for 'gssdp'
 pkgname=gssdp
-version=1.0.3
+version=1.2.0
 revision=2
 build_style=meson
 build_helper="gir"
@@ -13,16 +13,11 @@ maintainer="Juan RP <xtraeme@voidlinux.org>"
 license="LGPL-2.1-or-later"
 homepage="https://wiki.gnome.org/action/show/Projects/GUPnP"
 distfiles="${GNOME_SITE}/gssdp/${version%.*}/gssdp-${version}.tar.xz"
-checksum=211387a62bc1d99821dd0333d873a781320287f5436f91e58b2ca145b378be41
+checksum=22cbef547f522f0b062933e302482ebdb397e2f3703899757562ddffbbfd00d1
 
 # Package build options
 build_options="gir vala"
-
-case "$XBPS_TARGET_MACHINE" in
-	x86_64-musl) build_options_default+=" gir vala" ;;
-	*-musl) ;;
-	*) build_options_default+=" gir vala" ;;
-esac
+build_options_default="gir vala"
 
 gssdp-devel_package() {
 	depends="libsoup-devel gssdp>=${version}_${revision}"

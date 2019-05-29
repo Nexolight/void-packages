@@ -1,17 +1,17 @@
 # Template file for 'kxmlgui'
 pkgname=kxmlgui
-version=5.55.0
+version=5.58.0
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
-hostmakedepends="extra-cmake-modules qt5-qmake qt5-host-tools python"
+hostmakedepends="kcoreaddons extra-cmake-modules kcoreaddons qt5-qmake qt5-host-tools python"
 makedepends="kglobalaccel-devel ktextwidgets-devel attica-devel"
 short_desc="KDE Framework for managing menu and toolbar actions"
 maintainer="John <johnz@posteo.net>"
 license="LGPL-2.0-or-later, LGPL-2.1-or-later"
 homepage="https://projects.kde.org/projects/frameworks/kxmlgui"
 distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=963dd83e7898946933b0ea3d0b70afba910d63ce4b2074ee664c0797d53f065e
+checksum=ab08ed118f6806154fe10414d81dace413ecf80df3a561811f41879b48b7179f
 
 kxmlgui-devel_package() {
 	short_desc+=" - development"

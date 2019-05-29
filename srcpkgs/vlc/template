@@ -1,7 +1,7 @@
 # Template file for 'vlc'
 pkgname=vlc
 version=3.0.6
-revision=5
+revision=8
 build_style=gnu-configure
 configure_args="--disable-gme --disable-libtar --enable-jack
  --enable-live555 --disable-fluidsynth --enable-dvdread
@@ -30,7 +30,7 @@ makedepends="
  libSM-devel libsysfs-devel libtheora-devel libupnp1.8-devel
  libXinerama-devel libXpm-devel libXvMC-devel opus-devel pulseaudio-devel
  sndio-devel speex-devel taglib-devel wayland-protocols x264-devel
- xcb-util-devel xcb-util-keysyms-devel live555-devel
+ xcb-util-devel xcb-util-keysyms-devel live555-devel libdvdread-devel
  $(vopt_if notify libnotify-devel) $(vopt_if opengl MesaLib-devel)
  $(vopt_if qt qt5-x11extras-devel) $(vopt_if qt qt5-svg-devel)
  $(vopt_if v4l2 v4l-utils-devel) $(vopt_if smb samba-devel)
@@ -47,6 +47,11 @@ case "$XBPS_TARGET_MACHINE" in
 	i686*|x86_64*|ppc64*)
 		# Enable x265, opengl and samba by default on x86 and ppc64.
 		build_options_default+=" vaapi vdpau opengl"
+		;;
+	ppc|ppc-musl)
+		# Disable altivec on ppc and enable opengl
+		configure_args+=" --disable-altivec"
+		build_options_default+=" opengl"
 		;;
 	armv[67]l*)
 		# XXX only for rpi
