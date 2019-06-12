@@ -11,7 +11,7 @@ depends="
  qubes-core-agent-linux-4.0.41_2
  qubes-core-qubesdb-4.0.10_1
  qubes-linux-utils-dkms-4.0.22_1
- qubes-gui-agent-linux-4.0.20_1
+ qubes-gui-agent-linux-4.0.23_1
  qubes-app-linux-usb-proxy-1.0.19_1
  qubes-app-linux-split-gpg-2.0.34_1
 "
