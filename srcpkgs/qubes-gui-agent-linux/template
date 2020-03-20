@@ -1,14 +1,14 @@
 # Template file for 'qubes-gui-agent-linux'
 pkgname=qubes-gui-agent-linux
 version=4.0.23
-revision=1
+revision=2
 build_style=gnu-makefile
 hostmakedepends="pkg-config"
 makedepends="patch automake autoconf libltdl-devel pam-devel
  pulseaudio-devel xorg-server-devel xorg-util-macros libXcomposite-devel
  qubes-gui-common-devel qubes-core-vchan-xen-devel qubes-core-qubesdb libXt libtool git"
 depends="xinit libXcomposite zenity qubes-core-vchan-xen xcb-proto xorg-server
- qubes-vmm-xen alsa-lib alsa-utils alsa-plugins-pulseaudio pulseaudio elogind xcffib pam"
+ alsa-lib alsa-utils alsa-plugins-pulseaudio pulseaudio elogind xcffib pam"
 short_desc="The Qubes GUI Agent for AppVMs xcffib"
 maintainer="nexolight <snow.dream.ch@gmail.com>"
 license="GPL"

@@ -1,11 +1,11 @@
 # Template file for 'qubes-core-agent-linux'
 pkgname=qubes-core-agent-linux
 version=4.0.41
-revision=2
+revision=3
 build_style=gnu-makefile
 make_build_args="PKG_CONFIG_PATH=/usr/lib/pkgconfig BACKEND_VMM=xen C_INCLUDE_PATH=/usr/include/vchan-xen:${C_INCLUDE_PATH}"
 hostmakedepends="pandoc"
-makedepends="qubes-core-vchan-xen-devel qubes-linux-utils qubes-vmm-xen libX11-devel python python3 pam-devel pkg-config python-setuptools python-pip"
+makedepends="qubes-core-vchan-xen-devel qubes-linux-utils xen-devel libX11-devel python python3 pam-devel pkg-config python-setuptools python-pip"
 depends="qubes-core-vchan-xen qubes-core-qubesdb python python-xdg ethtool ntp net-tools ImageMagick fakeroot notification-daemon dconf zenity haveged python-gobject python-dbus xdg-utils gawk sed procps-ng librsvg socat gnome-keyring gnome-settings-daemon python python-setuptools iptables NetworkManager e2fsprogs iproute2"
 short_desc="The qubes qrexec agent"
 maintainer="nexolight <snow.dream.ch@gmail.com>"

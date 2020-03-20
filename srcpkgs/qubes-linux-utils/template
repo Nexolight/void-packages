@@ -1,11 +1,11 @@
 # Template file for 'qubes-linux-utils'
 pkgname=qubes-linux-utils
 version=4.0.22
-revision=1
+revision=2
 build_style=gnu-configure
 hostmakedepends="pkg-config"
-makedepends="python-setuptools python3-setuptools qubes-vmm-xen qubes-core-vchan-xen-devel"
-depends="qubes-vmm-xen ImageMagick python-cairo python-Pillow python-numpy python3-Pillow python3-numpy qubes-core-vchan-xen fork-wrapper"
+makedepends="python-setuptools python3-setuptools qubes-core-vchan-xen-devel xen-devel"
+depends="ImageMagick python-cairo python-Pillow python-numpy python3-Pillow python3-numpy qubes-core-vchan-xen fork-wrapper"
 short_desc="Essential utilities when using a vm as Qube"
 maintainer="nexolight <snow.dream.ch@gmail.com>"
 license="GPL"

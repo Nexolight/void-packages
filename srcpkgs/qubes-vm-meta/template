@@ -1,17 +1,16 @@
 # Template file for 'qubes-vm-meta'
 pkgname=qubes-vm-meta
 version=1.0.0
-revision=15
+revision=17
 build_style=meta
 hostmakedepends=""
 makedepends=""
 depends="
- qubes-vmm-xen-4.8.4_6
- qubes-core-vchan-xen-4.0.5_1
- qubes-core-agent-linux-4.0.41_2
+ qubes-core-vchan-xen-4.0.5_2
+ qubes-core-agent-linux-4.0.41_3
  qubes-core-qubesdb-4.0.10_1
- qubes-linux-utils-dkms-4.0.22_1
- qubes-gui-agent-linux-4.0.23_1
+ qubes-linux-utils-dkms-4.0.22_2
+ qubes-gui-agent-linux-4.0.23_2
  qubes-app-linux-usb-proxy-1.0.19_1
  qubes-app-linux-split-gpg-2.0.34_1
 "

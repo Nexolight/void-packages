@@ -1,13 +1,13 @@
 # Template file for 'qubes-core-vchan-xen'
 pkgname=qubes-core-vchan-xen
 version=4.0.5
-revision=1
+revision=2
 build_style=gnu-configure
 make_build_args="all"
 make_install_args=""
 hostmakedepends=""
-makedepends="qubes-vmm-xen"
-depends="qubes-vmm-xen"
+makedepends="xen-devel"
+depends="xen"
 short_desc="The Qubes core libs for installation inside a Qube"
 maintainer="nexolight <snow.dream.ch@gmail.com>"
 license="GPL"

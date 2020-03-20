@@ -8,7 +8,7 @@ hostmakedepends="pkg-config"
 makedepends="make gcc patch bin86 dev86 yajl-devel libressl-devel pixman-devel autoconf git gnupg
  automake liblzma-devel acpica-utils ncurses-devel libaio-devel lzo-devel e2fsprogs-devel
  zlib-devel gnutls-devel libbluetooth-devel pciutils-devel libX11-devel libXext-devel SDL-devel
- MesaLib-devel python-devel libuuid-devel libglib-devel flex bison"
+ MesaLib-devel python-devel libuuid-devel libglib-devel flex bison gettext"
 depends="python bridge-utils python-lxml lzo yajl"
 conflicts="xen"
 short_desc="The utils to install on a qubes vm"
