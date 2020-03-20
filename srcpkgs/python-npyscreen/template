@@ -1,14 +1,14 @@
 # Template file for 'python-npyscreen'
 pkgname=python-npyscreen
 version=4.10.5.1
-revision=1
+revision=2
 wrksrc="npyscreen-${version}"
 build_style=python-module
 hostmakedepends="python-setuptools python3-setuptools"
 pycompile_module="npyscreen"
 depends="python"
 short_desc="Python2 widget library and application framework for TUIs"
-maintainer="maxice8 <thinkabit.ukim@gmail.com>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="BSD-2-Clause"
 homepage="https://github.com/bad-day/npyscreen"
 distfiles="https://github.com/bad-day/npyscreen/archive/${version}.tar.gz"

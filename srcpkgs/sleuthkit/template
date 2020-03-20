@@ -1,6 +1,6 @@
 # Template file for 'sleuthkit'
 pkgname=sleuthkit
-version=4.6.6
+version=4.8.0
 revision=1
 wrksrc="${pkgname}-${pkgname}-${version}"
 build_style=gnu-configure
@@ -13,10 +13,10 @@ maintainer="Leah Neukirchen <leah@vuxu.org>"
 license="GPL-2.0-only, IPL-1.0, CPL-1.0"
 homepage="https://www.sleuthkit.org/"
 distfiles="https://github.com/sleuthkit/${pkgname}/archive/${pkgname}-${version}.tar.gz"
-checksum=ec469d9a385ef5e2dd5fef53ba828ba1f841a3639b1049da24bcfde3cde9a094
+checksum=2228b1fed467fc104a14922adf0199b06f63eb39ee1a6af03c0480bbff777e11
 
 post_extract() {
-	sed -i 's/daddr_t/uint32_t/g' tools/srchtools/sigfind.cpp
+	sed -i 's:sys/fcntl.h:fcntl.h:g' tsk/fs/tsk_fs_i.h
 }
 
 pre_configure() {

@@ -1,15 +1,16 @@
 # Template file for 'alsa-lib'
 pkgname=alsa-lib
-version=1.1.9
+version=1.2.2
 revision=1
 build_style=gnu-configure
-hostmakedepends="pkg-config"
-short_desc="The Advanced Linux Sound Architecture (ALSA) library"
-maintainer="Juan RP <xtraeme@voidlinux.org>"
+hostmakedepends="pkg-config libtool"
+short_desc="Advanced Linux Sound Architecture (ALSA) library"
+maintainer="Anthony Iliopoulos <ailiop@altatus.com>"
 license="LGPL-2.1-or-later"
 homepage="http://www.alsa-project.org"
-distfiles="ftp://ftp.alsa-project.org/pub/lib/${pkgname}-${version}.tar.bz2"
-checksum=488373aef5396682f3a411a6d064ae0ad196b9c96269d0bb912fbdeec94b994b
+distfiles="https://www.alsa-project.org/files/pub/lib/${pkgname}-${version}.tar.bz2"
+checksum=d8e853d8805574777bbe40937812ad1419c9ea7210e176f0def3e6ed255ab3ec
+patch_args="-Np1"
 
 alsa-lib-devel_package() {
 	depends="${sourcepkg}>=${version}_${revision}"

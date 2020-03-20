@@ -20,7 +20,7 @@
    MemoryAllocatorDump* outer_dump = pmd->CreateAllocatorDump("malloc");
 --- qtwebengine/src/3rdparty/chromium/base/process/process_metrics_posix.cc	2017-11-28 14:06:53.000000000 +0100
 +++ qtwebengine/src/3rdparty/chromium/base/process/process_metrics_posix.cc	2018-01-27 20:48:11.571040348 +0100
-@@ -94,7 +94,7 @@
+@@ -100,14 +100,14 @@
    malloc_statistics_t stats = {0};
    malloc_zone_statistics(nullptr, &stats);
    return stats.size_in_use;
@@ -29,14 +29,12 @@
    struct mallinfo minfo = mallinfo();
  #if defined(USE_TCMALLOC)
    return minfo.uordblks;
---- qtwebengine/src/3rdparty/chromium/content/child/content_child_helpers.cc	2017-11-28 14:06:53.000000000 +0100
-+++ qtwebengine/src/3rdparty/chromium/content/child/content_child_helpers.cc	2018-01-28 06:23:14.891238507 +0100
-@@ -25,7 +25,7 @@
- // though, this provides only a partial and misleading value.
- // Unfortunately some telemetry benchmark rely on it and these need to
- // be refactored before getting rid of this. See crbug.com/581365 .
--#if defined(OS_LINUX) || defined(OS_ANDROID)
-+#if defined(__GLIBC__) || defined(OS_ANDROID)
- size_t GetMemoryUsageKB() {
-   struct mallinfo minfo = mallinfo();
-   uint64_t mem_usage =
+ #else
+   return minfo.hblkhd + minfo.arena;
+ #endif
+-#elif defined(OS_FUCHSIA)
++#else //if defined(OS_FUCHSIA) // also musl doesn't do this.
+   // TODO(fuchsia): Not currently exposed. https://crbug.com/735087.
+   return 0;
+ #endif
+

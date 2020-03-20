@@ -1,6 +1,6 @@
 # Template file for 'eom'
 pkgname=eom
-version=1.22.0
+version=1.24.0
 revision=1
 build_style=gnu-configure
 build_helper="gir"
@@ -10,16 +10,11 @@ makedepends="dbus-glib-devel exempi-devel libexif-devel libpeas-devel
  librsvg-devel mate-desktop-devel mate-icon-theme"
 depends="dbus mate-icon-theme"
 short_desc="MATE image viewer"
-maintainer="Juan RP <xtraeme@voidlinux.org>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="GPL-2.0-or-later"
 homepage="https://mate-desktop.org"
 distfiles="https://pub.mate-desktop.org/releases/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=d4e4014216fd8c5a22fc4755484c45e6b2155e5e5af9018c4f7721826e5c7b24
-
-case "$XBPS_TARGET_MACHINE" in
-	x86_64-musl) ;;
-	*-musl) broken="gobject-introspection" ;;
-esac
+checksum=e7ac1a98d127009130b30fe84841359c2ea7a84a4130b5819f8b8c226e8dfd7f
 
 eom-devel_package() {
 	short_desc+=" - development files"

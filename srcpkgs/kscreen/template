@@ -1,18 +1,20 @@
 # Template file for 'kscreen'
 pkgname=kscreen
-version=5.15.5
+version=5.18.3
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
-hostmakedepends="extra-cmake-modules qt5-devel qt5-qmake kcoreaddons"
-makedepends="kxmlgui-devel libkscreen-devel plasma-framework-devel"
+hostmakedepends="extra-cmake-modules qt5-devel qt5-qmake
+ gettext kcmutils kcoreaddons"
+makedepends="kxmlgui-devel libkscreen-devel plasma-framework-devel
+ qt5-sensors-devel kcmutils-devel"
 depends="hicolor-icon-theme"
 short_desc="KDE screen management software"
 maintainer="John <johnz@posteo.net>"
 license="GPL-2.0-or-later, LGPL-2.1-or-later"
 homepage="https://projects.kde.org/projects/plasma/kscreen"
 distfiles="${KDE_SITE}/plasma/${version}/${pkgname}-${version}.tar.xz"
-checksum=c0c47c6d5c618e2c40794dd37586a1733ef6939383b4bb760638e8758a0bd6f7
+checksum=cd3413c117b03710284533534852c53e2a6229b35645e057beded70b26bbbe15
 
 if [ "$CROSS_BUILD" ]; then
 	hostmakedepends+=" kpackage-devel kconfig-devel kcoreaddons-devel plasma-framework"

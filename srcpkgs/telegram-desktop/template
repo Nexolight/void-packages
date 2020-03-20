@@ -1,73 +1,49 @@
 # Template file for 'telegram-desktop'
 pkgname=telegram-desktop
-version=1.7.0
+version=1.9.21
 revision=1
-_libtgvoip_commit=e7010506210fbb3a6704d7ac1276b3334f9ab6c9
-_GSL_commit=d846fe50a3f0bb7767c7e087a05f4be95f4da0ec
-_variant_commit=550ac2f159ca883d360c196149b466955c77a573
-_crl_commit=84072fba75f14620935e5e91788ce603daeb1988
-_Catch_commit=5ca44b68721833ae3731802ed99af67c6f38a53a
-wrksrc="tdesktop-${version}"
-build_wrksrc="Telegram"
+wrksrc="tdesktop-${version}-full"
 build_style=cmake
-cmake_builddir=build-telegram
-configure_args="-DENABLE_CRASH_REPORTS=OFF -DENABLE_GTK_INTEGRATION=ON
- -DENABLE_PULSEAUDIO=$(vopt_if pulseaudio 'ON' 'OFF')"
+build_helper="qemu"
+configure_args="-DTDESKTOP_API_ID=209235
+ -DTDESKTOP_API_HASH=169ee702e1df4b6e66d80311db36cc43
+ -DDESKTOP_APP_USE_GLIBC_WRAPS=OFF
+ -DDESKTOP_APP_DISABLE_CRASH_REPORTS=ON
+ -DTDESKTOP_LAUNCHER_BASENAME=org.telegram.desktop.desktop
+ -DTDESKTOP_DISABLE_REGISTER_CUSTOM_SCHEME=ON
+ -DTDESKTOP_USE_PACKAGED_TGVOIP=OFF
+ -DDESKTOP_APP_USE_PACKAGED_EXPECTED=OFF
+ -DDESKTOP_APP_USE_PACKAGED_VARIANT=OFF
+ -DDESKTOP_APP_USE_PACKAGED_GSL=OFF
+ -DDESKTOP_APP_DISABLE_SPELLCHECK=$(vopt_if spellcheck 'false' 'true')"
 hostmakedepends="pkg-config qt5-qmake qt5-host-tools python"
-makedepends="alsa-lib-devel ffmpeg-devel gtk+3-devel libappindicator-devel
- libdbusmenu-glib-devel libopenal-devel minizip-devel opus-devel xxHash-devel
- $(vopt_if pulseaudio 'pulseaudio-devel') qt5-devel range-v3 libva-devel"
-depends="qt5-imageformats qt5>=5.11.3<5.11.4"
+makedepends="alsa-lib-devel ffmpeg-devel libdbusmenu-glib-devel libopenal-devel
+ minizip-devel opus-devel xxHash-devel pulseaudio-devel qt5-devel range-v3
+ libva-devel rapidjson liblz4-devel liblzma-devel rlottie-devel
+ MesaLib-devel libdbusmenu-qt5-devel $(vopt_if spellcheck enchant2-devel)"
+depends="qt5-imageformats qt5>=5.13.2<5.13.3"
 short_desc="Telegram Desktop messaging app"
 maintainer="John <johnz@posteo.net>"
 license="GPL-3.0-or-later WITH OpenSSL"
 homepage="https://desktop.telegram.org/"
 changelog="https://github.com/telegramdesktop/tdesktop/blob/v${version}/changelog.txt"
-distfiles="https://github.com/telegramdesktop/tdesktop/archive/v${version}.tar.gz
- https://github.com/telegramdesktop/libtgvoip/archive/${_libtgvoip_commit}.tar.gz
- https://github.com/Microsoft/GSL/archive/${_GSL_commit}.tar.gz
- https://github.com/mapbox/variant/archive/${_variant_commit}.tar.gz
- https://github.com/telegramdesktop/crl/archive/${_crl_commit}.tar.gz
- https://github.com/catchorg/Catch2/archive/${_Catch_commit}.tar.gz"
-checksum="3be1f6979da9dd0061f27ad5082f96633a4dfde078b1406554b13d5e9674a8bb
- 9c250f24c0f1775daefb2967c2a25be1d10ea35e72928256aec3f469e576bac4
- be81db4ab1b57102a0fa1cd0c4a6469294eb9daf24294347592245b754f65ff6
- aa794dfefe0a90501587e36d977b958d0df888503117a8d9aa43dc14f8526d9d
- 0f4143814b17d61d09c6a7fb6764ce74756ec14c0aab94cd65758f7b5a6d2928
- d24e6d9df2b8aa5739d3b9077c6b0ff0ef4d5ef8acc52c3a57e32893854d8d18"
+distfiles="https://github.com/telegramdesktop/tdesktop/releases/download/v${version}/tdesktop-${version}-full.tar.gz"
+checksum=e1f9b58c1475a5044bc4d7a7ed5f89777e717ea5e6126707105e2c2d3032ffac
 
-build_options="clang pulseaudio"
-build_options_default="pulseaudio"
-
-CXXFLAGS="-DTDESKTOP_API_ID=209235 -DTDESKTOP_API_HASH=169ee702e1df4b6e66d80311db36cc43"
-
-if [ "$build_option_clang" ]; then
-	CFLAGS="-fPIE -fPIC -fstack-protector-strong"
-	CXXFLAGS+="-fPIE -fPIC -fstack-protector-strong"
-	LDFLAGS="-pie"
-	hostmakedepends+=" clang"
-	configure_args+=" -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++"
-	nocross=yes
-fi
+build_options="spellcheck"
+build_options_default="spellcheck"
 
 case $XBPS_TARGET_MACHINE in
-	i686*) nodebug=yes;; # ENOMEM
 	mips*) broken="unsupported";;
 esac
 
-case $XBPS_TARGET_MACHINE in
-	*-musl) makedepends+=" libexecinfo-devel" ;;
-esac
+if [ "$XBPS_TARGET_NO_ATOMIC8" ]; then
+	makedepends+=" libatomic-devel"
+fi
 
-case "$XBPS_TARGET_MACHINE" in
-	arm*|mips*)
-		makedepends+=" libatomic-devel"
-		configure_args+=" -DUSE_LIBATOMIC=ON" ;;
-esac
-
-case "$XBPS_TARGET_MACHINE" in
-	armv6l|armv7l-musl) broken="https://build.voidlinux.org/builders/armv7l-musl_builder/builds/18664/steps/shell_3/logs/stdio";;
-esac
+if [ "$XBPS_WORDSIZE" -eq 32 ]; then
+	nodebug=yes
+fi
 
 if [ "$CROSS_BUILD" ]; then
 	hostmakedepends+=" qt5-devel"
@@ -84,40 +60,8 @@ post_extract() {
 		msg_red "${_qt5_version%_*} does not match ${_qt5_dep_ver}\\n"
 		exit 1
 	fi
-	rmdir ${wrksrc}/${build_wrksrc}/ThirdParty/libtgvoip
-	mv ../libtgvoip-${_libtgvoip_commit} ${wrksrc}/${build_wrksrc}/ThirdParty/libtgvoip
-	rmdir ${wrksrc}/${build_wrksrc}/ThirdParty/GSL
-	mv ../GSL-${_GSL_commit} ${wrksrc}/${build_wrksrc}/ThirdParty/GSL
-	rmdir ${wrksrc}/${build_wrksrc}/ThirdParty/variant
-	mv ../variant-${_variant_commit} ${wrksrc}/${build_wrksrc}/ThirdParty/variant
-	rmdir ${wrksrc}/${build_wrksrc}/ThirdParty/crl
-	mv ../crl-${_crl_commit} ${wrksrc}/${build_wrksrc}/ThirdParty/crl
-	rmdir ${wrksrc}/${build_wrksrc}/ThirdParty/Catch
-	mv ../Catch2-${_Catch_commit} ${wrksrc}/${build_wrksrc}/ThirdParty/Catch
-
-	cp ${FILESDIR}/Telegram.cmake ${build_wrksrc}/CMakeLists.txt
-	cp ${FILESDIR}/ThirdParty-crl.cmake ${build_wrksrc}/ThirdParty/crl/CMakeLists.txt
-	cp ${FILESDIR}/ThirdParty-libtgvoip.cmake ${build_wrksrc}/ThirdParty/libtgvoip/CMakeLists.txt
-	cp ${FILESDIR}/ThirdParty-libtgvoip-webrtc.cmake \
-		${build_wrksrc}/ThirdParty/libtgvoip/webrtc_dsp/CMakeLists.txt
-
-	mkdir -p ${build_wrksrc}/cmake
-	cp ${FILESDIR}/FindBreakpad.cmake ${build_wrksrc}/cmake
-	cp ${FILESDIR}/TelegramCodegen.cmake ${build_wrksrc}/cmake
-	cp ${FILESDIR}/TelegramTests.cmake ${build_wrksrc}/cmake
-
-	mkdir -p ${build_wrksrc}/native
-	cp ${FILESDIR}/TelegramCodegenTools.cmake ${build_wrksrc}/native/CMakeLists.txt
-}
-
-pre_configure() {
-	cd native
-	CC= CXX= CPP= LD= AR= AS= RANLIB= CFLAGS= CXXFLAGS= LDFLAGS= cmake .
-	make ${makejobs}
-}
-
-post_install() {
-	for i in 16 32 48 64 128 256 512; do
-		vinstall Resources/art/icon$i.png 644 usr/share/icons/hicolor/${i}x${i}/apps telegram.png
-	done
+	if [ "$XBPS_TARGET_NO_ATOMIC8" ]; then
+		vsed -e '/desktop-app::external_openal/ a atomic' \
+			-i Telegram/CMakeLists.txt
+	fi
 }

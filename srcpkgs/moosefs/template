@@ -1,6 +1,6 @@
 # Template file for 'moosefs'
 pkgname=moosefs
-version=3.0.104
+version=3.0.111
 revision=1
 build_style=gnu-configure
 configure_args="--localstatedir=/var/lib --with-default-user=_mfs
@@ -8,12 +8,11 @@ configure_args="--localstatedir=/var/lib --with-default-user=_mfs
 hostmakedepends="automake libtool pkg-config"
 makedepends="zlib-devel libpcap-devel fuse-devel"
 short_desc="Fault tolerant, network distributed file system"
-maintainer="Juan RP <xtraeme@voidlinux.org>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="GPL-2.0-only"
 homepage="http://moosefs.org/"
 distfiles="http://ppa.moosefs.com/src/moosefs-${version}-1.tar.gz"
-checksum=9e4532e8715d89b0acb52115fd460c6905fbd29bad9f6746a6e1c38aa6a8ad8f
-
+checksum=29051b032793de80e1ae53995acf145d9f91ecec7b49b1f854b48d849ef3ae91
 system_accounts="_mfs"
 
 pre_configure() {

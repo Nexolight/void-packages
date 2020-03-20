@@ -1,7 +1,7 @@
 # Template file for 'librsvg'
 pkgname=librsvg
-version=2.44.13
-revision=2
+version=2.47.1
+revision=1
 build_style=gnu-configure
 build_helper="gir"
 configure_args="--disable-static --host=${XBPS_TARGET_TRIPLET}
@@ -12,11 +12,11 @@ makedepends="cairo-devel freetype-devel gdk-pixbuf-devel gtk+3-devel
  libcroco-devel libglib-devel libxml2-devel pango-devel rust
  $(vopt_if vala vala)"
 short_desc="SVG library for GNOME"
-maintainer="Rasmus Thomsen <rasmus.thomsen@protonmail.com>"
+maintainer="Enno Boland <gottox@voidlinux.org>"
 license="GPL-2.0-or-later, LGPL-2.0-or-later"
 homepage="https://wiki.gnome.org/Projects/LibRsvg"
 distfiles="${GNOME_SITE}/${pkgname}/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=d2d660bf0c6441d019ae7a7ba96b789facbfb14dc97818908ee03e15ba6bcb8f
+checksum=a15619af34d5eb692b5d35006cfb1940df8db608f769552a1b350035ee26b93e
 
 # Package build options
 build_options="gir vala"

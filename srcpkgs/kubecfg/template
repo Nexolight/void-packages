@@ -1,7 +1,7 @@
 # Template file for 'kubecfg'
 pkgname=kubecfg
-version=0.12.0
-revision=2
+version=0.15.3
+revision=1
 build_style=go
 go_import_path="github.com/bitnami/kubecfg"
 go_ldflags="-X main.version=v${version}"
@@ -10,4 +10,8 @@ maintainer="Leah Neukirchen <leah@vuxu.org>"
 license="Apache-2.0"
 homepage="https://github.com/bitnami/kubecfg"
 distfiles="https://github.com/bitnami/kubecfg/archive/v${version}.tar.gz"
-checksum=328acbf238b24a3cd25d13f872f6f640c4048ea8ca0120927349bd966e98ecc7
+checksum=195ac29c2034291b4f04dff236fa0b1f4941e5f80bb95cd6c1caf9ba7c6305d5
+
+if [ "$XBPS_TARGET_WORDSIZE" = "32" ]; then
+	broken="go-jsonnet/builtins.go fails for 32 bit architectures"
+fi

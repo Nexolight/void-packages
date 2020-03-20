@@ -1,24 +1,24 @@
 # Template file for 'R'
 pkgname=R
-version=3.5.3
-revision=1
+version=3.6.1
+revision=2
 build_style=gnu-configure
 configure_args="--docdir=/usr/share/doc/R rdocdir=/usr/share/doc/R
  --with-lapack --with-blas --enable-R-shlib --with-tcltk
  LIBnn=lib"
-hostmakedepends="gcc-fortran pkg-config perl less"
+hostmakedepends="gcc-fortran pkg-config perl less which"
 makedepends="libgomp-devel readline-devel libXmu-devel libXt-devel
  libpng-devel libjpeg-turbo-devel tiff-devel cairo-devel icu-devel
  lapack-devel blas-devel zlib-devel bzip2-devel pcre-devel liblzma-devel
  libcurl-devel tcl-devel tk-devel libxml2-devel"
-depends="xdg-utils less"
+depends="xdg-utils less which"
 short_desc="System for statistical computation and graphics"
 maintainer="Florian Wagner <florian@wagner-flo.net>"
 license="GPL-2.0-or-later"
 homepage="https://www.r-project.org/"
 changelog="https://cran.r-project.org/doc/manuals/r-release/NEWS.html"
 distfiles="https://cran.r-project.org/src/base/R-3/${pkgname}-${version}.tar.gz"
-checksum=2bfa37b7bd709f003d6b8a172ddfb6d03ddd2d672d6096439523039f7a8e678c
+checksum=5baa9ebd3e71acecdcc3da31d9042fb174d55a42829f8315f2457080978b1389
 nocross=yes
 shlib_provides="libR.so"
 

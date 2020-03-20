@@ -1,14 +1,14 @@
 # Template file for 'fontconfig'
 pkgname=fontconfig
 version=2.13.1
-revision=1
+revision=2
 build_style=gnu-configure
-configure_args="--disable-static --enable-docs --with-cache-dir=/var/cache/${pkgname}"
+configure_args="--enable-static --enable-docs --with-cache-dir=/var/cache/${pkgname}"
 hostmakedepends="gperf pkg-config"
 makedepends="expat-devel freetype-devel libuuid-devel"
 conf_files="/etc/fonts/fonts.conf"
 short_desc="Library for configuring and customizing font access"
-maintainer="Juan RP <xtraeme@voidlinux.org>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="MIT"
 homepage="http://www.fontconfig.org"
 distfiles="${FREEDESKTOP_SITE}/${pkgname}/release/${pkgname}-${version}.tar.bz2"
@@ -34,6 +34,7 @@ fontconfig-devel_package() {
 		vmove usr/include
 		vmove usr/lib/pkgconfig
 		vmove usr/share/man/man3
+		vmove "usr/lib/*.a"
 		vmove "usr/lib/*.so"
 		vmove usr/share/gettext
 	}

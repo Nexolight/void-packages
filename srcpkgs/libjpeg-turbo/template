@@ -1,16 +1,16 @@
 # Template file for 'libjpeg-turbo'
 pkgname=libjpeg-turbo
-version=2.0.2
+version=2.0.4
 revision=1
 build_style=cmake
 configure_args="-DWITH_JPEG8=1 -DCMAKE_INSTALL_LIBDIR=/usr/lib"
 hostmakedepends="yasm"
 short_desc="Derivative of libjpeg which uses SIMD instructions"
-maintainer="Juan RP <xtraeme@voidlinux.org>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="IJG, BSD-3-Clause, Zlib"
 homepage="https://libjpeg-turbo.org/"
 distfiles="${SOURCEFORGE_SITE}/${pkgname}/${pkgname}-${version}.tar.gz"
-checksum=acb8599fe5399af114287ee5907aea4456f8f2c1cc96d26c28aebfdf5ee82fed
+checksum=33dd8547efd5543639e890efbf2ef52d5a21df81faf41bb940657af916a23406
 
 provides="jpeg-8_1"
 replaces="jpeg>=0"
@@ -20,10 +20,8 @@ post_install() {
 
 	vinstall jpegint.h 644 usr/include
 
-	rm -r ${DESTDIR}/usr/share/doc
-	rm -f ${DESTDIR}/usr/bin/tjbench
-	rm -f ${DESTDIR}/usr/bin/jpegut
-	rm -f ${DESTDIR}/usr/bin/jpgtest
+	rm -r ${DESTDIR}/usr/share/doc \
+		  ${DESTDIR}/usr/bin/tjbench
 }
 
 libjpeg-turbo-devel_package() {

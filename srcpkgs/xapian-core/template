@@ -1,16 +1,16 @@
 # Template file for 'xapian-core'
 pkgname=xapian-core
-version=1.4.11
-revision=2
+version=1.4.15
+revision=1
 build_style=gnu-configure
 configure_args="--disable-static"
 makedepends="zlib-devel libuuid-devel"
 short_desc="Open source search engine"
-maintainer="Juan RP <xtraeme@voidlinux.org>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="GPL-2.0-or-later"
 homepage="https://www.xapian.org/"
 distfiles="https://oligarchy.co.uk/xapian/${version}/${pkgname}-${version}.tar.xz"
-checksum=9f16b2f3e2351a24034d7636f73566ab74c3f0729e9e0492934e956b25c5bc07
+checksum=b168e95918a01e014fb6a6cbce26e535f80da4d4791bfa5a0e0051fcb6f950ea
 
 # xapian-config needs the .la
 keep_libtool_archives=yes

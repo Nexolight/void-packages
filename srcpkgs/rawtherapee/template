@@ -1,6 +1,6 @@
 # Template file for 'rawtherapee'
 pkgname=rawtherapee
-version=5.6
+version=5.8
 revision=1
 build_style=cmake
 hostmakedepends="pkg-config"
@@ -8,8 +8,8 @@ makedepends="fftw-devel gtkmm-devel lensfun-devel libatomic-devel
  libcanberra-devel libgomp-devel libiptcdata-devel librsvg-devel"
 depends="desktop-file-utils hicolor-icon-theme"
 short_desc="Free RAW converter and digital photo processing software"
-maintainer="Juan RP <xtraeme@voidlinux.org>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="GPL-3.0-or-later"
 homepage="http://rawtherapee.com/"
 distfiles="http://rawtherapee.com/shared/source/rawtherapee-${version}.tar.xz"
-checksum=f9ea4b159580bd99aa7eaba9487c07e9dc7c095405f310f243400e67ae630d74
+checksum=360528a0aae922eb5af8742f415475fb91b6d62a739da5f2804828f04ec40853

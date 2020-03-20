@@ -1,15 +1,17 @@
 # Template file for 'rust'
+# partially adapted from Alpine/Adélie's Rust APKBUILD
+#
+# Permission to use rust and cargo trademark is granted.
+# See: https://github.com/rust-lang/core-team/issues/4
 pkgname=rust
-version=1.35.0
+version=1.41.1
 revision=1
-_rust_dist_version=1.35.0
-_cargo_dist_version=0.36.0
+_rust_dist_version=1.40.0
+_cargo_dist_version=0.41.0
 # Always make sure custom distfiles used for bootstrap are
 # uploaded to https://alpha.de.repo.voidlinux.org/distfiles/
 wrksrc="rustc-${version}-src"
-build_style=configure
-make_build_args="dist VERBOSE=1"
-hostmakedepends="cmake curl pkg-config python"
+hostmakedepends="cmake curl pkg-config python3 tar"
 makedepends="libffi-devel ncurses-devel libxml2-devel zlib-devel llvm"
 depends="rust-std"
 short_desc="Safe, concurrent, practical systems language"
@@ -17,119 +19,102 @@ maintainer="Enno Boland <gottox@voidlinux.org>"
 license="MIT, Apache-2.0"
 homepage="https://www.rust-lang.org/"
 distfiles="https://static.rust-lang.org/dist/rustc-${version}-src.tar.gz"
-checksum=5a4d637a716bac18d085f44dd87ef48b32195f71b967d872d80280b38cff712d
+checksum=38c93d016e6d3e083aa15e8f65511d3b4983072c0218a529f5ee94dd1de84573
 lib32disabled=yes
 patch_args="-Np1"
 
 build_options="static_llvm"
+
+_bootstrap_dir="stage0-bootstrap"
 
 if [ "$CROSS_BUILD" ]; then
 	hostmakedepends+=" cargo llvm"
 	# These are required for building the buildhost's stage0/1
 	hostmakedepends+=" libffi-devel libxml2-devel ncurses-devel zlib-devel"
 else
+	_bootstrap_url="https://static.rust-lang.org/dist"
+
+	# 32-bit ppc needs custom bootstrap for now because of patches
 	case "$XBPS_MACHINE" in
-	x86_64-musl)
-		distfiles+="
-		 https://static.rust-lang.org/dist/rustc-${_rust_dist_version}-x86_64-unknown-linux-musl.tar.xz
-		 https://static.rust-lang.org/dist/rust-std-${_rust_dist_version}-x86_64-unknown-linux-musl.tar.xz
-		 https://static.rust-lang.org/dist/cargo-${_cargo_dist_version}-x86_64-unknown-linux-musl.tar.xz"
-		checksum+="
-		 961df84a116c7b1b11eb912d33c8edb233b76980f97983f9ed3989621f9f90c3
-		 3574e0d43b2746ea0cb9f8084670699f5cb920cee646026cec1da152818c51ba
-		 0466ed241c44d137ee65aa7dbba8fc1cc94e56b252c323c387523b5cb430210e"
-		;;
-	x86_64)
-		distfiles+="
-		 https://static.rust-lang.org/dist/rustc-${_rust_dist_version}-x86_64-unknown-linux-gnu.tar.gz
-		 https://static.rust-lang.org/dist/rust-std-${_rust_dist_version}-x86_64-unknown-linux-gnu.tar.gz
-		 https://static.rust-lang.org/dist/cargo-${_cargo_dist_version}-x86_64-unknown-linux-gnu.tar.xz"
-		checksum+="
-		 bb3a07a1f2fdc3eeeee25fc40131d3f05494e3838dfd4e9275475ffc500d7a9e
-		 5dfa92661ff1a22680785bd6999b6117ae66841e2bd9e5318eb97002956131e4
-		 ab5a6ff1947463dbd2477ca5dac2012494dae821112098ae0c54add652adfdc3"
-		;;
-	i686)
-		distfiles+="
-		 https://static.rust-lang.org/dist/rustc-${_rust_dist_version}-i686-unknown-linux-gnu.tar.gz
-		 https://static.rust-lang.org/dist/rust-std-${_rust_dist_version}-i686-unknown-linux-gnu.tar.gz
-		 https://static.rust-lang.org/dist/cargo-${_cargo_dist_version}-i686-unknown-linux-gnu.tar.xz"
-		checksum+="
-		 b05ca05cfb6f106f92283bb06158845f29abb3c1145a8dc306d2aa210f42d106
-		 ab41c886af02a16a9a38780043d7f3da24c637629afa222b38f616fe6de86402
-		 4c1521691a22e24e40aac18e75ea95957477284adda9ad79df64d56861aec610"
-		;;
-	ppc64le)
-		distfiles+="
-		 https://static.rust-lang.org/dist/rustc-${_rust_dist_version}-powerpc64le-unknown-linux-gnu.tar.xz
-		 https://static.rust-lang.org/dist/rust-std-${_rust_dist_version}-powerpc64le-unknown-linux-gnu.tar.xz
-		 https://static.rust-lang.org/dist/cargo-${_cargo_dist_version}-powerpc64le-unknown-linux-gnu.tar.xz"
-		checksum+="
-		 fd7709e00ff49d8e388f52c92a386cef075897b4363e76bec1c850d8d5d67145
-		 b09fe43521f1e50d4b40eb8b4803a5d49dc9c5447eb0ef4da1ab723c093877ba
-		 46419ba92849bcf8f4970ae042c333c1d82c1e18fda0531a745f88baee0e7f22"
-		;;
-	ppc64le-musl)
-		distfiles+="
-		 https://alpha.de.repo.voidlinux.org/distfiles/rustc-${_rust_dist_version}-powerpc64le-unknown-linux-musl.tar.xz
-		 https://alpha.de.repo.voidlinux.org/distfiles/rust-std-${_rust_dist_version}-powerpc64le-unknown-linux-musl.tar.xz
-		 https://alpha.de.repo.voidlinux.org/distfiles/cargo-${_cargo_dist_version}-powerpc64le-unknown-linux-musl.tar.xz"
-		checksum+="
-		 1e2831db0a45c3e3bd44f375678a1738407cf8f7d44af9fd3444248bc1b5d574
-		 0bf05a5d0521dec481d67ea3a74626e884fd18f8215b774ba89d818bbdb3d8c0
-		 9347f6c8b391e0142cda60988690f7bc9a877f8012ea2e71c35343a4cb9b7ee4"
-		;;
-	ppc64)
-		distfiles+="
-		 https://alpha.de.repo.voidlinux.org/distfiles/rustc-${_rust_dist_version}-powerpc64-unknown-linux-gnu.tar.xz
-		 https://alpha.de.repo.voidlinux.org/distfiles/rust-std-${_rust_dist_version}-powerpc64-unknown-linux-gnu.tar.xz
-		 https://alpha.de.repo.voidlinux.org/distfiles/cargo-${_cargo_dist_version}-powerpc64-unknown-linux-gnu.tar.xz"
-		checksum+="
-		 7ba9b81bdc3bda8e0945d37424c5a47364961f90c4765d5223afe8c7ae865d78
-		 abb807fbb6c3ca86f9f05014581b84a8105e2fc4ecdac33817093ba6fdb5c613
-		 512c69762fe2a18b6d9781186e77f76333f7ac179e76135cb85ba19e703afaca"
-		;;
-	ppc64-musl)
-		distfiles+="
-		 https://alpha.de.repo.voidlinux.org/distfiles/rustc-${_rust_dist_version}-powerpc64-unknown-linux-musl.tar.xz
-		 https://alpha.de.repo.voidlinux.org/distfiles/rust-std-${_rust_dist_version}-powerpc64-unknown-linux-musl.tar.xz
-		 https://alpha.de.repo.voidlinux.org/distfiles/cargo-${_cargo_dist_version}-powerpc64-unknown-linux-musl.tar.xz"
-		checksum+="
-		 fa843921197f51a9c5042528789531daef0e89b7b861cf94116d079bbfc2a523
-		 01145b57d2e11ca7bd06dd57a8582ac5d34c683a9cd827920f2489dbdbc51539
-		 9b8cdacbb4859addfe63cf8ea1df9eb32343e25a18bef2a6422f990728d0e78a"
-		;;
-	ppc)
-		distfiles+="
-		 https://static.rust-lang.org/dist/rustc-${_rust_dist_version}-powerpc-unknown-linux-gnu.tar.xz
-		 https://static.rust-lang.org/dist/rust-std-${_rust_dist_version}-powerpc-unknown-linux-gnu.tar.xz
-		 https://static.rust-lang.org/dist/cargo-${_cargo_dist_version}-powerpc-unknown-linux-gnu.tar.xz"
-		checksum+="
-		 194ae7493942b5b291870c5857a1e3126b95b6f3b028d5cbfe997f10875a78c4
-		 901b169e011b6d2f675939c014165330756acd5bf2233c4c770229712cd9f19e
-		 42b997dc8b562241d563993b11c070394cf48ced55c6cf86c387d0a15ff0847e"
-		;;
-	ppc-musl)
-		distfiles+="
-		 https://alpha.de.repo.voidlinux.org/distfiles/rustc-${_rust_dist_version}-powerpc-unknown-linux-musl.tar.xz
-		 https://alpha.de.repo.voidlinux.org/distfiles/rust-std-${_rust_dist_version}-powerpc-unknown-linux-musl.tar.xz
-		 https://alpha.de.repo.voidlinux.org/distfiles/cargo-${_cargo_dist_version}-powerpc-unknown-linux-musl.tar.xz"
-		checksum+="
-		 163dfdeaeda1237a37c59b436d0288529da3277098286d7d92aa577a3e658433
-		 e47a378ddd4d54520c2ae1a8aba74ec2933ce33a5ce30687ef14ef0303085207
-		 eee6637b48d9bbf6375a2de75e36b8670fae26d8da9c53a9890380b9a29d0bcf"
-		;;
+		x86_64*|i686|ppc64le) ;;
+		ppc*) _bootstrap_url="https://alpha.de.repo.voidlinux.org/distfiles" ;;
+		*) broken="unsupported host: ${XBPS_MACHINE}" ;;
+	esac
+
+	distfiles+="
+	 ${_bootstrap_url}/rustc-${_rust_dist_version}-${RUST_BUILD}.tar.xz
+	 ${_bootstrap_url}/rust-std-${_rust_dist_version}-${RUST_BUILD}.tar.xz
+	 ${_bootstrap_url}/cargo-${_cargo_dist_version}-${RUST_BUILD}.tar.xz"
+
+	# checksums must be specified per arch
+	case "$XBPS_MACHINE" in
+		i686)
+			checksum+="
+			 257e4789043098a5e3b4fa85ea988019f37d640a10f83d39ada00fb23e057b8a
+			 beab29565d12a6b9db4ef471c34d4c034295760095f7edc3f7b6c51fc08589a0
+			 c48bc132f4025ff39b1b6dc52aef9d406c3f926ce05fe92d943ceab7a5fd6058"
+			;;
+		x86_64)
+			checksum+="
+			 b1c00618b7a98156e88b14682508a503284f85748eab23de749a20dcc8847111
+			 5a0b14a51f51b0194f70a2023749d9cb49c3b2e11f0d4c8232960b91fad336ac
+			 9b6ae643fa240c5ecbc1dc390f4020b6a683f25bac6f7437ebd4b9d32a8d0b6c"
+			;;
+		x86_64-musl)
+			checksum+="
+			 769b9e31557fcc0ea2a661f88b679d3dbd62b537807c7b3c75ac6816a1be4fa3
+			 c647bb7f399b3d18e345b2dab1fb073470582a9298e83d8648f6661544df7279
+			 848646326474392bdac70a5bfa06efda4c36e2bbbf088f07456f98c7575844e1"
+			;;
+		ppc64le)
+			checksum+="
+			 aa07a07ad272de825da8c18ad8dc4143a25bd28e5538d68c3bced53f060432b4
+			 4eb3141fb6c3d3e101b5d4493664c9a01d4bb9eebdf4b96f5c26a81188c2452d
+			 7705f21d938a72ba6f01818661b2dea29183209940a335f18d1761e1e03d3710"
+			;;
+		ppc64le-musl)
+			checksum+="
+			 2c8ffeaa23d8ae0e1776af068bd92ba5cd15973696956a2b58c215a940721e67
+			 c40f696c8afdcaafec50ddc29b9d8c836efa01b681e8ca48d09fcf79576ee039
+			 0fbe481d284a14b84cc63ccb50caeb248200f238d2c3e449c2b8a8bf49c951ce"
+			;;
+		ppc64)
+			checksum+="
+			 0f4d02f2d21d8f4b23829502130c89599f2315bb9adcee4f1b5109ee68a187ab
+			 8edd65b1f53485caa134d1625131e76f7ca072366cc5df3e2761a39f52f7e83f
+			 23a7967b0c1c762cdbea4f850cacbb462e386977203c0d5ff060275c526d80d7"
+			;;
+		ppc64-musl)
+			checksum+="
+			 4645a4bb0d78da07c8dba1edc2769382a94dc3d8fbdd48e105a5c8dd20170e21
+			 0dbf82f8c24140f17fda36811861c9c3aa361f2256c5274a11eb4a1f183c7f3a
+			 d5a808fdb50068a14d6578f052c9e21ae7881d4ecdcf9e098c5e2c2b1ae65786"
+			;;
+		ppc)
+			checksum+="
+			 40121c3a6ec199338e7139e03e917a93290b7623334740d4d25cd1c8092f3de1
+			 c2b17cfe8b25d23b348b40e5802a4e369f691abe6ddbd4372df0d660eb100398
+			 295030192cf5b7e1fce75845a1961619a5f701185400ad816cf950d4e18f0646"
+			;;
+		ppc-musl)
+			checksum+="
+			 c5b743370ce140e95d413b20734d26ac22697b99455262cef801883f5c732019
+			 8061486273c602ac29c3e98aaa3a6d1114d16b9973e051f127e922232fef2270
+			 91cc5d6f0192f68d5053fb460dd8347b28cb29b4a63a6e648d6b754795b5c4e8"
+			;;
 	esac
 fi
 
 post_extract() {
 	if [ -z "$CROSS_BUILD" ]; then
-		mkdir -p stage0
-		rm ../rustc-*/rustc/manifest.in
-		cp -bflr ../rustc-*/rustc/* stage0
-		rm ../rust-std-*/rust-std-*/manifest.in
-		cp -bflr ../rust-std-*/rust-std-*/* stage0
-		cp -bflr ../cargo-${_cargo_dist_version}-${RUST_TARGET}/cargo/bin/cargo stage0/bin
+		mkdir -p "${wrksrc}/${_bootstrap_dir}"
+		../rust-std-${_rust_dist_version}-${RUST_BUILD}/install.sh \
+		 --destdir="${wrksrc}/${_bootstrap_dir}" --prefix=/ --disable-ldconfig
+		../rustc-${_rust_dist_version}-${RUST_BUILD}/install.sh \
+		 --destdir="${wrksrc}/${_bootstrap_dir}" --prefix=/ --disable-ldconfig
+		# cargo may not be packaged like the rest
+		cp ../cargo-${_cargo_dist_version}-${RUST_BUILD}/cargo/bin/cargo \
+		 "${wrksrc}/${_bootstrap_dir}/bin"
 	fi
 }
 
@@ -149,92 +134,156 @@ post_patch() {
 		done
 	fi
 
-	sed -i /LD_LIBRARY_PATH/d src/bootstrap/bootstrap.py
-
 	# clear out all the checksum nonsense of patched vendor crates
 	_clear_vendor_checksums libc
+	_clear_vendor_checksums typenum
+	_clear_vendor_checksums backtrace-sys
 	_clear_vendor_checksums lzma-sys
 }
 
 do_configure() {
-	export LD_LIBRARY_PATH="$wrksrc/stage0/lib"
-
-	configure_args="
-		--prefix=/usr
-		--host=${RUST_TARGET}
-		--target=${RUST_TARGET}
-		--build=${RUST_BUILD}
-		--disable-full-bootstrap
-		--release-channel=stable
-		--disable-rpath
-		--disable-docs
-		--disable-codegen-tests
-		--enable-vendor
-		--llvm-root=/usr
-		--set=target.${RUST_BUILD}.llvm-config=/usr/bin/llvm-config
-		--set=target.${RUST_TARGET}.llvm-config=/usr/bin/llvm-config
-		--set=target.${RUST_TARGET}.crt-static=false
-	"
-
-	if [ ! "$build_option_static_llvm" ]; then
-		configure_args+="
-			--enable-llvm-link-shared
-		"
-	fi
+	local _rust_root _local_rebuild _use_debug _use_debug_rustc _use_rpath
 
 	if [ "$CROSS_BUILD" ]; then
-		configure_args+="
-			--local-rust-root=/usr
-			--enable-local-rebuild
-		"
-
-		# Set the appropriate values for the native compilation tools
-		configure_args+="
-			--set=target.${RUST_BUILD}.cc=${CC_host}
-			--set=target.${RUST_BUILD}.cxx=${CXX_host}
-			--set=target.${RUST_BUILD}.ar=${AR_host}
-			--set=target.${RUST_BUILD}.linker=${CC_host}
-		"
+		_rust_root="/usr"
+		_local_rebuild="true"
 	else
-		configure_args+=" --local-rust-root=$wrksrc/stage0"
+		_rust_root="${wrksrc}/${_bootstrap_dir}"
+		_local_rebuild="false"
 	fi
-	case "$XBPS_TARGET_MACHINE" in
-	*-musl)
-		configure_args+=" --set=target.${RUST_TARGET}.musl-root=/usr"
-		;;
-	esac
 
-	./configure $configure_args
-}
+	# disable rustc debug info as it bloats up rust-std significantly
+	# set to 1 or 2 if you wish to have debug info for rustc, it won't
+	# link on 32-bit platforms though (too big)
+	_use_debug_rustc="0"
 
-pre_build() {
-	export CARGO_HOME="$wrksrc/.cargo"
-	export SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
-	export LD_LIBRARY_PATH="$wrksrc/stage0/lib"
-	export PATH="$wrksrc/stage0/bin:$PATH"
-	export MUSL_ROOT=/usr
-	export RUST_BACKTRACE=1
-	export RUSTFLAGS="-C linker=${CC}"
+	# use stdlib debug level 2 for all platforms when generating debug
+	if [ -n "$XBPS_DEBUG_PKGS" ]; then
+		_use_debug="2"
+	else
+		_use_debug="0"
+	fi
+
+	# if true, the binaries will be built with rpath, so the binaries will be
+	# usable directly from the build directory, this is not desirable for
+	# packaging but is useful when building bootstrap binaries
+	_use_rpath="false"
+
+	cat > config.toml <<- EOF
+		[build]
+		build = "${RUST_BUILD}"
+		host = [ "${RUST_TARGET}" ]
+		target = [ "${RUST_TARGET}" ]
+		cargo = "${_rust_root}/bin/cargo"
+		rustc = "${_rust_root}/bin/rustc"
+		submodules = false
+		python = "python3"
+		locked-deps = true
+		vendor = true
+		full-bootstrap = false
+		local-rebuild = ${_local_rebuild}
+		extended = false
+		docs = false
+		tools = []
+		[install]
+		prefix = "/usr"
+		[rust]
+		codegen-units = 1
+		codegen-units-std = 1
+		debug-assertions = false
+		debuginfo-level = ${_use_debug}
+		debuginfo-level-rustc = ${_use_debug_rustc}
+		debuginfo-level-tests = 0
+		backtrace = true
+		incremental = false
+		parallel-compiler = false
+		channel = "stable"
+		rpath = ${_use_rpath}
+		verbose-tests = true
+		dist-src = false
+		jemalloc = false
+		llvm-libunwind = false
+		codegen-tests = false
+		[dist]
+		src-tarball = false
+		[target.${RUST_BUILD}]
+		llvm-config = "/usr/bin/llvm-config"
+		crt-static = false
+		cc = "${CC_host:-$CC}"
+		cxx = "${CXX_host:-$CXX}"
+		ar = "${AR_host:-$AR}"
+		linker = "${CC_host:-$CC}"
+	EOF
+
+	if [ "$CROSS_BUILD" ]; then
+		cat >> config.toml <<- EOF
+			[target.${RUST_TARGET}]
+			llvm-config = "/usr/bin/llvm-config"
+			crt-static = false
+			cc = "${CC}"
+			cxx = "${CXX}"
+			ar = "${AR}"
+			linker = "${CC}"
+		EOF
+	fi
 }
 
 # Set the correct CFLAGS for the build host, we have to compile libbacktrace
 # for it during stage1. Otherwise it attemps to use CFLAGS, which are the CFLAGS
 # of the cross host.
 do_build() {
-	env CFLAGS_${RUST_BUILD}="${CFLAGS_host}" make ${makejobs} ${make_build_args}
+	if [ ! "$build_option_static_llvm" ]; then
+		export LLVM_LINK_SHARED=1
+	fi
+	export RUST_BACKTRACE=1
+	export CARGO_HOME="$wrksrc/.cargo"
+	export SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
+	# prevent sysroot from leaking in
+	export RUSTFLAGS=""
+
+	env CFLAGS_${RUST_BUILD}="${CFLAGS_host}" \
+	 python3 x.py dist --jobs $XBPS_MAKEJOBS
+}
+
+do_check() {
+	export RUST_BACKTRACE=1
+
+	python3 x.py test ${makejobs} --no-doc --no-fail-fast \
+		src/test/codegen \
+		src/test/codegen-units \
+		src/test/compile-fail \
+		src/test/incremental \
+		src/test/mir-opt \
+		src/test/pretty \
+		src/test/run-fail \
+		src/test/run-fail/pretty \
+		src/test/run-make \
+		src/test/run-make-fulldeps \
+		src/test/run-pass \
+		src/test/run-pass/pretty \
+		src/test/run-pass-fulldeps \
+		src/test/run-pass-fulldeps/pretty \
+		src/test/ui \
+		src/test/ui-fulldeps
 }
 
 do_install() {
 	vmkdir usr
-	tar xf build/dist/rustc-${version}-${RUST_TARGET}.tar.gz -C "$DESTDIR/usr" --strip-components=2 --exclude=manifest.in
-	tar xf build/dist/rust-std-${version}-${RUST_TARGET}.tar.gz -C "$DESTDIR/usr/lib" --strip-components=3 --exclude=manifest.in
+	tar xf build/dist/rustc-${version}-${RUST_TARGET}.tar.gz \
+	 -C "$DESTDIR/usr" --strip-components=2 --exclude=manifest.in
+	tar xf build/dist/rust-std-${version}-${RUST_TARGET}.tar.gz \
+	 -C "$DESTDIR/usr/lib" --strip-components=3 --exclude=manifest.in
+	tar xf build/dist/rustc-dev-${version}-${RUST_TARGET}.tar.gz \
+         -C "$DESTDIR/usr/lib" --strip-components=3 --exclude=manifest.in
 
 	vlicense COPYRIGHT
 	vlicense LICENSE-APACHE
 	vlicense LICENSE-MIT
 
 	cd ${DESTDIR}/usr/lib
-	ln -sf rustlib/*/lib/*.so .   # symlinks instead of copies
+	# symlinks instead of copies
+	mv *.so rustlib/${RUST_TARGET}/lib
+	ln -sf rustlib/${RUST_TARGET}/lib/*.so .
 }
 
 rust-doc_package() {

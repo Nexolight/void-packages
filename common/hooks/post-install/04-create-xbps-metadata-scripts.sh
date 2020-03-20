@@ -12,7 +12,7 @@ _add_trigger() {
 process_metadata_scripts() {
 	local action="$1"
 	local action_file="$2"
-	local tmpf=$(mktemp)
+	local tmpf=$(mktemp) || exit 1
 	local fpattern="s|${PKGDESTDIR}||g;s|^\./$||g;/^$/d"
 	local targets= f= _f= info_files= home= shell= descr= groups=
 	local found= triggers_found= _icondirs= _schemas= _mods= _tmpfiles=
@@ -260,6 +260,9 @@ _EOF
 	#
 	if [ -d ${PKGDESTDIR}/usr/lib/python* ]; then
 		pycompile_version="$(find ${PKGDESTDIR}/usr/lib/python* -prune -type d | grep -o '[[:digit:]]\.[[:digit:]]$')"
+		if [ -z "${pycompile_module}" ]; then
+			pycompile_module="$(find ${PKGDESTDIR}/usr/lib/python*/site-packages -mindepth 1 -maxdepth 1 '!' -name '*.egg-info' '!' -name '*.dist-info' '!' -name '*.so' '!' -name '*.pth' -printf '%f ')"
+		fi
 	fi
 
 	if [ -n "${pycompile_dirs}" -o -n "${pycompile_module}" ]; then

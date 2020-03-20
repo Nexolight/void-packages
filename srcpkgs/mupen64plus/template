@@ -1,13 +1,13 @@
 # Template file for 'mupen64plus'
 pkgname=mupen64plus
 version=2.5
-revision=12
+revision=13
 wrksrc="mupen64plus-bundle-src-${version}"
-hostmakedepends="pkg-config"
+hostmakedepends="pkg-config which"
 makedepends="boost-devel SDL2-devel speexdsp-devel freetype-devel glu-devel libpng-devel libsamplerate-devel"
 depends="desktop-file-utils"
 short_desc="A Nintendo64 Emulator"
-maintainer="Juan RP <xtraeme@voidlinux.org>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="GPL-2"
 homepage="http://www.mupen64plus.org"
 distfiles="https://github.com/mupen64plus/mupen64plus-core/releases/download/${version}/${pkgname}-bundle-src-${version}.tar.gz"

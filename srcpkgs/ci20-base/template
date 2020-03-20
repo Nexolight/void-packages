@@ -1,10 +1,10 @@
 # Template file for 'ci20-base'
 pkgname=ci20-base
 version=1.1
-revision=1
-homepage="http://www.voidlinux.eu"
+revision=2
+homepage="http://www.voidlinux.org"
 short_desc="Void Linux MIPS CI20 Creator base files"
-maintainer="Juan RP <xtraeme@voidlinux.org>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="Public Domain"
 
 archs="mispel*"

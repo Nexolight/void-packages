@@ -1,17 +1,17 @@
 # Template file for 'tzdata'
 pkgname=tzdata
-version=2019a
+version=2019c
 revision=1
 archs=noarch
 wrksrc=tzdata
 create_wrksrc=yes
 hostmakedepends="tzutils"
 short_desc="Time zone and daylight-saving time data"
-maintainer="Juan RP <xtraeme@voidlinux.org>"
+maintainer="Enno Boland <gottox@voidlinux.org>"
 license="Public Domain"
 homepage="http://www.iana.org/time-zones"
 distfiles="http://www.iana.org/time-zones/repository/releases/tzdata${version}.tar.gz"
-checksum=90366ddf4aa03e37a16cd49255af77f801822310b213f195e2206ead48c59772
+checksum=79c7806dab09072308da0e3d22c37d3b245015a591891ea147d3b133b60ffc7c
 
 do_install() {
 	local timezones="africa antarctica asia australasia europe northamerica \

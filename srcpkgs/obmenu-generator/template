@@ -1,16 +1,15 @@
 # Template file for 'obmenu-generator'
 pkgname=obmenu-generator
-version=0.85
+version=0.87
 revision=1
 archs=noarch
 depends="perl perl-Linux-DesktopFiles perl-Data-Dump perl-Gtk2"
 short_desc="Perl Script to generate Openbox menu"
-maintainer="Juan RP <xtraeme@voidlinux.org>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="GPL-3.0-or-later"
 homepage="http://trizenx.blogspot.ro/2012/02/obmenu-generator.html"
 distfiles="https://github.com/trizen/${pkgname}/archive/${version}.tar.gz"
-checksum=084ebf6787face853b9b1559d3d4bd5fe787d2ce33b51a5c3304a705b2ab1333
-nocross="gobject-introspection"
+checksum=761aa7310d01dc6748c329aabfa95c62656e92b169db3b2d435a338f9bb8e19a
 
 do_install() {
 	vbin obmenu-generator

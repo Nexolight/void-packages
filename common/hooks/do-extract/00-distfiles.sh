@@ -4,6 +4,7 @@
 hook() {
 	local srcdir="$XBPS_SRCDISTDIR/$pkgname-$version"
 	local f j curfile found extractdir
+	local TAR_CMD
 
 	if [ -z "$distfiles" -a -z "$checksum" ]; then
 		mkdir -p $wrksrc
@@ -22,6 +23,13 @@ hook() {
 	if [ -n "$create_wrksrc" ]; then
 		mkdir -p ${wrksrc} || msg_error "$pkgver: failed to create wrksrc.\n"
 	fi
+
+	# Disable trap on ERR; the code is smart enough to report errors and abort.
+	trap - ERR
+
+	TAR_CMD="$(command -v bsdtar)"
+	[ -z "$TAR_CMD" ] && TAR_CMD="$(command -v tar)"
+	[ -z "$TAR_CMD" ] && msg_error "xbps-src: no suitable tar cmd (bsdtar, tar)\n"
 
 	msg_normal "$pkgver: extracting distfile(s), please wait...\n"
 
@@ -50,6 +58,7 @@ hook() {
 		*.tar.gz)     cursufx="tgz";;
 		*.tgz)        cursufx="tgz";;
 		*.gz)         cursufx="gz";;
+		*.xz)         cursufx="xz";;
 		*.bz2)        cursufx="bz2";;
 		*.tar)        cursufx="tar";;
 		*.zip)        cursufx="zip";;
@@ -57,6 +66,7 @@ hook() {
 		*.patch)      cursufx="txt";;
 		*.diff)       cursufx="txt";;
 		*.txt)        cursufx="txt";;
+		*.sh)         cursufx="txt";;
 		*.7z)	      cursufx="7z";;
 		*.gem)	      cursufx="gem";;
 		*.crate)      cursufx="crate";;
@@ -70,25 +80,26 @@ hook() {
 		fi
 
 		case ${cursufx} in
-		txz|tbz|tlz|tgz|crate)
-			tar -x --no-same-permissions --no-same-owner -f $srcdir/$curfile -C $extractdir
+		tar|txz|tbz|tlz|tgz|crate)
+			$TAR_CMD -x --no-same-permissions --no-same-owner -f $srcdir/$curfile -C $extractdir
 			if [ $? -ne 0 ]; then
 				msg_error "$pkgver: extracting $curfile into $XBPS_BUILDDIR.\n"
 			fi
 			;;
-		gz|bz2)
+		gz|bz2|xz)
 			cp -f $srcdir/$curfile $extractdir
-			if [ "$cursufx" = "gz" ]; then
-				cd $extractdir && gunzip -f $curfile
-			else
-				cd $extractdir && bunzip2 -f $curfile
-			fi
-			;;
-		tar)
-			tar -x --no-same-permissions --no-same-owner -f $srcdir/$curfile -C $extractdir
-			if [ $? -ne 0 ]; then
-				msg_error "$pkgver: extracting $curfile into $XBPS_BUILDDIR.\n"
-			fi
+			cd $extractdir
+			case ${cursufx} in
+			gz)
+				 gunzip -f $curfile
+				;;
+			bz2)
+				bunzip2 -f $curfile
+				;;
+			*)
+				unxz -f $curfile
+				;;
+			esac
 			;;
 		zip)
 			if command -v unzip &>/dev/null; then
@@ -96,8 +107,13 @@ hook() {
 				if [ $? -ne 0 ]; then
 					msg_error "$pkgver: extracting $curfile into $XBPS_BUILDDIR.\n"
 				fi
+			elif command -v bsdtar &>/dev/null; then
+				bsdtar -xf $srcdir/$curfile -C $extractdir
+				if [ $? -ne 0 ]; then
+					msg_error "$pkgver: extracting $curfile into $XBPS_BUILDDIR.\n"
+				fi
 			else
-				msg_error "$pkgver: cannot find unzip bin for extraction.\n"
+				msg_error "$pkgver: cannot find unzip or bsdtar bin for extraction.\n"
 			fi
 			;;
 		rpm)
@@ -112,7 +128,11 @@ hook() {
 			fi
 			;;
 		txt)
-			cp -f $srcdir/$curfile $extractdir
+			if [ "$create_wrksrc" ]; then
+				cp -f $srcdir/$curfile $extractdir
+			else
+				msg_error "$pkgname: ${curfile##*.} files can only be extracted when create_wrksrc is set\n"
+			fi
 			;;
 		7z)
 			if command -v 7z &>/dev/null; then
@@ -120,12 +140,26 @@ hook() {
 				if [ $? -ne 0 ]; then
 					msg_error "$pkgver: extracting $curfile into $XBPS_BUILDDIR.\n"
 				fi
+			elif command -v bsdtar &>/dev/null; then
+				bsdtar -xf $srcdir/$curfile -C $extractdir
+				if [ $? -ne 0 ]; then
+					msg_error "$pkgver: extracting $curfile into $XBPS_BUILDDIR.\n"
+				fi
 			else
-				msg_error "$pkgver: cannot find 7z bin for extraction.\n"
+				msg_error "$pkgver: cannot find 7z or bsdtar bin for extraction.\n"
 			fi
 			;;
 		gem)
-			tar -xOf $srcdir/$curfile data.tar.gz | tar -xz -C $extractdir --transform="s,^,${wrksrc##*/}/,"
+			case "$TAR_CMD" in
+				*bsdtar)
+					$TAR_CMD -xOf $srcdir/$curfile data.tar.gz | \
+						$TAR_CMD -xz -C $extractdir -s ",^,${wrksrc##*/}/," -f -
+					;;
+				*)
+					$TAR_CMD -xOf $srcdir/$curfile data.tar.gz | \
+						$TAR_CMD -xz -C $extractdir --transform="s,^,${wrksrc##*/}/,"
+					;;
+			esac
 			if [ $? -ne 0 ]; then
 				msg_error "$pkgver: extracting $curfile into $XBPS_BUILDDIR.\n"
 			fi

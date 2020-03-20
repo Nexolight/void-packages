@@ -1,0 +1,26 @@
+# Template file for 'libcbor'
+pkgname=libcbor
+version=0.6.0
+revision=1
+build_style=cmake
+make_build_args="cbor_shared"
+short_desc="Library for parsing and generating CBOR, a binary data format"
+maintainer="Leah Neukirchen <leah@vuxu.org>"
+license="MIT"
+homepage="https://github.com/PJK/libcbor"
+distfiles="https://github.com/PJK/libcbor/archive/v${version}.tar.gz"
+checksum=ad97dfe6462a28956be38c924a5a557acf303d8454ca121e02150a5b87e03ee7
+
+post_install() {
+	vlicense LICENSE.md
+}
+
+libcbor-devel_package() {
+	depends="libcbor>=${version}_${revision}"
+	short_desc+=" - development files"
+	pkg_install() {
+		vmove usr/include
+		vmove usr/lib/pkgconfig
+		vmove "usr/lib/*.so"
+	}
+}

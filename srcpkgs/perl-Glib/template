@@ -1,6 +1,6 @@
 # Template file for 'perl-Glib'
 pkgname=perl-Glib
-version=1.329
+version=1.3292
 revision=1
 wrksrc="Glib-${version}"
 build_style=perl-module
@@ -8,9 +8,9 @@ hostmakedepends="perl"
 makedepends="perl-ExtUtils-Depends perl-ExtUtils-PkgConfig glib-devel"
 depends="${hostmakedepends/glib-devel/}"
 short_desc="Perl bindings for Glib 2"
-maintainer="Juan RP <xtraeme@voidlinux.org>"
+maintainer="Zach Dykstra <dykstra.zachary@gmail.com>"
 license="LGPL-2.1-or-later"
 homepage="http://gtk2-perl.sourceforge.net/"
 distfiles="${SOURCEFORGE_SITE}/gtk2-perl/Glib-${version}.tar.gz"
-checksum=7b4ce1c8cf884849189efaa0b5722ecfb0d87a15f94fccc6a6017d3b3f982a35
+checksum=2f3bf06de572500e168acc6536d04f0066dd2fcbdfc3724cd5e5896d5a39a0e0
 nocross=yes

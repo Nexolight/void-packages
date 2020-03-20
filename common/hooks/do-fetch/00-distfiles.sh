@@ -50,7 +50,7 @@ contents_cksum() {
 
 	case ${cursufx} in
 	tar|txz|tbz|tlz|tgz|crate)
-		cksum=$($XBPS_DIGEST_CMD <(tar xf "$curfile" --to-stdout))
+		cksum=$($XBPS_DIGEST_CMD <($TAR_CMD -x -O -f "$curfile"))
 		if [ $? -ne 0 ]; then
 			msg_error "$pkgver: extracting $curfile to pipe.\n"
 		fi
@@ -73,7 +73,7 @@ contents_cksum() {
 		;;
 	rpm)
 		if command -v rpmextract &>/dev/null; then
-			cksum=$($XBPS_DIGEST_CMD <(rpm2cpio "$curfile" | bsdtar xf - --to-stdout))
+			cksum=$($XBPS_DIGEST_CMD <(rpm2cpio "$curfile" | $TAR_CMD -x -f -))
 			if [ $? -ne 0 ]; then
 				msg_error "$pkgver: extracting $curfile to pipe.\n"
 			fi
@@ -95,7 +95,7 @@ contents_cksum() {
 		fi
 		;;
 	gem)
-		cksum=$($XBPS_DIGEST_CMD <(tar -xf "$curfile" data.tar.gz --to-stdout | tar -xzO ))
+		cksum=$($XBPS_DIGEST_CMD <($TAR_CMD -x -O -f "$curfile" data.tar.gz | $TAR_CMD -xzO ))
 		;;
 	*)
 		msg_error "$pkgver: cannot guess $curfile extract suffix. ($cursufx)\n"
@@ -198,7 +198,7 @@ try_mirrors() {
 
 hook() {
 	local srcdir="$XBPS_SRCDISTDIR/$pkgname-$version"
-	local dfcount=0 dfgood=0 errors=0
+	local dfcount=0 dfgood=0 errors=0 max_retries
 
 	if [ ! -d "$srcdir" ]; then
 		mkdir -p -m775 "$srcdir"
@@ -209,6 +209,12 @@ hook() {
 
 	# Disable trap on ERR; the code is smart enough to report errors and abort.
 	trap - ERR
+
+	# Detect bsdtar and GNU tar (in that order of preference)
+	TAR_CMD="$(command -v bsdtar)"
+	if [ -z "$TAR_CMD" ]; then
+		TAR_CMD="$(command -v tar)"
+	fi
 
 	# Detect distfiles with obsolete checksum and purge them from the cache
 	for f in ${distfiles}; do
@@ -260,10 +266,21 @@ hook() {
 			try_mirrors $curfile $distfile $dfcount $pkgname-$version $f
 		fi
 		# If distfile does not exist, download it from the original location.
-		if [ ! -f "$distfile" ]; then
-			msg_normal "$pkgver: fetching distfile '$curfile'...\n"
-			flock "${distfile}.part" $fetch_cmd "$f"
+		if [[ "$FTP_RETRIES" && "${f}" =~ ^ftp:// ]]; then
+			max_retries="$FTP_RETRIES"
+		else
+			max_retries=1
 		fi
+		for retry in $(seq 1 1 $max_retries); do
+			if [ ! -f "$distfile" ]; then
+				if [ "$retry" == 1 ]; then
+					msg_normal "$pkgver: fetching distfile '$curfile'...\n"
+				else
+					msg_normal "$pkgver: fetch attempt $retry of $max_retries...\n"
+				fi
+				flock "${distfile}.part" $fetch_cmd "$f"
+			fi
+		done
 		if [ ! -f "$distfile" ]; then
 			msg_error "$pkgver: failed to fetch $curfile.\n"
 		fi
@@ -272,6 +289,8 @@ hook() {
 		verify_cksum $curfile $distfile $dfcount
 		dfcount=$((dfcount + 1))
 	done
+
+	unset TAR_CMD
 
 	if [ $errors -gt 0 ]; then
 		msg_error "$pkgver: couldn't verify distfiles, exiting...\n"

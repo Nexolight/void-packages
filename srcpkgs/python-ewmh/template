@@ -1,7 +1,7 @@
 # Template file for 'python-ewmh'
 pkgname=python-ewmh
 version=0.1.6
-revision=2
+revision=3
 archs=noarch
 wrksrc="${pkgname/python-//}-${version}"
 build_style=python-module
@@ -9,7 +9,7 @@ pycompile_module="ewmh"
 hostmakedepends="python-setuptools python3-setuptools"
 depends="python-xlib"
 short_desc="Python2 implementation of EWMH (Extended Window Manager Hints)"
-maintainer="maxice8 <thinkabit.ukim@gmail.com>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="LGPL-3.0-or-later"
 homepage="https://github.com/parkouss/pyewmh"
 distfiles="${PYPI_SITE}/e/ewmh/ewmh-${version}.tar.gz"

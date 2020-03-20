@@ -1,13 +1,13 @@
 # Template file for 'iso-codes'
 pkgname=iso-codes
-version=4.2
+version=4.4
 revision=1
 archs=noarch
 build_style=gnu-configure
-hostmakedepends="python3"
+hostmakedepends="gettext python3"
 short_desc="List of country, language and currency names"
-maintainer="Juan RP <xtraeme@voidlinux.org>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="LGPL-2.1-or-later"
 homepage="https://salsa.debian.org/iso-codes-team/iso-codes"
 distfiles="${DEBIAN_SITE}/main/i/iso-codes/${pkgname}_${version}.orig.tar.xz"
-checksum=2b7f66c81808ac52e1ed0efe4ce8ae8e43309eedcc411f94f71a3f603cc21f42
+checksum=5124ba64e5ce6e1a73c24d1a1cdc42f6a2d0db038791b28ac77aafeb07654e86

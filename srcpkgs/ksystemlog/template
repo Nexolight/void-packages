@@ -1,22 +1,18 @@
 # Template file for 'ksystemlog'
 pkgname=ksystemlog
-version=19.04.1
+version=19.12.3
 revision=1
 build_style=cmake
-hostmakedepends="extra-cmake-modules kcoreaddons pkg-config"
+hostmakedepends="extra-cmake-modules gettext kconfig kcoreaddons kdoctools
+ pkg-config qt5-host-tools qt5-qmake"
 makedepends="kparts-devel qt5-devel"
 short_desc="KDE System log viewer tool"
 maintainer="Piotr Wójcik <chocimier@tlen.pl>"
 license="GPL-2.0-or-later"
 homepage="https://kde.org/applications/system/ksystemlog/"
-distfiles="${KDE_SITE}/applications/${version}/src/ksystemlog-${version}.tar.xz"
-checksum=c8e6cb81803b8754d394d9365d3a6533706c742c822a5ef9d46bdc2def356db4
+distfiles="${KDE_SITE}/release-service/${version}/src/ksystemlog-${version}.tar.xz"
+checksum=8225b1308ace76ebbf9bb805a2b6fae9bf8a425d0b09518645234c1b2df522dc
 
-if [ -n "$CROSS_BUILD" ]; then
-	hostmakedepends+=" kconfig kdoctools python qt5-host-tools qt5-qmake"
-fi
-
-do_check() {
-	# Requires xserver running
-	:
+pre_check() {
+	export QT_QPA_PLATFORM=offscreen
 }

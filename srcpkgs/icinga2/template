@@ -1,8 +1,9 @@
 # Template file for 'icinga2'
 pkgname=icinga2
-version=2.9.2
-revision=5
+version=2.9.3
+revision=2
 build_style=cmake
+build_helper="qemu"
 configure_args="-DCMAKE_INSTALL_SYSCONFDIR=/etc
  -DCMAKE_INSTALL_LOCALSTATEDIR=/var -DICINGA2_RUNDIR=/run
  -DICINGA2_PLUGINDIR=/usr/lib/monitoring-plugins/"
@@ -18,15 +19,11 @@ maintainer="Corné Oppelaar <hello@eaterofco.de>"
 license="GPL-2.0-or-later"
 homepage="https://www.icinga.org/"
 distfiles="https://github.com/Icinga/icinga2/archive/v${version}.tar.gz"
-checksum=3d46e61bc45a369c757a9f91111b80fb2405099a32e04e7d259f8c3a72cfe762
+checksum=37a4d0ecdba9f0229330cfeb773fad4751f3517df2f8846c3bec9deec1fcf045
 
 system_accounts="icinga"
 system_groups="icingacmd"
 icinga_groups="icingacmd"
-
-if [ "$CROSS_BUILD" ]; then
-	hostmakedepends+=" qemu-user-static"
-fi
 
 post_install() {
 	vsv icinga2

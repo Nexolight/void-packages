@@ -1,12 +1,14 @@
 # Template file for 'vivaldi'
 pkgname=vivaldi
-version=2.4.1488.35
+version=2.11.1811.47
 revision=1
-_release=2
+_release=1
 archs="i686 x86_64"
 depends="desktop-file-utils hicolor-icon-theme"
 short_desc="Advanced browser made with the power user in mind"
 maintainer="Diogo Leal <diogo@diogoleal.com>"
+# EULA: https://vivaldi.com/privacy/vivaldi-end-user-license-agreement/
+# Privacy Policy: https://vivaldi.com/privacy/browser/
 license="Proprietary"
 homepage="https://vivaldi.com"
 repository=nonfree
@@ -15,17 +17,17 @@ nostrip=yes
 
 if [ "$XBPS_TARGET_MACHINE" = "x86_64" ]; then
 	_debarch=amd64
-	checksum=3ae1397d60f4ba0679f1b34ee22c10bac7183b7fef3f85477e54a1fab9746583
+	checksum=02c4e33bd7673afa9ea055a9bebda79c8326139964013c67afc6f80ec036dc99
 else
 	_debarch=i386
-	checksum=e1d9b43da8bcb9757049c9745f97afc187a6eb31a54f5166de3866b5bd8561f1
+	checksum=c96f55e9cbe9f1ad94fbf14616f8046bf86dee99ec607627274a0e9f05e4bc1b
 fi
 
 distfiles="https://downloads.vivaldi.com/stable/vivaldi-stable_${version}-${_release}_${_debarch}.deb"
 
 do_extract() {
 	ar x ${XBPS_SRCDISTDIR}/${pkgname}-${version}/vivaldi-stable_${version}-${_release}_${_debarch}.deb
-	tar xf data.tar.xz --exclude={./etc,./opt/vivaldi/cron}
+	bsdtar xf data.tar.xz --exclude={./etc,./opt/vivaldi/cron}
 }
 
 do_install() {

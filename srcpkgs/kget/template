@@ -1,17 +1,17 @@
 # Template file for 'kget'
 pkgname=kget
-version=19.04.1
+version=19.12.3
 revision=1
 build_style=cmake
 configure_args="-DDESKTOPTOJSON_EXECUTABLE=/usr/bin/desktoptojson"
-hostmakedepends="extra-cmake-modules python qt5-qmake qt5-host-tools
- pkg-config kdoctools kconfig kcoreaddons"
+hostmakedepends="extra-cmake-modules python3 qt5-qmake qt5-host-tools
+ pkg-config kdoctools kconfig kcoreaddons gettext"
 makedepends="gpgmeqt-devel kcmutils-devel kdelibs4support-devel
  knotifyconfig-devel libktorrent-devel qca-qt5-devel qt5-plugin-mysql
  qt5-plugin-odbc qt5-plugin-pgsql qt5-plugin-sqlite qt5-plugin-tds"
 short_desc="KDE Download Manager"
-maintainer="Helmut Pozimski <helmut@pozimski.eu>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="GPL-2.0-or-later"
-homepage="https://projects.kde.org/projects/applications/kpimtextedit"
-distfiles="${KDE_SITE}/applications/${version}/src/${pkgname}-${version}.tar.xz"
-checksum=a7dff0134d0ce6643fbde1ddfb73ce7d3300b927373a0907aec510f29d0d1629
+homepage="https://projects.kde.org/projects/applications/kget"
+distfiles="${KDE_SITE}/release-service/${version}/src/${pkgname}-${version}.tar.xz"
+checksum=a4b1d8fb94617c80a557c27ae58a14131bda4476340c136262e5bf8f51d918d9

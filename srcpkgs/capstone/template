@@ -1,12 +1,12 @@
 # Template file for 'capstone'
 pkgname=capstone
 version=4.0.1
-revision=1
+revision=2
 build_style=gnu-makefile
 make_use_env=1
 hostmakedepends="python-setuptools python3-setuptools"
 short_desc="Lightweight multi-platform, multi-architecture disassembly framework"
-maintainer="Juan RP <xtraeme@voidlinux.org>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="BSD-2-Clause"
 homepage="https://www.capstone-engine.org/"
 distfiles="https://github.com/aquynh/${pkgname}/archive/${version}.tar.gz"

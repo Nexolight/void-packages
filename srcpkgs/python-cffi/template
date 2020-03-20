@@ -1,19 +1,28 @@
 # Template file for 'python-cffi'
 pkgname=python-cffi
-version=1.11.5
-revision=2
+version=1.14.0
+revision=1
 wrksrc="cffi-${version}"
 build_style=python-module
 hostmakedepends="python-setuptools python3-setuptools libffi-devel"
 makedepends="python-devel python3-devel libffi-devel"
 depends="python-pycparser"
-pycompile_module="cffi"
+checkdepends="python-pytest python3-pytest python-pycparser
+ python3-pycparser"
 short_desc="C foreign function interface for Python2"
 maintainer="Alessio Sergi <al3hex@gmail.com>"
-homepage="https://cffi.readthedocs.io/"
 license="MIT"
+homepage="https://cffi.readthedocs.io/"
+changelog="https://cffi.readthedocs.io/en/latest/whatsnew.html"
 distfiles="${PYPI_SITE}/c/cffi/cffi-${version}.tar.gz"
-checksum=e90f17980e6ab0f3c2f3730e56d1fe9bcba1891eeea58966e89d352492cc74f4
+checksum=2d384f4a127a15ba701207f7639d94106693b6cd64173d6c8988e2c25f3ac2b6
+
+do_check() {
+	python2 setup.py build_ext -i
+	python2 -m pytest c/ testing/
+	python3 setup.py build_ext -i
+	python3 -m pytest c/ testing/
+}
 
 post_install() {
 	vlicense LICENSE
@@ -21,7 +30,6 @@ post_install() {
 
 python3-cffi_package() {
 	depends="python3-pycparser"
-	pycompile_module="cffi"
 	short_desc="${short_desc/Python2/Python3}"
 	pkg_install() {
 		vmove usr/lib/python3*

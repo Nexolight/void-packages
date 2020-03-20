@@ -1,20 +1,19 @@
 # Template file for 'python-dbus'
 pkgname=python-dbus
-version=1.2.8
+version=1.2.16
 revision=1
-lib32disabled=yes
 wrksrc="dbus-python-${version}"
 build_style=gnu-configure
 hostmakedepends="pkg-config python-devel python3-devel"
 makedepends="libglib-devel ${hostmakedepends/pkg-config/}"
 depends="python dbus"
-pycompile_module="dbus"
 short_desc="D-Bus Python2 bindings"
-maintainer="Juan RP <xtraeme@voidlinux.org>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="MIT"
 homepage="https://www.freedesktop.org/wiki/Software/DBusBindings"
 distfiles="https://dbus.freedesktop.org/releases/dbus-python/dbus-python-${version}.tar.gz"
-checksum=abf12bbb765e300bf8e2a1b2f32f85949eab06998dbda127952c31cb63957b6f
+checksum=11238f1d86c995d8aed2e22f04a1e3779f0d70e587caffeab4857f3c662ed5a4
+lib32disabled=yes
 
 pre_configure() {
 	mkdir -p dbus-${py2_ver}
@@ -54,7 +53,6 @@ do_install() {
 
 python3-dbus_package() {
 	lib32disabled=yes
-	pycompile_module="dbus"
 	depends="python3 dbus"
 	short_desc="${short_desc/Python2/Python3}"
 	pkg_install() {

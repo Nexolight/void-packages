@@ -1,15 +1,15 @@
 # Template file for 'fetchmail'
 pkgname=fetchmail
-version=6.3.26
-revision=14
+version=6.4.2
+revision=1
 build_style=gnu-configure
 configure_args="--with-ssl=${XBPS_CROSS_BASE}/usr"
 hostmakedepends="python-devel"
 makedepends="libressl-devel"
 depends="python"
-short_desc="A remote-mail retrieval utility"
-maintainer="Juan RP <xtraeme@voidlinux.org>"
-license="GPL-2"
+short_desc="Remote-mail retrieval utility"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="GPL-2.0-only"
 homepage="http://fetchmail.sourceforge.net/"
 distfiles="${SOURCEFORGE_SITE}/${pkgname}/${pkgname}-${version}.tar.xz"
-checksum=79b4c54cdbaf02c1a9a691d9948fcb1a77a1591a813e904283a8b614b757e850
+checksum=e21f6b3326f29fdb0c4786b5602aa4b9e668805424d0708eb42be6395c1ca630

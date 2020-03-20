@@ -1,17 +1,19 @@
 # Template file for 'openradtool'
 pkgname=openradtool
-version=0.7.4
+version=0.8.6
 revision=1
 build_style=configure
 configure_args="PREFIX=/usr MANDIR=/usr/share/man"
+hostmakedepends="pkg-config"
 makedepends="expat-devel"
+checkdepends="kcgi ksql sqlite zlib-devel"
 short_desc="Web application source generator"
 maintainer="Duncaen <duncaen@voidlinux.org>"
 license="ISC"
-#changelog="https://kristaps.bsd.lv/openradtool/archive.html"
+changelog="https://kristaps.bsd.lv/openradtool/archive.html"
 homepage="https://kristaps.bsd.lv/openradtool/"
 distfiles="https://kristaps.bsd.lv/openradtool/snapshots/openradtool-${version}.tar.gz"
-checksum=6b572e7d6babde20a817b69397ab560ae6254a4b701cc55efba25851628a21c9
+checksum=bd1b99994064b905660a048271c95bd4daecdf9a0f9f0179779691389c566f66
 
 post_install() {
 	sed -n '2,16p' main.c >LICENSE

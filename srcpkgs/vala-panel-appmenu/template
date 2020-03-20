@@ -1,6 +1,6 @@
 # Template file for 'vala-panel-appmenu'
 pkgname=vala-panel-appmenu
-version=0.7.1
+version=0.7.2
 revision=2
 build_style=cmake
 configure_args="-DENABLE_XFCE=ON -DENABLE_VALAPANEL=ON
@@ -15,8 +15,8 @@ short_desc="Global Menu for Vala Panel"
 maintainer="John Eira <john.eira@web.de>"
 license="LGPL-3.0-or-later"
 homepage="https://gitlab.com/vala-panel-project/vala-panel-appmenu"
-distfiles="https://gitlab.com/vala-panel-project/vala-panel-appmenu/uploads/c0f85b42a2a228ad8c3413357e02fb28/vala-panel-appmenu-${version}.tar.xz"
-checksum=54a1b4f6ceca63eb3b79facc4327424bdd82f0fe3b7c6139326dbe0ec0824dcc
+distfiles="https://gitlab.com/vala-panel-project/vala-panel-appmenu/uploads/57fe7a74b38180002154fbd6028075db/vala-panel-appmenu-${version}.tar.xz"
+checksum=80884ebd71b665da7a1eac67752596ecbb29d3a8dd9eee9a2e3212dfc0aab6ae
 
 post_install() {
 	if [ "$CROSS_BUILD" ]; then
@@ -31,7 +31,7 @@ post_install() {
 appmenu-gtk-module-devel_package() {
 	short_desc="GTK module for exposing menus - development files"
 	depends="appmenu-gtk-module-${version}_${revision}
-	 appmenu-gkt3-module-${version}_${revision}"
+	 appmenu-gtk3-module-${version}_${revision}"
 	pkg_install() {
 		vmove usr/include
 		vmove usr/lib/pkgconfig

@@ -7,14 +7,15 @@ wrksrc="${pkgname}-${_commit}"
 build_style=gnu-makefile
 make_build_args="STRIP=true"
 make_install_args="mandir=/usr/share/man"
+hostmakedepends="gettext"
 short_desc="Userspace tools for the Linux kernel cpufreq subsystem"
-maintainer="Juan RP <xtraeme@voidlinux.org>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="GPL-2"
 homepage="https://git.kernel.org/pub/scm/linux/kernel/git/brodo/cpufrequtils.git"
 distfiles="${homepage}/snapshot/${pkgname}-${_commit}.tar.gz"
 checksum=53b0fd1092e2053d31f4707ae0485f0d09b7faafcfac0e53da06c28ecfe23c95
 
-archs="i686* x86_64* ppc64-musl ppc64le*"
+archs="i686* x86_64* ppc*"
 
 post_extract() {
 	sed -i "s|/usr/bin/install|install|g" Makefile

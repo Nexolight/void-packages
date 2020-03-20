@@ -1,6 +1,6 @@
 # Template file for 'cri-tools'
 pkgname=cri-tools
-version=1.14.0
+version=1.17.0
 revision=1
 build_style=go
 go_import_path=github.com/kubernetes-sigs/cri-tools
@@ -9,8 +9,14 @@ maintainer="Kyle Nusbaum <knusbaum+void@sdf.org>"
 license="Apache-2.0"
 homepage="https://github.com/kubernetes-sigs/cri-tools"
 distfiles="https://github.com/kubernetes-sigs/cri-tools/archive/v${version}.tar.gz"
-checksum=c33bd3703aa4ade389f7898cbd196dfb9a596aa4325e8213392327e6cd3ff2c0
+checksum=8535af6886d060e5c4b9dde143641aa94407fffff3cb0df50d9924938d0b3e63
 
 do_build() {
 	make ${makejobs}
+}
+
+do_install() {
+	for bin in _output/*; do
+		vbin $bin
+	done
 }

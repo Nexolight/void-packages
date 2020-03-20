@@ -1,18 +1,19 @@
 # Template file for 'binutils'
 pkgname=binutils
-version=2.32
-revision=2
+version=2.34
+revision=1
 bootstrap=yes
 short_desc="GNU binary utilities"
-maintainer="Juan RP <xtraeme@voidlinux.org>"
+maintainer="Enno Boland <gottox@voidlinux.org>"
 license="GPL-3.0-or-later"
 homepage="http://www.gnu.org/software/binutils/"
 distfiles="${GNU_SITE}/$pkgname/$pkgname-$version.tar.xz"
-checksum=0ab6c55dd86a92ed561972ba15b9b70a8b9f75557f896446c82e8b36e473ee04
+checksum=f00b0e8803dc9bab1e2165bd568528135be734df3fabf8d0161828cd56028952
 
 if [ "$CHROOT_READY" ]; then
-	hostmakedepends="flex perl"
+	hostmakedepends="flex perl texinfo"
 	checkdepends="bc"
+	depends="binutils-doc"
 else
 	unset XBPS_CHECK_PKGS
 	XBPS_TRIPLET=x86_64-unknown-linux-gnu
@@ -96,8 +97,6 @@ do_install() {
 	echo "INPUT ( /usr/lib/libopcodes.a -lbfd )" \
 		>${DESTDIR}/usr/lib/libopcodes.so
 
-	# Remove info file that conflicts with autoconf.
-	rm -f ${DESTDIR}/usr/share/info/standards.info
 	rm -f ${DESTDIR}/usr/lib64
 
 	# Remove useless manpages.
@@ -117,5 +116,15 @@ binutils-devel_package() {
 		vmove usr/include
 		vmove "usr/lib/*.a"
 		vmove "usr/lib/*.so"
+	}
+}
+
+binutils-doc_package() {
+	archs=noarch
+	short_desc+=" - info files"
+	pkg_install() {
+		vmove usr/share/info
+		# Remove info file that conflicts with autoconf.
+		rm -f ${PKGDESTDIR}/usr/share/info/standards.info
 	}
 }

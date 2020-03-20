@@ -1,24 +1,29 @@
 # Template file for 'freeplane'
 pkgname=freeplane
-version=1.7.8
+version=1.8.0
 revision=1
 archs=noarch
-hostmakedepends="apache-ant openjdk unzip gradle"
+hostmakedepends="apache-ant openjdk8 unzip gradle"
 depends="virtual?java-runtime"
 short_desc="Application for Mind Mapping, Knowledge Management, Project Management"
 maintainer="Andrea Brancaleoni <abc@pompel.me>"
 license="GPL-2.0-or-later"
 homepage="http://freeplane.sourceforge.net/"
 distfiles="$SOURCEFORGE_SITE/$pkgname/$pkgname%20stable/${pkgname}_src-$version.tar.gz"
-checksum=a96d8f5c85219276ee8456a8f08cfe96cd98be2d4a0eb51b9697091849ba44b5
+checksum=6bab134c45ad7456c26e337ac9f0de15ee5182af574bd6aa27dfce6a6c4291e8
 
 make_dirs="
 /usr/share/freeplane/fwdir/condperm/ 755 root root
 /usr/share/freeplane/fwdir/perms/ 755 root root"
 
+case "$XBPS_MACHINE" in
+	ppc64*) ;;
+	ppc*|arm*|mips*) broken="No JVM JIT, goes on for hours";;
+esac
+
 do_build() {
 	. /etc/profile.d/apache-ant.sh
-	. /etc/profile.d/10_openjdk.sh
+	. /etc/profile.d/10_openjdk8.sh
 
 	gradle format_translation binZip -x test
 }

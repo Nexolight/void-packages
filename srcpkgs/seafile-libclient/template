@@ -1,6 +1,7 @@
 # Template file for 'seafile-libclient'
+# WARNING: upstream sometimes retag source. Wait for official announcement
 pkgname=seafile-libclient
-version=6.2.11
+version=7.0.6
 revision=1
 _distname="${pkgname/-libclient/}"
 wrksrc="${_distname}-${version}"
@@ -12,9 +13,9 @@ makedepends="libglib-devel libuuid-devel libsearpc-devel sqlite-devel
 short_desc="Cloud storage system - library"
 maintainer="yopito <pierre.bourgin@free.fr>"
 license="GPL-2.0-or-later" # Has openssl exception not yet present on SPDX
-homepage="https://github.com/haiwen/seafile"
-distfiles="${homepage}/archive/v${version}.tar.gz>${_distname}-${version}.tar.gz"
-checksum=58c751d0d5f7afa674718a08ed828e9f94d00173d721018bbf61dd6b032f5a57
+homepage="https://seafile.com"
+distfiles="https://github.com/haiwen/seafile/archive/v${version}.tar.gz"
+checksum=8a7f37b555b5e8750194db9ae8041d2b0ed0035b3fc832112d4a891e02b00488
 
 pre_configure() {
 	./autogen.sh
@@ -37,7 +38,6 @@ seafile-libclient-devel_package() {
 
 seafile-libclient-python3_package() {
 	short_desc="Cloud storage system - Python3 bindings"
-	pycompile_module="seafile"
 	depends="libsearpc-python3"
 	archs=noarch
 	pkg_install() {

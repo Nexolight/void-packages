@@ -1,17 +1,20 @@
 # Template file for 'libSavitar'
 pkgname=libSavitar
-version=4.0.0
+version=4.5.0
 revision=1
 build_style=cmake
 hostmakedepends="python3"
 makedepends="python3-sip-devel python3-devel pugixml-devel"
 short_desc="C++ implementation of 3mf loading"
-maintainer="maxice8 <thinkabit.ukim@gmail.com>"
+maintainer="Karl Nilsson <karl.robert.nilsson@gmail.com>"
 license="LGPL-3.0-or-later"
 homepage="https://github.com/Ultimaker/libSavitar"
 distfiles="https://github.com/Ultimaker/libSavitar/archive/${version}.tar.gz"
-checksum=c1d6807f55049b73d19e3395c6fc8598e3ab9079b804a77ad2ef0928d7a03f62
-nocross="can't find sip on cross environment"
+checksum=f5d4a80962ad81d95d9356fca961fd8d53fc9fe89225aa27363b7e6ca45834cf
+
+if [ "$CROSS_BUILD" ]; then
+	hostmakedepends+=" python3-sip-devel"
+fi
 
 libSavitar-devel_package() {
 	depends="libSavitar-${version}_${revision}"

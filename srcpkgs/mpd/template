@@ -1,7 +1,7 @@
 # Template file for 'mpd'
 pkgname=mpd
-version=0.21.9
-revision=2
+version=0.21.21
+revision=1
 build_style=meson
 configure_args="-Dopus=enabled -Dmikmod=enabled -Dneighbor=true
  -Dsoundcloud=enabled -Dpipe=true -Dtwolame=enabled -Dbzip2=enabled
@@ -9,8 +9,9 @@ configure_args="-Dopus=enabled -Dmikmod=enabled -Dneighbor=true
  -Dchromaprint=disabled -Dsoxr=enabled -Dshout=disabled -Dadplug=disabled
  -Dfluidsynth=disabled -Dgme=disabled -Dwildmidi=disabled -Dsidplay=disabled
  -Dshine=disabled -Ddocumentation=true -Daudiofile=enabled -Dtremor=disabled
+ -Dsolaris_output=disabled
  -Djack=$(vopt_if jack enabled disabled) -Dlame=$(vopt_if lame enabled disabled)
- -Dao=$(vopt_if ao enabled disabled) -Dmpcdec=$(vopt_if mpcdec enabled disabled)
+ -Dao=$(vopt_if libao enabled disabled) -Dmpcdec=$(vopt_if mpcdec enabled disabled)
  -Dsndio=$(vopt_if sndio enabled disabled) -Dpulse=$(vopt_if pulseaudio enabled disabled)
  -Dwavpack=$(vopt_if wavpack enabled disabled) -Dcdio_paranoia=$(vopt_if cdio enabled disabled)
  -Dopenal=$(vopt_if openal enabled disabled)"
@@ -20,20 +21,20 @@ makedepends="avahi-glib-libs-devel boost-devel faad2-devel ffmpeg-devel
  libcurl-devel libid3tag-devel libmad-devel libmikmod-devel libmms-devel
  libmodplug-devel libmpdclient-devel libnfs-devel libsamplerate-devel
  libsoup-devel libupnp1.8-devel mpg123-devel opus-devel yajl-devel
- zziplib-devel libsoxr-devel audiofile-devel
- twolame-devel $(vopt_if cdio 'libcdio-paranoia-devel')
+ zziplib-devel libsoxr-devel audiofile-devel twolame-devel
+ $(vopt_if cdio 'libcdio-paranoia-devel')
  $(vopt_if jack 'jack-devel') $(vopt_if lame 'lame-devel')
  $(vopt_if libao 'libao-devel') $(vopt_if mpcdec 'libmpcdec-devel')
  $(vopt_if pulseaudio 'pulseaudio-devel') $(vopt_if sndio 'sndio-devel')
- $(vopt_if wavpack 'wavpack-devel') $(vopt_if soxr 'libsoxr-devel')
- $(vopt_if openal 'libopenal-devel')"
+ $(vopt_if wavpack 'wavpack-devel') $(vopt_if openal 'libopenal-devel')"
+depends="libcap-progs"
 short_desc="Flexible, powerful, server-side application for playing music"
-maintainer="maxice8 <thinkabit.ukim@gmail.com>"
+maintainer="Daniel Eyßer <daniel.eysser@gmail.com>"
 license="GPL-2.0-or-later"
 homepage="https://www.musicpd.org/"
 changelog="https://raw.githubusercontent.com/MusicPlayerDaemon/MPD/v${version}/NEWS"
 distfiles="https://www.musicpd.org/download/mpd/${version%.*}/mpd-${version}.tar.xz"
-checksum=39e25376ac2f4db26c3d074eba2ebeba10879a29c71abab33571019c1e520d3e
+checksum=e1bdb15f0e3b62c18e91257a7b41530dc36eb91cc03eabc6e6bffd947ec168ce
 LDFLAGS+=" -Wl,-z,stack-size=1048576"
 
 system_accounts="mpd"
@@ -48,7 +49,7 @@ make_dirs="
 build_options="jack lame mpcdec pulseaudio libao wavpack sndio cdio openal"
 desc_option_cdio="Enable libcdio_paranoia input plugin"
 desc_option_openal="Enable OpenAL output plugin"
-build_options_default="pulseaudio libao sndio cdio"
+build_options_default="jack pulseaudio libao sndio cdio"
 
 pre_configure() {
 	# We only want manpages

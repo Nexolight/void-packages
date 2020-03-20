@@ -1,16 +1,16 @@
 # Template file for 'miller'
 pkgname=miller
-version=5.4.0
+version=5.7.0
 revision=1
 build_style=gnu-configure
 hostmakedepends="automake libtool flex asciidoc"
 short_desc="Tool like sed/awk/cut/join/sort for name-indexed data such as CSV"
 maintainer="Leah Neukirchen <leah@vuxu.org>"
-license="2-clause-BSD"
+license="BSD-2-Clause"
 homepage="http://johnkerl.org/miller/"
-distfiles="https://github.com/johnkerl/${pkgname}/archive/${version}.tar.gz"
 changelog="https://github.com/johnkerl/miller/releases"
-checksum=6a7d30884a8f4a97e07895b723be13764ff49251200b832385207c5efb9647d8
+distfiles="https://github.com/johnkerl/${pkgname}/archive/v${version}.tar.gz"
+checksum=5ef4a2c58fa8f6d12ba64d26cecf904af1dc476cc6db9b92d3e2aff2e937f4bf
 
 pre_configure() {
 	# Disable debugging and profiling versions, broken on musl.

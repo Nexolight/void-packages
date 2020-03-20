@@ -1,46 +1,61 @@
 # Template file for 'git'
 pkgname=git
-version=2.21.0
+version=2.25.2
 revision=1
 build_style=gnu-configure
-configure_args="--with-curl --with-expat --with-tcltk --with-libpcre2
- ac_cv_snprintf_returns_bogus=no"
-make_install_args="NO_INSTALL_HARDLINKS=1 INSTALLDIRS=vendor
- perllibdir=/usr/share/perl5/vendor_perl"
-make_check_target=test
-hostmakedepends="asciidoc perl pkg-config tk xmlto"
+configure_args="--with-curl --with-expat --with-tcltk --with-libpcre2"
+hostmakedepends="asciidoc gettext perl pkg-config tar tk xmlto"
 makedepends="libglib-devel libcurl-devel libsecret-devel pcre2-devel tk-devel"
 # Required by https://
 depends="ca-certificates perl-Authen-SASL perl-MIME-tools perl-Net-SMTP-SSL"
 short_desc="Git Tree History Storage Tool"
-maintainer="Juan RP <xtraeme@voidlinux.org>"
+maintainer="Đoàn Trần Công Danh <congdanhqx@gmail.com>"
 license="GPL-2.0-only"
 homepage="https://git-scm.com/"
 changelog="https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/${version}.txt"
 distfiles="https://www.kernel.org/pub/software/scm/git/git-${version}.tar.xz"
-checksum=8ccb1ce743ee991d91697e163c47c11be4bf81efbdd9fb0b4a7ad77cc0020d28
+checksum=9b937103e048e2d3bf964d4132a0e7edccc2583d4ef30bc8a516f93a76de7123
 replaces="git-perl>=0"
+register_shell=/usr/bin/git-shell
 
-subpackages="git-cvs git-svn gitk git-gui git-all git-libsecret"
+subpackages="git-cvs git-svn gitk git-gui git-all git-libsecret git-netrc"
 
-case "$XBPS_TARGET_MACHINE" in
-	*-musl) configure_args+=" ac_cv_fread_reads_directories=yes" ;;
-	*) configure_args+=" ac_cv_fread_reads_directories=no" ;;
-esac
+post_configure() {
+	cat <<-EOF >config.mak
+	NO_INSTALL_HARDLINKS=Yes
+	INSTALLDIRS=vendor
+	perllibdir=/usr/share/perl5/vendor_perl
+	EOF
+}
 
 post_build() {
 	make ${makejobs} -C Documentation man
-	make ${makejobs} -C contrib/subtree all git-subtree.1
+	make ${makejobs} -C contrib/contacts all git-contacts.1
+	make ${makejobs} -C contrib/diff-highlight all
+	make ${makejobs} -C contrib/subtree all man
 	make ${makejobs} -C contrib/credential/libsecret
 }
 
+do_check() {
+	make test
+	make -C contrib/diff-highlight test
+	make -C contrib/subtree test
+	make -C contrib/credential/netrc test
+}
+
 post_install() {
-	make NO_INSTALL_HARDLINKS=1 DESTDIR=${DESTDIR} install-doc
+	make DESTDIR=${DESTDIR} install-doc
 	vinstall contrib/completion/git-completion.bash 644 \
 		usr/share/bash-completion/completions git
 	vinstall contrib/completion/git-prompt.sh 644 usr/share/git
+	make -C contrib/contacts DESTDIR=${DESTDIR} prefix=/usr install install-man
+	vbin contrib/diff-highlight/diff-highlight
+	vinstall contrib/diff-highlight/README 644 usr/share/doc/git-diff-highlight
+	vinstall contrib/git-jump/git-jump 755 usr/libexec/git-core
+	vinstall contrib/git-jump/README 644 usr/share/doc/git-jump
 	make -C contrib/subtree DESTDIR=${DESTDIR} prefix=/usr install install-man
 	vinstall contrib/credential/libsecret/git-credential-libsecret 755 usr/libexec/git-core
+	vinstall contrib/credential/netrc/git-credential-netrc 755 usr/libexec/git-core
 }
 
 git-cvs_package() {
@@ -104,5 +119,14 @@ git-libsecret_package() {
 	short_desc+=" - libsecret credential helper"
 	pkg_install() {
 		vmove usr/libexec/git-core/git-credential-libsecret
+	}
+}
+
+git-netrc_package() {
+	depends="git-${version}_${revision}"
+	archs=noarch
+	short_desc+=" - netrc credential helper"
+	pkg_install() {
+		vmove usr/libexec/git-core/git-credential-netrc
 	}
 }

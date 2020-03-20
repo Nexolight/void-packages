@@ -1,6 +1,6 @@
 # Template file for 'perl-CGI'
 pkgname=perl-CGI
-version=4.43
+version=4.46
 revision=1
 archs=noarch
 wrksrc="${pkgname/perl-/}-${version}"
@@ -14,4 +14,4 @@ maintainer="newbluemoon <blaumolch@mailbox.org>"
 license="Artistic-1.0-Perl, GPL-1.0-or-later"
 homepage="https://metacpan.org/release/CGI"
 distfiles="${CPAN_SITE}/CGI/${pkgname/perl-/}-${version}.tar.gz"
-checksum=14b94f9df6e48fc26ebc4fa1e01a7b534cbc1611028a49028f9ac9d8ca27b734
+checksum=788998ddc33ca382e5d7ce72c6c0ea1d8366c93067371fe2f14239ddea2e4298

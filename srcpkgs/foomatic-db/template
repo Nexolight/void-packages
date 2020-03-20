@@ -6,10 +6,11 @@ revision=1
 archs=noarch
 build_style=gnu-configure
 ceeate_wrksrc=yes
+hostmakedepends="tar"
 short_desc="OpenPrinting printer support - database"
 homepage="https://wiki.linuxfoundation.org/openprinting/database/foomatic"
 license="GPL-2, MIT"
-maintainer="Juan RP <xtraeme@voidlinux.org>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 
 do_fetch() {
 	$XBPS_FETCH_CMD https://www.openprinting.org/download/foomatic/$pkgname-4.0-current.tar.gz

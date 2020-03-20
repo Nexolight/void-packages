@@ -1,11 +1,9 @@
 # Template file for 'gallery-dl'
 pkgname=gallery-dl
-version=1.8.4
+version=1.13.0
 revision=1
 archs=noarch
-wrksrc="gallery_dl-${version}"
 build_style=python3-module
-pycompile_module="gallery_dl"
 hostmakedepends="python3-setuptools"
 depends="python3-requests"
 short_desc="Command-line program to download image galleries"
@@ -13,5 +11,9 @@ maintainer="SolitudeSF <solitudesf@protonmail.com>"
 license="GPL-2.0-or-later"
 homepage="https://github.com/mikf/gallery-dl"
 changelog="https://raw.githubusercontent.com/mikf/gallery-dl/master/CHANGELOG.md"
-distfiles="${homepage}/releases/download/v${version}/gallery_dl-${version}.tar.gz"
-checksum=564159a3fac5f6f37a274e68ac72129a696f5cc9f34e067cf722e303af4aae05
+distfiles="${homepage}/archive/v${version}.tar.gz"
+checksum=c13070085fe5a92e4a48ca91a0ede0f21579c6950f27d15fba27bb7e2c2eb189
+
+post_build() {
+	make man completion
+}

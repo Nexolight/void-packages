@@ -1,16 +1,17 @@
 # Template file for 'logrotate'
 pkgname=logrotate
-version=3.15.0
+version=3.16.0
 revision=1
 build_style=gnu-configure
 makedepends="acl-devel popt-devel"
 conf_files="/etc/logrotate.conf"
 short_desc="Log file rotation and periodic maintenance"
-maintainer="Juan RP <xtraeme@voidlinux.org>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="GPL-2.0-or-later"
 homepage="https://github.com/logrotate/logrotate"
 distfiles="${homepage}/releases/download/${version}/logrotate-${version}.tar.xz"
-checksum=313612c4776a305393454c874ef590d8acf84c9ffa648717731dfe902284ff8f
+checksum=442f6fdf61c349eeae5f76799878b88fe45a11c8863a38b618bac6988f4a7ce5
+make_dirs="/etc/logrotate.d 0755 root root"
 
 post_install() {
 	vconf ${FILESDIR}/logrotate.conf

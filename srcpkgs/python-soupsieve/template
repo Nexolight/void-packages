@@ -1,7 +1,7 @@
 # Template file for 'python-soupsieve'
 pkgname=python-soupsieve
-version=1.9.1
-revision=1
+version=1.9.5
+revision=2
 archs=noarch
 wrksrc="soupsieve-${version}"
 build_style=python-module
@@ -15,7 +15,7 @@ maintainer="Aluísio Augusto Silva Gonçalves <aluisio@aasg.name>"
 license="MIT"
 homepage="https://facelessuser.github.io/soupsieve/"
 distfiles="${PYPI_SITE}/s/soupsieve/soupsieve-${version}.tar.gz"
-checksum=b20eff5e564529711544066d7dc0f7661df41232ae263619dede5059799cdfca
+checksum=e2c1c5dee4a1c36bcb790e0fabd5492d874b8ebd4617622c4f6a731701060dda
 
 do_check() {
 	PY2PATH="${PWD}/build-2.7/lib"

@@ -1,6 +1,6 @@
 # Template file for 'catch2'
 pkgname=catch2
-version=2.7.1
+version=2.11.1
 revision=1
 archs=noarch
 wrksrc="Catch2-${version}"
@@ -15,7 +15,7 @@ maintainer="Louis Dupré Bertoni <contact@louisdb.xyz>"
 license="BSL-1.0"
 homepage="https://github.com/catchorg/Catch2"
 distfiles="https://github.com/catchorg/Catch2/archive/v${version}/${pkgname}-v${version}.tar.gz"
-checksum=04b303517284572c277597004a33c3f8c02a4d12ba73d5a4cb73b4a369dfef0b
+checksum=9af06ca5b10362620c6c9c729821367e1aeb0f76adfc7bc3a468da83db3c50c6
 
 post_install() {
 	vlicense LICENSE.txt

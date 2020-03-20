@@ -1,16 +1,16 @@
 # Template file for 'FAudio'
 pkgname=FAudio
-version=19.05
+version=20.02
 revision=1
 build_style=cmake
 configure_args="-DFFMPEG=ON"
 makedepends="SDL2-devel ffmpeg-devel"
 short_desc="Accuracy-focused XAudio reimplementation for open platforms"
 maintainer="Franc[e]sco <lolisamurai@tfwno.gf>"
-license="custom:zlib"
+license="Zlib"
 homepage="https://github.com/FNA-XNA/FAudio"
 distfiles="https://github.com/FNA-XNA/FAudio/archive/${version}.tar.gz"
-checksum=fb48a729cfb9ad53da5bb54e2726ef0a83e68a0c705b070bcc2b275a316e9ccf
+checksum=103a6d278921ce757e5427133626f60ce4876b30d81186f78af35d9f1ca4ef16
 
 # sdl2 cmake file appears to be broken for cross compilation
 CFLAGS+=" -I${XBPS_CROSS_BASE}/usr/include/SDL2 "

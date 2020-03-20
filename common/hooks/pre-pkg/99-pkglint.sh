@@ -7,19 +7,21 @@ hook() {
 	set +E
 
 	# Check for forbidden directories that are symlinks in void.
-	for f in bin sbin lib lib32; do
-		if [ -d ${PKGDESTDIR}/${f} ]; then
-			msg_red "${pkgver}: /${f} directory is not allowed, use /usr/${f}.\n"
+	for f in lib bin sbin lib64 lib32 usr/sbin usr/lib64; do
+		[ -e "${PKGDESTDIR}/${f}" ] || continue
+		if [ "${pkgname}" = "base-files" ]; then
+			if [ -L "${PKGDESTDIR}/${f}" ]; then
+				continue
+			fi
+			msg_red "${pkgver}: /${f} must be a symlink.\n"
+			error=1
+		else
+			msg_red "${pkgver}: /${f} must not exist.\n"
 			error=1
 		fi
 	done
-
-	if [ -d ${PKGDESTDIR}/usr/sbin ]; then
-		msg_red "${pkgver}: /usr/sbin directory is not allowed, use /usr/bin.\n"
-		error=1
-	fi
 	
-	for f in sys dev home root run var/run tmp usr/lib64 usr/local; do
+	for f in sys dev home root run var/run tmp usr/local destdir; do
 		if [ -d ${PKGDESTDIR}/${f} ]; then
 			msg_red "${pkgver}: /${f} directory is not allowed, remove it!\n"
 			error=1
@@ -119,7 +121,7 @@ hook() {
 				msg_red "${pkgver}: SONAME bump detected: ${libname}.so.${conflictRev} -> ${libname}.so.${rev}\n"
 				msg_red "${pkgver}: please update common/shlibs with this line: \"${libname}.so.${rev} ${pkgver}\"\n"
 				msg_red "${pkgver}: all reverse dependencies should also be revbumped to be rebuilt against ${libname}.so.${rev}:\n"
-				_revdeps=$($XBPS_QUERY_XCMD -Rs ${libname}.so -p shlib-requires|awk '{print $1}')
+				_revdeps=$($XBPS_QUERY_XCMD -Rs ${libname}.so -p shlib-requires|cut -d ' ' -f1)
 				for x in ${_revdeps}; do
 					msg_red "   ${x%:}\n"
 				done
@@ -128,7 +130,7 @@ hook() {
 			# Try to match provided shlibs in virtual packages.
 			for f in ${provides}; do
 				_vpkgname="$($XBPS_UHELPER_CMD getpkgname ${f} 2>/dev/null)"
-				_spkgname="$(grep "^${filename}" $mapshlibs | awk '{print $2}')"
+				_spkgname="$(grep "^${filename}" $mapshlibs | cut -d ' ' -f2)"
 				_libpkgname="$($XBPS_UHELPER_CMD getpkgname ${_spkgname} 2>/dev/null)"
 				if [ -z "${_spkgname}" -o  -z "${_libpkgname}" ]; then
 					continue

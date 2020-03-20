@@ -1,7 +1,8 @@
 # Template file for 'python-Arrow'
 pkgname=python-Arrow
-version=0.13.1
-revision=1
+reverts=0.13.1_1
+version=0.15.2
+revision=2
 archs=noarch
 wrksrc="arrow-${version}"
 build_style=python-module
@@ -9,11 +10,11 @@ pycompile_module="arrow"
 hostmakedepends="python-setuptools python3-setuptools"
 depends="python-dateutil python-backports.functools_lru_cache"
 short_desc="Better dates & times for Python (Python2)"
-maintainer="Orphaned <orphan@voidlinux.org>"
+maintainer="Andrea Brancaleoni <miwaxe@gmail.com>"
 license="Apache-2.0"
 homepage="https://github.com/crsmithdev/arrow"
 distfiles="${PYPI_SITE}/a/arrow/arrow-${version}.tar.gz"
-checksum=6f54d9f016c0b7811fac9fb8c2c7fa7421d80c54dbdd75ffb12913c55db60b8a
+checksum=10257c5daba1a88db34afa284823382f4963feca7733b9107956bed041aff24f
 
 python3-Arrow_package() {
 	archs=noarch

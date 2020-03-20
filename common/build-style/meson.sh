@@ -69,6 +69,10 @@ cpu_family = '${_MESON_CPU_FAMILY}'
 cpu = '${_MESON_TARGET_CPU}'
 endian = '${_MESON_TARGET_ENDIAN}'
 EOF
+		if [[ $build_helper = *"qemu"* ]]; then
+			sed -e "/\[binaries\]/ a exe_wrapper = '/usr/bin/qemu-${XBPS_TARGET_QEMU_MACHINE}-static'" \
+				-i ${meson_crossfile}
+		fi
 
 		unset _MESON_CPU_FAMILY _MESON_TARGET_CPU _MESON_TARGET_ENDIAN
 	fi
@@ -98,11 +102,6 @@ do_configure() {
 		# it should use when searching for stuff in the build machine
 		export PKG_CONFIG="/usr/bin/pkg-config"
 	fi
-
-	# The binutils ar cannot perform LTO on static libraries so we have to use
-	# the gcc-ar wrapper that that calls the correct plugin
-	# https://github.com/mesonbuild/meson/issues/1646
-	export AR="gcc-ar"
 
 	${meson_cmd} \
 		--prefix=/usr \

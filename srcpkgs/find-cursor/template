@@ -1,16 +1,15 @@
 # Template file for 'find-cursor'
 pkgname=find-cursor
-version=1.2
+version=1.4
 revision=1
 build_style=gnu-makefile
-hostmakedepends="git"
 makedepends="libXdamage-devel libXrender-devel"
 short_desc="Highlight the cursor position in X"
 maintainer="biopsin <biopsin@yahoo.no>"
 license="MIT"
-homepage="https://github.com/Carpetsmoker/find-cursor"
-distfiles="https://github.com/Carpetsmoker/find-cursor/archive/v${version}.tar.gz"
-checksum=124bb422d608333edbca2ca9f981e5a3a55a4379235b3a2c93d7b80e07de21c6
+homepage="https://github.com/arp242/find-cursor"
+distfiles="https://github.com/arp242/find-cursor/archive/v${version}.tar.gz"
+checksum=e162386a18e64c4d4522a43c636b832384981b43c843d39937d28d5c37d553d2
 
 do_install() {
 	vbin find-cursor

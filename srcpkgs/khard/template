@@ -1,7 +1,7 @@
 # Template file for 'khard'
 pkgname=khard
-version=0.13.0
-revision=1
+version=0.15.1
+revision=2
 archs=noarch
 build_style=python3-module
 pycompile_module="khard"
@@ -10,10 +10,10 @@ depends="python3-setuptools python3-atomicwrites python3-configobj
  python3-vobject python3-Unidecode python3-ruamel.yaml"
 short_desc="Command-line addressbook built around CardDAV"
 maintainer="Oliver Kiddle <okiddle@yahoo.co.uk>"
-license="GPL-3"
+license="GPL-3.0-only"
 homepage="https://github.com/scheibler/khard"
 distfiles="${PYPI_SITE}/k/khard/khard-${version}.tar.gz"
-checksum=fc93d0b91f7e688a8f60896b4ff7b1968d6b4cb58d80fca9977232c3a68ed2d3
+checksum=5ca8e678133e08fa4861cc31aedf9f30b4f8e3958ed66ede025c23ec5e176aa1
 
 post_install() {
 	vsconf misc/khard/khard.conf.example

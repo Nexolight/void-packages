@@ -1,19 +1,22 @@
 # Template file for 'messagelib'
 pkgname=messagelib
-version=19.04.1
+version=19.12.3
 revision=1
 build_style=cmake
-hostmakedepends="extra-cmake-modules qt5-qmake qt5-host-tools python
- kcoreaddons kconfig"
+hostmakedepends="extra-cmake-modules qt5-qmake qt5-host-tools python3
+ gettext kcoreaddons kconfig"
 makedepends="akonadi-contacts-devel gpgmeqt-devel kdepim-apps-libs-devel
  kidentitymanagement-devel kmailtransport-devel kmbox-devel libgravatar-devel
- libkdepim-devel qt5-location-devel qt5-webchannel-devel qt5-webengine-devel"
+ libkdepim-devel qt5-location-devel qt5-webchannel-devel qt5-webengine-devel
+ qca-qt5-devel"
 short_desc="KDE PIM messaging library"
 maintainer="John <johnz@posteo.net>"
 license="GPL-2.0-or-later, LGPL-2.1-or-later"
 homepage="https://community.kde.org/KDE_PIM"
-distfiles="${KDE_SITE}/applications/${version}/src/messagelib-${version}.tar.xz"
-checksum=7e4d0e2f2d6dfcb235408af0e4af235ab10dc8a8c4f1e169a672f03b37b180ad
+distfiles="${KDE_SITE}/release-service/${version}/src/messagelib-${version}.tar.xz"
+checksum=5e776d5ea7b0cbb246b03cf2bfc84a65a959e7433a7f80b77a5f67cfa7c23ccb
+
+#TODO: fix build without qca-qt5
 
 if [ "$CROSS_BUILD" ]; then
 	LDFLAGS=" -Wl,-rpath-link,../../bin"

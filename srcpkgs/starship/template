@@ -1,0 +1,23 @@
+# Template file for 'starship'
+pkgname=starship
+version=0.37.0
+revision=1
+build_style=cargo
+build_helper="rust"
+hostmakedepends="pkg-config"
+makedepends="libgit2-devel"
+short_desc="Minimal, fast and customizable cross-shell prompt"
+maintainer="Aluísio Augusto Silva Gonçalves <aluisio@aasg.name>"
+license="ISC"
+homepage="https://starship.rs"
+distfiles="https://github.com/starship/starship/archive/v${version}.tar.gz"
+checksum=9a7344a1f61f195ddee9fef794e3214d47b38c5d18dfba8d66959dff3e06403b
+
+pre_build() {
+	vsed -i '/reqwest =/s/, "rustls-tls"//' Cargo.toml
+	cargo update
+}
+
+post_install() {
+	vlicense LICENSE
+}

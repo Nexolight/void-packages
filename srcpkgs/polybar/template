@@ -1,6 +1,6 @@
 # Template file for 'polybar'
 pkgname=polybar
-version=3.3.1
+version=3.4.2
 revision=1
 wrksrc="$pkgname"
 build_style=cmake
@@ -11,9 +11,8 @@ configure_args="
  -DENABLE_MPD=$(vopt_if mpd ON OFF)
  -DENABLE_NETWORK=$(vopt_if network ON OFF)
  -DENABLE_PULSEAUDIO=$(vopt_if pulseaudio ON OFF)
- -DWITH_XRENDER=OFF -DWITH_XDAMAGE=ON -DWITH_XSYNC=ON
  -DWITH_XCOMPOSITE=ON"
-hostmakedepends="pkg-config xcb-proto python"
+hostmakedepends="pkg-config xcb-proto python3"
 makedepends="cairo-devel xcb-util-image-devel xcb-util-wm-devel xcb-util-xrm-devel
  zlib-devel xcb-util-renderutil-devel xcb-util-cursor-devel libxcb-devel
  $(vopt_if alsa "alsa-lib-devel")
@@ -27,7 +26,7 @@ maintainer="Michael Carlberg <c@rlberg.se>"
 license="MIT"
 homepage="https://github.com/jaagr/polybar"
 distfiles="https://github.com/jaagr/polybar/releases/download/${version}/polybar-${version}.tar"
-checksum=b0982a729f99f658d77969fd582d074843a57982b5e7c6b2b6efee5480b2a81c
+checksum=4d22c977969a561f561fdc7a609073854d8fea8a9eec6941e12a80457edcb63a
 
 build_options="alsa curl i3 mpd network pulseaudio"
 build_options_default="$build_options"

@@ -1,22 +1,16 @@
 # Template file for 'cantarell-fonts'
 pkgname=cantarell-fonts
-version=0.0.25
+version=0.201
 revision=1
 archs=noarch
-build_style=gnu-configure
-configure_args="--with-configdir=/etc/fonts/conf.avail"
-hostmakedepends="pkg-config"
-depends="fontconfig"
+build_style=meson
+configure_args="-Dfontsdir=/usr/share/fonts/cantarell -Duseprebuilt=true -Dbuildappstream=true"
+hostmakedepends="gettext pkg-config meson appstream-glib"
+depends="font-util"
 short_desc="Cantarell family of TrueType fonts"
-maintainer="Juan RP <xtraeme@voidlinux.org>"
-homepage="https://wiki.gnome.org/Projects/CantarellFonts"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="OFL-1.1"
-distfiles="${GNOME_SITE}/$pkgname/0.0/$pkgname-$version.tar.xz"
-checksum=14a228aa0b516dfc367b434a850f955a00c57fc549cbb05348e2b150196a737f
-
-post_install() {
-	vmkdir etc/fonts/conf.d
-	ln -s ../conf.avail/31-cantarell.conf ${DESTDIR}/etc/fonts/conf.d
-	vinstall ${FILESDIR}/21-cantarell-hinting.conf 644 etc/fonts/conf.avail
-	ln -s ../conf.avail/21-cantarell-hinting.conf ${DESTDIR}/etc/fonts/conf.d
-}
+homepage="https://wiki.gnome.org/Projects/CantarellFonts"
+changelog="https://gitlab.gnome.org/GNOME/cantarell-fonts/-/raw/master/NEWS"
+distfiles="${GNOME_SITE}/${pkgname}/${version}/${pkgname}-${version}.tar.xz"
+checksum=b61f64e5f6a48aa0abc7a53cdcbce60de81908ca36048a64730978fcd9ac9863

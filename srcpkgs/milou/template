@@ -1,18 +1,18 @@
 # Template file for 'milou'
 pkgname=milou
-version=5.15.5
+version=5.18.3
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
 hostmakedepends="extra-cmake-modules kdoctools kpackage qt5-host-tools
- qt5-qmake"
-makedepends="krunner-devel"
+ gettext qt5-qmake"
+makedepends="krunner-devel kitemmodels-devel"
 short_desc="KDE dedicated search application built on top of Baloo"
 maintainer="John <johnz@posteo.net>"
 license="GPL-2.0-or-later, LPGL-2.1-or-later"
 homepage="https://projects.kde.org/projects/plasma/milou"
 distfiles="${KDE_SITE}/plasma/${version}/${pkgname}-${version}.tar.xz"
-checksum=2740cbfae30483c402471349f4d1315b98edf054827ec70980bb966cd6b3fcf9
+checksum=c311dd59744c01ebbacab3fb5049581a6f30e6f62374254b9f466a2edb3d8836
 
 if [ "$CROSS_BUILD" ]; then
 	hostmakedepends+=" kpackage-devel kconfig-devel kcoreaddons-devel plasma-framework"

@@ -1,6 +1,6 @@
 # Template file for 'bluez-alsa'
 pkgname=bluez-alsa
-version=1.4.0
+version=2.1.0
 revision=1
 build_style=gnu-configure
 configure_args="--enable-aac --disable-hcitop --enable-debug"
@@ -12,7 +12,7 @@ maintainer="Toyam Cox <Vaelatern@voidlinux.org>"
 license="MIT"
 homepage="https://github.com/Arkq/bluez-alsa"
 distfiles="https://github.com/Arkq/bluez-alsa/archive/v${version}.tar.gz"
-checksum=6287ae6135795a78470068ef9d9ea660d556cefc409905bd9211fda04d1e1f8e
+checksum=6459f70e47e70b4c04a85acf148381e6c8a2e86bd638aff21870afc6c14b85b0
 system_accounts="_bluez_alsa"
 _bluez_alsa_groups="audio"
 
@@ -21,7 +21,8 @@ pre_configure() {
 }
 
 post_install() {
-	vinstall ${FILESDIR}/bluez_alsa.conf 644 etc/dbus-1/system.d/
+	vsed -i ${DESTDIR}/etc/dbus-1/system.d/bluealsa.conf \
+		-e 's:user="root":user="_bluez_alsa":'
 
 	vlicense LICENSE
 	vsv bluez-alsa

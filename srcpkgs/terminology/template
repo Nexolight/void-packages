@@ -1,17 +1,17 @@
 # Template file for 'terminology'
 pkgname=terminology
-version=1.4.0
+version=1.6.0
 revision=1
 build_style=meson
 hostmakedepends="pkg-config efl"
 makedepends="efl-devel"
 depends="desktop-file-utils xdg-utils"
 short_desc="Enlightenment's terminal emulator"
-maintainer="Juan RP <xtraeme@voidlinux.org>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="BSD-2-Clause"
 homepage="https://www.enlightenment.org"
 distfiles="https://download.enlightenment.org/rel/apps/${pkgname}/${pkgname}-${version}.tar.xz"
-checksum=ed5904ba5eb11c67790964306ec260b4134e2a443ef5abd5105610d9943b3e60
+checksum=b95cb05653afe0dad77fc038a8d5276c02a9c08d64ac97ddf0cee8087d27bd77
 
 post_install() {
 	vlicense COPYING

@@ -1,6 +1,6 @@
 # Template file for 'Uranium'
 pkgname=Uranium
-version=4.0.0
+version=4.5.0
 revision=1
 archs=noarch
 build_style=cmake
@@ -9,10 +9,10 @@ pycompile_dirs="usr/lib/uranium/plugins"
 hostmakedepends="python3"
 depends="libArcus-python3 python3-PyQt5-opengl python3-PyQt5-quick
  python3-PyQt5-svg python3-numpy-stl python3-scipy qt5-quickcontrols
- qt5-quickcontrols2 python3-shapely"
+ qt5-quickcontrols2 python3-shapely python3-cryptography"
 short_desc="Python framework for building Desktop applications"
 maintainer="Karl Nilsson <karl.robert.nilsson@gmail.com>"
 license="LGPL-3.0-or-later"
 homepage="https://github.com/Ultimaker/Uranium"
 distfiles="https://github.com/Ultimaker/Uranium/archive/${version}.tar.gz"
-checksum=d405183b98b2e8db8c8c11ebe6f8838865cb4ac7f6a55ab0ac654b060edf9dd8
+checksum=8149f18305225c453296261d8553117caba121300e6f0add79b827afc3e7b14a

@@ -1,18 +1,23 @@
 # Template file for 'uhd'
 pkgname=uhd
-version=3.13.0.2
+version=3.15.0.0
 revision=1
 wrksrc="${pkgname}-${version}"
 build_wrksrc=host
 build_style=cmake
-hostmakedepends="doxygen pkg-config"
-makedepends="python-Mako libusb-devel python-numpy python-devel boost-devel"
+hostmakedepends="doxygen pkg-config python3-Mako python3-numpy python3-requests"
+makedepends="libusb-devel boost-devel"
 short_desc="Ettus USRP Hardware driver library"
 maintainer="Remi Pommarel <repk@triplefau.lt>"
 license="GPL-3.0-or-later"
 homepage="https://files.ettus.com/"
+changelog="https://raw.githubusercontent.com/EttusResearch/uhd/master/CHANGELOG"
 distfiles="https://github.com/EttusResearch/uhd/archive/v${version}.tar.gz"
-checksum=e18d0524cbf571be4847fd7f971dc30c37efd9e7a333761b74e1266a07cbd35b
+checksum=eed4a77d75faafff56be78985950039f8d9d1eb9fcbd58b8862e481dd49825cd
+
+case "${XBPS_TARGET_MACHINE}" in
+	arm*) configure_args="-DNEON_SIMD_ENABLE=OFF"
+esac
 
 post_install() {
 	rm -rf ${DESTDIR}/usr/lib/uhd/tests

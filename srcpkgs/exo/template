@@ -1,6 +1,6 @@
 # Template file for 'exo'
 pkgname=exo
-version=0.12.5
+version=0.12.11
 revision=1
 build_style=gnu-configure
 configure_args="--disable-static"
@@ -8,11 +8,11 @@ hostmakedepends="xfce4-dev-tools pkg-config intltool gettext-devel glib-devel pe
 makedepends="gtk+-devel libxfce4ui-devel"
 depends="hicolor-icon-theme desktop-file-utils perl-URI"
 short_desc="Extension library for the Xfce desktop environment"
-maintainer="Juan RP <xtraeme@voidlinux.org>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="GPL-2.0-or-later, LGPL-2.1-or-later"
 homepage="https://xfce.org/"
 distfiles="https://archive.xfce.org/src/xfce/exo/${version%.*}/exo-${version}.tar.bz2"
-checksum=e8f434d6436ae647dd1614e8a24aba23c83f70cb14037b5bc98652f558be43e8
+checksum=ec892519c08a67f3e0a1f0f8d43446e26871183e5aa6be7f82e214f388d1e5b6
 conf_files="/etc/xdg/xfce4/helpers.rc"
 
 pre_configure() {

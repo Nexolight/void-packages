@@ -1,16 +1,17 @@
 # Template file for 'spectacle'
 pkgname=spectacle
-version=19.04.1
+version=19.12.3
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
 hostmakedepends="extra-cmake-modules kdoctools python qt5-host-tools qt5-qmake
- kcoreaddons"
+ gettext kcoreaddons"
 makedepends="kdeclarative-devel libkipi5-devel xcb-util-image-devel xcb-util-cursor-devel
- purpose-devel knewstuff-devel"
+ kwayland-devel purpose-devel knewstuff-devel"
+depends="qt5-tools"
 short_desc="KDE screenshot capture utility"
 maintainer="John <johnz@posteo.net>"
 license="LGPL-2.0-or-later, GPL-2.0-or-later"
 homepage="https://projects.kde.org/projects/kde/kdegraphics/spectacle"
-distfiles="${KDE_SITE}/applications/${version}/src/${pkgname}-${version}.tar.xz"
-checksum=6f420fc6a660e25a08449cfb6d2795e07a37f8dca25f1862d857121b43f9262c
+distfiles="${KDE_SITE}/release-service/${version}/src/${pkgname}-${version}.tar.xz"
+checksum=443f114dab1fb50e7e12a046fdf06c0456bf99a3abdf09dce05605fdf7d3de81

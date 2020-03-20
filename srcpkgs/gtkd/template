@@ -12,11 +12,11 @@ make_install_target="install-shared-gstreamer install-headers-gstreamer
  install-shared-gtkdgl install-headers-gtkdgl install-shared install-headers
  install-shared-peas install-headers-peas install-shared-vte
  install-headers-vte"
-hostmakedepends="ldc pkg-config"
+hostmakedepends="ldc pkg-config tar"
 makedepends="gstreamer1-devel gtksourceview-devel libpeas-devel librsvg-devel
  vte3-devel"
 short_desc="D bindings for GTK+3 and related libraries"
-maintainer="Rasmus Thomsen <oss@cogitri.dev>"
+maintainer="Enno Boland <gottox@voidlinux.org>"
 license="LGPL-3.0-or-later"
 homepage="https://gtkd.org"
 #changelog="https://gtkd.org/changelog.html"

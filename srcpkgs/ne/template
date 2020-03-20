@@ -1,21 +1,19 @@
 # Template file for 'ne'
 pkgname=ne
-version=3.1.2
+version=3.3.0
 revision=1
+build_style=gnu-makefile
 makedepends="ncurses-devel"
-short_desc="The Nice Editor"
-maintainer="Juan RP <xtraeme@voidlinux.org>"
-license="GPL-3"
+short_desc="Nice Editor"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="GPL-3.0-only"
 homepage="http://ne.di.unimi.it/"
 distfiles="http://ne.di.unimi.it/ne-${version}.tar.gz"
-checksum=a2011fb420d8f26ff4cbf362206dce1bc1775f5c0619eb43440958df311b131b
+checksum=74936aac85eaa59cd7f11e42c7568c903de2137dd528f75864d0c827f05be1bd
 
 post_extract() {
 	sed -i 's/ne.dvi ne.pdf//' doc/makefile
 }
 do_build() {
 	make CFLAGS="$CFLAGS -std=c99 -D_GNU_SOURCE" CC=$CC ${makejobs}
-}
-do_install() {
-	make PREFIX=/usr DESTDIR=${DESTDIR} install
 }

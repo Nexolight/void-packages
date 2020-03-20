@@ -1,6 +1,6 @@
 # Template file for 'mate-themes'
 pkgname=mate-themes
-version=3.22.19
+version=3.22.21
 revision=1
 archs=noarch
 build_style=gnu-configure
@@ -8,9 +8,9 @@ hostmakedepends="pkg-config intltool itstool icon-naming-utils"
 makedepends="gtk+-devel gtk+3-devel"
 depends="gtk2-engines gtk-engine-murrine librsvg mate-icon-theme"
 short_desc="Default themes for the MATE desktop"
-maintainer="Juan RP <xtraeme@voidlinux.org>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="LGPL-2.1-or-later"
 homepage="https://mate-desktop.org"
 changelog="https://raw.githubusercontent.com/mate-desktop/mate-themes/master/NEWS"
 distfiles="https://pub.mate-desktop.org/releases/themes/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=988b445079426edad15562b517d0297a946c7d2d239c43020c0d6990d1428bf9
+checksum=d668c578fd10d6e2a46932df1cb8852f77923193f0b88fb327e89d80f0162f14

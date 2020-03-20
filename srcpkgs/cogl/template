@@ -1,7 +1,7 @@
 # Template file for 'cogl'
 pkgname=cogl
-version=1.22.2
-revision=4
+version=1.22.6
+revision=1
 build_style=gnu-configure
 build_helper="gir"
 configure_args="--enable-cairo=yes --enable-cogl-pango=yes
@@ -13,11 +13,11 @@ hostmakedepends="automake libtool gettext-devel pkg-config intltool
 makedepends="libXcomposite-devel libXrandr-devel MesaLib-devel pango-devel
  gdk-pixbuf-devel gst-plugins-base1-devel wayland-devel"
 short_desc="Library for using 3D graphics hardware for rendering"
-maintainer="Juan RP <xtraeme@voidlinux.org>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="LGPL-2.1-or-later"
 homepage="http://www.clutter-project.org"
 distfiles="${GNOME_SITE}/cogl/${version%.*}/cogl-${version}.tar.xz"
-checksum=39a718cdb64ea45225a7e94f88dddec1869ab37a21b339ad058a9d898782c00d
+checksum=6d134bd3e48c067507167c001200b275997fb9c68b08b48ff038211c8c251b75
 
 # Package build options
 build_options="gir"

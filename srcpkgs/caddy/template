@@ -1,22 +1,26 @@
 # Template file for 'caddy'
 pkgname=caddy
-version=0.11.5
-revision=1
+version=1.0.4
+revision=2
 build_style=go
-go_import_path=github.com/mholt/caddy
+go_import_path=github.com/caddyserver/caddy
 go_package="${go_import_path}/caddy"
-makedepends="git"
+hostmakedepends="git"
 short_desc="Fast, cross-platform HTTP/2 web server with automatic HTTPS"
 maintainer="Dominic Monroe <monroef4@googlemail.com>"
 license="Apache-2.0"
 homepage="https://caddyserver.com"
-distfiles="https://github.com/mholt/caddy/archive/v${version}.tar.gz"
-checksum=ab2dc210bc7089fa7d041e702663e592b480945aa99f14b348090091103b7ec5
+distfiles="https://github.com/caddyserver/caddy/archive/v${version}.tar.gz"
+checksum=bf81245d2b347c89a8e8aa358a224b722d55cb6e1c266bbdffbe6acc54d130a5
 
 system_accounts="caddy"
 make_dirs="
 	/etc/caddy 0700 caddy caddy
 	/var/lib/caddy 0700 caddy caddy"
+
+pre_build() {
+	vsed -e 's,var EnableTelemetry = true,var EnableTelemetry = false,g' -i caddy/caddymain/run.go
+}
 
 post_install() {
 	vsv caddy

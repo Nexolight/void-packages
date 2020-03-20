@@ -1,20 +1,21 @@
 # Template file for 'xvkbd'
 pkgname=xvkbd
-version=3.9
+version=4.0
 revision=1
 build_style=gnu-configure
 hostmakedepends="imake xorg-cf-files gccmakedep"
 makedepends="libXaw-devel libXaw3d-devel libXtst-devel"
 short_desc="Virtual (graphical) keyboard program for X11"
 maintainer="Leah Neukirchen <leah@vuxu.org>"
-license="GPL-2"
+license="GPL-2.0-only"
 homepage="http://t-sato.in.coocan.jp/xvkbd/"
-distfiles="http://t-sato.in.coocan.jp/${pkgname}/${pkgname}-${version}.tar.gz"
-checksum=b81c37ddfb7b78993dad15d304f8fd78e540d57c0a72f7e3316fd45fba919a9d
+distfiles="http://deb.debian.org/debian/pool/main/x/xvkbd/xvkbd_${version}.orig.tar.gz"
+checksum=eb54e440badc40299ba9a8f27fcea740cd3501310e8955651af7ade517a3ac82
 nocross=yes  # xmkmf broken
 
 do_configure() {
 	xmkmf
+	sed -i 's/\$(DESTDIR) \$(SHAREDIR)/$(DESTDIR)$(SHAREDIR)/' Makefile
 }
 pre_build() {
 	export MODULE_CFLAGS="$CFLAGS"

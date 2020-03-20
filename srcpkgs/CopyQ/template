@@ -1,6 +1,6 @@
 # Template file for 'CopyQ'
 pkgname=CopyQ
-version=3.8.0
+version=3.10.0
 revision=1
 build_style=cmake
 hostmakedepends="qt5-tools-devel"
@@ -12,4 +12,4 @@ license="GPL-3.0-or-later"
 homepage="https://hluk.github.io/CopyQ/"
 changelog="https://raw.githubusercontent.com/hluk/CopyQ/master/CHANGES"
 distfiles="https://github.com/hluk/CopyQ/archive/v${version}.tar.gz"
-checksum=57ecda358937347fbcdec20b49f0c22ad36a5c502cab4df5467e276e0e2bb751
+checksum=1713cff1f336bfc1295b08127a647b51df7077a054880b3c9879f93052ed784e

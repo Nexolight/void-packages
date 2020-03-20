@@ -1,7 +1,7 @@
 # Template file for 'yggdrasil'
 pkgname=yggdrasil
-version=0.3.5
-revision=2
+version=0.3.13
+revision=1
 wrksrc="yggdrasil-go-${version}"
 build_style=go
 go_import_path=github.com/yggdrasil-network/yggdrasil-go
@@ -11,7 +11,7 @@ maintainer="Jan Christian Gruenhage <jan.christian@gruenhage.xyz>"
 license="LGPL-3.0-only"
 homepage="https://yggdrasil-network.github.io/"
 distfiles="https://github.com/yggdrasil-network/yggdrasil-go/archive/v${version}.tar.gz"
-checksum=2c69029adeb053ad049e90f1e4b7efa986094779868da77464d3c869984e861b
+checksum=ba2149024152c4df65e68722e7d4d1050fec71907904a7bdf9757159d94cd83d
 
 do_build() {
 	PKGNAME=${pkgname} PKGVER=${version} ./build

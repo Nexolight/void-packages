@@ -1,17 +1,17 @@
 # Template file for 'alsa-plugins'
 pkgname=alsa-plugins
-version=1.1.9
+version=1.2.2
 revision=1
 build_style=gnu-configure
 configure_args="--disable-maemo-plugin"
 hostmakedepends="pkg-config"
 makedepends="ffmpeg-devel jack-devel libsamplerate-devel pulseaudio-devel"
 short_desc="Advanced Linux Sound Architecture (ALSA) extra plugins"
-maintainer="Juan RP <xtraeme@voidlinux.org>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="GPL-2.0-or-later, LGPL-2.1-or-later"
 homepage="http://www.alsa-project.org"
-distfiles="ftp://ftp.alsa-project.org/pub/plugins/${pkgname}-${version}.tar.bz2"
-checksum=161772303da521abbbf1d91f63b470c4791392d5728f2192a42d71292078f907
+distfiles="https://www.alsa-project.org/files/pub/plugins/${pkgname}-${version}.tar.bz2"
+checksum=1c0f06450c928d711719686c9dbece2d480184f36fab11b8f0534cb7b41e337d
 
 post_install() {
 	rm -rfv ${DESTDIR}/etc/alsa/conf.d

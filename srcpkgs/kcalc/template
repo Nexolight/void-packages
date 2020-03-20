@@ -1,14 +1,15 @@
 # Template file for 'kcalc'
 pkgname=kcalc
-version=19.04.1
+version=19.12.3
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
-hostmakedepends="extra-cmake-modules kcoreaddons kconfig kdoctools python qt5-host-tools qt5-qmake"
-makedepends="gmp-devel kinit-devel kparts-devel qt5-devel"
+hostmakedepends="extra-cmake-modules kcoreaddons kconfig kdoctools python3
+ qt5-host-tools qt5-qmake gettext"
+makedepends="gmp-devel kinit-devel kparts-devel qt5-devel mpfr-devel"
 short_desc="Simple and scientific calculator"
 maintainer="Norbert Vegh <vegh@norvegh.com>"
 license="GPL-2.0-or-later"
 homepage="https://www.kde.org/applications/utilities/kcalc/"
-distfiles="${KDE_SITE}/applications/${version}/src/kcalc-${version}.tar.xz"
-checksum=46d992a9e746231b57398b9bcdbe3933f6601e3cee7e3932ccc2e312779a4c91
+distfiles="${KDE_SITE}/release-service/${version}/src/kcalc-${version}.tar.xz"
+checksum=bbda4fc074e1ea748e95840aa79c51fdf0a1943ebb63ce6c7b68c197831258bd

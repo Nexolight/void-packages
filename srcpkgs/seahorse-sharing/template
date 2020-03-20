@@ -4,12 +4,12 @@ version=3.8.0
 revision=2
 build_style=gnu-configure
 hostmakedepends="automake libtool pkg-config intltool gettext-devel glib-devel
- gnome-doc-utils gpgme-devel"
+ gnome-doc-utils gpgme-devel gnupg"
 makedepends="libsoup-devel gettext-devel glib-devel gpgme-devel gtk+3-devel
  avahi-glib-libs-devel libSM-devel"
 depends="gnupg"
 short_desc="Sharing of PGP public keys via DNS-SD and HKP"
-maintainer="Juan RP <xtraeme@voidlinux.org>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 homepage="http://www.gnome.org/projects/seahorse/"
 license="GPL-2"
 distfiles="${GNOME_SITE}/$pkgname/${version%.*}/$pkgname-$version.tar.xz"

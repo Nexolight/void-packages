@@ -1,17 +1,17 @@
 # Template file for 'exiftool'
 pkgname=exiftool
-version=11.37
+version=11.92
 revision=1
 archs=noarch
 wrksrc="Image-ExifTool-${version}"
 build_style=perl-module
-hostmakedepends="perl"
-makedepends="$hostmakedepends"
+hostmakedepends="perl tar"
+makedepends="perl"
 depends="$makedepends"
 short_desc="Reader and rewriter of EXIF information that supports raw files"
-maintainer="Juan RP <xtraeme@voidlinux.org>"
+maintainer="Benjamín Albiñana <benalb@gmail.com>"
 license="Artistic-1.0-Perl, GPL-1.0-or-later"
-homepage="https://www.sno.phy.queensu.ca/~phil/exiftool/"
-changelog="https://sno.phy.queensu.ca/~phil/exiftool/history.html"
-distfiles="https://www.sno.phy.queensu.ca/~phil/exiftool/Image-ExifTool-${version}.tar.gz"
-checksum=e8cea0dfe2604b89285b3e4a4e627144e07e2e6eb2601cd7e7196dc45fe12eee
+homepage="https://exiftool.org/"
+changelog="https://exiftool.org/history.html"
+distfiles="https://exiftool.org/Image-ExifTool-${version}.tar.gz"
+checksum=755de41c32dc04fb2b35c8b066459a28bacf03155be3b5db40693f193591d04b

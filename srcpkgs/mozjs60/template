@@ -1,24 +1,28 @@
 # Template file for 'mozjs60'
 pkgname=mozjs60
-version=60.5.2
-revision=1
+version=60.8.0
+revision=3
 wrksrc="firefox-${version}"
 build_wrksrc=js/src
 build_style=gnu-configure
-hostmakedepends="perl python pkg-config automake autoconf213 autoconf-archive"
+hostmakedepends="perl python pkg-config automake autoconf213 autoconf-archive
+ which"
 makedepends="icu-devel libffi-devel nspr-devel python-devel readline-devel zlib-devel"
+depends="nspr>=4.19"
 short_desc="Mozilla JavaScript interpreter and library (60.x series)"
-maintainer="Rasmus Thomsen <oss@cogitri.dev>"
+maintainer="Enno Boland <gottox@voidlinux.org>"
 license="MPL-2.0"
 homepage="https://www.mozilla.org/js/"
 distfiles="${MOZILLA_SITE}/firefox/releases/${version}esr/source/firefox-${version}esr.source.tar.xz"
-checksum=b95585982225a5246b663298de2fed275179d9299c46790468c49b6eee08cea4
+checksum=c13387d944e635aebd5f1d2ce9ab77cb706a74043a240cbb7b70654519487fbe
 patch_args="-Np1"
+CXXFLAGS="-Wno-class-memaccess"
 LDFLAGS+=" -Wl,-z,stack-size=1048576"
 
-case "$XBPS_TARGET_MACHINE" in
-	armv[56]*|mips*|ppc|ppc-musl) makedepends+=" libatomic-devel" ; LDFLAGS+=" -latomic" ;;
-esac
+if [ "$XBPS_TARGET_NO_ATOMIC8" ]; then
+	makedepends+=" libatomic-devel"
+	LDFLAGS+=" -latomic"
+fi
 
 do_configure() {
 	local _args

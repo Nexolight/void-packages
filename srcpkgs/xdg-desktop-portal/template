@@ -1,9 +1,9 @@
 # Template file for 'xdg-desktop-portal'
 pkgname=xdg-desktop-portal
-version=1.2.0
+version=1.6.0
 revision=1
 build_style=gnu-configure
-configure_args="--enable-pipewire --enable-geoclue"
+configure_args="--enable-pipewire --enable-geoclue --disable-libportal"
 hostmakedepends="pkg-config glib-devel"
 makedepends="flatpak-devel fuse-devel pipewire-devel geoclue2-devel"
 short_desc="Portal frontend service for Flatpak"
@@ -11,7 +11,7 @@ maintainer="Duncaen <duncaen@voidlinux.org>"
 license="LGPL-2.1-or-later"
 homepage="https://github.com/flatpak/xdg-desktop-portal"
 distfiles="https://github.com/flatpak/${pkgname}/releases/download/${version}/${pkgname}-${version}.tar.xz"
-checksum=c9a4d6c415417aed3231ebc6c9a4091b90199bea4295aab311ce3dab4032e194
+checksum=883c9c9a925e48af54812b5347f546dd776ec2e27076a83d5a8126af6bafb9da
 
 post_install() {
 	rm -rf "${DESTDIR}/usr/lib/systemd"

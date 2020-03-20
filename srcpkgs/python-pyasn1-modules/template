@@ -1,7 +1,7 @@
 # Template file for 'python-pyasn1-modules'
 pkgname=python-pyasn1-modules
-version=0.2.5
-revision=1
+version=0.2.8
+revision=2
 archs=noarch
 wrksrc="${pkgname#*-}-${version}"
 build_style=python-module
@@ -13,8 +13,8 @@ short_desc="Collection of ASN.1-based protocols modules (Python2)"
 maintainer="Peter Bui <pbui@github.bx612.space>"
 license="BSD-2-Clause"
 homepage="https://github.com/etingof/pyasn1-modules"
-distfiles="${PYPI_SITE}/p/pyasn1-modules/pyasn1-modules-${version}.tar.gz"
-checksum=ef721f68f7951fab9b0404d42590f479e30d9005daccb1699b0a51bb4177db96
+distfiles="https://github.com/etingof/pyasn1-modules/archive/v${version}.tar.gz"
+checksum=c562fcf94e21b19b1b01c103a4dbe24b286356237d2b453afd75882683cf0ad7
 
 do_check() {
 	python setup.py test

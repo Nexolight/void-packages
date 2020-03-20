@@ -1,17 +1,17 @@
 # Template file for 'kimap'
 pkgname=kimap
-version=19.04.1
+version=19.12.3
 revision=1
 build_style=cmake
 hostmakedepends="extra-cmake-modules qt5-qmake qt5-host-tools python
- kcoreaddons"
+ gettext kcoreaddons"
 makedepends="kio-devel kmime-devel"
 short_desc="Job-based API for interacting with IMAP servers"
 maintainer="John <johnz@posteo.net>"
 license="GPL-2.0-or-later, LGPL-2.1-or-later"
 homepage="https://community.kde.org/KDE_PIM"
-distfiles="${KDE_SITE}/applications/${version}/src/kimap-${version}.tar.xz"
-checksum=ff933fba7ce8412fd64439e5f4c5a7be3a06fd39c79f520acfc648923819aa1f
+distfiles="${KDE_SITE}/release-service/${version}/src/kimap-${version}.tar.xz"
+checksum=5c3b3cdf928754f9919030d865a2cdad0ad342c82c436afef660d018f85de4d2
 
 kimap-devel_package() {
 	short_desc+=" - development"

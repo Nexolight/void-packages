@@ -1,16 +1,21 @@
 # Template file for 'Vulkan-ValidationLayers'
 pkgname=Vulkan-ValidationLayers
-version=1.1.106
+version=1.1.130
 revision=1
 build_style=cmake
-configure_args="-DGLSLANG_INSTALL_DIR=/usr
- -DVULKAN_HEADERS_INSTALL_DIR=${XBPS_CROSS_BASE}/usr"
-hostmakedepends="python3 pkg-config"
-makedepends="Vulkan-Headers SPIRV-Tools-devel glslang-devel libXrandr-devel
- wayland-devel"
-short_desc="Vulkan validation layers"
+configure_args="-C ${XBPS_CROSS_BASE}/tmp/helper.cmake
+ -DCMAKE_INSTALL_INCLUDEDIR=/usr/include/vulkan/ -DBUILD_LAYER_SUPPORT_FILES=ON"
+hostmakedepends="python3 git pkg-config"
+makedepends="libXrandr-devel wayland-devel"
+short_desc="Khronos official Vulkan validation layers"
 maintainer="Colin Gillespie <colin@breavyn.com>"
 license="Apache-2.0"
 homepage="https://www.khronos.org/vulkan/"
 distfiles="https://github.com/KhronosGroup/${pkgname}/archive/v${version}.tar.gz"
-checksum=e095e7c23fe52098e966c056d3e9684d6b915f129d736556bc5a33e9574bd735
+checksum=ef3a8decd315736612479f9e9b03dbac690722b663a9bf9d064ff227298d3a50
+
+pre_configure() {
+	# Fetch and compile "known good" versions of dependencies
+	./scripts/update_deps.py --dir=${XBPS_CROSS_BASE}/tmp
+	# NOTE: this directory won't be cleaned by xbps-src clean
+}

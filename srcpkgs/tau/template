@@ -1,0 +1,31 @@
+# Template file for 'tau'
+pkgname=tau
+version=0.10.2
+revision=1
+build_style=meson
+build_helper=rust
+hostmakedepends="cargo gettext pkg-config rust glib-devel"
+makedepends="gtk+3-devel rust-std"
+checkdepends="appstream-glib desktop-file-utils"
+short_desc="GTK frontend for the Xi text editor, written in Rust"
+maintainer="Enno Boland <gottox@voidlinux.org>"
+license="MIT"
+homepage="https://gitlab.gnome.org/World/Tau"
+distfiles="https://gitlab.gnome.org/World/Tau/uploads/d7d7fc22a851466768edeace0f3d6b1b/tau-${version}.tar.xz"
+checksum=14551674458d1011cfb06152313b1be647aa4e47a8278f8fde57a754a05206b3
+
+# this sometimes builds and sometimes doesn't, do not
+# reenable unless you can reliably build it every time
+case $XBPS_MACHINE in
+	*-musl) broken="crashes rustc" ;;
+esac
+
+post_install() {
+	vlicense LICENSE
+}
+
+gxi_package() {
+	depends="tau>=${version}_${revision}"
+	build_style=meta
+	short_desc+=" (transitional dummy package)"
+}

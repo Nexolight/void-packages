@@ -1,15 +1,16 @@
 # Template file for 'piper'
 pkgname=piper
-version=0.2.904
+version=0.4
 revision=1
 archs=noarch
 build_style=meson
-hostmakedepends="libratbag pkg-config glib-devel"
+hostmakedepends="gettext libratbag pkg-config glib-devel python3-lxml"
 makedepends="python3-devel python3-gobject-devel"
-depends="python3 python3-gobject libratbag python3-lxml"
+depends="libratbag python3-gobject python3-lxml"
+checkdepends="python3-flake8"
 short_desc="GTK application to configure gaming mice"
-maintainer="maxice8 <thinkabit.ukim@gmail.com>"
+maintainer="bra1nwave <bra1nwave@protonmail.com>"
 license="GPL-2.0-or-later"
 homepage="https://github.com/libratbag/piper"
 distfiles="https://github.com/libratbag/piper/archive/${version}.tar.gz"
-checksum=30da3029b7c0f0b688d58cde939fbca260b384af43a3a2cbc6b2654e31496a30
+checksum=d62db7509348506cfb17588612cdf03877dbe0bca26904519eef9657e45bfb28

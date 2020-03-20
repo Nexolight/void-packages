@@ -1,15 +1,16 @@
 # Template file for 'lyx'
 pkgname=lyx
-version=2.3.1
+version=2.3.4.4
 revision=1
 build_style=gnu-configure
 configure_args="--enable-qt5 --without-included-mythes --without-included-boost"
 hostmakedepends="pkg-config bc python qt5-devel"
 makedepends="file-devel boost-devel mythes-devel enchant-devel qt5-svg-devel"
 depends="virtual?texlive GraphicsMagick python"
-short_desc="The Document Processor WYSIWYM Editor & Latex frontend"
-maintainer="Juan RP <xtraeme@voidlinux.org>"
+short_desc="Document Processor WYSIWYM Editor & Latex frontend"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="GPL-2.0-or-later"
 homepage="https://www.lyx.org/Home"
-distfiles="ftp://ftp.lyx.org/pub/${pkgname}/stable/2.3.x/${pkgname}-${version}-2.tar.xz"
-checksum=f5c9450ba196ed9d49fbc573f65b10d1726d16a62453466957aba2a9f6d66f84
+#distfiles="ftp://ftp.lyx.org/pub/${pkgname}/stable/2.3.x/${pkgname}-${version}.tar.bz2"
+distfiles="https://fossies.org/linux/misc/lyx-${version}.tar.bz2"
+checksum=0cda89b9cb17dad219e7bc3efd5f3932ed8c5dc2efb64fb23e630374b9b46b32

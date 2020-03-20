@@ -1,7 +1,7 @@
 # Template file for 'python3-text-unidecode'
 pkgname=python3-text-unidecode
 version=1.2
-revision=1
+revision=2
 archs=noarch
 wrksrc="text-unidecode-${version}"
 build_style=python3-module
@@ -9,7 +9,7 @@ pycompile_module="text_unidecode"
 hostmakedepends="python3-setuptools"
 depends="python3"
 short_desc="Most basic Text::Unidecode port"
-maintainer="Rasmus Thomsen <oss@cogitri.dev>"
+maintainer="Enno Boland <gottox@voidlinux.org>"
 license="Artistic-1.0"
 homepage="https://github.com/kmike/text-unidecode/"
 distfiles="${PYPI_SITE}/t/text-unidecode/text-unidecode-${version}.tar.gz"

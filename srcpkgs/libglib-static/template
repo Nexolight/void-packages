@@ -10,11 +10,11 @@ wrksrc="glib-${version}"
 build_style=gnu-configure
 configure_args="--enable-libelf --disable-fam --disable-shared --with-pcre=system
  --enable-static"
-hostmakedepends="automake libtool pkg-config python3 libxslt docbook-xsl"
+hostmakedepends="automake gettext libtool pkg-config python3 libxslt docbook-xsl"
 makedepends="zlib-devel pcre-devel libffi-devel dbus-devel elfutils-devel libmount-devel"
 depends="$makedepends"
 short_desc="GNU library of C routines"
-maintainer="Rasmus Thomsen <oss@cogitri.dev>"
+maintainer="Enno Boland <gottox@voidlinux.org>"
 license="LGPL-2.1-or-later"
 homepage="https://wiki.gnome.org/Projects/GLib"
 changelog="https://gitlab.gnome.org/GNOME/glib/raw/master/NEWS"

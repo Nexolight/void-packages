@@ -1,6 +1,6 @@
 # Template file for 'babeld'
 pkgname=babeld
-version=1.8.4
+version=1.9.1
 revision=3
 wrksrc=babeld-babeld-${version}
 build_style=gnu-makefile
@@ -9,7 +9,12 @@ maintainer="lemmi <lemmi@nerd2nerd.org>"
 license="MIT"
 homepage="https://www.irif.fr/~jch/software/babel/"
 distfiles="https://github.com/jech/babeld/archive/babeld-${version}.tar.gz"
-checksum=952e7a4ad109d5ec33940b17f7a980857e0fbe483f5b19c42a7966ae8baae85b
+checksum=16e18dbd9f8442feaa68487f5919a8ff8f7d95c62a9c7a3c42b7adf31bd4a9b3
+patch_args="-Np1"
+
+pre_build() {
+	echo ${version}-${revision} > version
+}
 
 do_install() {
 	vbin babeld

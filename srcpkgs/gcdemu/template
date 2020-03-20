@@ -1,6 +1,6 @@
 # Template file for 'gcdemu'
 pkgname=gcdemu
-version=3.2.1
+version=3.2.4
 revision=1
 archs=noarch
 wrksrc="gcdemu-${version}"
@@ -12,4 +12,4 @@ maintainer="Helmut Pozimski <helmut@pozimski.eu>"
 license="GPL-2.0-or-later"
 homepage="http://cdemu.sourceforge.net"
 distfiles="${SOURCEFORGE_SITE}/cdemu/gcdemu-${version}.tar.bz2"
-checksum=aff033fb19b1e7f6c001780ccf7c54743de26113720c2526aa8c9fe216dcbe52
+checksum=05f11ea40f65ed338cb274c30f4b4a04434a731ea2125785a56b071bd3954783

@@ -1,23 +1,17 @@
 # Template file for 'olive'
 pkgname=olive
-version=0.0.0.20181223
+version=0.1.2
 revision=1
-_version=${version/0.0.0./}
-wrksrc=${pkgname}-${_version}
 build_style=qmake
-hostmakedepends="qt5-qmake qt5-multimedia-devel pkg-config"
-makedepends="qt5-devel qt5-multimedia-devel ffmpeg-devel"
+hostmakedepends="qt5-qmake qt5-multimedia-devel qt5-svg-devel pkg-config"
+makedepends="qt5-devel qt5-multimedia-devel qt5-svg-devel ffmpeg-devel frei0r-plugins"
 short_desc="Non-linear video editor"
 maintainer="Johannes <johannes.brechtmann@gmail.com>"
 license="GPL-3.0-or-later"
 homepage="https://www.olivevideoeditor.org"
-distfiles="https://github.com/olive-editor/olive/archive/${_version}.tar.gz"
-checksum=c4b65afe9ed94f8f8b30b3ea5139bcda1740f04a7819d10e059a62d15b7051ee
-
-pre_configure() {
-	rm src.pro
-}
+distfiles="https://github.com/olive-editor/olive/archive/${version}.tar.gz"
+checksum=cb9a5b109e67a47f03448633cbc7a257aa8e6c3c76a59c1fada77fd3d97875c1
 
 do_install() {
-	vbin Olive
+	vbin olive-editor
 }

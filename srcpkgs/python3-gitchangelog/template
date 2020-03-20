@@ -1,7 +1,7 @@
 # Template file for 'python3-gitchangelog'
 pkgname=python3-gitchangelog
 version=3.0.4
-revision=1
+revision=2
 archs=noarch
 wrksrc="gitchangelog-${version}"
 build_style=python3-module
@@ -9,7 +9,7 @@ pycompile_module="gitchangelog"
 hostmakedepends="python3-setuptools git"
 depends="python3-pystache python3-Mako"
 short_desc="Creates a changelog from git log history"
-maintainer="maxice8 <thinkabit.ukim@gmail.com>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="BSD-3-Clause"
 homepage="https://github.com/vaab/gitchangelog"
 distfiles="${PYPI_SITE}/g/gitchangelog/gitchangelog-${version}.tar.gz"

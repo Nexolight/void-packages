@@ -1,8 +1,8 @@
 # Template file for 'mtpaint'
 pkgname=mtpaint
-version=3.49.16
+version=3.49.23
 revision=1
-_commit=d4cc3e5a3e51b447b091c5623e221ce03f5ac6c8
+_commit=3d675d0a8fd598d6dff8cac51940fb62e14f7b59
 wrksrc="mtPaint-${_commit}"
 build_style=configure
 configure_args="--prefix=/usr --mandir=/usr/share/man
@@ -10,9 +10,9 @@ configure_args="--prefix=/usr --mandir=/usr/share/man
 hostmakedepends="pkg-config"
 makedepends="giflib-devel gtk+-devel libmagick-devel libopenjpeg-devel"
 depends="desktop-file-utils"
-maintainer="Orphaned <orphan@voidlinux.org>"
 short_desc="Simple GTK+2 painting program"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="GPL-3.0-or-later"
 homepage="http://mtpaint.sourceforge.net/"
-license="GPL-3"
 distfiles="https://github.com/wjaguar/mtPaint/archive/${_commit}.tar.gz"
-checksum=b78ddc732a0be093f4716fc657a0ddf32e74c7ef2715767936d930222aeceae1
+checksum=8c086e83e4731de8437c3e3cb3bf84b2255696c59f15d3d0041bca03514f8fb3

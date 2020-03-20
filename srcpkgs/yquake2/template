@@ -1,6 +1,6 @@
 # Template file for 'yquake2'
 pkgname=yquake2
-version=7.41
+version=7.43
 revision=1
 wrksrc="quake2-${version}"
 build_style=gnu-makefile
@@ -15,7 +15,7 @@ maintainer="Helmut Pozimski <helmut@pozimski.eu>"
 license="GPL-2.0-or-later"
 homepage="https://www.yamagi.org/quake2/"
 distfiles="https://deponie.yamagi.org/quake2/quake2-${version}.tar.xz"
-checksum=7ae543fac9e8a74ecd706ac0fa0f94098912aa5aafcb33f1c2c3f57b48011364
+checksum=92770a570c9eeb50ed305d83a8729e7b34cebf7166f1b8a35d23d74a27173f16
 
 case "$XBPS_TARGET_MACHINE" in
 	armv*) makedepends+=" MesaLib-devel";;

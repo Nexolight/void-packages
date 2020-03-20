@@ -1,14 +1,14 @@
 # Template file for 'libmpdclient'
 pkgname=libmpdclient
-version=2.16
+version=2.18
 revision=1
 build_style=meson
 short_desc="Asynchronous API library for interfacing MPD"
-maintainer="Juan RP <xtraeme@voidlinux.org>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="BSD-3-Clause"
 homepage="http://www.musicpd.org/libs/libmpdclient/"
 distfiles="http://www.musicpd.org/download/${pkgname}/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=fa6bdab67c0e0490302b38f00c27b4959735c3ec8aef7a88327adb1407654464
+checksum=4cb01e1f567e0169aca94875fb6e1200e7f5ce35b63a4df768ec1591fb1081fa
 
 post_install() {
 	vlicense COPYING

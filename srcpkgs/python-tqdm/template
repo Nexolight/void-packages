@@ -1,19 +1,18 @@
 # Template file for 'python-tqdm'
 pkgname=python-tqdm
-version=4.32.1
+version=4.43.0
 revision=1
 archs=noarch
 wrksrc="tqdm-${version}"
 build_style=python-module
-pycompile_module="tqdm"
 hostmakedepends="python-setuptools python3-setuptools"
 depends="python"
 short_desc="Fast, extensible progress bar for Python and CLI (Python2)"
-maintainer="bra1nwave <brainwave@openmailbox.org>"
+maintainer="bra1nwave <bra1nwave@protonmail.com>"
 license="MPL-2.0, MIT"
 homepage="https://tqdm.github.io/"
 distfiles="https://github.com/tqdm/tqdm/archive/v${version}.tar.gz"
-checksum=9a3eeafe9e4669c52ad0aeb5c02de89b81e8955065463a420c9d417814e7782c
+checksum=0efea2929b9945fd09911a2f62dcf6eeb293c64b58946178c69b9b2ae58e2379
 alternatives="
  tqdm:tqdm:/usr/bin/tqdm2
  tqdm:tqdm.1:/usr/share/man/man1/tqdm2.1"
@@ -29,7 +28,6 @@ python3-tqdm_package() {
 	 tqdm:tqdm:/usr/bin/tqdm3
 	 tqdm:tqdm.1:/usr/share/man/man1/tqdm3.1"
 	archs=noarch
-	pycompile_module="tqdm"
 	depends="python3"
 	short_desc="${short_desc/2/3}"
 	pkg_install() {

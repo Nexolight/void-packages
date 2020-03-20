@@ -1,21 +1,18 @@
 # Template file for 'kdewebkit'
 pkgname=kdewebkit
-version=5.58.0
+version=5.68.0
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
-hostmakedepends="kcoreaddons extra-cmake-modules"
+hostmakedepends="kcoreaddons extra-cmake-modules
+ qt5-host-tools qt5-qmake python3 gettext"
 makedepends="kparts-devel qt5-webkit-devel"
 short_desc="KDE Integration of the HTML rendering engine WebKit"
 maintainer="John <johnz@posteo.net>"
 license="LGPL-2.0-or-later"
 homepage="https://projects.kde.org/projects/frameworks/kdewebkit"
-distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=9f0629902e60717ee455f0a3e1201c735794f9c60e2fb6ec55b5983f532a2cbc
-
-if [ "$CROSS_BUILD" ]; then
-	hostmakedepends+=" qt5-host-tools qt5-qmake python"
-fi
+distfiles="${KDE_SITE}/frameworks/${version%.*}/portingAids/${pkgname}-${version}.tar.xz"
+checksum=181b14bd80e9f34aa2f896d39aca5be91f65d65bfaaf47660e91fdd98b7f36a2
 
 kdewebkit-devel_package() {
 	short_desc+=" - development"

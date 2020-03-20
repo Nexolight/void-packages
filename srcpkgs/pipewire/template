@@ -1,19 +1,21 @@
 # Template file for 'pipewire'
 pkgname=pipewire
-version=0.2.5
-revision=2
+version=0.2.7
+revision=1
 build_style=meson
 configure_args="-Dman=true -Dgstreamer=enabled -Ddocs=true -Dsystemd=false"
 hostmakedepends="doxygen graphviz pkg-config xmltoman"
 makedepends="SDL2-devel ffmpeg-devel gst-plugins-base1-devel jack-devel
  sbc-devel v4l-utils-devel libva-devel"
 short_desc="Server and user space API to deal with multimedia pipelines"
-maintainer="maxice8 <thinkabit.ukim@gmail.com>"
-license="LGPL-2.1-or-later"
+maintainer="Orphaned <orphan@voidlinux.org>"
+#Next release will probably change to MIT, currently listed in master
+license="LGPL-2.1-only, GPL-2.0-only "
 homepage="https://pipewire.org/"
 changelog="https://raw.githubusercontent.com/PipeWire/pipewire/master/NEWS"
 distfiles="https://github.com/PipeWire/pipewire/archive/${version}.tar.gz"
-checksum=6e75bb88a329f97984925bd303643075788df8d51b345bb43feb1be2c3b7102c
+checksum=bfaa0f6ae6c0791e2e0b59234d399753bf24f1b33dbf587682363a8463dd8df1
+conf_files="/etc/pipewire/pipewire.conf"
 
 libpipewire_package() {
 	short_desc+=" - pipewire library"

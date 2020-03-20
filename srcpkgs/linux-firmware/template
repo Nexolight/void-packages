@@ -1,17 +1,15 @@
 # Template file for 'linux-firmware'
 pkgname=linux-firmware
-version=20181218
+version=20200316
 revision=1
-_githash=0f22c8527439eaaf5c3fcf87b31c89445b6fa84d
 archs=noarch
-wrksrc="${pkgname}-${_githash}"
 depends="${pkgname}-amd-${version}_${revision} ${pkgname}-network-${version}_${revision}"
 short_desc="Binary firmware blobs for the Linux kernel"
-maintainer="Juan RP <xtraeme@voidlinux.org>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="See /usr/share/licenses/${pkgname}"
 homepage="https://www.kernel.org/"
-distfiles="https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/snapshot/${pkgname}-${_githash}.tar.gz"
-checksum=9b3d246c6582f249a88259096656c7b2547a627ee9c2a4fec779194359546885
+distfiles="https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/snapshot/${pkgname}-${version}.tar.gz"
+checksum=b442ad49e0002c6ff8443f4745810fe10d4cd6df43a7ce5e37ac40057c75ac13
 
 do_install() {
 	vmkdir usr/lib/firmware
@@ -72,5 +70,6 @@ linux-firmware-network_package() {
 		vmove usr/lib/firmware/mrvl
 		vmove usr/lib/firmware/ueagle-atm
 		vmove usr/lib/firmware/ti-connectivity
+		vmove usr/lib/firmware/dpaa2
 	}
 }

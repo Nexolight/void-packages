@@ -1,18 +1,18 @@
 # Template file for 'kcharselect'
 pkgname=kcharselect
-version=19.04.1
+version=19.12.3
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
-hostmakedepends="extra-cmake-modules kcoreaddons"
+hostmakedepends="extra-cmake-modules kcoreaddons gettext"
 makedepends="qt5-devel kbookmarks-devel"
 short_desc="Character Selector"
 maintainer="travankor <travankor@tuta.io>"
 license="GPL-2.0-or-later"
 homepage="https://www.kde.org/applications/utilities/kcharselect/"
-distfiles="${KDE_SITE}/applications/${version}/src/kcharselect-${version}.tar.xz"
-checksum=c54570a6f968b2ccbe42c0a8dbaecb1f263fbd392f67b2d735ade492553ff9ec
+distfiles="${KDE_SITE}/release-service/${version}/src/kcharselect-${version}.tar.xz"
+checksum=9be6ac607148b0815bd985075fbb97d44561fdd6a955b60f0afc728f9cbd978b
 
 if [ "$CROSS_BUILD" ]; then
-	hostmakedepends+=" kdoctools python qt5-host-tools qt5-qmake"
+	hostmakedepends+=" kdoctools python3 qt5-host-tools qt5-qmake"
 fi

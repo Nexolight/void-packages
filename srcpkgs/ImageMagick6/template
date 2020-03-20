@@ -1,7 +1,7 @@
 # Template file for 'ImageMagick6'
 pkgname=ImageMagick6
-_majorver=6.9.10
-_patchver=46
+_majorver=6.9.11
+_patchver=0
 version="${_majorver}.${_patchver}"
 revision=1
 wrksrc="${pkgname}-${_majorver}-${_patchver}"
@@ -20,7 +20,7 @@ maintainer="Johannes <johannes.brechtmann@gmail.com>"
 license="ImageMagick"
 homepage="https://www.imagemagick.org/"
 distfiles="https://github.com/ImageMagick/ImageMagick6/archive/${_majorver}-${_patchver}.tar.gz"
-checksum=99d3fe8774a5b22d9d27ebd5d4ca656b86784b20b5a74a398cdfbcc799d8c5db
+checksum=9180848ee745e02a02bedbce2431c3e2dddbc0287d8690081bbfd24e6fe867aa
 
 keep_libtool_archives=yes
 conf_files="/etc/ImageMagick-${_majorver%%.*}/*.xml"

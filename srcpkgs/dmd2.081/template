@@ -3,10 +3,11 @@ pkgname=dmd2.081
 version=2.081.1
 revision=1
 create_wrksrc=yes
+hostmakedepends="which"
 makedepends="dmd-bootstrap"
 depends="libphobos2.081>=${version} gcc"
 short_desc="Digital Mars D compiler, 2.081"
-maintainer="Juan RP <xtraeme@voidlinux.org>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="BSL-1.0"
 homepage="http://www.digitalmars.com/d/2.0/"
 distfiles="

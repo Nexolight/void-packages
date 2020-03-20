@@ -1,15 +1,15 @@
 # Template file for 'doxygen'
 pkgname=doxygen
-version=1.8.15
-revision=2
+version=1.8.17
+revision=1
 build_style=cmake
-hostmakedepends="perl python flex"
+hostmakedepends="git perl python flex"
 short_desc="Source code documentation generator tool"
-maintainer="Juan RP <xtraeme@voidlinux.org>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="GPL-2.0-only"
 homepage="http://www.doxygen.org/"
 distfiles="http://doxygen.nl/files/doxygen-${version}.src.tar.gz"
-checksum=bd9c0ec462b6a9b5b41ede97bede5458e0d7bb40d4cfa27f6f622eb33c59245d
+checksum=2cba988af2d495541cbbe5541b3bee0ee11144dcb23a81eada19f5501fd8b599
 
 build_options="wizard"
 desc_option_wizard="build Qt5 GUI configuration tool, doxywizard"

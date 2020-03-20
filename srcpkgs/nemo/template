@@ -1,8 +1,9 @@
 # Template file for 'nemo'
 pkgname=nemo
-version=4.0.6
-revision=2
+version=4.4.2
+revision=1
 build_style=meson
+build_helper=gir
 pycompile_dirs="/usr/share/nemo/actions/myaction.py"
 hostmakedepends="gettext-devel glib-devel gnome-common intltool pkg-config
  gobject-introspection"
@@ -10,11 +11,12 @@ makedepends="cinnamon-desktop-devel dconf-devel exempi-devel gvfs-devel
  libexif-devel libnotify-devel tracker-devel xapps-devel"
 depends="cinnamon-translations dconf gvfs"
 short_desc="Cinnamon file manager (nautilus fork)"
-maintainer="Juan RP <xtraeme@voidlinux.org>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="GPL-2.0-or-later, LGPL-2.0-or-later"
 homepage="http://developer.linuxmint.com/projects/cinnamon-projects.html/"
 distfiles="https://github.com/linuxmint/${pkgname}/archive/${version}.tar.gz"
-checksum=9e7305955d1e420f85c944c921e2d622cd799785ea271ed488888e910a097e47
+checksum=cda3b99c8275c57bb285f8718ef3e463349a8eebe97cc126b0daebffeb242c95
+
 
 do_check() {
 	:

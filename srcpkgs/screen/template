@@ -1,6 +1,6 @@
 # Template file for 'screen'
 pkgname=screen
-version=4.6.2
+version=4.8.0
 revision=1
 build_style=gnu-configure
 configure_args="--with-sys-screenrc=/etc/screenrc --enable-pam
@@ -9,11 +9,11 @@ configure_args="--with-sys-screenrc=/etc/screenrc --enable-pam
 makedepends="pam-devel ncurses-devel"
 conf_files="/etc/screenrc /etc/skel/.screenrc"
 short_desc="GNU screen manager with VT100/ANSI terminal emulation"
-maintainer="Juan RP <xtraeme@voidlinux.org>"
+maintainer="Frank Steinborn <steinex@nognu.de>"
+license="GPL-3.0-or-later"
 homepage="http://www.gnu.org/s/screen/"
-license="GPL-3"
 distfiles="${GNU_SITE}/$pkgname/$pkgname-$version.tar.gz"
-checksum=1b6922520e6a0ce5e28768d620b0f640a6631397f95ccb043b70b91bb503fa3a
+checksum=6e11b13d8489925fde25dfb0935bf6ed71f9eb47eff233a181e078fde5655aa1
 
 post_install() {
 	vinstall etc/etcscreenrc 0644 etc screenrc

@@ -1,16 +1,21 @@
 # Template file for 'ttyd'
 pkgname=ttyd
-version=1.4.4
-revision=1
+version=1.6.0
+revision=2
 build_style=cmake
 hostmakedepends="pkg-config xxd"
-makedepends="libwebsockets-devel json-c-devel libressl-devel zlib-devel"
+makedepends="libwebsockets-devel json-c-devel libressl-devel zlib-devel
+ libuv-devel"
 short_desc="Share your terminal over the web"
 maintainer="Toyam Cox <Vaelatern@voidlinux.org>"
 license="MIT"
 homepage="https://tsl0922.github.io/ttyd/"
 distfiles="https://github.com/tsl0922/ttyd/archive/${version}.tar.gz"
-checksum=b910a33ddaa474c369991ba345187a8a2f4aa420389083671ba3a6c305a491d6
+checksum=d14740bc82be0d0760dd0a3c97acbcbde490412a4edc61edabe46d311b068f83
+
+if [ "$XBPS_TARGET_LIBC" = "musl" ]; then
+	makedepends+=" musl-legacy-compat"
+fi
 
 post_install() {
 	vlicense LICENSE

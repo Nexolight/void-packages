@@ -1,20 +1,21 @@
 # Template file for 'kde-gtk-config5'
 pkgname=kde-gtk-config5
-version=5.15.5
+version=5.18.3
 revision=1
 wrksrc="${pkgname%5}-${version}"
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
-hostmakedepends="extra-cmake-modules pkg-config qt5-qmake qt5-host-tools"
+hostmakedepends="extra-cmake-modules pkg-config qt5-qmake qt5-host-tools
+ gettext"
 makedepends="kcmutils-devel knewstuff-devel gtk+-devel gtk+3-devel
  gsettings-desktop-schemas-devel"
-depends="kde-cli-tools"
+depends="kde-cli-tools gsettings-desktop-schemas"
 short_desc="GTK2 and GTK3 Configurator for KDE"
 maintainer="John <johnz@posteo.net>"
 license="GPL-2.0-or-later, LGPL-2.1-or-later"
 homepage="https://projects.kde.org/projects/plasma/kde-gtk-config"
 distfiles="${KDE_SITE}/plasma/${version}/${pkgname%5}-${version}.tar.xz"
-checksum=958163b1134b7c9e9735b5b6a4448973f09dbf43991511f768b29bd038baa185
+checksum=cd47092634387fdc63712846fecdee2385f98947910051c6ded95c7d741752c8
 
 if [ "$CROSS_BUILD" ]; then
 	hostmakedepends+=" kcoreaddons"

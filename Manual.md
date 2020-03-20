@@ -310,9 +310,7 @@ The following functions are defined by `xbps-src` and can be used on any templat
 
 	Installs `file` into `usr/share/licenses/<pkgname>` in the pkg
 	`$DESTDIR`. The optional 2nd argument can be used to change the
-	`file name`. Note: Custom licenses,
-	non-`GPL` licenses, `MIT`, `BSD` and `ISC` require the
-	license file to	be supplied with the binary package.
+	`file name`. See [license](#var_license) for when to use it.
 
 - *vsv()* `vsv <service>`
 
@@ -365,11 +363,27 @@ in this directory such as `${XBPS_BUILDDIR}/${wrksrc}`.
 
 - `XBPS_MACHINE` The machine architecture as returned by `xbps-uhelper arch`.
 
+- `XBPS_ENDIAN` The machine's endianness ("le" or "be").
+
+- `XBPS_LIBC` The machine's C library ("glibc" or "musl").
+
+- `XBPS_WORDSIZE` The machine's word size in bits (32 or 64).
+
+- `XBPS_NO_ATOMIC8` The machine lacks native 64-bit atomics (needs libatomic emulation).
+
 - `XBPS_SRCDISTDIR` Full path to where the `source distfiles` are stored, i.e `$XBPS_HOSTDIR/sources`.
 
 - `XBPS_SRCPKGDIR` Full path to the `srcpkgs` directory.
 
 - `XBPS_TARGET_MACHINE` The target machine architecture when cross compiling a package.
+
+- `XBPS_TARGET_ENDIAN` The target machine's endianness ("le" or "be").
+
+- `XBPS_TARGET_LIBC` The target machine's C library ("glibc" or "musl").
+
+- `XBPS_TARGET_WORDSIZE` The target machine's word size in bits (32 or 64).
+
+- `XBPS_TARGET_NO_ATOMIC8` The target machine lacks native 64-bit atomics (needs libatomic emulation).
 
 - `XBPS_FETCH_CMD` The utility to fetch files from `ftp`, `http` of `https` servers.
 
@@ -389,9 +403,18 @@ The list of mandatory variables for a template:
 
 - `homepage` A string pointing to the `upstream` homepage.
 
-- `license` A string matching the license's [SPDX Short identifier](https://spdx.org/licenses),
-or string prefixed with `custom:` for licenses not listed there (see [vlicense](#vlicense)).
+
+- <a id="var_license"></a>
+`license` A string matching the license's [SPDX Short identifier](https://spdx.org/licenses),
+`Public Domain`, or string prefixed with `custom:` for other licenses.
 Multiple licenses should be separated by commas, Example: `GPL-3.0-or-later, custom:Hugware`.
+
+  Empty meta-packages that don't include any files
+  which thus have and require no license, should have set
+  `license="BSD-2-Clause"`.
+
+  Note: `MIT`, `BSD`, `ISC` and custom licenses
+  require the license file to be supplied with the binary package.
 
 - `maintainer` A string in the form of `name <user@domain>`.  The
   email for this field must be a valid email that you can be reached
@@ -460,7 +483,7 @@ Example:
   | DEBIAN_SITE      | http://ftp.debian.org/debian/pool               |
   | FREEDESKTOP_SITE | http://freedesktop.org/software                 |
   | GNOME_SITE       | http://ftp.gnome.org/pub/GNOME/sources          |
-  | GNU_SITE         | http://mirrors.kernel.org/gnu                   |
+  | GNU_SITE         | http://ftp.gnu.org/gnu                          |
   | KERNEL_SITE      | http://www.kernel.org/pub/linux                 |
   | MOZILLA_SITE     | http://ftp.mozilla.org/pub                      |
   | NONGNU_SITE      | http://download.savannah.nongnu.org/releases    |
@@ -468,7 +491,7 @@ Example:
   | SOURCEFORGE_SITE | http://downloads.sourceforge.net/sourceforge    |
   | UBUNTU_SITE      | http://archive.ubuntu.com/ubuntu/pool           |
   | XORG_HOME        | http://xorg.freedesktop.org/wiki/               |
-  | XORG_SITE        | http://xorg.freedesktop.org/releases/individual |
+  | XORG_SITE        | http://www.x.org/releases/individual            |
   | KDE_SITE         | https://download.kde.org/stable                 |
 
 - `checksum` The `sha256` digests matching `${distfiles}`. Multiple files can be
@@ -483,7 +506,7 @@ For tarballs you can find the contents checksum by using the command
 `tar xf <tarball.ext> --to-stdout | sha256sum`.
 
 - `wrksrc` The directory name where the package sources are extracted, by default
-set to `${pkgname}-${version}`.
+set to `${pkgname}-${version}`. If the top level directory of a package's `distfile` is different from the default, `wrksrc` must be set to the top level directory name inside the archive.
 
 - `build_wrksrc` A directory relative to `${wrksrc}` that will be used when building the package.
 
@@ -848,9 +871,7 @@ set in the body of the template.
 - `meta` For `meta-packages`, i.e packages that only install local files or simply
 depend on additional packages. This build style does not install
 dependencies to the root directory, and only checks if a binary package is
-available in repositories. If your meta-package doesn't include any files
-which thus have and require no license, then you should also set
-`license="BSD-2-Clause"`.
+available in repositories.
 
 - `R-cran` For packages that are available on The Comprehensive R Archive
 Network (CRAN). The build style requires the `pkgname` to start with
@@ -879,8 +900,7 @@ Additional install arguments can be specified via `make_install_args`.
 - `perl-module` For packages that use the Perl
 [ExtUtils::MakeMaker](http://perldoc.perl.org/ExtUtils/MakeMaker.html) build method.
 
-- `perl6-dist` For packages that use the Rakudo Perl 6
-`perl6-install-dist` build method with rakudo.
+- `raku-dist` For packages that use the Raku `raku-install-dist` build method with rakudo.
 
 - `waf3` For packages that use the Python3 `waf` build method with python3.
 
@@ -931,6 +951,17 @@ additional paths to be searched when linking target binaries to be introspected.
 `GIR_EXTRA_OPTIONS` defines additional options for the `g-ir-scanner-qemuwrapper` calling
 `qemu-<target_arch>-static` when running the target binary. You can for example specify
 `GIR_EXTRA_OPTIONS="-strace"` to see a trace of what happens when running that binary.
+
+- `qemu` sets additional variables for the `cmake` and `meson` build styles to allow
+executing cross-compiled binaries inside qemu.
+It sets `CMAKE_CROSSCOMPILING_EMULATOR` for cmake and `exe_wrapper` for meson
+to `qemu-<target_arch>-static` and `QEMU_LD_PREFIX` to `XBPS_CROSS_BASE`
+
+- `qmake` creates the `qt.conf` configuration file (cf. `qmake` `build_style`)
+needed for cross builds and a qmake-wrapper to make `qmake` use this configuration.
+This aims to fix cross-builds for when the build-style is mixed: e.g. when in a
+`gnu-configure` style the configure script calls `qmake` or a `Makefile` in
+`gnu-makefile` style, respectively.
 
 <a id="functions"></a>
 ### Functions
@@ -1415,9 +1446,10 @@ for example python3.4, those must also be added as host and target build depende
 The following variables may influence how the python packages are built and configured
 at post-install time:
 
-- `pycompile_module`: this variable expects the python modules that should be `byte-compiled`
-at post-install time. Python modules are those that are installed into the `site-packages`
-prefix: `usr/lib/pythonX.X/site-packages`. Multiple python modules may be specified separated
+- `pycompile_module`: By default, files and directories installed into
+`usr/lib/pythonX.X/site-packages`, excluding `*-info` and `*.so`, are byte-compiled
+at install time as python modules.  This variable expects subset of them that
+should be byte-compiled, if default is wrong.  Multiple python modules may be specified separated
 by blanks, Example: `pycompile_module="foo blah"`. If a python module installs a file into
 `site-packages` rather than a directory, use the name of the file, Example:
 `pycompile_module="fnord.py"`.
@@ -1460,7 +1492,7 @@ Go packages should be built with the `go` build style, if possible.
 The `go` build style takes care of downloading Go dependencies and
 setting up cross compilation.
 
-The following variables influence how Go packages are built:
+The following template variables influence how Go packages are built:
 
 - `go_import_path`: The import path of the package included in the
   distfile, as it would be used with `go get`. For example, GitHub's
@@ -1478,6 +1510,11 @@ The following variables influence how Go packages are built:
   any go.mod files, `default` to use Go's default behavior, or anything
   accepted by `go build -mod MODE`.  Defaults to `vendor` if there's
   a vendor directory, otherwise `default`.
+
+The following environment variables influence how Go packages are built:
+
+- `XBPS_MAKEJOBS`: Value passed to the `-p` flag of `go install`, to
+  control the parallelism of the Go compiler.
 
 Occasionally it is necessary to perform operations from within the Go
 source tree.  This is usually needed by programs using go-bindata or
@@ -1539,27 +1576,8 @@ common/shlibs.
 generally those packages are the same but have been split as to avoid
 cyclic dependencies. Make sure that the package you're removing is not
 the source of those patches/files.
-- Replace the package template with the following:
-
-```
-# Template file for '$pkgname'
-pkgname=$pkgname
-version=$version
-revision=$((revision + 1))
-archs=noarch
-build_style=meta
-short_desc="${short_desc} (removed package)"
-license="BSD-2-Clause"
-homepage="${homepage}"
-```
-
-- Add (or replace) the INSTALL.msg with the following:
-
-```
-$pkgname is no longer provided by Void Linux, and will be fully removed from the repos on $(date -d '+3 months' '+%F')
-```
-
-- After the specified time remove the package from the repository index
+- Remove package template.
+- Remove the package from the repository index
 or contact a team member that can do so.
 
 <a id="xbps_triggers"></a>

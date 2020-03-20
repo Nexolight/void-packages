@@ -1,23 +1,21 @@
 # Template file for 'aqbanking'
 pkgname=aqbanking
-_dnrel=217
-version=5.7.8
+version=6.0.1
 revision=1
 build_style=gnu-configure
-hostmakedepends="pkg-config gwenhywfar"
+hostmakedepends="pkg-config gwenhywfar tar"
 makedepends="gwenhywfar-devel xmlsec1-devel ktoblzcheck-devel gmp-devel"
 short_desc="Library for online banking and financial applications"
 maintainer="Enno Boland <gottox@voidlinux.org>"
 license="GPL-2.0-only, GPL-3.0-only"
 homepage="http://www.aquamaniac.de/aqbanking"
-distfiles="http://www.aquamaniac.de/sites/download/download.php?package=03&release=${_dnrel}&file=02&dummy=aqbanking-$version.tar.gz"
-checksum=16f86e4cc49a9eaaa8dfe3206607e627873208bce45a70030c3caea9b5afc768
+distfiles="https://www.aquamaniac.de/rdm/attachments/download/238/aqbanking-${version}.tar.gz"
+checksum=6d66e298cab763adaa10d8e8f6367d178e6c3948eedbc89041cfc36a97caca49
 disable_parallel_build=yes
 
 if [ "$CROSS_BUILD" ]; then
-	configure_args+=" --with-gwen-dir=${XBPS_CROSS_BASE} -with-xmlmerge=/usr/bin/xmlmerge"
-	export CFLAGS+=" -I${XBPS_CROSS_BASE}/usr/include/gwenhywfar4"
-	export CXXFLAGS+=" -I${XBPS_CROSS_BASE}/usr/include/gwenhywfar4"
+	export PKG_CONFIG_PATH=${XBPS_CROSS_BASE}/usr/lib/pkgconfig
+	configure_args+=" -with-xmlmerge=/usr/bin/xmlmerge"
 fi
 
 aqbanking-devel_package() {

@@ -1,20 +1,20 @@
-# Template build file for 'gcc-multilib'
+# Template file for 'gcc-multilib'
 archs="x86_64"
 _triplet="x86_64-unknown-linux-gnu"
-_majorver=8.3
+_majorver=9.3
 
 pkgname=gcc-multilib
 version=${_majorver}.0
 revision=1
 wrksrc="gcc-${version}"
-short_desc="The GNU C Compiler (multilib files)"
-maintainer="Juan RP <xtraeme@voidlinux.org>"
+short_desc="GNU Compiler Collection (multilib files)"
+maintainer="Orphaned <orphan@voidlinux.org>"
 homepage="http://gcc.gnu.org"
-license="GFDL-1.2, GPL-3, LGPL-2.1"
+license="GFDL-1.2-or-later, GPL-3.0-or-later, LGPL-2.1-or-later"
 distfiles="${GNU_SITE}/gcc/gcc-${version}/gcc-${version}.tar.xz"
-checksum=64baadfe6cc0f4947a84cb12d7f0dfaf45bb58b7e92461639596c21e02d97d2c
+checksum=71e197867611f6054aa1119b13a0c0abac12834765fe2d81f35ac57f84f742d1
 
-hostmakedepends="perl flex zip unzip"
+hostmakedepends="perl flex tar zip unzip"
 makedepends="zlib-devel libmpc-devel isl15-devel libfl-devel
  glibc-32bit glibc-devel-32bit"
 
@@ -24,12 +24,12 @@ depends="
  libssp-devel-32bit>=${_majorver}
  libgomp-devel-32bit>=${_majorver}
  libitm-devel-32bit>=${_majorver}
- libmpx-devel-32bit>=${_majorver}
  libsanitizer-devel-32bit>=${_majorver}
  libatomic-devel-32bit>=${_majorver}
  libvtv-devel-32bit>=${_majorver}
  zlib-32bit
  glibc-devel-32bit"
+replaces="libmpx-devel-32bit>=0"
 
 do_configure() {
 	ldconfig &>/dev/null
@@ -69,6 +69,7 @@ do_build() {
 	make ${makejobs}
 }
 do_install() {
+	local _pc_triplet=x86_64-pc-linux-gnu
 	# Install to a tempdir and then only copy relevant files.
 	if [ "$XBPS_TARGET_MACHINE" = "x86_64" ]; then
 		vmkdir usr/lib
@@ -83,18 +84,18 @@ do_install() {
 	vmkdir usr/include/c++/${_majorver}/${_triplet}
 	vmkdir usr/lib/gcc/${_triplet}/${_majorver}
 
-	cp -a ${wrksrc}/${pkgname}-build/usr/lib/gcc/${_triplet}/${version}/32 \
+	cp -a ${wrksrc}/${pkgname}-build/usr/lib/gcc/${_pc_triplet}/${version}/32 \
 		${DESTDIR}/usr/lib/gcc/${_triplet}/${_majorver}/
-	cp -a ${wrksrc}/${pkgname}-build/usr/include/c++/${version}/${_triplet}/32 \
+	cp -a ${wrksrc}/${pkgname}-build/usr/include/c++/${version}/${_pc_triplet}/32 \
 		${DESTDIR}/usr/include/c++/${_majorver}/${_triplet}
 
-	vinstall ${wrksrc}/host-${_triplet}/gcc/specs 644 usr/lib/gcc/${_triplet}/${_majorver}
+	vinstall ${wrksrc}/host-${_pc_triplet}/gcc/specs 644 usr/lib/gcc/${_triplet}/${_majorver}
 
 	rm -f ${DESTDIR}/usr/lib64
 }
 
 gcc-objc-multilib_package() {
 	depends="gcc-multilib>=${_majorver} gcc-objc>=${_majorver} libobjc-devel-32bit>=${_majorver}"
-	short_desc="The GNU Objective-C compiler (multilib files)"
+	short_desc="GNU Objective-C compiler (multilib files)"
 	build_style=meta
 }

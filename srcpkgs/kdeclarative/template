@@ -1,21 +1,18 @@
 # Template file for 'kdeclarative'
 pkgname=kdeclarative
-version=5.58.0
+version=5.68.0
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
-hostmakedepends="kcoreaddons extra-cmake-modules pkg-config"
+hostmakedepends="kcoreaddons extra-cmake-modules pkg-config
+ gettext qt5-host-tools qt5-qmake python3 kconfig"
 makedepends="kio-devel kpackage-devel libepoxy-devel"
 short_desc="KDE Integration of QML and KDE work spaces"
 maintainer="John <johnz@posteo.net>"
 license="LGPL-2.0-or-later, LGPL-2.1-or-later"
 homepage="https://projects.kde.org/projects/frameworks/kdeclarative"
 distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=267d1dbe55ca65c74289e56200b51de95bcbc231b2d4a2867cb6735d04783bec
-
-if [ "$CROSS_BUILD" ]; then
-	hostmakedepends+=" qt5-host-tools qt5-qmake python kconfig"
-fi
+checksum=96a032bcb360e0ffcfe51d4d2f6153786682c2f967592bffcf15b9e6cd4cd3ae
 
 kdeclarative-devel_package() {
 	short_desc+=" - development"

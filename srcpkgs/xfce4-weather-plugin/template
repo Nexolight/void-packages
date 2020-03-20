@@ -1,16 +1,15 @@
 # Template file for 'xfce4-weather-plugin'
 pkgname=xfce4-weather-plugin
-version=0.8.11
+version=0.10.1
 revision=1
 build_style=gnu-configure
-configure_args="--disable-upower"
 hostmakedepends="pkg-config intltool"
-makedepends="libxfce4ui-devel xfce4-panel-devel libxml2-devel libsoup-devel"
+makedepends="libxfce4ui-devel xfce4-panel-devel libxml2-devel libsoup-devel upower-devel"
 depends="hicolor-icon-theme"
 short_desc="XFCE panel plugin to show temperature and weather"
-maintainer="Juan RP <xtraeme@voidlinux.org>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="GPL-2.0-or-later"
 homepage="https://goodies.xfce.org/projects/panel-plugins/xfce4-weather-plugin"
 distfiles="https://archive.xfce.org/src/panel-plugins/${pkgname}/${version%.*}/${pkgname}-${version}.tar.bz2"
-checksum=0382ce99c0ad4424afe7096a354f301a9396d12807a0f2ab041912d6ab58145d
+checksum=afb2af5f3effc2ea6181636ed0e82e6dafd556ec1b8478100802f85a5d167a89
 lib32disabled=yes

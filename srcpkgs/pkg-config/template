@@ -5,10 +5,8 @@ revision=2
 bootstrap=yes
 build_style=gnu-configure
 configure_args="--with-internal-glib --disable-host-tool"
-# required for gcc6 bootstrap
-hostmakedepends="gcc"
 short_desc="System for managing library compile/link flags"
-maintainer="Juan RP <xtraeme@voidlinux.org>"
+maintainer="Enno Boland <gottox@voidlinux.org>"
 license="GPL-2"
 homepage="http://pkgconfig.freedesktop.org/wiki/"
 distfiles="http://pkgconfig.freedesktop.org/releases/${pkgname}-${version}.tar.gz"
@@ -21,6 +19,7 @@ alternatives="
 case "$XBPS_TARGET_MACHINE" in
 	mips*|ppc|ppc-musl) configure_args+=" glib_cv_stack_grows=no glib_cv_uscore=no" ;;
 esac
+CFLAGS="-Wno-missing-include-dirs"
 
 post_install() {
 	# Add pkg-config suffix to files that are on alternatives

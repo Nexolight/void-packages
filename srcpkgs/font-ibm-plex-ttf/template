@@ -1,6 +1,6 @@
 # Template file for 'font-ibm-plex-ttf'
 pkgname=font-ibm-plex-ttf
-version=1.4.1
+version=4.0.2
 revision=1
 archs=noarch
 wrksrc="plex-${version}"
@@ -10,7 +10,7 @@ maintainer="Vintodrimmer <vintodrimmer@protonmail.ch>"
 license="OFL-1.1"
 homepage="https://github.com/IBM/plex"
 distfiles="https://github.com/IBM/plex/archive/v${version}.tar.gz"
-checksum=4b9aa7e988856f412271964fb13eaab88fa0a890998dbb41067f85d2ba8a99bd
+checksum=c7110dc4d3f7eb507db55aa645920bfd1e0b29ed2fd1cf1ba4eb1e2c6849fef9
 
 font_dirs="/usr/share/fonts/TTF"
 
@@ -28,4 +28,3 @@ font-ibm-plex-otf_package() {
 		vcopy "IBM-Plex-*/fonts/complete/otf/*.otf" usr/share/fonts/OTF
 	}
 }
-

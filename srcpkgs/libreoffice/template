@@ -1,35 +1,34 @@
-#!/bin/sh
 # Template file for 'libreoffice'
 pkgname=libreoffice
-version=6.2.4.2
+version=6.4.1.2
 revision=1
 build_style=meta
 make_build_args="build-nocheck"
-nocross=yes
+nocross="Several dependencies are nocross=yes"
 
 #
-# XXX: mit-krb5-devel nasm firebird3 hamcrest iwyu ogl-math poppler
+# XXX: mit-krb5-devel nasm hamcrest iwyu ogl-math poppler
 # Missing, required libraries are downloaded and built internally
 #
-hostmakedepends="automake flex git gperf hyphen icu libtool openldap
+hostmakedepends="automake flex git gperf hyphen icu libtool openldap which gettext xz
  perl-Archive-Zip pkg-config qt5-qmake sane ucpp unzip wget zip python3-setuptools"
 makedepends="CoinMP-devel apr-devel avahi-libs-devel clucene-devel
  frameworkintegration-devel glyphy-devel gpgmepp-devel gst-plugins-base1-devel
  gtk+-devel gtk+3-devel hunspell-devel hyphen-devel libXt-devel libabw-devel
  libatomic_ops-devel libbluetooth-devel libcdr-devel libcmis-devel libe-book-devel
- libepubgen-devel libetonyek-devel libexttextcat-devel libfreehand-devel
+ libepubgen-devel libetonyek-devel libexttextcat-devel libfbclient3-devel libfreehand-devel
  libgcrypt-devel libgltf-devel libldap-devel libmariadbclient-devel libmspub-devel
  libmwaw-devel libnumbertext-devel libodfgen-devel liborcus-devel
  libpagemaker-devel libqxp-devel librsvg-devel libvisio-devel libwpg-devel
  libwps-devel lpsolve-devel mdds mythes-devel neon-devel nss-devel
  postgresql-libs-devel python3-devel qt5-devel redland-devel sane-devel
- telepathy-glib-devel unixodbc-devel vigra-devel vlc-devel libcppunit-devel"
+ telepathy-glib-devel unixodbc-devel vigra-devel vlc-devel libcppunit-devel
+ qrcodegen-devel xmlsec1-devel"
 depends="libreoffice-common>=${version}_${revision}"
 depends+=" libreoffice-base>=${version}_${revision}"
 depends+=" libreoffice-calc>=${version}_${revision}"
 depends+=" libreoffice-draw>=${version}_${revision}"
 depends+=" libreoffice-fonts>=${version}_${revision}"
-depends+=" libreoffice-firebird>=${version}_${revision}"
 depends+=" libreoffice-gnome>=${version}_${revision}"
 depends+=" libreoffice-impress>=${version}_${revision}"
 depends+=" libreoffice-math>=${version}_${revision}"
@@ -69,11 +68,10 @@ distfiles="
  ${_addurl}/d8bd5eed178db6e2b18eeed243f85aa8-flute-1.1.6.zip
  ${_addurl}/ba2930200c9f019c2d93a8c88c651a0f-flow-engine-0.9.4.zip
  ${_addurl}/b63e6340a02ff1cacfeadb2c42286161-JLanguageTool-1.7.0.tar.bz2
- ${_addurl}/Firebird-3.0.0.32483-0.tar.bz2
  ${_addurl}/libstaroffice-0.0.6.tar.xz
  ${_addurl}/libzmf-0.0.2.tar.xz
- ${_addurl}/pdfium-3550.tar.bz2
- ${_addurl}/poppler-0.74.0.tar.xz
+ ${_addurl}/pdfium-3963.tar.bz2
+ ${_addurl}/poppler-0.82.0.tar.xz
  ${_addurl}/bae83fa5dc7f081768daace6e199adc3-glm-0.9.4.6-libreoffice.zip
  ${_exturl}/8249374c274932a21846fa7629c2aa9b-officeotron-0.7.4-master.jar
  ${_exturl}/odfvalidator-1.2.0-incubating-SNAPSHOT-jar-with-dependencies-971c54fd38a968f5860014b44301872706f9e540.jar
@@ -81,6 +79,7 @@ distfiles="
  ${_addurl}/commons-logging-1.2-src.tar.gz
  ${_addurl}/beeca87be45ec87d241ddd0e1bad80c1-bsh-2.0b6-src.zip
  ${_addurl}/35c94d2df8893241173de1d16b6034c0-swingExSrc.zip
+ ${_addurl}/48d647fbd8ef8889e5a7f422c1bfda94-clucene-core-2.3.3.4.tar.gz
  ${_addurl}/1f467e5bb703f12cbbb09d5cf67ecf4a-converttexttonumber-1-5-0.oxt
  ${_addurl}/b7cae45ad2c23551fd6ccb8ae2c1f59e-numbertext_0.9.5.oxt
  ${_addurl}/eeb2c7ddf0d302fba4bfc6e97eac9624-libbase-1.1.6.zip
@@ -94,7 +93,6 @@ distfiles="
  ${_addurl}/7239a4430efd4d0189c4f24df67f08e5-mysql-connector-c++-1.1.4.tar.gz
  ${_addurl}/39bb3fcea1514f1369fcfc87542390fd-sacjava-1.3.zip
  ${_addurl}/ltm-1.0.zip
- ${_addurl}/xmlsec1-1.2.27.tar.gz
  ${_addurl}/368f114c078f94214a308a74c7e991bc-crosextrafonts-20130214.tar.gz
  ${_addurl}/c74b7223abe75949b4af367942d96c7a-crosextrafonts-carlito-20130920.tar.gz
  ${_addurl}/33e1e61fab06a547851ed308b4ffef42-dejavu-fonts-ttf-2.37.zip
@@ -104,23 +102,23 @@ distfiles="
  ${_addurl}/e7a384790b13c29113e22e596ade9687-LinLibertineG-20120116.zip
  ${_addurl}/907d6e99f241876695c19ff3db0b8923-source-code-pro-2.030R-ro-1.050R-it.tar.gz
  ${_addurl}/edc4d741888bc0d38e32dbaa17149596-source-sans-pro-2.010R-ro-1.065R-it.tar.gz
- ${_addurl}/source-serif-font-2.007R.tar.gz
+ ${_addurl}/source-serif-pro-3.000R.tar.gz
  ${_addurl}/EmojiOneColor-SVGinOT-1.3.tar.gz
  ${_addurl}/noto-fonts-20171024.tar.gz
  ${_addurl}/culmus-0.131.tar.gz
  ${_addurl}/libre-hebrew-1.0.tar.gz
  ${_addurl}/alef-1.001.tar.gz
  ${_addurl}/ttf-kacst_2.01+mry.tar.gz
- ${_exturl}/49a64f3bcf20a7909ba2751349231d6652ded9cd2840e961b5164d09de3ffa63-opens___.ttf
+ ${_exturl}/884ed41809687c3e168fc7c19b16585149ff058eca79acbf3ee784f6630704cc-opens___.ttf
  ${_addurl}/lxml-4.1.1.tgz
  ${_addurl}/Amiri-0.111.zip
  ${_addurl}/ReemKufi-0.7.zip
  ${_addurl}/Scheherazade-2.100.zip
 "
-checksum="ff8148e7a7bc8988677ca565d6d25c1ade93e848df6b4163459a5cc3682a38b7
- 21d16b922d7a218dd104571ae37421fcbc1ae90e5fd61c7b16fee33e4ac4e057
- 1aa5469a25d4a615b521d0775b08501ea4672994c5135bcde7c054c327aa2e7f
- 4c4cf8e26b14e508f1a1fdf2db1a2363964ae5d528b5bd5f048a281ddecc1e2a
+checksum="0d64a09d3e20140def0ce09f6d8914b83dc17f6bfa8e7923ddf3f54b1d493f0a
+ 25505e935579bb24e17b260f96869a366b6d2d4bf01f61073602043eff95df8f
+ cf950517344e62c23cc2fd4872f5cd5e0468200c335e1f1b250d954b7d76253f
+ f60b2cacd10b30e141d8cafe405404d475ffc505e8ca0f9aa0a9af4e3a8e4309
  1fb458d6aab06932693cc8a9b6e4e70944ee1ff052fa63606e3131df34e21753
  75823776fb51a9c526af904f1503a7afaaab900fba83eda64f8a41073724c870
  983941d31ee8d366085cadf28db75eb1f5cb03ba1e5853b98f12f7f51c63b776
@@ -129,11 +127,10 @@ checksum="ff8148e7a7bc8988677ca565d6d25c1ade93e848df6b4163459a5cc3682a38b7
  1b5b24f7bc543c0362b667692f78db8bab4ed6dafc6172f104d0bd3757d8a133
  233f66e8d25c5dd971716d4200203a612a407649686ef3b52075d04b4c9df0dd
  48c87e41636783bba438b65fd895821e369ed139e1465fac654323ad93c5a82d
- 6994be3555e23226630c587444be19d309b25b0fcf1f87df3b4e3f88943e5860
  6b00e1ed8194e6072be4441025d1b888e39365727ed5b23e0e8c92c4009d1ec4
  27051a30cb057fdb5d5de65a1f165c7153dc76e27fe62251cbb86639eb2caf22
- 572460f7f9e2f86d022a9c6a82f1e2ded6c3c29ba352d4b9fac60b87e2159679
- 92e09fd3302567fd36146b36bb707db43ce436e8841219025a82ea9fb0076b2f
+ 80d4d6bd8faec226936fcde5521c6e92c0c645126ac3ae72dd2c160ca1749895
+ 234f8e573ea57fb6a008e7c1e56bfae1af5d1adf0e65f47555e1ae103874e4df
  d0312c360efe04dd048b3311fe375ff36f1993b4c2e3cb58c81062990532904a
  f2443f27561af52324eee03a1892d9f569adc8db9e7bca55614898bc2a13a770
  984f2a479df79e27e7b01a5815ac53ae64e07746b882262d8a64566494515504
@@ -141,6 +138,7 @@ checksum="ff8148e7a7bc8988677ca565d6d25c1ade93e848df6b4163459a5cc3682a38b7
  49665da5a60d033e6dff40fe0a7f9173e886ae859ce6096c1afe34c48b677c81
  9e93c73e23aff644b17dfff656444474c14150e7f3b38b19635e622235e01c96
  64585ac36a81291a58269ec5347e7e3e2e8596dbacb9221015c208191333c6e1
+ ddfdc433dd8ad31b5c5819cc4404a8d2127472a3b720d3e744e8c51d79732eab
  71b238efd2734be9800af07566daea8d6685aeed28db5eb5fa0e6453f4d85de3
  1568ed1d2feb8210bb5de61d69574a165cded536cfa17c6953c9064076469de2
  75c80359c9ce343c20aab8a36a45cb3b9ee7c61cf92c13ae45399d854423a9ba
@@ -154,7 +152,6 @@ checksum="ff8148e7a7bc8988677ca565d6d25c1ade93e848df6b4163459a5cc3682a38b7
  a25f14dad39e93a2f9cdf09166ee53981f7212dce829e4208e07a522963a8585
  085f2112c51fa8c1783fac12fbd452650596415121348393bb51f0f7e85a9045
  083daa92d8ee6f4af96a6143b12d7fc8fe1a547e14f862304f7281f8f7347483
- 97d756bad8e92588e6997d2227797eaa900d05e34a426829b149f65d87118eb6
  c48d1c2fd613c9c06c959c34da7b8388059e2408d2bb19845dc3ed35f76e4d09
  4bd12b6cbc321c1cf16da76e2c585c925ce956a08067ae6f6c64eff6ccfdaf5a
  7576310b219e04159d35ff61dd4a4ec4cdba4f35c00e002a136f00e96a908b0a
@@ -164,14 +161,14 @@ checksum="ff8148e7a7bc8988677ca565d6d25c1ade93e848df6b4163459a5cc3682a38b7
  54adcb2bc8cac0927a647fbd9362f45eff48130ce6e2379dc3867643019e08c5
  09466dce87653333f189acd8358c60c6736dcd95f042dee0b644bdcf65b6ae2f
  e7bc9a1fec787a529e49f5a26b93dcdcf41506449dfc70f92cdef6d17eb6fb61
- 10b2bbb357d52bf0f516d3e0ac0a09b5f7901470fbf649b69dad9ccc2d29f7cb
+ 826a2b784d5cdb4c2bbc7830eb62871528360a61a52689c102a101623f1928e3
  d1a08f7c10589f22740231017694af0a7a270760c8dec33d8d1c038e2be0a0c7
  29acc15a4c4d6b51201ba5d60f303dfbc2e5acbfdb70413c9ae1ed34fa259994
  dcf112cfcccb76328dcfc095f4d7c7f4d2f7e48d0eed5e78b100d1d77ce2ed1b
  f596257c1db706ce35795b18d7f66a4db99d427725f20e9384914b534142579a
  b98b67602a2c8880a1770f0b9e37c190f29a7e2ade5616784f0b89fbdb75bf52
  dca00f5e655f2f217a766faa73a81f542c5c204aa3a47017c3c2be0b31d00a56
- 49a64f3bcf20a7909ba2751349231d6652ded9cd2840e961b5164d09de3ffa63
+ 884ed41809687c3e168fc7c19b16585149ff058eca79acbf3ee784f6630704cc
  940caef1ec7c78e0c34b0f6b94fe42d0f2022915ffc78643d28538a5cfd0f40e
  1fbfccced6348b5db2c1c21d5b319cd488e14d055702fa817a0f6cb83d882166
  f60c6508d209ce4236d2d7324256c2ffddd480be7e3d6023770b93dc391a605f
@@ -191,8 +188,8 @@ skip_extraction="
  Firebird-3.0.0.32483-0.tar.bz2
  libstaroffice-0.0.6.tar.xz
  libzmf-0.0.2.tar.xz
- pdfium-3550.tar.bz2
- poppler-0.74.0.tar.xz
+ pdfium-3963.tar.bz2
+ poppler-0.82.0.tar.xz
  bae83fa5dc7f081768daace6e199adc3-glm-0.9.4.6-libreoffice.zip
  8249374c274932a21846fa7629c2aa9b-officeotron-0.7.4-master.jar
  odfvalidator-1.2.0-incubating-SNAPSHOT-jar-with-dependencies-971c54fd38a968f5860014b44301872706f9e540.jar
@@ -200,6 +197,7 @@ skip_extraction="
  commons-logging-1.2-src.tar.gz
  beeca87be45ec87d241ddd0e1bad80c1-bsh-2.0b6-src.zip
  35c94d2df8893241173de1d16b6034c0-swingExSrc.zip
+ 48d647fbd8ef8889e5a7f422c1bfda94-clucene-core-2.3.3.4.tar.gz
  1f467e5bb703f12cbbb09d5cf67ecf4a-converttexttonumber-1-5-0.oxt
  b7cae45ad2c23551fd6ccb8ae2c1f59e-numbertext_0.9.5.oxt
  eeb2c7ddf0d302fba4bfc6e97eac9624-libbase-1.1.6.zip
@@ -213,7 +211,6 @@ skip_extraction="
  7239a4430efd4d0189c4f24df67f08e5-mysql-connector-c++-1.1.4.tar.gz
  39bb3fcea1514f1369fcfc87542390fd-sacjava-1.3.zip
  ltm-1.0.zip
- xmlsec1-1.2.27.tar.gz
  368f114c078f94214a308a74c7e991bc-crosextrafonts-20130214.tar.gz
  c74b7223abe75949b4af367942d96c7a-crosextrafonts-carlito-20130920.tar.gz
  33e1e61fab06a547851ed308b4ffef42-dejavu-fonts-ttf-2.37.zip
@@ -223,19 +220,20 @@ skip_extraction="
  e7a384790b13c29113e22e596ade9687-LinLibertineG-20120116.zip
  907d6e99f241876695c19ff3db0b8923-source-code-pro-2.030R-ro-1.050R-it.tar.gz
  edc4d741888bc0d38e32dbaa17149596-source-sans-pro-2.010R-ro-1.065R-it.tar.gz
- source-serif-font-2.007R.tar.gz
+ source-serif-pro-3.000R.tar.gz
  EmojiOneColor-SVGinOT-1.3.tar.gz
  noto-fonts-20171024.tar.gz
  culmus-0.131.tar.gz
  libre-hebrew-1.0.tar.gz
  alef-1.001.tar.gz
  ttf-kacst_2.01+mry.tar.gz
- 49a64f3bcf20a7909ba2751349231d6652ded9cd2840e961b5164d09de3ffa63-opens___.ttf
+ 884ed41809687c3e168fc7c19b16585149ff058eca79acbf3ee784f6630704cc-opens___.ttf
  lxml-4.1.1.tgz
  Amiri-0.111.zip
  ReemKufi-0.7.zip
  Scheherazade-2.100.zip
 "
+replaces="libreoffice-firebird<6.2.4.2_1"
 
 build_options="java"
 desc_option_java="Enable Java support"
@@ -250,11 +248,16 @@ case "$XBPS_TARGET_MACHINE" in
 		;;
 	*-musl)	# use shipped clucene, because CLucene/analysis/cjk/CJKAnalyzer.h
 		# is missing in the musl clucene-devel files
+		makedepends+=" libexecinfo-devel"
 		;;
 	x86_64)	build_options_default="java"
-		makedepends+=" apache-ant openjdk "
+		makedepends+=" apache-ant openjdk11 "
 		;;
 esac
+
+if [ "$XBPS_TARGET_NO_ATOMIC8" ]; then
+	makedepends+=" libatomic-devel"
+fi
 
 CXXFLAGS+=" -DGLM_ENABLE_EXPERIMENTAL -DU_USING_ICU_NAMESPACE=1"
 
@@ -280,7 +283,7 @@ _split() {
 	fi
 }
 
-_languages=""
+unset _languages
 _add_lang() {
 	local pkglang="${3:-$1}"
 	_languages="$_languages ${pkglang//_/-}"
@@ -427,12 +430,9 @@ do_configure() {
 		-e "s|.1.gz|.1|g"
 	chmod +x bin/unpack-sources
 
-	# Add musl patch for firebird
-	mkdir -p external/firebird
-	cp ${FILESDIR}/musl-os_utils_h.patch external/firebird/
-	sed -i external/firebird/UnpackedTarball_firebird.mk \
-		-e's;\(.*external/firebird\)/libc++.patch\(.*\)$;\1/libc++.patch\2\n\1/musl-os_utils_h.patch\2;'
-
+	if [ "$XBPS_TARGET_LIBC" = "musl" ]; then
+		vsed -i sal/Library_sal.mk -e "s;-ldl ;-lexecinfo &;"
+	fi
 
 	case "$XBPS_TARGET_MACHINE" in
 		i686*)	# Don't run broken tests
@@ -464,7 +464,7 @@ do_configure() {
 	opts+=" --enable-python=system"
 	opts+=" --enable-gtk3"
 	opts+=" --enable-qt5"
-	opts+=" --enable-kde5"
+	opts+=" --enable-kf5"
 	opts+=" --enable-vlc"
 	opts+=" --disable-dependency-tracking"
 	opts+=" --enable-release-build"
@@ -488,7 +488,7 @@ do_configure() {
 
 	if [ "$build_option_java" ]; then
 		opts+=" --with-java"
-		opts+=" --with-jdk-home=/usr/lib/jvm/openjdk"
+		opts+=" --with-jdk-home=/usr/lib/jvm/openjdk11"
 		opts+=" --without-junit"
 	else
 		opts+=" --without-java"
@@ -496,9 +496,6 @@ do_configure() {
 	opts+=" --with-tls=nss"
 	# fails to build with system poppler
 	opts+=" --without-system-poppler"
-	# xmlsec1-nss is missing, thus don't use system-xmlsec
-	opts+=" --without-system-xmlsec"
-	opts+=" --without-system-firebird"
 	opts+=" --without-system-libzmf"
 	opts+=" --without-system-libstaroffice"
 	opts+=" --without-system-libtommath"
@@ -522,6 +519,11 @@ do_configure() {
 do_build() {
 	make ${makejobs} ${make_build_args}
 	make ${makejobs} -C libreofficekit
+
+	# on some platforms (32-bit ppc at least), this single file has
+	# incorrect (non-executable) permissions, so fix it here
+	# only this file is affected and i have no idea why...
+	chmod 755 ${wrksrc}/instdir/program/soffice
 }
 
 do_install() {
@@ -567,21 +569,6 @@ libreoffice-draw_package() {
 	}
 }
 
-libreoffice-firebird_package() {
-	short_desc+=" - Connector for Firebird SDBC"
-	noverifyrdeps=yes
-	pkg_install() {
-		vmkdir usr/lib/libreoffice/program
-		for f in libEngine12.so libfbclient.so.2 libfirebird_sdbclo.so; do
-			mv ${DESTDIR}/all/usr/lib/libreoffice/program/${f} \
-				${PKGDESTDIR}/usr/lib/libreoffice/program/
-		done
-		vmkdir usr/lib/libreoffice/share
-		mv ${DESTDIR}/all/usr/lib/libreoffice/share/firebird \
-			${PKGDESTDIR}/usr/lib/libreoffice/share/
-	}
-}
-
 libreoffice-fonts_package() {
 	short_desc+=" - Fonts"
 	archs=noarch
@@ -615,7 +602,12 @@ libreoffice-kde_package() {
 	depends="libreoffice-common>=${version}_${revision}"
 	noverifyrdeps=yes
 	pkg_install() {
-		_split kde4
+		cat > ${wrksrc}/file-lists/kde5_list.txt <<-EOF
+		/usr/lib/libreoffice/program/libkf5be1lo.so
+		/usr/lib/libreoffice/program/libvclplug_kf5lo.so
+		/usr/lib/libreoffice/program/libvclplug_qt5lo.so
+		EOF
+		_split kde5
 	}
 }
 

@@ -1,6 +1,6 @@
 # Template file for 'hunspell-pl_PL'
 pkgname=hunspell-pl_PL
-version=20190226
+version=20191005
 revision=1
 archs=noarch
 create_wrksrc=yes
@@ -10,7 +10,7 @@ maintainer="m-cz <emcze@ya.ru>"
 license="GPL-2.0-only, LGPL-2.1-only, CC-BY-4.0, MPL-1.1, Apache-2.0"
 homepage="https://sjp.pl/slownik/ort/"
 distfiles="https://sjp.pl/slownik/ort/sjp-myspell-pl-${version}.zip"
-checksum=eebe3c7fed18d4ecf85430f66804f0b882e317d01e4c07845479ced64861e5e2
+checksum=45035bb507849a203a835c211720e3e65ef401a3605c5f7f1951c7450242156f
 
 post_extract() {
 	unzip pl_PL.zip

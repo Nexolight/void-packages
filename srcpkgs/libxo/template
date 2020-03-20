@@ -1,15 +1,21 @@
 # Template file for 'libxo'
 pkgname=libxo
-version=1.0.4
+version=1.4.0
 revision=1
 build_style=gnu-configure
 configure_args="--disable-static"
 short_desc="Library for programs to output XML, JSON and HTML"
-maintainer="maxice8 <thinkabit.ukim@gmail.com>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="BSD-2-Clause"
 homepage="https://juniper.github.io/libxo/libxo-manual.html"
 distfiles="https://github.com/Juniper/libxo/releases/download/${version}/libxo-${version}.tar.gz"
-checksum=23885980313c42211610a65004f9f319804f2ff8e94b2e83b04f4920bf45f6cb
+checksum=aa842d9374bc0c640d9526abdeb6f1dc75c1a14e892eafd3c9e0ee2e8dfc1c43
+
+case $XBPS_TARGET_MACHINE in
+	*-musl)
+		makedepends+=" musl-legacy-compat"
+		;;
+esac
 
 post_install() {
 	vlicense Copyright

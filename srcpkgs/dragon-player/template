@@ -1,16 +1,16 @@
 # Template file for 'dragon-player'
 pkgname=dragon-player
-version=19.04.1
+version=19.12.3
 revision=1
 wrksrc="dragon-${version}"
 build_style=cmake
 hostmakedepends="extra-cmake-modules pkg-config qt5-qmake qt5-host-tools
- kcoreaddons kdoctools"
-makedepends="kio-devel kparts-devel"
+ kcoreaddons kdoctools gettext"
+makedepends="kio-devel kparts-devel ksolid-devel"
 depends="virtual?phonon-qt5-backend hicolor-icon-theme"
 short_desc="Multimedia player where the focus is on simplicity"
 maintainer="1is7ac3 <isaac.qa13@gmail.com>"
 license="GPL-2.0-or-later"
 homepage="https://www.kde.org/applications/multimedia/dragonplayer"
-distfiles="${KDE_SITE}/applications/${version}/src/dragon-${version}.tar.xz"
-checksum=f8acfc09aeec180850345f8881f963c19a3956cd7e07e42463bbe95ff2227ab8
+distfiles="${KDE_SITE}/release-service/${version}/src/dragon-${version}.tar.xz"
+checksum=c5b09b2bd37f4e86f8412d3b950331d330257ba53278b1a569f36bf3fbf560ee

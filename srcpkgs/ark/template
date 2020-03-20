@@ -1,18 +1,23 @@
 # Template file for 'ark'
 pkgname=ark
-version=19.04.1
+version=19.12.3
 revision=1
 build_style=cmake
-hostmakedepends="extra-cmake-modules qt5-devel qt5-qmake kdoctools kconfig"
+hostmakedepends="extra-cmake-modules qt5-devel qt5-qmake
+ kdoctools kconfig gettext pkg-config"
 makedepends="libarchive-devel kpty-devel kparts-devel kitemmodels-devel libzip-devel"
 short_desc="KDE Archiving Tool"
 maintainer="Andrea Brancaleoni <abc@pompel.me>"
 license="GPL-2.0-or-later"
 homepage="https://kde.org/applications/utilities/ark"
-distfiles="${KDE_SITE}/applications/${version}/src/${pkgname}-${version}.tar.xz"
-checksum=6d348b2b9566ce0b8a1ba1b56d0a8c5d434d4748c479c5a853fdcdecfec753e6
+distfiles="${KDE_SITE}/release-service/${version}/src/${pkgname}-${version}.tar.xz"
+checksum=78594029729c197fc90321850696f1bd189b40d8d7fbc9faf51ad6b2ab744a07
 
 if [ "$CROSS_BUILD" ]; then
-	hostmakedepends+=" python kcoreaddons kparts"
+	hostmakedepends+=" python3 kcoreaddons kparts"
 	configure_args="-DDESKTOPTOJSON_EXECUTABLE=/usr/bin/desktoptojson"
 fi
+
+pre_check() {
+	export QT_QPA_PLATFORM=offscreen
+}

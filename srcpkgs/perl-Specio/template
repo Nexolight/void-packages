@@ -1,6 +1,6 @@
-# Template build file for 'perl-Specio'
+# Template file for 'perl-Specio'
 pkgname=perl-Specio
-version=0.43
+version=0.46
 revision=1
 archs=noarch
 wrksrc="${pkgname#perl-}-${version}"
@@ -8,11 +8,11 @@ build_style=perl-module
 hostmakedepends="perl"
 makedepends="perl"
 depends="perl perl-Devel-StackTrace perl-Eval-Closure perl-Module-Runtime
- perl-MRO-Compat perl-Sub-Quote perl-Role-Tiny perl-Test-Fatal"
+ perl-MRO-Compat perl-Sub-Quote perl-Role-Tiny perl-Test-Fatal perl-XString"
 checkdepends="${depends} perl-namespace-autoclean perl-Moo perl-Test-Needs"
 short_desc="Type constraints and coercions for Perl"
 maintainer="newbluemoon <blaumolch@mailbox.org>"
 license="Artistic-2.0"
 homepage="https://metacpan.org/release/Specio"
 distfiles="${CPAN_SITE}/Test/Specio-${version}.tar.gz"
-checksum=3cd0debf7b6404127d5e0bb7fb78cfef9df5e2519d3d6ad7113b59ad1da9fa1d
+checksum=0bf42aa116076d6efc18f72b72c7acb5638bd41c0aa09aecc12fc8bf9ceb9596

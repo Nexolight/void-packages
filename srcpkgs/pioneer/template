@@ -1,6 +1,6 @@
 # Template file for 'pioneer'
 pkgname=pioneer
-version=20190203
+version=20200203
 revision=1
 build_style=cmake
 configure_args="-DPIONEER_DATA_DIR=/usr/share/pioneer
@@ -14,10 +14,14 @@ maintainer="John <johnz@posteo.net>"
 license="GPL-3.0-or-later"
 homepage="https://pioneerspacesim.net"
 distfiles="https://github.com/pioneerspacesim/pioneer/archive/${version}.tar.gz"
-checksum=e526f1659ae321f45b997c0245acecbf9c4cf2122b025ab8db1090f1b9804f5e
+checksum=3055d63c1bd3377c3794eee830a8adbd650b178bad9e927531e38cb5d5838694
 
 if [ "$CROSS_BUILD" ]; then
 	hostmakedepends+=" pioneer-modelcompiler"
+fi
+
+if [ "$XBPS_TARGET_ENDIAN" = "be" ]; then
+	broken="Not yet implemented"
 fi
 
 pioneer-modelcompiler_package() {

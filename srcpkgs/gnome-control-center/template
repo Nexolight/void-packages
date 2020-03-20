@@ -1,6 +1,6 @@
 # Template file for 'gnome-control-center'
 pkgname=gnome-control-center
-version=3.32.1
+version=3.34.1
 revision=1
 build_style=meson
 build_helper="gir"
@@ -24,7 +24,7 @@ maintainer="Enno Boland <gottox@voidlinux.org>"
 license="GPL-2.0-or-later"
 homepage="https://gitlab.gnome.org/GNOME/gnome-control-center"
 distfiles="${GNOME_SITE}/${pkgname}/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=b4a05c7edf9d575dbb3996f122234372b8a2c61088753745f43a096b1fafec76
+checksum=5f82ecd5554136c462248ec5363b82d95358b39dfd6787006d8307b4504e515e
 
 build_options="cheese"
 desc_option_cheese="Add support for adding user account images with your webcam"

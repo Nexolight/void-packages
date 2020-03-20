@@ -1,24 +1,23 @@
 # Template file for 'gimp'
 pkgname=gimp
-version=2.10.10
-revision=2
+version=2.10.14
+revision=1
 build_style=gnu-configure
 hostmakedepends="automake gegl gettext-devel glib-devel gtk+-devel intltool
  libtool pkg-config pygtk-devel perl-XML-Parser gtk-doc"
 makedepends="aalib-devel alsa-lib-devel babl-devel dbus-glib-devel gegl-devel
- ghostscript-devel jasper-devel lcms-devel libXcursor-devel libXpm-devel
+ ghostscript-devel jasper-devel lcms2-devel libXcursor-devel libXpm-devel
  libgexiv2-devel libgudev-devel libmng-devel libmypaint-devel
  libopenexr-devel librsvg-devel libwmf-devel mypaint-brushes1
  poppler-glib-devel pygtk-devel glib-networking libwebp-devel"
-depends="desktop-file-utils gegl hicolor-icon-theme iso-codes
- mypaint-brushes1"
+depends="desktop-file-utils hicolor-icon-theme iso-codes mypaint-brushes1"
 short_desc="GNU image manipulation program"
 conf_files="/etc/gimp/2.0/*"
-maintainer="Kartik S <kartik.ynwa@gmail.com>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="GPL-3.0-only"
 homepage="https://www.gimp.org"
 distfiles="https://download.gimp.org/pub/gimp/v${version%.*}/gimp-${version}.tar.bz2"
-checksum=12d1f243265c7aee1f2c6e97883a5c90ddc0b19b4346cf822e24adbb6c998c77
+checksum=df9b0f11c2078eea1de3ebc66529a5d3854c5e28636cd25a8dd077bd9d6ddc54
 lib32disabled=yes
 
 pre_configure() {
@@ -43,7 +42,7 @@ libgimp_package() {
 }
 
 gimp-devel_package() {
-	depends="gegl-devel gtk+-devel libgimp>=${version}_${revision}"
+	depends="gegl-devel gtk+-devel lcms2-devel libgimp>=${version}_${revision}"
 	short_desc+=" - development files"
 	pkg_install() {
 		vmove usr/include

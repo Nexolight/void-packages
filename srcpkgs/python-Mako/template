@@ -1,7 +1,7 @@
 # Template file for 'python-Mako'
 pkgname=python-Mako
-version=1.0.9
-revision=1
+version=1.1.0
+revision=2
 archs=noarch
 wrksrc="Mako-${version}"
 build_style=python-module
@@ -13,7 +13,7 @@ maintainer="Alessio Sergi <al3hex@gmail.com>"
 license="MIT"
 homepage="https://www.makotemplates.org/"
 distfiles="${PYPI_SITE}/M/Mako/Mako-${version}.tar.gz"
-checksum=0728c404877cd4ca72c409c0ea372dc5f3b53fa1ad2bb434e1d216c0444ff1fd
+checksum=a36919599a9b7dc5d86a7a8988f23a9a3a3d083070023bab23d64f7f1d1e0a4b
 alternatives="mako:mako-render:/usr/bin/mako-render2"
 
 post_install() {

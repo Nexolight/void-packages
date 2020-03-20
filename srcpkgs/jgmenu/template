@@ -1,17 +1,18 @@
 # Template file for 'jgmenu'
 pkgname=jgmenu
-version=2.2.1
+version=4.1.0
 revision=1
-build_style=gnu-makefile
+build_style=gnu-configure
 make_use_env=yes
-make_install_args="prefix=/usr"
+configure_args="--with-lx --with-pmenu"
 hostmakedepends="pkg-config python3"
 makedepends="librsvg-devel libXrandr-devel libxml2-devel menu-cache-devel pango-devel"
 depends="desktop-file-utils python3"
+checkdepends="perl"
 short_desc="Small X11 menu intended to be used with openbox and tint2"
-maintainer="Orphaned <orphan@voidlinux.org>"
-license="GPL-2.0-or-later"
+maintainer="Piotr Wójcik <chocimier@tlen.pl>"
+license="GPL-2.0-only"
 homepage="https://www.github.com/johanmalm/jgmenu"
 changelog="https://raw.githubusercontent.com/johanmalm/jgmenu/master/docs/relnotes/${version}.txt"
 distfiles="https://www.github.com/johanmalm/jgmenu/archive/v${version}.tar.gz"
-checksum=e5c66929ed2b67f3a14a7f45fe6eb7b61c5c8a550c68bbe5e17b7e01d7ab46d5
+checksum=0a693db7295200b22f24e0d8ab3986353911aa214cd8199f3ec583710dc72a92

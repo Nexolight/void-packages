@@ -1,24 +1,26 @@
 # Template file for 'kdevelop-python'
 pkgname=kdevelop-python
-version=5.3.2
+version=5.5.0
 revision=1
 wrksrc="kdev-python-${version}"
 build_style=cmake
-hostmakedepends="extra-cmake-modules python3 qt5-qmake python3-devel"
+pycompile_dirs="usr/share/kdevpythonsupport"
+hostmakedepends="extra-cmake-modules tar gettext python3 qt5-qmake python3-devel
+ qt5-host-tools kcoreaddons"
 makedepends="python3-devel qt5-devel knewstuff-devel kitemmodels-devel
  threadweaver-devel ktexteditor-devel kcmutils-devel knotifyconfig-devel
  grantlee5-devel kdevelop-devel"
-pycompile_dirs="usr/share/kdevpythonsupport"
-pycompile_version="$py3_ver"
 short_desc="Python 3 language and Django project support for KDevelop"
 maintainer="yopito <pierre.bourgin@free.fr>"
 license="LGPL-2.0-or-later, GPL-2.0-or-later"
 homepage="https://www.kdevelop.org/"
 distfiles="${KDE_SITE}/kdevelop/${version}/src/kdev-python-${version}.tar.xz"
-checksum=06dde524183516889bf50172c595276a9b199e19752dc961bd17f31406b9ced1
-nocross="kdevelop-devel is not available"
+checksum=a87cdc7600545866f5e2cec282fcc5543e35d04bc963efada63f392c96e035ef
+pycompile_version="$py3_ver"
 
 post_install() {
 	# don't install this python2 script: generates documentation_files, useless at runtime
-	rm -f ${DESTDIR}/usr/share/kdevpythonsupport/documentation_files/PyKDE4/parse_xml.py
+	rm -f ${DESTDIR}/usr/share/kdevpythonsupport/documentation_files/PyKDE4/parse_xml.py \
+		${DESTDIR}/usr/share/kdevpythonsupport/documentation_files/PyKDE4/kdecore.py \
+		${DESTDIR}/usr/share/kdevpythonsupport/documentation_files/PyKDE4/khtml.py
 }

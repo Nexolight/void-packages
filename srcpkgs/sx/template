@@ -1,15 +1,15 @@
 # Template file for 'sx'
 pkgname=sx
-version=2.1.1
+version=2.1.3
 revision=1
 build_style=gnu-makefile
 depends="xorg-server xauth"
 short_desc="Posix script to start an xserver instance"
-maintainer="maxice8 <thinkabit.ukim@gmail.com>"
+maintainer="mustaqim <mustaqim@pm.me>"
 license="MIT"
 homepage="https://github.com/Earnestly/sx"
 distfiles="https://github.com/Earnestly/sx/archive/${version}.tar.gz"
-checksum=32f84a14f46ff1c04c49d08cdfcfa6d25d18f4b3aff958794684c5d0e5fd3d5f
+checksum=270059d4e20d93e93119ab6e278357b6d8225c8eb39d0284f22c0bea47cbcc83
 
 post_install() {
 	vlicense LICENSE

@@ -1,18 +1,18 @@
 # Template file for 'run-parts'
 pkgname=run-parts
-version=4.8.6.1
+version=4.9.1
 revision=1
 bootstrap=yes
-wrksrc=debianutils
+wrksrc="debianutils-${version}"
 build_style=gnu-configure
 make_build_target=run-parts
 short_desc="Run scripts or programs in a directory"
-maintainer="Juan RP <xtraeme@voidlinux.org>"
+maintainer="Peter Bui <pbui@github.bx612.space>"
 license="GPL-2.0-or-later"
 homepage="https://tracker.debian.org/pkg/debianutils"
-#changelog="http://metadata.ftp-master.debian.org/changelogs/main/d/debianutils/debianutils_${version}_changelog"
+changelog="http://metadata.ftp-master.debian.org/changelogs/main/d/debianutils/debianutils_${version}_changelog"
 distfiles="${DEBIAN_SITE}/main/d/debianutils/debianutils_${version}.tar.xz"
-checksum=099f1e8a7278b26145a2ba2dda84c4118403bfab38c8d7070a6235a7ffcb55ed
+checksum=af826685d9c56abfa873e84cd392539cd363cb0ba04a09d21187377e1b764091
 
 do_install() {
 	vbin run-parts

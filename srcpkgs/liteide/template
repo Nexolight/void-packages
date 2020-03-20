@@ -1,6 +1,6 @@
 # Template file for 'liteide'
 pkgname=liteide
-version=36
+version=36.3
 revision=1
 wrksrc="liteide-x${version}"
 build_wrksrc=liteidex
@@ -9,11 +9,11 @@ hostmakedepends="qt5-qmake"
 makedepends="qt5-tools-devel"
 depends="go"
 short_desc="Simple, open source, cross-platform Go IDE"
-maintainer="Rasmus Thomsen <oss@cogitri.dev>"
+maintainer="Enno Boland <gottox@voidlinux.org>"
 license="LGPL-2.1-or-later"
 homepage="http://liteide.org/"
 distfiles="https://github.com/visualfc/liteide/archive/x${version}.tar.gz"
-checksum=b6c05d8864512df54b7f306f1d031e621ed755fc210bd8607ad0f2b0da0fe6f8
+checksum=d1b2b6a7994b764f7b12550e4759c90da18de574eb8544eebbcee98d7741c801
 
 if [ "$CROSS_BUILD" ]; then
 	hostmakedepends+=" qt5-host-tools"

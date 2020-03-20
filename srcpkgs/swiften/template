@@ -1,7 +1,7 @@
 # Template file for 'swiften'
 pkgname=swiften
 version=3.0
-revision=12
+revision=13
 wrksrc="swift-${version}"
 build_style=scons
 makedepends="boost-devel libressl-devel libxml2-devel libidn-devel"
@@ -14,6 +14,11 @@ checksum=2e48f081d337f471b4eba7c0c807a7b640216a76ed3568ced55abb5b927c7fd2
 
 CXXFLAGS="-I${XBPS_CROSS_BASE}/usr/include/libxml2 -DBOOST_FILESYSTEM_VERSION=3 -DBOOST_SIGNALS_NO_DEPRECATION_WARNING=1"
 _scons_options="assertions=1 build_examples=1 max_jobs=1 optimize=1 debug=0 swiften_dll=1"
+
+# otherwise boost will miscompile and fail to link
+case "$XBPS_TARGET_MACHINE" in
+	ppc*) CXXFLAGS+=" -fPIC";;
+esac
 
 do_build() {
 	case "$XBPS_TARGET_MACHINE" in

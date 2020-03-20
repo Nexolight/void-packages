@@ -1,7 +1,7 @@
 # Template file for 'python3-nacl'
 pkgname=python3-nacl
 version=1.3.0
-revision=1
+revision=2
 wrksrc="PyNaCl-${version}"
 build_style=python3-module
 pycompile_module="nacl"
@@ -9,7 +9,7 @@ hostmakedepends="python3-setuptools python3-pycparser python3-cffi"
 makedepends="libsodium-devel python3-devel libffi-devel"
 depends="python3-six python3-cffi"
 short_desc="Python3 bindings for the NaCl library"
-maintainer="maxice8 <thinkabit.ukim@gmail.com>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="Apache-2.0"
 homepage="https://github.com/pyca/pynacl/"
 distfiles="${PYPI_SITE}/P/PyNaCl/PyNaCl-${version}.tar.gz"

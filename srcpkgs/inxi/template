@@ -1,17 +1,17 @@
 # Template file for 'inxi'
 pkgname=inxi
-version=3.0.34
+version=3.0.38
 revision=1
 archs=noarch
 wrksrc="inxi-${version}-1"
 depends="dmidecode file glxinfo pciutils perl usbutils xdpyinfo xprop xrandr"
 short_desc="Full featured system information script"
-maintainer="Juan RP <xtraeme@voidlinux.org>"
+maintainer="bra1nwave <bra1nwave@protonmail.com>"
 license="GPL-3.0-or-later"
 homepage="https://smxi.org/docs/inxi.htm"
 changelog="https://raw.githubusercontent.com/smxi/inxi/master/inxi.changelog"
 distfiles="https://github.com/smxi/inxi/archive/${version}-1.tar.gz"
-checksum=db3c331706772f68de68191abcde8f9eedabef001fc39c1683dd71f54610c77e
+checksum=5adbbe8145e970de1d516a404554e887806d31382de81d290e71fe270183c28a
 
 do_install() {
 	vbin inxi

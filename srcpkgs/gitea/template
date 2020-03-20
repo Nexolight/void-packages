@@ -1,6 +1,6 @@
 # Template file for 'gitea'
 pkgname=gitea
-version=1.8.1
+version=1.10.6
 revision=1
 build_style=go
 go_import_path=code.gitea.io/gitea
@@ -22,16 +22,17 @@ go_import_path=code.gitea.io/gitea
 #     more resiliant to corrupted writes.
 go_build_tags="bindata sqlite pam tidb"
 go_ldflags=" -X main.Version=${version}"
-hostmakedepends="go-bindata"
+hostmakedepends="go-bindata git"
 makedepends="sqlite-devel pam-devel"
-depends="git"
+depends="git bash"
 short_desc="Git with a cup of Tea"
 maintainer="Michael Aldridge <maldridge@voidlinux.org>"
 license="MIT"
 homepage="https://gitea.io"
 changelog="https://github.com/go-gitea/gitea/blob/master/CHANGELOG.md"
 distfiles="https://github.com/go-gitea/gitea/archive/v${version}.tar.gz"
-checksum=91f1094f1aa833c8e2cb11cf4c2e1301c53317a49c9f6818c4a7a1ef926850cd
+checksum=d7fad3b0257c13037e0770d722e07da9bf2d356997c060a75d149e605a421f22
+nocross="https://api.travis-ci.org/v3/job/616733825/log.txt"
 
 system_accounts="_gitea"
 _gitea_homedir="/var/lib/gitea"
@@ -41,9 +42,7 @@ make_dirs="/var/lib/gitea 0755 _gitea _gitea
 conf_files="/etc/gitea.conf"
 
 pre_build() {
-	cd $GOSRCPATH
 	make generate
-	cd $wrksrc
 }
 
 pre_install() {
@@ -60,7 +59,9 @@ pre_install() {
 		s:data/gitea.db:/var/lib/gitea/&:
 		s:indexers/issues.bleve:/var/lib/gitea/&:
 		s:data/avatars:/var/lib/gitea/&:
-		s:ROOT_PATH =:& /var/log/gitea:' custom/conf/app.ini.sample
+		s:SSH_ROOT_PATH =:& /var/lib/gitea:
+		s:STATIC_ROOT_PATH =:& /var/lib/gitea:
+		s:^ROOT_PATH =:& /var/log/gitea:' custom/conf/app.ini.sample
 }
 
 post_install() {

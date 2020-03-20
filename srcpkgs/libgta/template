@@ -1,6 +1,6 @@
 # Template file for 'libgta'
 pkgname=libgta
-version=1.0.9
+version=1.2.1
 revision=1
 build_style=gnu-configure
 hostmakedepends="automake libtool pkg-config"
@@ -10,7 +10,7 @@ maintainer="Jürgen Buchmüller <pullmoll@t-online.de>"
 license="LGPL-2.1-or-later"
 homepage="https://marlam.de/gta/"
 distfiles="https://marlam.de/gta/releases/libgta-${version}.tar.xz"
-checksum=4618028869f39202565722a514777d611f041700a15a8f4bdbec201c3a099892
+checksum=d445667e145f755f0bc34ac89b63a6bfdce1eea943f87ee7a3f23dc0dcede8b1
 
 post_install() {
 	#examples only
@@ -25,6 +25,5 @@ libgta-devel_package() {
 		vmove usr/lib/pkgconfig
 		vmove usr/lib/*.a
 		vmove usr/lib/*.so
-		vmove usr/share/libgta/cmake
 	}
 }

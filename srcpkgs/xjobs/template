@@ -1,12 +1,12 @@
 # Template file for 'xjobs'
 pkgname=xjobs
-version=20170829
+version=20191217
 revision=1
 build_style=gnu-configure
-hostmakedepends="flex"
+hostmakedepends="flex which"
 short_desc="Reads job descriptions line by line and executes them in parallel"
 maintainer="Diogo Leal <diogo@diogoleal.com>"
-license="GPL-2"
+license="GPL-2.0-or-later"
 homepage="http://www.maier-komor.de/xjobs.html"
 distfiles="http://www.maier-komor.de/xjobs/xjobs-${version}.tgz"
-checksum=ebbd0b7fa90451773732680e6d0afe426c75150ad5ec7bce77537d109afcc6da
+checksum=2ffd64574c7c4519b35fb6df419a87de5e7150e69dfe349b0c7dcc4e1e448873

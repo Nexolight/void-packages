@@ -1,23 +1,23 @@
 # Template file for 'i3-gaps'
 pkgname=i3-gaps
-version=4.16.1
+version=4.18
 revision=1
 wrksrc="i3-${version}"
 build_style=gnu-configure
 configure_args="--disable-builddir"
-conf_files="/etc/i3/config /etc/i3/config.keycodes"
-hostmakedepends="pkg-config perl git autoconf automake"
+hostmakedepends="pkg-config perl autoconf automake asciidoc pod2mdoc xmlto"
 makedepends="pcre-devel yajl-devel libxcb-devel libev-devel
  pango-devel startup-notification-devel libxkbcommon-devel
  xcb-util-keysyms-devel xcb-util-wm-devel xcb-util-cursor-devel
  xcb-util-xrm-devel"
 depends="perl-AnyEvent-I3"
+conf_files="/etc/i3/config /etc/i3/config.keycodes"
 short_desc="Improved tiling window manager - i3 fork with more features"
 maintainer="ian c. <ian@airmail.cc>"
 license="BSD-3-Clause"
 homepage="https://github.com/Airblader/i3"
 distfiles="${homepage}/archive/${version}.tar.gz>${version}.tar.gz"
-checksum=135c780e4733c3117238fd984ec5716a7feb9b6fea782fbc6b51bb862e6a7ecb
+checksum=5bd49039a0b9199a08ec752164c8bca6f8bfc7f307cd60ed9b09c833a3165813
 
 provides="i3-${version}_${revision}"
 replaces="i3>=0"
@@ -43,4 +43,6 @@ pre_build() {
 post_install() {
 	rm -rf ${DESTDIR}/usr/include
 	vlicense LICENSE
+	vmkdir usr/share/man/man1
+	install -m644 man/*.1 ${DESTDIR}/usr/share/man/man1
 }

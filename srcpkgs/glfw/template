@@ -1,17 +1,18 @@
 # Template file for 'glfw'
+# update together with glfw-wayland
 pkgname=glfw
-version=3.2.1
+version=3.3.2
 revision=1
 build_style=cmake
+configure_args="-DBUILD_SHARED_LIBS=ON"
 makedepends="MesaLib-devel libXrandr-devel libXi-devel glu-devel libXcursor-devel
  libXinerama-devel"
 short_desc="Multi-platform library for creating windows with OpenGL contexts"
 maintainer="Enno Boland <gottox@voidlinux.org>"
-license="BSD-3"
+license="Zlib"
 homepage="http://www.glfw.org"
 distfiles="${SOURCEFORGE_SITE}/${pkgname}/${pkgname}-${version}.tar.bz2"
-checksum=9a9681bc720fa00a4fd104108f2667e0fe4f0f20b7e0034c64b21e1d1e73634a
-configure_args="-DBUILD_SHARED_LIBS=ON"
+checksum=ec5764961bb9262d5a5c24523b1522d121d7a7b06ce2affe921c6d438324cc8d
 
 glfw-devel_package() {
 	depends="glfw>=${version}_${revision} $makedepends"

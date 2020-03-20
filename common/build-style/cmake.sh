@@ -2,7 +2,6 @@
 # This helper is for templates using cmake.
 #
 do_configure() {
-	export QEMU_LD_PREFIX=${XBPS_CROSS_BASE}
 	local cmake_args=
 	[ ! -d ${cmake_builddir:=build} ] && mkdir -p ${cmake_builddir}
 	cd ${cmake_builddir}
@@ -16,7 +15,7 @@ do_configure() {
 			mips*) _CMAKE_SYSTEM_PROCESSOR=mips ;;
 			ppc64le*) _CMAKE_SYSTEM_PROCESSOR=ppc64le ;;
 			ppc64*) _CMAKE_SYSTEM_PROCESSOR=ppc64 ;;
-			ppc*) _CMAKE_SYSTEM_PROCESSOR=powerpc ;;
+			ppc*) _CMAKE_SYSTEM_PROCESSOR=ppc ;;
 			*) _CMAKE_SYSTEM_PROCESSOR=generic ;;
 		esac
 		if [ -x "${XBPS_CROSS_BASE}/usr/bin/wx-config-gtk3" ]; then
@@ -51,22 +50,23 @@ _EOF
 		cmake_args+=" -DCMAKE_INSTALL_LIBDIR=lib"
 	fi
 
-	if [ "${hostmakedepends}" != "${hostmakedepends/qemu-user-static/}" ]; then
+	if [[ $build_helper = *"qemu"* ]]; then
 		echo "SET(CMAKE_CROSSCOMPILING_EMULATOR /usr/bin/qemu-${XBPS_TARGET_QEMU_MACHINE}-static)" \
 			>> cross_${XBPS_CROSS_TRIPLET}.cmake
 	fi
 
 	cmake_args+=" -DCMAKE_INSTALL_SBINDIR=bin"
 
-	cmake ${cmake_args} ${configure_args} $(echo ${cmake_builddir}|sed \
-		-e 's|[^/]$|/|' -e 's|[^/]*||g' -e 's|/|../|g')
+	# Override flags: https://gitlab.kitware.com/cmake/cmake/issues/19590
+	CFLAGS="${CFLAGS/ -pipe / }" CXXFLAGS="${CXXFLAGS/ -pipe / }" \
+		cmake ${cmake_args} ${configure_args} $(echo ${cmake_builddir}|sed \
+			-e 's|[^/]$|/|' -e 's|[^/]*||g' -e 's|/|../|g')
 
 	# Replace -isystem with -I for Qt4 and Qt5 packages
 	find -name flags.make -exec sed -i "{}" -e"s;-isystem;-I;g" \;
 }
 
 do_build() {
-	export QEMU_LD_PREFIX=${XBPS_CROSS_BASE}
 	: ${make_cmd:=make}
 
 	cd ${cmake_builddir:=build}
@@ -94,10 +94,9 @@ do_check() {
 }
 
 do_install() {
-	export QEMU_LD_PREFIX=${XBPS_CROSS_BASE}
 	: ${make_cmd:=make}
 	: ${make_install_target:=install}
 
 	cd ${cmake_builddir:=build}
-	${make_cmd} DESTDIR=${DESTDIR} ${make_install_args} ${make_install_target}
+	DESTDIR=${DESTDIR} ${make_cmd} ${make_install_args} ${make_install_target}
 }

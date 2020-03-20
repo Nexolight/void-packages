@@ -1,19 +1,18 @@
 # Template file for 'SPIRV-Tools'
 pkgname=SPIRV-Tools
-version=2019.2
+version=2020.1
 revision=1
 build_style=cmake
 configure_args="-DSPIRV_SKIP_TESTS=ON -DSPIRV_WERROR=OFF
- -DSPIRV-Headers_SOURCE_DIR=${XBPS_CROSS_BASE}/usr
- -DSPIRV_BUILD_COMPRESSION=ON"
+ -DSPIRV-Headers_SOURCE_DIR=${XBPS_CROSS_BASE}/usr"
 hostmakedepends="python3"
 makedepends="SPIRV-Headers"
 short_desc="API and commands for processing SPIR-V modules"
-maintainer="maxice8 <thinkabit.ukim@gmail.com>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="Apache-2.0"
 homepage="https://github.com/KhronosGroup/SPIRV-Tools"
 distfiles="https://github.com/KhronosGroup/SPIRV-Tools/archive/v${version}.tar.gz"
-checksum=1fde9d2a0df920a401441cd77253fc7b3b9ab0578eabda8caaaceaa6c7638440
+checksum=1eaa5e09c638d7113b60d825e6ce44406b35031be68db894a016b5faf45de568
 
 SPIRV-Tools-devel_package() {
 	depends="SPIRV-Tools-${version}_${revision}"

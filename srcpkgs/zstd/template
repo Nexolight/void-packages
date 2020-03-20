@@ -1,15 +1,16 @@
 # Template file for 'zstd'
 pkgname=zstd
-version=1.4.0
+version=1.4.4
 revision=1
+bootstrap=yes
 makedepends="zlib-devel liblzma-devel liblz4-devel"
 checkdepends="gtest-devel"
 short_desc="Fast real-time compression algorithm - CLI tool"
-maintainer="maxice8 <thinkabit.ukim@gmail.com>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="BSD-3-Clause, GPL-2.0-or-later"
 homepage="http://www.zstd.net"
 distfiles="https://github.com/facebook/zstd/archive/v${version}.tar.gz"
-checksum=63be339137d2b683c6d19a9e34f4fb684790e864fee13c7dd40e197a64c705c1
+checksum=a364f5162c7d1a455cc915e8e3cf5f4bd8b75d09bc0f53965b0c9ca1383c52c8
 
 do_build() {
 	make ${makejobs}
@@ -20,7 +21,6 @@ do_check() {
 	# using the test target is too expensive
 	make ${makejobs} shortest
 	make ${makejobs} -C contrib/pzstd tests check
-
 }
 
 do_install() {

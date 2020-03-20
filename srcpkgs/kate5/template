@@ -1,11 +1,11 @@
 # Template file for 'kate5'
 pkgname=kate5
-version=19.04.1
+version=19.12.3
 revision=1
 wrksrc="${pkgname%5}-${version}"
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
-hostmakedepends="extra-cmake-modules pkg-config kcoreaddons"
+hostmakedepends="extra-cmake-modules pkg-config kcoreaddons gettext"
 makedepends="kitemmodels-devel knewstuff-devel ktexteditor-devel
  plasma-framework-devel threadweaver-devel"
 depends="hicolor-icon-theme"
@@ -13,8 +13,8 @@ short_desc="KDE Text editor"
 maintainer="John <johnz@posteo.net>"
 license="GPL-3.0-or-later, LGPL-2.0-or-later, GPL-2.0-or-later"
 homepage="https://projects.kde.org/projects/applications/kate"
-distfiles="${KDE_SITE}/applications/${version}/src/${pkgname%5}-${version}.tar.xz"
-checksum=af55513f00af1712a39631352e393dbd2f63ec6bd471831b44853a16d4bfbe8f
+distfiles="${KDE_SITE}/release-service/${version}/src/${pkgname%5}-${version}.tar.xz"
+checksum=f60b52e5a6a78920ac703a458f1eaf0ced02ffcd8b5f2d49de9a48674eeb007c
 
 if [ "$CROSS_BUILD" ]; then
 	configure_args+=" -DKF5_HOST_TOOLING=/usr/lib/cmake"

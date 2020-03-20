@@ -1,23 +1,26 @@
 # Template file for 'nss'
 
-_nsprver=4.21
+_nsprver=4.25
 
 pkgname=nss
-version=3.44
+version=3.51
 revision=1
 hostmakedepends="perl"
 makedepends="nspr-devel sqlite-devel zlib-devel"
 depends="nspr>=${_nsprver}"
 short_desc="Mozilla Network Security Services"
-maintainer="Juan RP <xtraeme@voidlinux.org>"
+maintainer="Doan Tran Cong Danh <congdanhqx@gmail.com>"
 license="MPL-2.0"
 homepage="https://www.mozilla.org/projects/security/pki/nss"
 distfiles="${MOZILLA_SITE}/security/nss/releases/NSS_${version//\./_}_RTM/src/nss-${version}.tar.gz"
-checksum=a5620e59b6eeedfd5a12c9298b50ad92e9898b223e214eb675e36f4ffb5b6aff
+checksum=75348b3b3229362486c57a880db917da1f96ef4eb639dc9cc2ff17d72268459c
 
 do_build() {
+	local _native_use64 _target_use64
+
 	# Respect LDFLAGS
-	sed -e 's/\$(MKSHLIB) -o/\$(MKSHLIB) \$(LDFLAGS) -o/g' -i nss/coreconf/rules.mk
+	vsed -e 's/\$(MKSHLIB) -o/\$(MKSHLIB) \$(LDFLAGS) -o/g' \
+		-i nss/coreconf/rules.mk
 
 	export LIBRUNPATH=
 	export BUILD_OPT=1
@@ -25,23 +28,42 @@ do_build() {
 	export NSS_ENABLE_WERROR=0
 	export NSS_ENABLE_ECC=1
 	export FREEBL_NO_DEPEND=1
+	export NATIVE_CC="$BUILD_CC"
+	export NATIVE_FLAGS="$BUILD_CFLAGS"
 
-	case "$XBPS_MACHINE" in
-		aarch64*|x86_64*|ppc64*) _native_use64="USE_64=1";;
+	if [ "$XBPS_WORDSIZE" = "64" ]; then
+		_native_use64="USE_64=1"
+	fi
+	if [ "$XBPS_TARGET_WORDSIZE" = "64" ]; then
+		_target_use64="USE_64=1"
+	fi
+
+	# it's actually VSX, so disable on all BE ppc
+	case "$XBPS_TARGET_MACHINE" in
+		ppc64le*) ;;
+		ppc*) export NSS_DISABLE_ALTIVEC=1 ;;
 	esac
 
 	cd nss
 	# Build nsinstall for host.
-	make CC=$BUILD_CC LD=$BUILD_LD CFLAGS=$BUILD_CFLAGS LDFLAGS=$BUILD_LDFLAGS \
-		${_native_use64} -C coreconf
+	make LD=$BUILD_LD LDFLAGS="$BUILD_LDFLAGS" ${_native_use64} -C coreconf
 
 	if [ "$CROSS_BUILD" ]; then
 		case "$XBPS_TARGET_MACHINE" in
-			aarch64*) _ARCH="aarch64"; _target_use64="USE_64=1"; CFLAGS+=" -DNS_PTR_GT_32";;
-			ppc64*) _ARCH="ppc64"; _target_use64="USE_64=1"; CFLAGS+=" -DNS_PTR_GT_32";;
+			aarch64*|ppc64*)
+				_ARCH="${XBPS_TARGET_MACHINE%-*}"
+				CFLAGS+=" -DNS_PTR_GT_32"
+				;;
+			armv7*)
+				_ARCH="arm"
+				# gcm-arm32-neon.c use mfpu=neon,
+				# force mfpu=neon for everything else.
+				CFLAGS+=" -mfpu=neon"
+				CXXFLAGS+=" -mfpu=neon"
+				;;
 			arm*) _ARCH="arm";;
 			mips*) _ARCH="mips";;
-			ppc|ppc-musl) _ARCH="ppc";;
+			ppc*) _ARCH="ppc";;
 			*) msg_error "$pkgver: unknown target machine\n";;
 		esac
 		# ... and then copy it to $wrksrc.
@@ -65,6 +87,27 @@ do_build() {
 		make ${_native_use64} -C lib/dbm
 		make ${_native_use64}
 	fi
+}
+
+do_check() {
+	local _use_64
+	export LIBRUNPATH=
+	export BUILD_OPT=1
+	export NSS_USE_SYSTEM_SQLITE=1
+	export NSS_ENABLE_WERROR=0
+	export NSS_ENABLE_ECC=1
+	export FREEBL_NO_DEPEND=1
+	export NATIVE_CC="$BUILD_CC"
+	export NATIVE_FLAGS="$BUILD_CFLAGS"
+	# We couldn't run test in cross compile!
+	export NSPR_INCLUDE_DIR=/usr/include/nspr
+	export NSPR_LIB_DIR=/usr/lib
+	export XCFLAGS="${CFLAGS}"
+	if [ "$XBPS_WORDSIZE" = "64" ]; then
+		_use_64="USE_64=1"
+	fi
+	cd nss/tests
+	env $_use_64 HOST=localhost DOMSUF=localdomain ./all.sh
 }
 
 do_install() {

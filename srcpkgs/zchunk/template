@@ -1,16 +1,16 @@
 # Template file for 'zchunk'
 pkgname=zchunk
-version=1.1.2
+version=1.1.6
 revision=1
 build_style=meson
 hostmakedepends="pkg-config"
 makedepends="libcurl-devel libzstd-devel"
 short_desc="Easy-to-delta, compressed file format"
-maintainer="maxice8 <thinkabit.ukim@gmail.com>"
+maintainer="Duncaen <duncaen@voidlinux.org>"
 license="BSD-2-Clause"
 homepage="https://github.com/zchunk/zchunk"
 distfiles="https://github.com/zchunk/zchunk/archive/${version}.tar.gz"
-checksum=dcd7389ab9f947a53c83e32e842ba6ef69f931836bba585617a2bb7ec3cf900f
+checksum=7068fbf30b613b3e4ac80ec291ebdbc08c70c7ce81af1f689d9eaf32bac3a027
 
 case "$XBPS_TARGET_MACHINE" in
 	*-musl) makedepends+=" argp-standalone"

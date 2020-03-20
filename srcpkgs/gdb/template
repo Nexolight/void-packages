@@ -1,6 +1,6 @@
 # Template file for 'gdb'
 pkgname=gdb
-version=8.3
+version=9.1
 revision=1
 build_style=gnu-configure
 pycompile_dirs="/usr/share/gdb"
@@ -8,14 +8,15 @@ configure_args="--disable-werror --disable-nls --with-system-readline
  --with-system-gdbinit=/etc/gdb/gdbinit --with-system-zlib $(vopt_enable gdbserver)
  $(vopt_if static 'CFLAGS=-static CXXFLAGS=-static LDFLAGS=-static')
  $(vopt_if python --with-python=/usr/bin/python3)"
-hostmakedepends="perl $(vopt_if python python3-devel)"
-makedepends="ncurses-devel zlib-devel readline-devel expat-devel $(vopt_if python 'python3-devel gettext-libs')"
-short_desc="The GNU Debugger"
-maintainer="Juan RP <xtraeme@voidlinux.org>"
+hostmakedepends="texinfo perl $(vopt_if python python3-devel)"
+makedepends="ncurses-devel zlib-devel readline-devel expat-devel
+ $(vopt_if python 'python3-devel gettext-libs')"
+short_desc="GNU Debugger"
+maintainer="Anthony Iliopoulos <ailiop@altatus.com>"
 license="GPL-3.0-or-later"
 homepage="https://www.gnu.org/software/gdb/"
 distfiles="${GNU_SITE}/${pkgname}/${pkgname}-${version}.tar.xz"
-checksum=802f7ee309dcc547d65a68d61ebd6526762d26c3051f52caebe2189ac1ffd72e
+checksum=699e0ec832fdd2f21c8266171ea5bf44024bd05164fdf064e4d10cc4cf0d1737
 patch_args="-Np1"
 
 if [ "${CROSS_BUILD}" ]; then
@@ -32,19 +33,23 @@ build_options_default="gdbserver python"
 vopt_conflict gdbserver static
 
 post_extract() {
-	sed -i 's,sgidefs.h,asm/sgidefs.h,' gdb/mips-linux-nat.c
-	# fixes aarch64-musl cross-build
-	sed -i -e "s/@REPLACE_STAT@/0/" gdb/gnulib/import/sys_stat.in.h
+	vsed -i 's,sgidefs.h,asm/sgidefs.h,' gdb/mips-linux-nat.c
+	mkdir -p build
 }
-pre_configure() {
-	configure_args="${configure_args/with-sysroot/with-build-sysroot}"
-}
-pre_build() {
+do_configure() {
+	cd ${wrksrc}/build
+	../configure ${configure_args/with-sysroot/with-build-sysroot}
 	export gl_cv_func_gettimeofday_clobber=no
 	export gl_cv_func_working_strerror=yes
 	export gl_cv_func_strerror_0_works=yes
 }
-post_install() {
+do_build() {
+	cd ${wrksrc}/build
+	make ${makejobs} all
+}
+do_install() {
+	cd ${wrksrc}/build
+	make DESTDIR=${DESTDIR} ${makejobs} install
 	# resolve conflicts with binutils
 	rm -rf ${DESTDIR}/usr/include ${DESTDIR}/usr/lib
 	[ -d ${DESTDIR}/usr/lib64 ] && rm -rf ${DESTDIR}/usr/lib64

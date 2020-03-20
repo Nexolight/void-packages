@@ -1,28 +1,21 @@
 # Template file for 'libratbag'
 pkgname=libratbag
-version=0.9.905
+version=0.13
 revision=1
 build_style=meson
 configure_args="-Dtests=false -Dsystemd-unit-dir=''
- -Dsystemd=false"
+ -Dsystemd=false -Db_ndebug=false"
 hostmakedepends="pkg-config git swig"
 makedepends="elogind-devel eudev-libudev-devel libglib-devel libevdev-devel
- python3-devel"
+ python3-devel json-glib-devel libunistring-devel"
 depends="dbus python3-evdev python3-gobject"
+checkdepends="python3-gobject python3-evdev"
 short_desc="DBus daemon to configure gaming mice"
-maintainer="maxice8 <thinkabit.ukim@gmail.com>"
+maintainer="bra1nwave <bra1nwave@protonmail.com>"
 license="MIT"
 homepage="https://github.com/libratbag/libratbag"
 distfiles="https://github.com/libratbag/libratbag/archive/v${version}.tar.gz"
-checksum=d8a9a4b90025456700336c4e84a06edfce8deffeb71779ea22e00c27b0fda244
-
-LDFLAGS="-lm"
-
-case "$XBPS_TARGET_MACHINE" in
-	x86_64*|i686*) ;;
-	*-musl) broken="Requires gobject introspection" ;;
-	* ) ;;
-esac
+checksum=b0a71851e5781eed789f5ba5f44bc6bc36ec4a7ef77fcc0303976149f3f719c9
 
 post_install() {
 	vsv ratbagd

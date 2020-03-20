@@ -1,10 +1,10 @@
 # Template file for 'kdoctools'
 pkgname=kdoctools
-version=5.58.0
+version=5.68.0
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
-hostmakedepends="kcoreaddons extra-cmake-modules perl perl-URI"
+hostmakedepends="gettext kcoreaddons extra-cmake-modules perl perl-URI"
 makedepends="ki18n-devel karchive-devel libxml2-devel libxslt-devel docbook-xml docbook-xsl"
 depends="docbook-xml docbook-xsl"
 short_desc="KDE Create documentation from DocBook"
@@ -12,7 +12,7 @@ maintainer="John <johnz@posteo.net>"
 license="LGPL-2.1-or-later"
 homepage="https://projects.kde.org/projects/frameworks/kdoctools"
 distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=5c0b915d0f054098b47c5c1ef6ee0d174a9a607405f23c3921276189cefd48f4
+checksum=93f5bee9dfaacacacfbeb3e915b192b5e645c1d01057b0cea4081c9ae5285670
 
 if [ "$CROSS_BUILD" ]; then
 	hostmakedepends+=" qt5-host-tools qt5-qmake python kdoctools-devel"

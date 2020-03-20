@@ -1,6 +1,6 @@
 # Template file for 'podman'
 pkgname=podman
-version=1.3.1
+version=1.8.0
 revision=1
 wrksrc="libpod-${version}"
 build_style=go
@@ -10,22 +10,22 @@ go_build_tags="seccomp apparmor containers_image_ostree_stub
  btrfs_noversion exclude_graphdriver_btrfs"
 hostmakedepends="pkg-config go-md2man"
 makedepends="gpgme-devel libseccomp-devel device-mapper-devel"
-depends="runc cri-o cni-plugins skopeo buildah slirp4netns"
+depends="runc conmon cni-plugins slirp4netns containers.image"
 short_desc="Simple management tool for containers and images"
 maintainer="Cameron Nemo <camerontnorman@gmail.com>"
 license="Apache-2.0"
 homepage="https://podman.io/"
 distfiles="https://github.com/containers/libpod/archive/v${version}.tar.gz"
-checksum=7ccbfa80900cd438468986911038da4c38382ef507a2fa717217faefb738fbc4
+checksum=2f771dc5505bd29e21e18a71e6eac549d036ad34fbbec5646ae0c7bfe024eeb5
 
 if [ "$CROSS_BUILD" ]; then
-	go_build_tags+=" containers_image_openpgp exclude_graphdriver_overlay"
+	go_build_tags+=" containers_image_openpgp"
 fi
 
 post_install() {
-	make install.man PREFIX="${DESTDIR}/usr" DESTDIR="${DESTDIR}"
+	make install.man DESTDIR="${DESTDIR}" PREFIX="/usr"
 	make install.cni DESTDIR="${DESTDIR}"
 	vinstall completions/bash/podman 644 usr/share/bash-completion/completions
 	sed 's|cgroup_manager = "systemd"|cgroup_manager = "cgroupfs"|g' libpod.conf >libpod.cgfs.conf
-	vinstall libpod.cgfs.conf 644 usr/share/containers libpod.conf
+	vinstall libpod.cgfs.conf 644 etc/containers libpod.conf
 }

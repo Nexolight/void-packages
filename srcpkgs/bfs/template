@@ -1,15 +1,16 @@
 # Template file for 'bfs'
 pkgname=bfs
-version=1.4.1
+version=1.6
 revision=1
 build_style=gnu-makefile
 makedepends="acl-devel libcap-devel"
+checkdepends="acl-progs"
 short_desc="Breadth-first version of the UNIX find command"
-maintainer="maxice8 <thinkabit.ukim@gmail.com>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="0BSD"
 homepage="https://github.com/tavianator/bfs"
 distfiles="https://github.com/tavianator/bfs/archive/${version}.tar.gz"
-checksum=d3ba0aa70e04e8768a83e40eaf3d61b57bbedff562d2d27825776caee9ebce2d
+checksum=8371720d620c3f90d81974e1aa0bfc6d82070aa286c9c39019f98f9ed59722fb
 
 post_install() {
 	vlicense COPYING

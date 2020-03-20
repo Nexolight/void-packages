@@ -1,21 +1,21 @@
 # Template file for 'opera'
 pkgname=opera
-version=58.0.3135.47
+version=67.0.3575.79
 revision=1
 archs="x86_64"
 depends="ffmpeg desktop-file-utils hicolor-icon-theme"
 short_desc="Fast, secure, easy to use browser"
 maintainer="Diogo Leal <diogo@diogoleal.com>"
-license="Proprietary"
+license="custom:Proprietary"
 homepage="https://www.opera.com/computer"
 distfiles="http://get.geo.opera.com/pub/opera/desktop/${version}/linux/${pkgname}-stable_${version}_amd64.deb"
-checksum=ce66dfa94c39b933b4b30aec095f463f065d2d1aa9b163042b4274c08dd2e6fb
+checksum=e55b8676787fa32f7a536b1ef6a1bdfe6844a17060c604a0f69d654e0d6f459f
 repository="nonfree"
 nostrip=yes
 
 do_extract() {
 	ar x ${XBPS_SRCDISTDIR}/${pkgname}-${version}/${pkgname}-stable_${version}_amd64.deb
-	tar xf data.tar.xz --exclude=./usr/share/{lintian,menu}
+	bsdtar xf data.tar.xz --exclude=./usr/share/{lintian,menu}
 }
 
 do_install() {

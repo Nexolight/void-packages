@@ -1,17 +1,17 @@
 # Template file for 'libgit2'
 pkgname=libgit2
-version=0.28.1
+version=0.28.4
 revision=1
 build_style=cmake
 configure_args="-DTHREADSAFE=ON"
-hostmakedepends="python git pkg-config"
+hostmakedepends="python3 git pkg-config"
 makedepends="zlib-devel libressl-devel http-parser-devel libssh2-devel libuv-devel"
 short_desc="Git linkable library"
-maintainer="Juan RP <xtraeme@voidlinux.org>"
-license="GPL-2.0-or-later WITH GCC-exception-2.0"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="custom:GPL-2.0-or-later WITH GCC-exception-2.0"
 homepage="https://libgit2.org"
 distfiles="https://github.com/libgit2/libgit2/archive/v${version}.tar.gz"
-checksum=0ca11048795b0d6338f2e57717370208c2c97ad66c6d5eac0c97a8827d13936b
+checksum=30f3877469d09f2e4a21be933b4e2800560d16646028dd800744dc5f7fb0c749
 
 case "$XBPS_TARGET_MACHINE" in
 	*-musl)
@@ -19,6 +19,10 @@ case "$XBPS_TARGET_MACHINE" in
 		CFLAGS="-D__ANDROID_API__"
 		;;
 esac
+
+post_install() {
+	vlicense COPYING
+}
 
 libgit2-devel_package() {
 	depends="${makedepends} ${sourcepkg}>=${version}_${revision}"

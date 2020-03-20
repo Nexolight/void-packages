@@ -1,6 +1,6 @@
 # Template file for 'kdbusaddons'
 pkgname=kdbusaddons
-version=5.58.0
+version=5.68.0
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
@@ -11,7 +11,7 @@ maintainer="John <johnz@posteo.net>"
 license="LGPL-2.0-or-later, LGPL-2.1-or-later"
 homepage="https://projects.kde.org/projects/frameworks/kdbusaddons"
 distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=42f176b737f81e120d2fa78c20891b3b7e3f182c6e144ec9c99935a32d63f9b1
+checksum=839fe42f9ac8df353f87245110fd7b515a8eb29f0840f54481bd89e5175bf1af
 
 kdbusaddons-devel_package() {
 	short_desc+=" - development"

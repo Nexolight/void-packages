@@ -1,6 +1,6 @@
 # Template file for 'praat'
 pkgname=praat
-version=6.0.52
+version=6.1.09
 revision=1
 create_wrksrc=yes
 hostmakedepends="pkg-config"
@@ -12,13 +12,22 @@ license="GPL-2.0-or-later"
 homepage="http://www.praat.org/"
 changelog="http://www.fon.hum.uva.nl/praat/manual/What_s_new_.html"
 distfiles="https://github.com/praat/praat/archive/v${version}.tar.gz"
-checksum=585111fb15c8bb2cfe3dde34884bbe27432401071e8ce38c06823e3b35537c15
+checksum=91a83c866749b3e20b3dd31985226368e9bebcafdf330bcd7f88944503fb7d68
 
-build_options="pulseaudio"
+# there are a number of pre-defined Makefiles for certain configurations
+# build options are used to choose which one to use among a selected few
+# option 'alsa' is for ALSA only
+# 'pulseaudio' also includes ALSA
+# 'jack' is jack only
+# the options are mutually exclusive
+build_options="alsa jack pulseaudio"
 build_options_default="pulseaudio"
+vopt_conflict jack alsa
+vopt_conflict jack pulseaudio
+vopt_conflict alsa pulseaudio
 
 do_build() {
-	for _variant in $(vopt_if pulseaudio pulse alsa) nogui; do
+	for _variant in $(vopt_if alsa alsa) $(vopt_if jack jack) $(vopt_if pulseaudio pulse) nogui; do
 		cp -a "${pkgname}-${version}" $_variant
 		cd $_variant
 

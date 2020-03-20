@@ -1,21 +1,18 @@
 # Template file for 'knewstuff'
 pkgname=knewstuff
-version=5.58.0
+version=5.68.0
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
-hostmakedepends="kcoreaddons extra-cmake-modules"
+hostmakedepends="kcoreaddons extra-cmake-modules gettext
+ qt5-host-tools qt5-qmake python3"
 makedepends="kio-devel"
 short_desc="KDE Framework for downloading and sharing additional application data"
 maintainer="John <johnz@posteo.net>"
 license="LGPL-2.1-or-later"
 homepage="https://projects.kde.org/projects/frameworks/knewstuff"
 distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=06d3ee09652f166ad66e003523bafe43741a99d2cd5dca3268ac7a13498cefbd
-
-if [ "$CROSS_BUILD" ]; then
-	hostmakedepends+=" qt5-host-tools qt5-qmake python"
-fi
+checksum=f7c13b133f8b87ceece2d33d3f69215912b3b8c1dbb92ac39a1a6a0a42b7c93a
 
 knewstuff-devel_package() {
 	short_desc+=" - development"

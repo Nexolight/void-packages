@@ -1,10 +1,9 @@
 # Template file for 'xonsh'
 pkgname=xonsh
-version=0.9.4
+version=0.9.14
 revision=1
 archs=noarch
 build_style=python3-module
-pycompile_module="xonsh xontrib"
 hostmakedepends="python3"
 short_desc="Python-powered, cross-platform, Unix-gazing shell"
 maintainer="SolitudeSF <solitudesf@protonmail.com>"
@@ -12,5 +11,5 @@ license="GPL-3.0-or-later"
 homepage="https://xon.sh/"
 changelog="https://raw.githubusercontent.com/xonsh/xonsh/${version}/CHANGELOG.rst"
 distfiles="https://github.com/xonsh/xonsh/archive/${version}.tar.gz"
-checksum=ffd6d7c99ae0028d092e8ab5313cf562db6c7de8544241a4cbdf272c6c0029b9
+checksum=98936fb7ea3cf6b2b720dd1ae98f081f4bdfb472ebc02a41eae7eac61dece5ef
 register_shell="/bin/xonsh"

@@ -1,6 +1,6 @@
 # Template file for 'xfburn'
 pkgname=xfburn
-version=0.5.5
+version=0.6.2
 revision=1
 build_style=gnu-configure
 configure_args="--enable-gstreamer"
@@ -8,8 +8,8 @@ hostmakedepends="intltool pkg-config"
 makedepends="libburn-devel libisofs-devel exo-devel libxfce4ui-devel gst-plugins-base1-devel"
 depends="desktop-file-utils hicolor-icon-theme"
 short_desc="CD-burner application for the Xfce Desktop Environment"
-maintainer="Juan RP <xtraeme@voidlinux.org>"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="GPL-2.0-only"
 homepage="https://goodies.xfce.org/projects/applications/xfburn"
-license="GPL-2"
 distfiles="https://archive.xfce.org/src/apps/xfburn/${version%.*}/xfburn-${version}.tar.bz2"
-checksum=aa173aa8a6c0887a4b236aee3753760e943f3e2be99af1f2d5343a6df345ade1
+checksum=83416e132e9bb31cd52fdc41460f96efa9ed57a290ec65f09714b83bb3d00327

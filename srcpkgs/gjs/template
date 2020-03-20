@@ -1,7 +1,7 @@
 # Template file for 'gjs'
 pkgname=gjs
-version=1.56.1
-revision=2
+version=1.58.1
+revision=1
 build_style=gnu-configure
 build_helper="gir"
 configure_args="--without-dbus-tests"
@@ -13,7 +13,7 @@ license="MIT, LGPL-2.0-or-later"
 homepage="https://wiki.gnome.org/action/show/Projects/Gjs"
 changelog="https://gitlab.gnome.org/GNOME/gjs/blob/gnome-3-30/NEWS"
 distfiles="${GNOME_SITE}/${pkgname}/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=6724f10e451eaf867e10f0badc3e1e606d823cf5b4c50c5129ee0106b2c1d473
+checksum=b4df16ea87dc78c0df5412f9134efb14f7c510773aee117d5ad4cda75646c6f5
 
 case "$XBPS_TARGET_MACHINE" in
 	*-musl) configure_args+=" --disable-profiler" # https://gitlab.gnome.org/GNOME/gjs/issues/132

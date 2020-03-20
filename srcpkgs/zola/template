@@ -1,21 +1,29 @@
 # Template file for 'zola'
 pkgname=zola
-version=0.6.0
+version=0.10.0
 revision=1
 build_style=cargo
 hostmakedepends="pkg-config"
-makedepends="libressl-devel libsass-devel"
+makedepends="libressl-devel libsass-devel oniguruma-devel"
 short_desc="Fast opinionated static site generator written in rust"
 maintainer="Carson Page <pagem.carson@gmail.com>"
 license="MIT"
 homepage="https://github.com/getzola/zola"
 changelog="https://github.com/getzola/zola/raw/master/CHANGELOG.md"
 distfiles="https://github.com/getzola/zola/archive/v${version}.tar.gz"
-checksum=647f31300f4e468374dfb325b59a08cb31c4ed855b2e5b677131464ae3ee9925
+checksum=af8160f1536c9b69153dc041a2e23f359b6acb2a9a2235333e887397d8a6634d
 
-case "$XBPS_TARGET_MACHINE" in
-	aarch64-musl) broken="https://github.com/nix-rust/nix/issues/951" ;;
+broken="https://build.voidlinux.org/builders/x86_64-musl_builder/builds/26379/steps/shell_3/logs/stdio"
+
+case $XBPS_TARGET_MACHINE in
+	ppc*) broken="segfaults" ;;
+	armv6l-musl) broken="triggers segfault in rustc" ;;
 esac
+
+pre_build() {
+	export PKG_CONFIG_ALL_DYNAMIC=1
+	export RUSTONIG_SYSTEM_LIBONIG=1
+}
 
 post_install() {
 	vlicense LICENSE

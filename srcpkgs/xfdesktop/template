@@ -1,16 +1,15 @@
 # Template file for 'xfdesktop'
 pkgname=xfdesktop
-version=4.12.4
-revision=2
+version=4.14.2
+revision=1
 build_style=gnu-configure
-hostmakedepends="pkg-config intltool glib-devel dbus-glib-devel"
-# XXX Add Thunar-devel again once xfdesktop supports the new Thunarx-3 API
+hostmakedepends="pkg-config intltool glib-devel Thunar-devel"
 makedepends="libxfce4ui-devel exo-devel garcon-devel
- libnotify-devel libwnck2-devel"
+ libnotify-devel libwnck-devel"
 depends="hicolor-icon-theme desktop-file-utils"
 short_desc="Desktop manager for the Xfce Desktop Environment"
-maintainer="Juan RP <xtraeme@voidlinux.org>"
-license="GPL-2"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="GPL-2.0-or-later"
 homepage="https://xfce.org/"
 distfiles="https://archive.xfce.org/src/xfce/xfdesktop/${version%.*}/$pkgname-$version.tar.bz2"
-checksum=098a35510562907e1431d5adbfa8307484a235c1dec6a43e2d58d2ac4241f1cb
+checksum=a30534461fea907f969f608a11c84be0b1aaad687c591c32cd56a9d274ea3e74

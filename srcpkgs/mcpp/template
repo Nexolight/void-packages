@@ -1,11 +1,11 @@
 # Template file for 'mcpp'
 pkgname=mcpp
 version=2.7.2
-revision=7
+revision=8
 build_style=gnu-configure
 configure_args="--enable-mcpplib"
 short_desc="Portable C preprocessor"
-maintainer="Juan RP <xtraeme@voidlinux.org>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="BSD-2-Clause"
 homepage="http://mcpp.sourceforge.net/"
 distfiles="${SOURCEFORGE_SITE}/mcpp/mcpp-${version}.tar.gz"

@@ -1,26 +1,42 @@
 # Template file for 'font-spleen'
 pkgname=font-spleen
-version=1.0.4
+version=1.7.0
 revision=1
 archs=noarch
 wrksrc="spleen-${version}"
-font_dirs="/usr/share/fonts/X11/spleen"
-hostmakedepends="bdftopcf"
+build_style=gnu-makefile
+make_cmd=bmake
+make_build_args="PREFIX=/usr"
+make_build_target="pcf psf"
+hostmakedepends="bmake bdftopcf bdf2psf gzip"
 depends="font-util"
 short_desc="Monospaced bitmap fonts"
-maintainer="Renato Aguiar <renato@renag.me>"
+maintainer="Renato Aguiar <renato@renatoaguiar.net>"
 license="BSD-2-Clause"
 homepage="https://github.com/fcambus/spleen"
 distfiles="https://github.com/fcambus/spleen/releases/download/${version}/spleen-${version}.tar.gz"
-checksum=6f6860ae947a6bd507259175dbaa57fad88a6e26e633a5d67f370ffb7c51c2f4
+checksum=2a8768d5cd2f4be327ee66bd80f343edd9e31af7836c4a177dd85caac9289cd8
+font_dirs="/usr/share/fonts/X11/spleen"
+
+do_configure() {
+	${make_cmd} clean
+}
+
+post_build() {
+	gzip -n9 *.pcf *.psfu
+}
 
 do_install() {
-	vmkdir usr/share/fonts/X11/spleen
-	for f in *.bdf; do
-		out=${f%.bdf}.pcf.gz
-		bdftopcf -t $f | gzip -n9 > $out
-		vinstall $out 644 usr/share/fonts/X11/spleen
+	vmkdir usr/share/kbd/consolefonts
+	for f in *.psfu.gz; do
+		vinstall $f 644 usr/share/kbd/consolefonts
 	done
-	vinstall fonts.alias-spleen 644 usr/share/fonts/X11/spleen fonts.alias
+
+	vmkdir usr/share/fonts/X11/spleen
+	for f in *.pcf.gz; do
+		vinstall $f 644 usr/share/fonts/X11/spleen
+	done
+	vinstall fonts.alias 644 usr/share/fonts/X11/spleen
+
 	vlicense LICENSE
 }

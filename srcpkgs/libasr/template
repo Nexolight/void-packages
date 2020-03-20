@@ -1,22 +1,20 @@
 # Template file for 'libasr'
 pkgname=libasr
-version=1.0.2
-revision=4
-wrksrc="${pkgname}-${pkgname}-${version}"
+version=1.0.4
+revision=1
 build_style=gnu-configure
 hostmakedepends="automake libtool"
 makedepends="libressl-devel"
 short_desc="Simple and portable asynchronous resolver library"
-maintainer="Juan RP <xtraeme@voidlinux.org>"
+maintainer="Leah Neukirchen <leah@vuxu.org>"
 license="BSD-2-Clause"
 homepage="https://www.opensmtpd.org/"
-distfiles="https://github.com/OpenSMTPD/${pkgname}/archive/${pkgname}-${version}.tar.gz"
-checksum=4ab54264206e255fd6c2de982764bb5ce7857ec8f649ad3ee45771244593b6e1
+distfiles="https://github.com/OpenSMTPD/${pkgname}/releases/download/${version}/${pkgname}-${version}.tar.gz"
+checksum=19fb6bed10d15c9775c8d008cd1130155917ae4e801c729fe85e6d88a545dab4
 
-case "$XBPS_TARGET_MACHINE" in
-	*-musl) ;;
-	*) CFLAGS="$CFLAGS -DHAVE_RES_RANDOMID"
-esac
+if [ "$XBPS_TARGET_LIBC" != "musl" ]; then
+	CFLAGS="-DHAVE_RES_RANDOMID"
+fi
 
 pre_configure() {
 	./bootstrap

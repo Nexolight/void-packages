@@ -1,8 +1,8 @@
 # Template file for 'gzdoom'
 pkgname=gzdoom
-version=3.7.2
+version=4.2.4
 revision=1
-_tagdate=2019-01-01
+_tagdate=2019-07-09
 wrksrc="${pkgname}-g${version}"
 build_style=cmake
 configure_args="-DINSTALL_PK3_PATH=share/gzdoom"
@@ -15,8 +15,8 @@ license="GPL-3.0-or-later"
 homepage="https://www.zdoom.org"
 distfiles="https://github.com/coelckers/${pkgname}/archive/g${version}.tar.gz
  https://github.com/coelckers/${pkgname}/releases/download/g${version}/${pkgname}_${version}_amd64.deb"
-checksum="5fb57c83b733d77688b5809b3bd64ab87f0976f4e81d3bbac0ea0785a24646cc
- b5df3cc45ca7358e12f2e491d9682d451223cb409adbf51b6e7b367c1b3c2148"
+checksum="0d5b441fe7fc449eb934b87d920c2f76529c331747eb4fe6cb1cdf185465c51c
+ c8dee7cb44d85ff3867f981600b2d2756a7fb0275d249628115ae94dd5a9aa04"
 skip_extraction="${pkgname}_${version}_amd64.deb"
 nocross=yes
 

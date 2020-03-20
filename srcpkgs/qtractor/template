@@ -1,7 +1,7 @@
 # Template file for 'qtractor'
 pkgname=qtractor
-version=0.9.7
-revision=2
+version=0.9.12
+revision=1
 wrksrc="qtractor-qtractor_${version//./_}"
 build_style=gnu-configure
 configure_args="--enable-debug"
@@ -11,17 +11,16 @@ makedepends="dssi-devel jack-devel ladspa-sdk liblo-devel libmad-devel
  rubberband-devel sratom-devel suil-devel vamp-plugin-sdk-devel"
 depends="desktop-file-utils dssi hicolor-icon-theme jack lv2"
 short_desc="Audio/MIDI multi-track sequencer application written in C++/Qt"
-maintainer="Juan RP <xtraeme@voidlinux.org>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="GPL-2.0-or-later"
 homepage="http://qtractor.org"
 changelog="https://raw.githubusercontent.com/rncbc/qtractor/master/ChangeLog"
 distfiles="https://github.com/rncbc/qtractor/archive/qtractor_${version//./_}.tar.gz"
-checksum=a5900fefae330adc52f66502b03cf7fcb56544f1842068f20e840d926a32d8ed
+checksum=b13c4823add7d4989c579e3771d50f133006936a973cae0bc1b6d3c88b689da6
 
 # configure fails to find qt5 headers
-nocross="https://build.voidlinux.eu/builders/armv7l-musl_builder/builds/3458/steps/shell_3/logs/stdio"
+nocross="https://build.voidlinux.org/builders/armv7l-musl_builder/builds/3458/steps/shell_3/logs/stdio"
 
 pre_configure() {
 	autoreconf -if
 }
-

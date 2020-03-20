@@ -1,20 +1,23 @@
 # Template file for 'amdvlk'
 pkgname=amdvlk
-version=2019.Q2.3
+version=2020.Q1.3
 revision=1
-_llpc_commit=fdd5e24be2d9031ab685690cad1c9259d96518f6
-_xgl_commit=eaecf6b9ad7bc3d310e752528f84fd52fba23747
-_pal_commit=fb9a4dc951c0afd737460b26afb716c96e966b77
-_llvm_commit=f41e1a873108a371ae5574d518c1ee6eb3814cee
-_wsa_commit=f558403d3292039de4d17334e562bda58abfc72c
-_spvgen_commit=5378c7618a2a3bf60ba01a86db980930e8581146
+_llpc_commit=fc21c950b629753f9cc7d0941937c57262ceadcf
+_xgl_commit=80e5a4b11ad2058097e77746772ddc9ab2118e07
+_pal_commit=e642f608a62887d40d1f25509d2951a4a3576985
+_llvm_project_commit=e404e4b2db325184dbc2d14f31ef891d938f3835
+_spvgen_commit=843c6b95f731589bf497fad29dadf7fda4934aad
+_MetroHash_commit=2b6fee002db6cc92345b02aeee963ebaaf4c0e2f
+_CWPack_commit=b601c88aeca7a7b08becb3d32709de383c8ee428
 archs="i686* x86_64*"
 create_wrksrc=yes
 build_wrksrc="xgl"
 build_style=cmake
-configure_args="-DBUILD_WAYLAND_SUPPORT=ON -DBUILD_WSA=ON"
+configure_args="-DBUILD_WAYLAND_SUPPORT=ON
+ -DXGL_METROHASH_PATH=../../metrohash
+ -DXGL_CWPACK_PATH=../../cwpack"
 hostmakedepends="pkg-config python3 perl"
-makedepends="libxml2-devel xorg-server-devel libXrandr-devel"
+makedepends="libxml2-devel xorg-server-devel libXrandr-devel libffi-devel"
 depends="vulkan-loader"
 short_desc="AMD Open Source Driver For Vulkan"
 maintainer="John <johnz@posteo.net>"
@@ -24,30 +27,30 @@ distfiles="https://github.com/GPUOpen-Drivers/AMDVLK/archive/v-${version}.tar.gz
  https://github.com/GPUOpen-Drivers/llpc/archive/${_llpc_commit}.tar.gz
  https://github.com/GPUOpen-Drivers/xgl/archive/${_xgl_commit}.tar.gz
  https://github.com/GPUOpen-Drivers/pal/archive/${_pal_commit}.tar.gz
- https://github.com/GPUOpen-Drivers/llvm/archive/${_llvm_commit}.tar.gz
- https://github.com/GPUOpen-Drivers/wsa/archive/${_wsa_commit}.tar.gz
- https://github.com/GPUOpen-Drivers/spvgen/archive/${_spvgen_commit}.tar.gz"
-checksum="72574e88e336e24bbcbd1573edf24e786c6640f2716ddad602b39a440b9d9b29
- b55da7fd4712a1c9c1738c7e639c7aea2f469ae76e8276980c185a6fb6fbcffa
- 5125b70b1f6319fb1da958f84c9c694c86dc0b9d029f6ca7f829db44c3d5763e
- 36ce31be34c8c52b39865c9db1302ffe2ea91182530b327b402be3d865de80a2
- 7e5688a66aff1e011f438e94dbe0b531ed65c6bfcea5a3a75fc5d9b49e42ead7
- b23e9453fa7b14bb13157fb645936ec74b18b12cdef301758452a92b23f27705
- 48766a2ab78023b2c0e8c56eb45fb654e43440ef32c08978a303908e02dfca2a"
+ https://github.com/GPUOpen-Drivers/llvm-project/archive/${_llvm_project_commit}.tar.gz
+ https://github.com/GPUOpen-Drivers/spvgen/archive/${_spvgen_commit}.tar.gz
+ https://github.com/GPUOpen-Drivers/MetroHash/archive/${_MetroHash_commit}.tar.gz
+ https://github.com/GPUOpen-Drivers/CWPack/archive/${_CWPack_commit}.tar.gz"
+checksum="7b64c44f26e8d62b5b5c58ca7e3fd3c72d73cfaca64eedf4de06584ff712b34e
+ 61e2eba47009df30d6ed7afcd0018cdda1363e021dc049ed5914a7d0a5313c7d
+ 486ff5dabd2bc73939ef70a1110ad44d530b42429b0d32efa69e1040034078ce
+ ab84b6a857f0eee6d8466b685603b5edd8d547c2438b11f9e084ab6a49ce50d9
+ b77a63766dbecc0a4d9f78f5e1025784ddc56aba238c7452e0a73d0d42aa6094
+ 53e466428a237406790a0c27821c24493d9468786be36c88e003eec6f9140a8b
+ e8ecf026584dd953e39c3abba2eb04d28b28ed4577482ee70265f0d421fef398
+ 58ca397f33d62bcfecaecd89eb4ad466a6c33e1c619e5cf742822074f1f7d664"
 nocross=yes
-
-case $XBPS_TARGET_MACHINE in
-	*-musl) makedepends+=" rand48_r-devel"
-esac
+lib32files="/usr/share/vulkan/icd.d/amd_icd32.json"
 
 post_extract() {
 	mv ${wrksrc}/AMDVLK-v-${version} ${wrksrc}/AMDVLK
 	mv ${wrksrc}/xgl-${_xgl_commit} ${wrksrc}/xgl
 	mv ${wrksrc}/pal-${_pal_commit} ${wrksrc}/pal
 	mv ${wrksrc}/llpc-${_llpc_commit} ${wrksrc}/llpc
-	mv ${wrksrc}/llvm-${_llvm_commit} ${wrksrc}/llvm
-	mv ${wrksrc}/wsa-${_wsa_commit} ${wrksrc}/wsa
+	mv ${wrksrc}/llvm-project-${_llvm_project_commit} ${wrksrc}/llvm-project
 	mv ${wrksrc}/spvgen-${_spvgen_commit} ${wrksrc}/spvgen
+	mv ${wrksrc}/MetroHash-${_MetroHash_commit} ${wrksrc}/metrohash
+	mv ${wrksrc}/CWPack-${_CWPack_commit} ${wrksrc}/cwpack
 }
 
 pre_configure() {
@@ -59,11 +62,22 @@ pre_configure() {
 	configure_args+=" -DLLVM_DEFAULT_TARGET_TRIPLE=${XBPS_CROSS_TRIPLET:-$XBPS_TRIPLET}"
 }
 
+pre_build() {
+	# lower burden on build servers, llvm eats too much memory
+	if [ "$XBPS_MAKEJOBS" -gt 2 ]; then
+		echo $XBPS_MAKEJOBS
+		export makejobs="-j$(( $XBPS_MAKEJOBS / 2 ))"
+		echo $XBPS_MAKEJOBS
+	fi
+
+}
+
 do_install() {
 	case $XBPS_TARGET_MACHINE in
 		i686*|mips*|arm*|ppc|ppc-musl)
 			vinstall build/icd/amdvlk32.so 644 usr/lib/
 			vinstall ${wrksrc}/AMDVLK/json/Redhat/amd_icd32.json 644 usr/share/vulkan/icd.d/
+			vsed -i ${DESTDIR}/usr/share/vulkan/icd.d/amd_icd32.json -e 's#/usr/lib/#/usr/lib32/#g'
 			;;
 		*)
 			vinstall build/icd/amdvlk64.so 644 usr/lib/
@@ -71,6 +85,5 @@ do_install() {
 			vsed -i ${DESTDIR}/usr/share/vulkan/icd.d/amd_icd64.json -e 's#/usr/lib64/#/usr/lib/#g'
 			;;
 	esac
-	vinstall build/wsa/wayland/libamdgpu_wsa_wayland.so 644 usr/lib/
 	vlicense ${wrksrc}/AMDVLK/LICENSE.txt
 }

@@ -1,14 +1,14 @@
 # Template file for 'vttest'
 pkgname=vttest
-version=20190105
+version=20200303
 revision=1
 build_style=gnu-configure
 short_desc="Tests the compatibility so-called 'VT100-compatible' terminals"
 maintainer="Leah Neukirchen <leah@vuxu.org>"
-license="SMLNJ"
+license="3-clause-BSD"
 homepage="http://invisible-island.net/vttest/vttest.html"
 distfiles="http://invisible-mirror.net/archives/${pkgname}/${pkgname}-${version}.tgz"
-checksum=5703ef4783c8eb90b30205740c585652fa779ea28bdd876a2af81af6b9574f71
+checksum=49aa5828f8827f22fdae8c49cbc4fc78e9abb46d7670167985a7c079c6f547bc
 
 post_install() {
 	vlicense COPYING

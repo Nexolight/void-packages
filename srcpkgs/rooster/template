@@ -1,6 +1,6 @@
 # Template file for 'rooster'
 pkgname=rooster
-version=2.8.0
+version=2.8.5
 revision=1
 build_style=cargo
 hostmakedepends="pkg-config python3"
@@ -10,8 +10,4 @@ maintainer="Orphaned <orphan@voidlinux.org>"
 license="Apache-2.0"
 homepage="https://github.com/conradkdotcom/rooster"
 distfiles="https://github.com/conradkdotcom/rooster/archive/v${version}.tar.gz"
-checksum=49647992eb48ef7df4ffee897aeb8f651e403c86d08c5dac92bb96547951a68a
-
-case "$XBPS_TARGET_MACHINE" in
-	aarch64*|ppc64*) broken="undefined reference to rust_crypto_util_fixed_time_eq_asm https://github.com/DaGenix/rust-crypto/issues/383" ;;
-esac
+checksum=c2b83603083e30423c1637949608b957b265a0b2a93eceff4e72109a852e68c2

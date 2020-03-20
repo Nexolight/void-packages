@@ -1,16 +1,17 @@
 # Template file for 'plasma-vault'
 pkgname=plasma-vault
-version=5.15.5
+version=5.18.3
 revision=1
 build_style=cmake
-hostmakedepends="extra-cmake-modules kcoreaddons qt5-qmake qt5-host-tools"
+hostmakedepends="extra-cmake-modules kcoreaddons qt5-qmake qt5-host-tools
+ gettext"
 makedepends="plasma-framework-devel libksysguard-devel networkmanager-qt5-devel"
 short_desc="Plasma applet and services for creating encrypted vaults"
 maintainer="Giuseppe Fierro <gspe@ae-design.ws>"
 license="GPL-2.0-or-later, LGPL-2.0-or-later, LGPL-2.1-or-later"
 homepage="https://github.com/KDE/plasma-vault"
 distfiles="${KDE_SITE}/plasma/${version}/${pkgname}-${version}.tar.xz"
-checksum=2d7c356fa951b341fcb5ea48ed819f396fe9096e06e6f2026c9f59a59fa48fd5
+checksum=c25591adf9d116d42a6f494362e8f9fd77796d1c62bdd7d9a271cc5cb1135e57
 
 if [ "$CROSS_BUILD" ]; then
 	hostmakedepends+=" kpackage-devel kconfig-devel kcoreaddons-devel plasma-framework"

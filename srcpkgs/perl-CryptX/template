@@ -1,0 +1,15 @@
+# Template file for 'perl-CryptX'
+pkgname=perl-CryptX
+version=0.068
+revision=1
+wrksrc="${pkgname#perl-}-${version}"
+build_style=perl-module
+hostmakedepends="perl"
+makedepends="perl"
+depends="perl"
+short_desc="Cryptographic toolkit (self-contained, no external libraries needed)"
+maintainer="newbluemoon <blaumolch@mailbox.org>"
+license="Artistic-1.0-Perl, GPL-1.0-or-later"
+homepage="https://metacpan.org/release/CryptX"
+distfiles="${CPAN_SITE}/Crypt/${pkgname#perl-}-${version}.tar.gz"
+checksum=b1806a1fa4d4b8c9265f44ac706eb0b05107d644edb24ffea1b507168e88fd59

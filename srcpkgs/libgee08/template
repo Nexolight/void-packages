@@ -1,7 +1,7 @@
 # Template file for 'libgee08'
 pkgname=libgee08
-version=0.20.1
-revision=3
+version=0.20.3
+revision=1
 wrksrc="libgee-${version}"
 build_style=gnu-configure
 build_helper="gir"
@@ -9,11 +9,11 @@ configure_args="--disable-static"
 hostmakedepends="pkg-config intltool $(vopt_if vala 'vala')"
 makedepends="libglib-devel"
 short_desc="GObject collection library (0.8.x API)"
-maintainer="Juan RP <xtraeme@voidlinux.org>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="LGPL-2.1-or-later"
 homepage="http://live.gnome.org/Libgee"
 distfiles="${GNOME_SITE}/libgee/${version%.*}/libgee-${version}.tar.xz"
-checksum=bb2802d29a518e8c6d2992884691f06ccfcc25792a5686178575c7111fea4630
+checksum=d0b5edefc88cbca5f1709d19fa62aef490922c6577a14ac4e7b085507911a5de
 
 # Package build options
 build_options="gir vala"

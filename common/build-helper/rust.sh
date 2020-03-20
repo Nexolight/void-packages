@@ -2,6 +2,7 @@
 # [build]
 # jobs = $XBPS_MAKEJOBS
 export CARGO_BUILD_JOBS="$XBPS_MAKEJOBS"
+export CARGO_HOME="/host/cargo"
 
 if [ "$CROSS_BUILD" ]; then
 	# Define equivalent of TOML config in environment
@@ -33,3 +34,7 @@ export GETTEXT_INCLUDE_DIR="${XBPS_CROSS_BASE}/usr/include"
 
 # libssh2-sys
 export LIBSSH2_SYS_USE_PKG_CONFIG=1 
+
+# sodium-sys
+export SODIUM_LIB_DIR="${XBPS_CROSS_BASE}/usr/include"
+export SODIUM_INC_DIR="${XBPS_CROSS_BASE}/usr/lib"

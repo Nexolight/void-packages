@@ -1,13 +1,13 @@
 # Template file for 'mate-netbook'
 pkgname=mate-netbook
-version=1.20.1
+version=1.24.0
 revision=1
 build_style=gnu-configure
 hostmakedepends="pkg-config intltool glib-devel"
 makedepends="libmate-panel-devel libXtst-devel libwnck-devel libfakekey-devel"
-short_desc="The MATE netbook extension"
-maintainer="Juan RP <xtraeme@voidlinux.org>"
+short_desc="MATE netbook extension"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="GPL-3.0-or-later"
 homepage="https://mate-desktop.org"
 distfiles="https://pub.mate-desktop.org/releases/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=58331b140c7b2c38edba9ab200aebd2e3a4655fbc65ff1df4ce748b315059ac6
+checksum=48a1d4b88be09da420d10905dd07934a23781d86211e75afdb13b357f04bb3ae

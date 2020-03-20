@@ -1,20 +1,21 @@
 # Template file for 'python-httplib2'
 pkgname=python-httplib2
-version=0.12.1
-revision=1
+version=0.14.0
+revision=3
 archs=noarch
-wrksrc="httplib2-${version}"
+create_wrksrc=yes
+build_wrksrc="httplib2-${version}"
 build_style=python-module
-pycompile_module="httplib2"
 hostmakedepends="python-setuptools python3-setuptools"
 depends="python ca-certificates"
 short_desc="Comprehensive HTTP client library (Python2)"
 maintainer="Alessio Sergi <al3hex@gmail.com>"
 license="MIT"
 homepage="https://github.com/httplib2/httplib2"
+changelog="https://raw.githubusercontent.com/httplib2/httplib2/master/CHANGELOG"
 distfiles="${PYPI_SITE}/h/httplib2/httplib2-${version}.tar.gz
  https://raw.githubusercontent.com/httplib2/httplib2/master/LICENSE>LICENSE.txt"
-checksum="4ba6b8fd77d0038769bf3c33c9a96a6f752bc4cdf739701fdcaf210121f399d4
+checksum="34537dcdd5e0f2386d29e0e2c6d4a1703a3b982d34c198a5102e6e5d6194b107
  589eec38f72df2be203711d3b8cbece9b908c5e7ff00bc3cab7f63bae9e366b4"
 
 post_install() {
@@ -29,7 +30,6 @@ post_install() {
 
 python3-httplib2_package() {
 	archs=noarch
-	pycompile_module="httplib2"
 	depends="python3 ca-certificates"
 	short_desc="${short_desc/Python2/Python3}"
 	pkg_install() {

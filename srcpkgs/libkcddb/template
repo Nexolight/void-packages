@@ -1,18 +1,21 @@
 # Template file for 'libkcddb'
 pkgname=libkcddb
-version=19.04.1
+version=19.12.3
 revision=1
 build_style=cmake
-configure_args="-DBUILD_TESTING=OFF"
-hostmakedepends="extra-cmake-modules kconfig kcoreaddons kdoctools python
+hostmakedepends="extra-cmake-modules gettext kconfig kcoreaddons kdoctools
  qt5-host-tools qt5-qmake"
 makedepends="kio-devel libmusicbrainz5-devel"
 short_desc="KDE CDDB library"
 maintainer="Piotr Wójcik <chocimier@tlen.pl>"
 license="GPL-2.0-or-later, LGPL-2.0-or-later, BSD-3-Clause, GFDL-1.2-only"
 homepage="https://projects.kde.org/projects/kde/kdemultimedia/libkcddb"
-distfiles="${KDE_SITE}/applications/${version}/src/libkcddb-${version}.tar.xz"
-checksum=6773266408c0a68c128b08aca2df594249c210ff9b8fb3553b2bb82c591a2f51
+distfiles="${KDE_SITE}/release-service/${version}/src/libkcddb-${version}.tar.xz"
+checksum=69cbaf03adba24c0cabf957ee4149c4fa86d403eb6b8a07f7f80eb17be49e892
+
+pre_check() {
+	export QT_QPA_PLATFORM=offscreen
+}
 
 libkcddb-devel_package() {
 	depends="libkcddb>=${version}_${revision}"
@@ -22,6 +25,7 @@ libkcddb-devel_package() {
 		vmove usr/share/doc
 		vmove usr/include
 		vmove "usr/lib/*.so"
+		vmove usr/lib/qt5/mkspecs
 		vlicense cmake/COPYING-CMAKE-SCRIPTS
 	}
 }

@@ -5,6 +5,7 @@ update_check() {
     local update_override=$XBPS_SRCPKGDIR/$XBPS_TARGET_PKG/update
     local original_pkgname=$pkgname
     local urlpfx urlsfx
+    local -A fetchedurls
 
     if [ -r $update_override ]; then
         . $update_override
@@ -48,12 +49,14 @@ update_check() {
               *cpan.*|\
               *pythonhosted.org*|\
               *github.com*|\
-              *gitlab.com*|*gitlab.gnome.org*|*gitlab.freedesktop.org*|\
+              *//gitlab.*|\
               *bitbucket.org*|\
               *ftp.gnome.org*|\
               *kernel.org/pub/linux/kernel/*|\
               *cran.r-project.org/src/contrib*|\
-              *rubygems.org*)
+              *rubygems.org*|\
+              *crates.io*|\
+              *hg.sr.ht*)
                 continue
                 ;;
             *)
@@ -76,7 +79,9 @@ update_check() {
             fi
             skipdirs=
             curl -A "xbps-src-update-check/$XBPS_SRC_VERSION" --max-time 10 -Lsk "$urlpfx" |
-                grep -Po -i "$rx" | sort -Vru |
+                grep -Po -i "$rx" |
+                # sort -V places 1.1/ before 1/, but 1A/ before 1.1A/
+                sed -e 's:$:A:' -e 's:/A$:A/:' | sort -Vru | sed -e 's:A/$:/A:' -e 's:A$::' |
                 while IFS= read -r newver; do
                     newurl="${urlpfx}${newver}${urlsfx}"
                     if [ "$newurl" = "$url" ]; then
@@ -110,7 +115,7 @@ update_check() {
                 githubname="$(printf %s "$url" | cut -d/ -f4,5)"
                 url="https://github.com/$githubname/tags"
                 rx='/archive/(v?|\Q'"$pkgname"'\E-)?\K[\d\.]+(?=\.tar\.gz")';;
-            *gitlab.com*|*gitlab.gnome.org*|*gitlab.freedesktop.org*)
+            *//gitlab.*)
                 gitlaburl="$(printf %s "$url" | cut -d/ -f1-5)"
                 url="$gitlaburl/tags"
                 rx='/archive/[^/]+/\Q'"$pkgname"'\E-v?\K[\d\.]+(?=\.tar\.gz")';;
@@ -131,17 +136,29 @@ update_check() {
             *crates.io*)
                 url="https://crates.io/api/v1/crates/${pkgname#rust-}"
                 rx='/crates/'${pkgname#rust-}'/\K[0-9.]*(?=/download)' ;;
+            *hg.sr.ht*)
+                hgsrhtname="$(printf %s "$url" | cut -d/ -f4,5)"
+                url="https://hg.sr.ht/$hgsrhtname/tags"
+                rx='/archive/(v?|\Q'"$pkgname"'\E-)?\K[\d\.]+(?=\.tar\.gz")';;
             esac
         fi
 
         rx=${pattern:-$rx}
-        rx=${rx:-'(?<!-)\b\Q'"$pkgname"'\E[-_]?((src|source)[-_])?\K([^-/_\s]*?\d[^-/_\s]*?)(?=(?:[-_.](?:src|source|orig))?\.(?:[jt]ar|shar|t[bglx]z|tbz2|zip))\b'}
+        rx=${rx:-'(?<!-)\b\Q'"$pkgname"'\E[-_]?((src|source)[-_])?v?\K([^-/_\s]*?\d[^-/_\s]*?)(?=(?:[-_.](?:src|source|orig))?\.(?:[jt]ar|shar|t[bglx]z|tbz2|zip))\b'}
+
+        if [ "${fetchedurls[$url]}" ]; then
+            if [ -n "$XBPS_UPDATE_CHECK_VERBOSE" ]; then
+                echo "already fetched $url" 1>&2
+            fi
+            continue
+        fi
 
         if [ -n "$XBPS_UPDATE_CHECK_VERBOSE" ]; then
             echo "fetching $url" 1>&2
         fi
         curl -H 'Accept: text/html,application/xhtml+xml,application/xml,text/plain,application/rss+xml' -A "xbps-src-update-check/$XBPS_SRC_VERSION" --max-time 10 -Lsk "$url" |
             grep -Po -i "$rx"
+        fetchedurls[$url]=yes
     done |
     tr _ . |
     sort -Vu |

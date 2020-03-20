@@ -1,6 +1,6 @@
 # Template file for 'kicad'
 pkgname=kicad
-version=5.0.2
+version=5.1.5
 revision=1
 build_style=cmake
 configure_args="-DKICAD_BUILD_VERSION=${version} -DKICAD_SCRIPTING=ON
@@ -16,19 +16,12 @@ short_desc="Electronic schematic and PCB design software"
 maintainer="Steve Prybylski <sa.prybylx@gmail.com>"
 license="GPL-3.0-or-later"
 homepage="http://kicad-pcb.org"
-distfiles="https://launchpad.net/${pkgname}/${version%.*}/${version}/+download/${pkgname}-${version}.tar.xz"
-checksum=2f3406e72eb6757789c18bd9204d0c6ddae64b025f4c6fec28037410722ec080
+distfiles="https://launchpad.net/${pkgname}/${version%%.*}.0/${version}/+download/${pkgname}-${version}.tar.xz"
+checksum=80625a1da876e1be683dc08268fe43fe67bb704e841e977431f7a82bdc096474
 build_options="spice"
 build_options_default="spice"
 
-CXXFLAGS="-std=c++14"
-
-case $XBPS_TARGET_MACHINE in
-	armv6l-musl)
-		broken="depends on broken tbb"
-		;;
-esac
-
+CXXFLAGS="-std=c++17"
 
 if [ "$CROSS_BUILD" ]; then
 	hostmakedepends+=" python wxPython"

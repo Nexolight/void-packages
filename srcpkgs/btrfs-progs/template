@@ -1,6 +1,6 @@
 # Template file for 'btrfs-progs'
 pkgname=btrfs-progs
-version=5.1
+version=5.4.1
 revision=1
 wrksrc="${pkgname}-v${version}"
 build_style=gnu-configure
@@ -10,12 +10,12 @@ hostmakedepends="asciidoc automake libtool pkg-config xmlto"
 makedepends="acl-devel e2fsprogs-devel libzstd-devel lzo-devel"
 checkdepends="acl-progs e2fsprogs util-linux"
 short_desc="Btrfs filesystem utilities"
-maintainer="Juan RP <xtraeme@voidlinux.org>"
+maintainer="Enno Boland <gottox@voidlinux.org>"
 license="GPL-2.0-only, LGPL-3.0-or-later"
 homepage="https://btrfs.wiki.kernel.org/index.php/Main_Page"
 changelog="https://raw.githubusercontent.com/kdave/btrfs-progs/master/CHANGES"
 distfiles="${KERNEL_SITE}/kernel/people/kdave/${pkgname}/${pkgname}-v${version}.tar.xz"
-checksum=584d983180b89e633b5d8aff7713c3fb2b7669e372a96ad3e268abaaae29f035
+checksum=f3e07fb248d608bdad5b63973513211de5daba47aaecfa44d29a836f6e7a9d69
 
 pre_configure() {
 	NOCONFIGURE=1 ./autogen.sh

@@ -45,6 +45,9 @@ profile dhcpcd /{usr/,}bin/dhcpcd {
   /var/db/dhcpcd/** rw,
   /{usr/,}bin/dhcpcd mrix,
 
+  owner @{PROC}/@{pid}/mountinfo r,
+  owner @{PROC}/@{pid}/stat r,
+
   # Site-specific additions and overrides. See local/README for details.
   #include <local/usr.bin.dhcpcd>
 }

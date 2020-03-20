@@ -5,7 +5,7 @@ run_func() {
 
     : ${funcname:=$func}
 
-    logpipe=$(mktemp -u --tmpdir=${XBPS_STATEDIR} ${pkgname}_${XBPS_CROSS_BUILD}_XXXXXXXX.logpipe)
+    logpipe=$(mktemp -u -p ${XBPS_STATEDIR} ${pkgname}_${XBPS_CROSS_BUILD}_XXXXXXXX.logpipe) || exit 1
     logfile=${XBPS_STATEDIR}/${pkgname}_${XBPS_CROSS_BUILD}_${funcname}.log
 
     msg_normal "${pkgver:-xbps-src}: running ${desc:-${func}} ...\n"
@@ -28,43 +28,43 @@ run_func() {
 }
 
 ch_wrksrc() {
-  cd "$wrksrc" || msg_error "$pkgver: cannot access wrksrc directory [$wrksrc]\n"
-  if [ -n "$build_wrksrc" ]; then
-    cd $build_wrksrc || \
-        msg_error "$pkgver: cannot access build_wrksrc directory [$build_wrksrc]\n"
-  fi
+    cd "$wrksrc" || msg_error "$pkgver: cannot access wrksrc directory [$wrksrc]\n"
+    if [ -n "$build_wrksrc" ]; then
+        cd $build_wrksrc || \
+            msg_error "$pkgver: cannot access build_wrksrc directory [$build_wrksrc]\n"
+    fi
 }
 
 # runs {pre,do,post}_X tripplets
 run_step() {
-  local step_name="$1" optional_step="$2" skip_post_hook="$3"
+    local step_name="$1" optional_step="$2" skip_post_hook="$3"
 
-  ch_wrksrc
-  run_pkg_hooks "pre-$step_name"
+    ch_wrksrc
+    run_pkg_hooks "pre-$step_name"
 
   # Run pre_* Phase
   if declare -f "pre_$step_name" >/dev/null; then
-    ch_wrksrc
-    run_func "pre_$step_name"
+      ch_wrksrc
+      run_func "pre_$step_name"
   fi
 
   ch_wrksrc
   # Run do_* Phase
   if declare -f "do_$step_name" >/dev/null; then
-    run_func "do_$step_name"
+      run_func "do_$step_name"
   elif [ -n "$build_style" ]; then
-    if [ -r $XBPS_BUILDSTYLEDIR/${build_style}.sh ]; then
-      . $XBPS_BUILDSTYLEDIR/${build_style}.sh
-      if declare -f "do_$step_name" >/dev/null; then
-        run_func "do_$step_name"
-      elif [ ! "$optional_step" ]; then
-        msg_error "$pkgver: cannot find do_$step_name() in $XBPS_BUILDSTYLEDIR/${build_style}.sh!\n"
+      if [ -r $XBPS_BUILDSTYLEDIR/${build_style}.sh ]; then
+          . $XBPS_BUILDSTYLEDIR/${build_style}.sh
+          if declare -f "do_$step_name" >/dev/null; then
+              run_func "do_$step_name"
+          elif [ ! "$optional_step" ]; then
+              msg_error "$pkgver: cannot find do_$step_name() in $XBPS_BUILDSTYLEDIR/${build_style}.sh!\n"
+          fi
+      else
+          msg_error "$pkgver: cannot find build style $XBPS_BUILDSTYLEDIR/${build_style}.sh!\n"
       fi
-    else
-      msg_error "$pkgver: cannot find build helper $XBPS_BUILDSTYLEDIR/${build_style}.sh!\n"
-    fi
   elif [ ! "$optional_step" ]; then
-    msg_error "$pkgver: cannot find do_$step_name()!\n"
+      msg_error "$pkgver: cannot find do_$step_name()!\n"
   fi
 
   # Run do_ phase hooks
@@ -72,13 +72,13 @@ run_step() {
 
   # Run post_* Phase
   if declare -f "post_$step_name" >/dev/null; then
-    ch_wrksrc
-    run_func "post_$step_name"
+      ch_wrksrc
+      run_func "post_$step_name"
   fi
 
   if ! [ "$skip_post_hook" ]; then
-    ch_wrksrc
-    run_pkg_hooks "post-$step_name"
+      ch_wrksrc
+      run_pkg_hooks "post-$step_name"
   fi
 }
 
@@ -140,10 +140,10 @@ msg_warn_nochroot() {
 
 msg_normal() {
     if [ -z "$XBPS_QUIET" ]; then
-	    # normal messages in bold
-	    [ -n "$NOCOLORS" ] || printf "\033[1m"
-	    printf "=> $@"
-	    [ -n "$NOCOLORS" ] || printf "\033[m"
+        # normal messages in bold
+        [ -n "$NOCOLORS" ] || printf "\033[1m"
+        printf "=> $@"
+        [ -n "$NOCOLORS" ] || printf "\033[m"
     fi
 }
 
@@ -154,7 +154,7 @@ msg_normal_append() {
 }
 
 set_build_options() {
-    local f j opt optval _optsset pkgopts _pkgname
+    local f j pkgopts _pkgname
     local -A options
 
     if [ -z "$build_options" ]; then
@@ -162,38 +162,28 @@ set_build_options() {
     fi
 
     for f in ${build_options}; do
-        _pkgname=${pkgname//\-/\_}
-        _pkgname=${_pkgname//\+/\_}
+        _pkgname=${pkgname//[^A-Za-z0-9_]/_}
         eval pkgopts="\$XBPS_PKG_OPTIONS_${_pkgname}"
         if [ -z "$pkgopts" -o "$pkgopts" = "" ]; then
             pkgopts=${XBPS_PKG_OPTIONS}
         fi
         OIFS="$IFS"; IFS=','
         for j in ${pkgopts}; do
-            opt=${j#\~}
-            opt_disabled=${j:0:1}
-            if [ "$opt" = "$f" ]; then
-                if [ "$opt_disabled" != "~" ]; then
-                    eval options[$opt]=1
-                else
-                    eval options[$opt]=0
-                fi
-            fi
+            case "$j" in
+                "$f") options[$j]=1 ;;
+                "~$f") options[${j#\~}]=0 ;;
+            esac
         done
         IFS="$OIFS"
     done
 
     for f in ${build_options_default}; do
-        optval=${options[$f]}
-        if [[ -z "$optval" ]] || [[ $optval -eq 1 ]]; then
-            options[$f]=1
-        fi
+        [[ -z "${options[$f]}" ]] && options[$f]=1
     done
 
     # Prepare final options.
     for f in ${!options[@]}; do
-        optval=${options[$f]}
-        if [[ $optval -eq 1 ]]; then
+        if [[ ${options[$f]} -eq 1 ]]; then
             eval export build_option_${f}=1
         else
             eval unset build_option_${f}
@@ -210,25 +200,13 @@ set_build_options() {
         return 0
     fi
 
-    for f in ${build_options}; do
-        eval optval=${options[$f]}
-        if [[ $optval -eq 1 ]]; then
-            _optsset+=" ${f}"
-        else
-            _optsset+=" ~${f}"
-        fi
-    done
-
-    for f in ${_optsset}; do
-        if [ -z "$PKG_BUILD_OPTIONS" ]; then
-            PKG_BUILD_OPTIONS="$f"
-        else
-            PKG_BUILD_OPTIONS+=" $f"
-        fi
-    done
-
     # Sort pkg build options alphabetically.
-    export PKG_BUILD_OPTIONS="$(echo "$PKG_BUILD_OPTIONS"|tr ' ' '\n'|sort|tr '\n' ' ')"
+    export PKG_BUILD_OPTIONS=$(
+        for f in ${build_options}; do
+            [[ "${options[$f]}" -eq 1 ]] || printf '~'
+            printf '%s\n' "$f"
+        done | sort | tr -s '\n' ' '
+    )
 }
 
 source_file() {
@@ -258,27 +236,87 @@ run_pkg_hooks() {
 unset_package_funcs() {
     local f
 
-    for f in $(typeset -F|grep -E '_package$'); do
-        eval unset -f $f
+    for f in $(typeset -F); do
+        case "$f" in
+            *_package)
+                unset -f "$f"
+                ;;
+        esac
     done
 }
 
-get_subpkgs() {
-    local args list
+get_endian() {
+    local arch="${1%-*}"
 
-    args="$(typeset -F|grep -E '_package$')"
-    set -- ${args}
-    while [ $# -gt 0 ]; do
-        list+=" ${3%_package}"; shift 3
-    done
-    for f in ${list}; do
-        echo "$f"
+    case "$arch" in
+        aarch64)  echo "le";;
+        armv5tel) echo "le";;
+        armv6l)   echo "le";;
+        armv7l)   echo "le";;
+        i686)     echo "le";;
+        mipsel*)  echo "le";;
+        mips*)    echo "be";;
+        ppc64le)  echo "le";;
+        ppc64)    echo "be";;
+        ppc)      echo "be";;
+        x86_64)   echo "le";;
+    esac
+}
+
+get_libc() {
+    local arch="${1%-*}"
+
+    if [ "${arch}" = "$1" ]; then
+        echo "glibc"
+    else
+        echo "${1#${arch}-}"
+    fi
+}
+
+get_wordsize() {
+    local arch="${1%-*}"
+
+    case "$arch" in
+        aarch64)  echo "64";;
+        armv5tel) echo "32";;
+        armv6l)   echo "32";;
+        armv7l)   echo "32";;
+        i686)     echo "32";;
+        mipsel*)  echo "32";;
+        mips*)    echo "32";;
+        ppc64le)  echo "64";;
+        ppc64)    echo "64";;
+        ppc)      echo "32";;
+        x86_64)   echo "64";;
+    esac
+}
+
+get_no_atomic8() {
+    local arch="${1%-*}"
+
+    case "$arch" in
+        armv5tel) echo "yes";;
+        armv6l)   echo "yes";;
+        mips*)    echo "yes";;
+        ppc)      echo "yes";;
+    esac
+}
+
+get_subpkgs() {
+    local f
+
+    for f in $(typeset -F); do
+        case "$f" in
+            *_package)
+                echo "${f%_package}"
+                ;;
+        esac
     done
 }
 
 setup_pkg() {
     local pkg="$1" cross="$2" show_problems="$3"
-    local basepkg val _vars f dbgflags arch
+    local basepkg val _vars f dbgflags arch extrarepo
 
     [ -z "$pkg" ] && return 1
     basepkg=${pkg%-32bit}
@@ -288,8 +326,6 @@ setup_pkg() {
     unset -v subpackages run_depends build_depends host_build_depends
 
     unset_package_funcs
-
-    . $XBPS_CONFIG_FILE 2>/dev/null
 
     if [ -n "$cross" ]; then
         source_file $XBPS_CROSSPFDIR/${cross}.sh
@@ -304,15 +340,15 @@ setup_pkg() {
         done
 
         export XBPS_CROSS_BASE=/usr/$XBPS_CROSS_TRIPLET
-        export XBPS_TARGET_QEMU_MACHINE="$XBPS_TARGET_QEMU_MACHINE"
+        export XBPS_TARGET_QEMU_MACHINE
 
-        XBPS_INSTALL_XCMD="env XBPS_TARGET_ARCH=$XBPS_TARGET_MACHINE $XBPS_INSTALL_CMD -c /host/repocache -r $XBPS_CROSS_BASE"
-        XBPS_QUERY_XCMD="env XBPS_TARGET_ARCH=$XBPS_TARGET_MACHINE $XBPS_QUERY_CMD -c /host/repocache -r $XBPS_CROSS_BASE"
+        XBPS_INSTALL_XCMD="env XBPS_TARGET_ARCH=$XBPS_TARGET_MACHINE $XBPS_INSTALL_CMD -c /host/repocache-$XBPS_TARGET_MACHINE -r $XBPS_CROSS_BASE"
+        XBPS_QUERY_XCMD="env XBPS_TARGET_ARCH=$XBPS_TARGET_MACHINE $XBPS_QUERY_CMD -c /host/repocache-$XBPS_TARGET_MACHINE -r $XBPS_CROSS_BASE"
         XBPS_RECONFIGURE_XCMD="env XBPS_TARGET_ARCH=$XBPS_TARGET_MACHINE $XBPS_RECONFIGURE_CMD -r $XBPS_CROSS_BASE"
         XBPS_REMOVE_XCMD="env XBPS_TARGET_ARCH=$XBPS_TARGET_MACHINE $XBPS_REMOVE_CMD -r $XBPS_CROSS_BASE"
         XBPS_RINDEX_XCMD="env XBPS_TARGET_ARCH=$XBPS_TARGET_MACHINE $XBPS_RINDEX_CMD"
         XBPS_UHELPER_XCMD="env XBPS_TARGET_ARCH=$XBPS_TARGET_MACHINE xbps-uhelper -r $XBPS_CROSS_BASE"
-
+        XBPS_CHECKVERS_XCMD="env XBPS_TARGET_ARCH=$XBPS_TARGET_MACHINE xbps-checkvers -r $XBPS_CROSS_BASE"
     else
         export XBPS_TARGET_MACHINE=${XBPS_ARCH:-$XBPS_MACHINE}
         unset XBPS_CROSS_BASE XBPS_CROSS_LDFLAGS XBPS_CROSS_FFLAGS
@@ -325,8 +361,17 @@ setup_pkg() {
         XBPS_REMOVE_XCMD="$XBPS_REMOVE_CMD"
         XBPS_RINDEX_XCMD="$XBPS_RINDEX_CMD"
         XBPS_UHELPER_XCMD="$XBPS_UHELPER_CMD"
-
+        XBPS_CHECKVERS_XCMD="$XBPS_CHECKVERS_CMD"
     fi
+
+    export XBPS_ENDIAN=$(get_endian ${XBPS_MACHINE})
+    export XBPS_TARGET_ENDIAN=$(get_endian ${XBPS_TARGET_MACHINE})
+    export XBPS_LIBC=$(get_libc ${XBPS_MACHINE})
+    export XBPS_TARGET_LIBC=$(get_libc ${XBPS_TARGET_MACHINE})
+    export XBPS_WORDSIZE=$(get_wordsize ${XBPS_MACHINE})
+    export XBPS_TARGET_WORDSIZE=$(get_wordsize ${XBPS_TARGET_MACHINE})
+    export XBPS_NO_ATOMIC8=$(get_no_atomic8 ${XBPS_MACHINE})
+    export XBPS_TARGET_NO_ATOMIC8=$(get_no_atomic8 ${XBPS_TARGET_MACHINE})
 
     export XBPS_INSTALL_XCMD XBPS_QUERY_XCMD XBPS_RECONFIGURE_XCMD \
         XBPS_REMOVE_XCMD XBPS_RINDEX_XCMD XBPS_UHELPER_XCMD
@@ -372,12 +417,9 @@ setup_pkg() {
     esac
 
     # Check if base-chroot is already installed.
-    if [ -z "$bootstrap" -a "z$show_problems" != "zignore-problems" ]; then
-        check_installed_pkg base-chroot-0.1_1
-        if [ $? -ne 0 ]; then
-            msg_red "${pkg} is not a bootstrap package and cannot be built without it.\n"
-            msg_error "Please install bootstrap packages and try again.\n"
-        fi
+    if [ -z "$bootstrap" -a -z "$CHROOT_READY" -a "z$show_problems" != "zignore-problems" ]; then
+        msg_red "${pkg} is not a bootstrap package and cannot be built without it.\n"
+        msg_error "Please install bootstrap packages and try again.\n"
     fi
 
     sourcepkg="${pkgname}"
@@ -423,7 +465,12 @@ setup_pkg() {
         arch="$XBPS_TARGET_MACHINE"
     fi
     if [ -n "$XBPS_BINPKG_EXISTS" ]; then
-        if [ "$($XBPS_QUERY_XCMD -R -ppkgver $pkgver 2>/dev/null)" = "$pkgver" ]; then
+        local _binpkgver="$($XBPS_QUERY_XCMD -R -ppkgver $pkgver 2>/dev/null)"
+        if [ "$_binpkgver" = "$pkgver" ]; then
+            if [ -z "$XBPS_DEPENDENCY" ]; then
+                local _repo="$($XBPS_QUERY_XCMD -R -prepository $pkgver 2>/dev/null)"
+                msg_normal "xbps-src: $pkgver: found ($XBPS_TARGET_MACHINE) ($_repo)\n"
+            fi
             exit_and_cleanup
         fi
     fi
@@ -453,6 +500,10 @@ setup_pkg() {
     export LDFLAGS="$XBPS_LDFLAGS $XBPS_CROSS_LDFLAGS $LDFLAGS"
 
     export BUILD_CC="cc"
+    export BUILD_CXX="c++"
+    export BUILD_CPP="cpp"
+    export BUILD_FC="gfortran"
+    export BUILD_LD="ld"
     export BUILD_CFLAGS="$XBPS_CFLAGS"
     export BUILD_CXXFLAGS="$XBPS_CXXFLAGS"
     export BUILD_CPPFLAGS="$XBPS_CPPFLAGS"
@@ -573,17 +624,17 @@ setup_pkg() {
         wrksrc="$XBPS_BUILDDIR/$wrksrc"
     fi
 
-    if [ "$cross" -a "$nocross" -a "z$show_problems" != "zignore-problems" ]; then
+    if [ "$cross" -a "$nocross" -a "$show_problems" != "ignore-problems" ]; then
         msg_red "$pkgver: cannot be cross compiled, exiting...\n"
         msg_red "$pkgver: $nocross\n"
         exit 2
-    elif [ "$broken" -a "z$show_problems" != "zignore-problems" ]; then
+    elif [ "$broken" -a "$show_problems" != "ignore-problems" ]; then
         msg_red "$pkgver: cannot be built, it's currently broken; see the build log:\n"
         msg_red "$pkgver: $broken\n"
         exit 2
     fi
 
-    if [ -n "$restricted" -a -z "$XBPS_ALLOW_RESTRICTED" -a "z$show_problems" != "zignore-problems" ]; then
+    if [ -n "$restricted" -a -z "$XBPS_ALLOW_RESTRICTED" -a "$show_problems" != "ignore-problems" ]; then
         msg_red "$pkgver: does not allow redistribution of sources/binaries (restricted license).\n"
         msg_red "If you really need this software, run 'echo XBPS_ALLOW_RESTRICTED=yes >> etc/conf'\n"
         exit 2
@@ -592,9 +643,7 @@ setup_pkg() {
     export XBPS_STATEDIR="${XBPS_BUILDDIR}/.xbps-${sourcepkg}"
     export XBPS_WRAPPERDIR="${XBPS_STATEDIR}/wrappers"
 
-    if [ -n "$bootstrap" -a -z "$CHROOT_READY" -o -n "$IN_CHROOT" ]; then
-        mkdir -p $XBPS_WRAPPERDIR
-    fi
+    mkdir -p $XBPS_STATEDIR $XBPS_WRAPPERDIR
 
     source_file $XBPS_COMMONDIR/environment/build-style/${build_style}.sh
 

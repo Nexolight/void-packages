@@ -1,9 +1,9 @@
 # Template file for 'python3-aniso8601'
 pkgname=python3-aniso8601
-version=6.0.0
-revision=1
+version=8.0.0
+revision=2
 archs=noarch
-_gitver=6841a78ecc9c
+_gitver=0ec13b9d81c9
 wrksrc="nielsenb-aniso8601-${_gitver}"
 build_style=python3-module
 pycompile_module="aniso8601"
@@ -14,7 +14,7 @@ maintainer="Andrew Benson <abenson+void@gmail.com>"
 license="MIT"
 homepage="https://bitbucket.org/nielsenb/aniso8601"
 distfiles="${homepage}/get/v${version}.tar.gz"
-checksum=fc5ec805d38efb61f3c25c79c89aae7b1b49be2f5857e039136ae88cb238b4dd
+checksum=4947491026822bfc5711f3f51f9b4399996c6fe7b635e38e3e260c1f6cd81bd2
 
 post_install() {
 	vlicense LICENSE

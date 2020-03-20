@@ -1,6 +1,6 @@
 # Template file for 'iptables'
 pkgname=iptables
-version=1.8.2
+version=1.8.4
 revision=1
 build_style=gnu-configure
 configure_args="--enable-libipq --enable-shared --enable-devel --enable-bpf-compiler"
@@ -8,11 +8,18 @@ hostmakedepends="pkg-config flex"
 makedepends="libpcap-devel libfl-devel libmnl-devel libnfnetlink-devel
  libnetfilter_conntrack-devel libnftnl-devel"
 short_desc="Linux IPv[46] packet filtering ruleset"
-maintainer="Juan RP <xtraeme@voidlinux.org>"
+maintainer="Anthony Iliopoulos <ailiop@altatus.com>"
 license="GPL-2.0-or-later"
 homepage="https://www.netfilter.org/"
-distfiles="${homepage}/projects/iptables/files/${pkgname}-${version}.tar.bz2"
-checksum=a3778b50ed1a3256f9ca975de82c2204e508001fc2471238c8c97f3d1c4c12af
+distfiles="https://www.netfilter.org/projects/iptables/files/iptables-${version}.tar.bz2"
+checksum=993a3a5490a544c2cbf2ef15cf7e7ed21af1845baf228318d5c36ef8827e157c
+	alternatives="
+		iptables:ip6tables:/usr/bin/xtables-legacy-multi
+		iptables:ip6tables-restore:/usr/bin/xtables-legacy-multi
+		iptables:ip6tables-save:/usr/bin/xtables-legacy-multi
+		iptables:iptables:/usr/bin/xtables-legacy-multi
+		iptables:iptables-restore:/usr/bin/xtables-legacy-multi
+		iptables:iptables-save:/usr/bin/xtables-legacy-multi"
 
 pre_build() {
 	rm include/linux/types.h
@@ -31,6 +38,9 @@ post_install() {
 		vinstall ${FILESDIR}/empty-${f}.rules 644 \
 			var/lib/iptables empty-${f}.rules
 	done
+	for i in ip{6,}tables{-save,-restore,} ; do
+		rm -f "usr/bin/${i}"
+	done
 }
 
 iptables-devel_package() {
@@ -42,4 +52,17 @@ iptables-devel_package() {
 		vmove usr/lib/pkgconfig
 		vmove usr/share/man/man3
 	}
+}
+
+iptables-nft_package() {
+	build_style=meta
+	depends="${sourcepkg}>=${version}_${revision}"
+	short_desc="Iptables-compatible wrapper commands for nftables"
+	alternatives="
+		iptables:ip6tables:/usr/bin/xtables-nft-multi
+		iptables:ip6tables-restore:/usr/bin/xtables-nft-multi
+		iptables:ip6tables-save:/usr/bin/xtables-nft-multi
+		iptables:iptables:/usr/bin/xtables-nft-multi
+		iptables:iptables-restore:/usr/bin/xtables-nft-multi
+		iptables:iptables-save:/usr/bin/xtables-nft-multi"
 }

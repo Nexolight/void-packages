@@ -1,6 +1,7 @@
 # Template file for 'meson'
 pkgname=meson
-version=0.50.1
+reverts="0.52.0_1 0.52.0_2"
+version=0.53.2
 revision=1
 archs=noarch
 build_style=python3-module
@@ -12,16 +13,16 @@ checkdepends="glib-devel gobject-introspection libsanitizer-devel ninja
 short_desc="Super fast build system"
 maintainer="Dylan Katz <muddmaker.97@gmail.com>"
 license="Apache-2.0"
-homepage="http://mesonbuild.com"
-changelog="https://raw.githubusercontent.com/mesonbuild/meson/master/docs/markdown/Release-notes-for-${version%.?}.0.md"
-distfiles="https://github.com/mesonbuild/meson/archive/${version}.tar.gz"
-checksum=e9f52047f26636ee512439c01755064656db5faecdd68e9af09dc772d829198c
+homepage="https://mesonbuild.com"
+changelog="https://github.com/mesonbuild/$pkgname/blob/master/docs/markdown/Release-notes-for-${version%.*}.0.md"
+distfiles="https://github.com/mesonbuild/$pkgname/releases/download/$version/$pkgname-$version.tar.gz"
+checksum=3e8f830f33184397c2eb0b651ec502adb63decb28978bdc84b3558d71284c21f
 
 do_check() {
 	# meson depends on trillion of things to perform actual tests
 	# see checkdepends=() on arch
-	# 3 tests still fails
-	./run_unittests.py
+	# 1 test still fails
+	( CC=gcc ./run_unittests.py )
 }
 
 post_install() {

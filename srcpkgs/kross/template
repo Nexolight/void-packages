@@ -1,22 +1,23 @@
 # Template file for 'kross'
 pkgname=kross
-version=5.58.0
+version=5.68.0
 revision=1
 build_style=cmake
-configure_args="-DBUILD_TESTING=OFF"
-hostmakedepends="kcoreaddons extra-cmake-modules"
+configure_args="-DBUILD_TESTING=OFF
+ -DMEINPROC5_EXECUTABLE=/usr/bin/meinproc5"
+hostmakedepends="kcoreaddons extra-cmake-modules gettext
+ qt5-host-tools qt5-qmake python kdoctools-devel"
 makedepends="qt5-tools-devel kdoctools-devel kparts-devel"
 short_desc="KDE scripting bridge"
 maintainer="John <johnz@posteo.net>"
 license="LGPL-2.1-or-later"
 homepage="https://projects.kde.org/projects/frameworks/kross"
 distfiles="${KDE_SITE}/frameworks/${version%.*}/portingAids/${pkgname}-${version}.tar.xz"
-checksum=b71c521718acd9829124264e97990222c458eca4a2e0be471a853db55b07d872
+checksum=2f5a79a2097f84bfd2033ca183abdbf6626f6e5dc2c6f781c312f15c97dace33
 
-if [ "$CROSS_BUILD" ]; then
-	hostmakedepends+=" qt5-host-tools qt5-qmake python kdoctools-devel"
-	configure_args+=" -DMEINPROC5_EXECUTABLE=/usr/bin/meinproc5"
-fi
+case "$XBPS_TARGET_MACHINE" in
+	armv6l-musl) makedepends+=" libatomic-devel";;
+esac
 
 kross-devel_package() {
 	short_desc+=" - development"

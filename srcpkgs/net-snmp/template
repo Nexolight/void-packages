@@ -1,12 +1,12 @@
 # Template file for 'net-snmp'
 pkgname=net-snmp
 version=5.8
-revision=3
+revision=4
 hostmakedepends="pkg-config unzip"
 makedepends="bzip2-devel libressl-devel libnl-devel pciutils-devel
  libsensors-devel pcre-devel"
 short_desc="Simple Network Management Protocol (SNMP) suite"
-maintainer="Juan RP <xtraeme@voidlinux.org>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="Net-SNMP"
 homepage="http://www.net-snmp.org/"
 distfiles="${SOURCEFORGE_SITE}/${pkgname}/${pkgname}-${version}.tar.gz"

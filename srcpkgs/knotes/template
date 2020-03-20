@@ -1,15 +1,15 @@
 # Template file for 'knotes'
 pkgname=knotes
-version=19.04.1
+version=19.12.3
 revision=1
 build_style=cmake
 hostmakedepends="extra-cmake-modules qt5-qmake qt5-host-tools libxslt
- kcoreaddons kdoctools kconfig"
+ kcoreaddons kdoctools kconfig gettext"
 makedepends="akonadi-notes-devel kcalutils-devel kdelibs4support-devel kdnssd-devel
- knotifyconfig-devel kontactinterface-devel pimcommon-devel"
+ knotifyconfig-devel kontactinterface-devel pimcommon-devel grantleetheme-devel"
 short_desc="Popup notes"
-maintainer="Helmut Pozimski <helmut@pozimski.eu>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="GPL-2.0-or-later, GFDL-1.2-only"
 homepage="https://www.kde.org/applications/utilities/knotes"
-distfiles="${KDE_SITE}/applications/${version}/src/${pkgname}-${version}.tar.xz"
-checksum=b5cc805c657622e8cc4ab0ea07f30ea0258e767a87e525bc02fbc7d6ee9d7ec9
+distfiles="${KDE_SITE}/release-service/${version}/src/${pkgname}-${version}.tar.xz"
+checksum=b27846609dfac1ffcb3ac5e7165b7557231b096f6a84206da956c37233aed7b0

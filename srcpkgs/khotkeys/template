@@ -1,18 +1,23 @@
 # Template file for 'khotkeys'
 pkgname=khotkeys
-version=5.15.5
+version=5.18.3
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
 hostmakedepends="extra-cmake-modules kdoctools kcoreaddons qt5-qmake
- qt5-host-tools"
+ gettext qt5-host-tools"
 makedepends="kdesignerplugin-devel kdoctools plasma-workspace-devel"
 short_desc="KDE Hotkeys"
 maintainer="John <johnz@posteo.net>"
 license="GPL-2.0-only, LGPL-2.0-or-later"
 homepage="https://projects.kde.org/projects/plasma/khotkeys"
 distfiles="${KDE_SITE}/plasma/${version}/${pkgname}-${version}.tar.xz"
-checksum=59dd6a571d52401b1963cde732b6c6c589a328438155ec0e0c5c77b5ac029127
+checksum=e2b459da176c369fecc46a0dfa151266e4778194b3b8d81c4d7bc423301ff204
+
+case "$XBPS_TARGET_MACHINE" in
+	armv[56]*) broken="xorg-server-xwayland is not available"
+	;;
+esac
 
 if [ "$CROSS_BUILD" ]; then
 	configure_args+=" -DDESKTOPTOJSON_EXECUTABLE=/usr/bin/desktoptojson"

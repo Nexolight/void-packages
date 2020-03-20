@@ -1,7 +1,7 @@
 # Template file for 'minetest'
 pkgname=minetest
-version=5.0.1
-revision=2
+version=5.1.1
+revision=1
 build_style=cmake
 configure_args="-DRUN_IN_PLACE=0 -DENABLE_GETTEXT=1 -DENABLE_FREETYPE=1 -DBUILD_SERVER=TRUE"
 hostmakedepends="pkg-config"
@@ -10,13 +10,13 @@ makedepends="LuaJIT-devel MesaLib-devel freetype-devel gmp-devel irrlicht-devel
  sqlite-devel"
 depends="desktop-file-utils hicolor-icon-theme"
 short_desc="InfiniMiner/Minecraft inspired game"
-maintainer="Juan RP <xtraeme@voidlinux.org>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="LGPL-2.1-or-later"
 homepage="https://www.minetest.net"
 distfiles="https://github.com/minetest/minetest/archive/${version}.tar.gz
  https://github.com/minetest/minetest_game/archive/${version}.tar.gz>minetest_game-${version}.tar.gz"
-checksum="aa771cf178ad1b436d5723e5d6dd24e42b5d56f1cfe9c930f6426b7f24bb1635
- 965d2cf3ac8c822bc9e60fb8f508182fb2f24dde46f46b000caf225ebe2ec519"
+checksum="65d483bce244827de174edcb30f7e453b06a7590da6cdeb7a2237ff6180c090b
+ 89dbb7cad2a1cec1ca0cdaa0f0eafc5699676bcd6880891c7720a10dfe7f6af9"
 
 pre_install() {
 	# Install the minetest_game subgame.

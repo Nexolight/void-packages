@@ -1,20 +1,24 @@
 # Template file for 'marble5'
 pkgname=marble5
-version=19.04.1
+version=19.12.3
 revision=1
 wrksrc="marble-${version}"
 build_style=cmake
 configure_args="-DBUILD_MARBLE_TESTS=NO -DKF5_HOST_TOOLING=/usr/lib/cmake"
 hostmakedepends="extra-cmake-modules kconfig-devel kcoreaddons-devel kdoctools
- kpackage-devel perl qt5-host-tools qt5-qmake"
+ kpackage-devel perl qt5-host-tools qt5-qmake gettext"
 makedepends="gpsd-devel knewstuff-devel kparts-devel krunner-devel phonon-qt5-devel
  qt5-location-devel qt5-serialport-devel qt5-webkit-devel shapelib-devel"
 short_desc="Virtual globe and world atlas"
 maintainer="Piotr Wójcik <chocimier@tlen.pl>"
 license="LGPL-2.1-or-later, GFDL-1.2-only"
 homepage="https://marble.kde.org"
-distfiles="${KDE_SITE}/applications/${version}/src/marble-${version}.tar.xz"
-checksum=acd9c15c4758684f6eff6c2318fc4dd88fd68dd41336de9458cad4d5f6832c61
+distfiles="${KDE_SITE}/release-service/${version}/src/marble-${version}.tar.xz"
+checksum=73a2c5234f8a1728e2a97499166e7bbf8dfb2f48d10fe8cff96380631d064627
+
+pre_configure() {
+	vsed -i CMakeLists.txt -e 's/-Wcast-align//'
+}
 
 marble5-devel_package() {
 	short_desc+=" - development files"
@@ -24,5 +28,6 @@ marble5-devel_package() {
 		vmove usr/include
 		vmove "usr/lib/*.so"
 		vmove usr/lib/cmake
+		vmove usr/lib/qt5/mkspecs
 	}
 }

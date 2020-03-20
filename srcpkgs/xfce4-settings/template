@@ -1,6 +1,6 @@
 # Template file for 'xfce4-settings'
 pkgname=xfce4-settings
-version=4.12.4
+version=4.14.2
 revision=1
 build_style=gnu-configure
 configure_args="--enable-sound-settings --enable-pluggable-dialogs"
@@ -10,9 +10,9 @@ makedepends="exo-devel garcon-devel libcanberra-devel libnotify-devel
 depends="desktop-file-utils gnome-icon-theme"
 conf_files="/etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml"
 short_desc="Xfce settings manager"
-maintainer="Juan RP <xtraeme@voidlinux.org>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="GPL-2.0-only"
 homepage="https://xfce.org/"
-changelog="https://raw.githubusercontent.com/xfce-mirror/xfce4-settings/master/NEWS"
+changelog="https://raw.githubusercontent.com/xfce-mirror/xfce4-settings/xfce-4.14/NEWS"
 distfiles="https://archive.xfce.org/src/xfce/${pkgname}/${version%.*}/${pkgname}-${version}.tar.bz2"
-checksum=e2a04cad48bf9e951409d0c841829fa3b4ce632cd799082ef82d0506618b6f9b
+checksum=ebf70ff83e4fd0cb33fa0c3e871ca4df5127a505b30b83a6f780cf3f181b0af5

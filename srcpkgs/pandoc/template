@@ -1,28 +1,36 @@
 # Template file for 'pandoc'
 pkgname=pandoc
 # Keep in sync with http://www.stackage.org/lts
-version=2.5
+version=2.9.1.1
 revision=1
-_citeproc_version=0.15.0.1
+_citeproc_version=0.16.4.1
+_sidenote_version=0.20.0
+_monad_gen_version=0.3.0.1
 create_wrksrc=yes
 build_style=haskell-stack
 make_build_args="
- --flag pandoc:embed_data_files --flag pandoc-citeproc:embed_data_files"
-stackage="lts-13.2"
-hostmakedepends="unzip wget"
-makedepends="zlib-devel"
+ --flag pandoc:embed_data_files --flag pandoc-citeproc:embed_data_files
+ --flag=hslua:system-lua --flag=hslua:pkg-config"
+stackage="lts-15.3"
+hostmakedepends="pkg-config unzip wget"
+makedepends="zlib-devel lua-devel"
 short_desc="Universal converter between markup formats (with citeproc support)"
 maintainer="Leah Neukirchen <leah@vuxu.org>"
 license="GPL-2.0-or-later"
 homepage="http://johnmacfarlane.net/pandoc/"
 distfiles="http://hackage.haskell.org/package/${pkgname}-${version}/${pkgname}-${version}.tar.gz
- http://hackage.haskell.org/package/${pkgname}-citeproc-${_citeproc_version}/${pkgname}-citeproc-${_citeproc_version}.tar.gz"
-checksum="d57dc5db78a0a304de70436fe59a7599ab0c6d0fb2ab6704eeae498a4536222e
- 29db5f2aad3225859727271855461724574f3695ab3856ceac33b24a55ae92f8"
+ http://hackage.haskell.org/package/${pkgname}-citeproc-${_citeproc_version}/${pkgname}-citeproc-${_citeproc_version}.tar.gz
+ https://github.com/jez/pandoc-sidenote/archive/${_sidenote_version}.tar.gz \
+ https://hackage.haskell.org/package/monad-gen-${_monad_gen_version}/monad-gen-${_monad_gen_version}.tar.gz"
+checksum="9d21c5efe2074f9b3097a20e0798de9d8b89a86a1ce04a307f476c7b4aa3816d
+ bd726878595ca66376c9536addc81a19bbab8f3517d41aa72165582dd0336dc9
+ 34ee7f46d6472c04884b1dcb030d701a32b885d9b0d4307d2c0da327a359cb7a
+ be8485023fce236b5b915f2f6074f7b0470a2040f84cdd137c5227f1b4c98465"
 nocross=yes
 nopie_files="
  /usr/bin/pandoc
  /usr/bin/pandoc-citeproc
+ /usr/bin/pandoc-sidenote
 "
 
 post_extract() {
@@ -34,4 +42,5 @@ post_install() {
 	vman pandoc-citeproc-${_citeproc_version}/man/man1/pandoc-citeproc.1
 	vlicense pandoc-${version}/COPYRIGHT LICENSE.pandoc
 	vlicense pandoc-citeproc-${_citeproc_version}/LICENSE LICENSE.pandoc-citeproc
+	vlicense pandoc-sidenote-${_sidenote_version}/LICENSE LICENSE.pandoc-sidenote
 }

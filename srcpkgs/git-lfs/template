@@ -1,6 +1,6 @@
 # Template file for 'git-lfs'
 pkgname=git-lfs
-version=2.7.2
+version=2.9.2
 revision=1
 build_style=go
 go_import_path="github.com/git-lfs/git-lfs"
@@ -10,7 +10,7 @@ maintainer="Michael Aldridge <maldridge@voidlinux.org>"
 license="MIT"
 homepage="https://git-lfs.github.com/"
 distfiles="https://github.com/git-lfs/${pkgname}/archive/v${version}.tar.gz"
-checksum=e65659f12ec557ae8c778c01ca62d921413221864b68bd93cfa41399028ae67f
+checksum=77358e12545415a6716b1e0228540f0e90619f1738dfe114cd3e5c30d43ffffd
 
 post_install() {
 	vlicense LICENSE.md

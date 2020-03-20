@@ -1,14 +1,14 @@
 # Template file for 'glibc'
 pkgname=glibc
-version=2.29
-revision=5
+version=2.30
+revision=1
 bootstrap=yes
 short_desc="GNU C library"
-maintainer="Juan RP <xtraeme@voidlinux.org>"
+maintainer="Enno Boland <gottox@voidlinux.org>"
 license="GPL-2.0-or-later, LGPL-2.1-or-later, BSD-3-Clause"
 homepage="http://www.gnu.org/software/libc"
 distfiles="${GNU_SITE}/glibc/glibc-${version}.tar.xz"
-checksum=f3eeb8d57e25ca9fc13c2af3dae97754f9f643bc69229546828e3a240e2af04b
+checksum=e2c4114e569afbe7edbc29131a43be833850ab9a459d81beb2588016d2bbb8af
 patch_args="-Np1"
 # Do not strip these files, objcopy errors out.
 nostrip_files="
@@ -48,7 +48,7 @@ conf_files="
 	/etc/gai.conf
 	/etc/ld.so.conf"
 if [ "$CHROOT_READY" ]; then
-	hostmakedepends="bison perl python3"
+	hostmakedepends="bison perl python3 texinfo"
 fi
 makedepends="kernel-libc-headers"
 lib32files="/usr/lib/gconv/gconv-modules"
@@ -107,6 +107,7 @@ do_configure() {
 		--without-selinux --without-cvs --without-gd \
 		--disable-lock-elision --enable-obsolete-nsl \
 		--enable-stack-protector=strong \
+		--with-headers=${XBPS_CROSS_BASE}/usr/include \
 		--disable-werror \
 		libc_cv_rootsbindir=/usr/bin \
 		libc_cv_rtlddir=${_libdir} libc_cv_slibdir=${_libdir}
@@ -171,6 +172,18 @@ do_install() {
 	rm -f ${DESTDIR}/usr/bin/z{dump,ic}
 
 	mv ${DESTDIR}/usr/sbin/* ${DESTDIR}/usr/bin
+
+	# Create xbps.d(5) arch override file for 32-bit architectures
+	# 32-bit userlands may be used with 64-bit kernels and then
+	# xbps will report an incorrect architecture by default
+	case "$XBPS_TARGET_MACHINE" in
+		i686|ppc|armv*)
+			vmkdir usr/share/xbps.d
+			echo "architecture=${XBPS_TARGET_MACHINE}" > \
+				${DESTDIR}/usr/share/xbps.d/arch-32bit.conf
+			;;
+		*) ;;
+	esac
 }
 
 glibc-devel_package() {

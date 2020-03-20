@@ -1,7 +1,7 @@
 # Template file for 'prometheus'
 pkgname=prometheus
-version=2.8.1
-revision=2
+version=2.16.0
+revision=1
 build_style=go
 go_import_path="github.com/prometheus/prometheus"
 go_package="github.com/prometheus/prometheus/cmd/prometheus github.com/prometheus/prometheus/cmd/promtool"
@@ -9,17 +9,23 @@ go_ldflags="-X ${go_import_path}/version.Version=${version}
  -X ${go_import_path}/version.Revision=${version}
  -X ${go_import_path}/version.Branch=${version}
  -X ${go_import_path}/version.BuildUser=VoidLinux"
+go_build_tags="netgo,builtinassets"
+hostmakedepends="yarn"
 conf_files="/etc/prometheus/prometheus.yml"
-maintainer="Toyam Cox <Vaelatern@voidlinux.org>"
 short_desc="Monitoring system and time series database"
+maintainer="Toyam Cox <Vaelatern@voidlinux.org>"
 license="Apache-2.0"
 homepage="https://prometheus.io/"
 distfiles="https://github.com/prometheus/prometheus/archive/v${version}.tar.gz"
-checksum=5b967e890b8675e94459f49867d980c738cb42b2f479cd3b1a223ad1382944c1
+checksum=5649b33a752eb231f86649a4781af2a532d7df5afb212bf0e6ec57fd1826cbbc
 
 system_accounts="_prometheus"
 
 make_dirs="/var/lib/prometheus 700 _prometheus _prometheus"
+
+pre_build() {
+	CGO_ENABLED=0 GOARCH= make assets
+}
 
 post_install() {
 	vlicense LICENSE

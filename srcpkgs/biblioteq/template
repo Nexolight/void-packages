@@ -1,6 +1,6 @@
 # Template file for 'biblioteq'
 pkgname=biblioteq
-version=2019.03.15
+version=2020.01.01
 revision=1
 build_style=qmake
 configure_args="-o Makefile"
@@ -12,7 +12,7 @@ maintainer="Orphaned <orphan@voidlinux.org>"
 license="BSD-3-Clause"
 homepage="https://textbrowser.github.io/biblioteq/"
 distfiles="https://github.com/textbrowser/biblioteq/archive/${version}.tar.gz"
-checksum=d574c9e55f6d2c370953c1a7fb2ffddab35de32b407b315391d2b42df65b352a
+checksum=e07ffccbee4e1f34a93ab3d9277c393669091b8a957c648bbcce65159f9e0d86
 
 conf_files="/etc/biblioteq.conf"
 
