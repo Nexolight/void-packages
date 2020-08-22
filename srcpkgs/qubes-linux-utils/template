@@ -61,7 +61,7 @@ do_install(){
 qubes-linux-utils-dkms_package(){
 	short_desc="kernel module sources for dkms"
 	dkms_modules="u2mfn ${version}"
-	depends="qubes-linux-utils qubes-core-agent-linux dkms grub btrfs-progs linux linux-headers busybox"
+	depends="qubes-linux-utils dkms grub btrfs-progs linux linux-headers busybox"
 	noarch="yes"
 
 	pkg_install(){

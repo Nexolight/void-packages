@@ -1,0 +1,47 @@
+# Template file for 'LookingGlass'
+pkgname=LookingGlass
+version=12
+revision=B2-rc4
+#wrksrc=
+#create_wrksrc=yes
+#only_for_archs="i686 x86_64"
+build_style=gnu-makefile
+#configure_args=""
+#make_build_args=""
+#make_install_args=""
+#conf_files=""
+#make_dirs="/var/log/dir 0755 root root"
+hostmakedepends="pkg-config"
+makedepends="SDL2_ttf-devel spice-protocol libconfig-devel
+ fontconfig-devel libva-glx-devel libressl-devel git nettle-devel spice-devel"
+depends="spice-protocol nettle"
+short_desc="An extremely low latency KVM FrameReleas for VGA PCIe Passthrough"
+maintainer="nexolight <snow.dream.ch@gmail.com>"
+license="GPL-2"
+homepage="https://looking-glass.hostfission.com"
+wrksrc="${pkgname}-a${version}"
+distfiles="https://looking-glass.hostfission.com/ci/host/source?id=236"
+suffix=".zip"
+checksum=c458d5c323a893acd8a763714cb426b5bfff7e53e48400442c8d8dfcf1bd02e9
+
+
+do_config(){
+	echo "There's nothing to configure - skip"
+}
+
+do_build(){
+	make -j ${makejobs} -C client
+}
+
+do_install(){
+	cd client
+	vmkdir /usr/bin
+	vmkdir /usr/lib
+	vcopy bin/looking-glass-client /usr/bin
+	vcopy bin/*.so /usr/lib
+
+	vmkdir /opt/LookingGlass/windows/driver
+	vmkdir /opt/LookingGlass/windows/host
+	vinstall ${FILESDIR}/ivshmem2.zip 755 /opt/${pkgname}/windows/driver
+	vinstall ${FILESDIR}/looking-glass-host-a${version}.zip 755 /opt/${pkgname}/windows/host
+}
