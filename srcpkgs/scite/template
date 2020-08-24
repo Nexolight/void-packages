@@ -1,16 +1,16 @@
 # Template file for 'scite'
 pkgname=scite
-version=4.3.2
-revision=1
+version=4.4.4
+revision=2
 create_wrksrc=yes
 hostmakedepends="pkg-config"
-makedepends="gtk+-devel lua-devel"
+makedepends="gtk+-devel lua53-devel"
 short_desc="SCIntilla based Text Editor"
 maintainer="Leah Neukirchen <leah@vuxu.org>"
 license="MIT"
-homepage="http://www.scintilla.org/SciTEDownload.html"
-distfiles="http://www.scintilla.org/scite${version//./}.tgz"
-checksum=fb7d9d2899b9559b31beca6a695d5b271cc7a6461b218e4a961b4fcd320a798f
+homepage="https://www.scintilla.org/SciTEDownload.html"
+distfiles="https://www.scintilla.org/scite${version//./}.tgz"
+checksum=404b7bdf3da14bf9be23b27eaeeb27de865606544b0d54e37dde985e2db6f31d
 
 post_extract() {
 	sed -i 's/gthread-2.0/& lua/' scite/gtk/makefile

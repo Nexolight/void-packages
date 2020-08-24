@@ -1,17 +1,17 @@
 # Template file for 'composer'
 pkgname=composer
-version=1.9.0
+version=1.10.10
 revision=1
 archs=noarch
 build_style=fetch
 depends="php"
 short_desc="Dependency manager for PHP"
-maintainer="Alexander Mamay <alexander@mamay.su>"
+maintainer="Felipe Nogueira <contato.fnog@gmail.com>"
 license="MIT"
 homepage="https://getcomposer.org/"
 distfiles="https://github.com/composer/composer/releases/download/${version}/composer.phar
  https://raw.githubusercontent.com/composer/composer/master/LICENSE"
-checksum="1126fd7501ae6ff1dc9f91f0a3eca7430b1ea060d018d21521dc5e2d1ba01606
+checksum="8f16aa77b1236ed40855d8d141c0a939d108a939c8e73f9f32eadd3f05f181b9
  7855ac293067aebe7e51afdd23b9dea54b8be24187dbecc9b9142581c37f596c"
 
 do_install() {

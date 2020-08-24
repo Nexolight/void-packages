@@ -1,18 +1,20 @@
 # Template file for 'freecell-solver'
 pkgname=freecell-solver
-version=5.20.1
+version=6.0.1
 revision=1
 build_style=cmake
 configure_args="-DFCS_WITH_TEST_SUITE=OFF"
 hostmakedepends="perl-Template-Toolkit gperf perl-Path-Tiny
- pysolfc python3-pysol_cards python3-random2 python3-six"
+ pysolfc python3-pysol_cards python3-random2 python3-six
+ perl-Moo"
 makedepends="gmp-devel rinutils"
 short_desc="Automatically solves Freecell and similar variants of solitaire"
 maintainer="Piotr Wójcik <chocimier@tlen.pl>"
 license="MIT"
 homepage="https://fc-solve.shlomifish.org/"
+changelog="https://fc-solve.shlomifish.org/docs/distro/NEWS.html"
 distfiles="https://fc-solve.shlomifish.org/downloads/fc-solve/freecell-solver-${version}.tar.xz"
-checksum=339339a47b1842624ea9e322e4fe5af5a48a63310571595ca00b0b03f6f25524
+checksum=9f1a4c6d5c8ac54c6619b3b988efb5562d460cd048d33345e52a0c849fd0d9df
 
 if [ "$XBPS_TARGET_LIBC" = "musl" ]; then
 	makedepends+=" musl-legacy-compat"

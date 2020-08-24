@@ -1,24 +1,25 @@
 # Template file for 'android-studio'
 pkgname=android-studio
-version=3.6.1
-revision=1
+version=4.0.0
+revision=2
 # _studio_build and _studio_rev are for downloading the zip from dl.google.com
 # https://developer.android.com/studio/#resources as of 2018-07-12
-_studio_build=192.6241897
-_studio_rev=0
+_studio_build=193.6514223
+_studio_rev=16
 archs="x86_64 i686"
 create_wrksrc=yes
 hostmakedepends="tar"
-depends="gtk+ libGL"
+depends="gtk+ virtual?libGL"
 short_desc="Official Android IDE"
 maintainer="Jordyn Carattini <onlinecloud1@gmail.com>"
 license="Apache-2.0"
 homepage="http://tools.android.com/"
 # changelog="https://developer.android.com/studio/releases/index.html"
 distfiles="https://dl.google.com/dl/android/studio/ide-zips/${version}.${_studio_rev}/android-studio-ide-${_studio_build}-linux.tar.gz"
-checksum=e754dc9db31a5c222f230683e3898dcab122dfe7bdb1c4174474112150989fd7
+checksum=70c04dc542281c015a700fad73d7d62ce9dace774bc12050cad9f1d6363112eb
 repository=nonfree
 restricted=yes
+python_version=2
 nopie=yes
 nostrip=yes
 
@@ -48,10 +49,10 @@ skiprdeps="/opt/android-studio/plugins/android/resources/perfetto/x86_64/traced_
  /opt/android-studio/plugins/android/resources/installer/arm64-v8a/installer
  /opt/android-studio/plugins/android/resources/installer/test-installer
  /opt/android-studio/plugins/android/resources/installer/armeabi-v7a/installer
- /opt/android-studio/plugins/android/resources/transport/agent/arm64-v8a/libjvmtiagent.so
- /opt/android-studio/plugins/android/resources/transport/agent/armeabi-v7a/libjvmtiagent.so
- /opt/android-studio/plugins/android/resources/transport/agent/x86/libjvmtiagent.so
- /opt/android-studio/plugins/android/resources/transport/agent/x86_64/libjvmtiagent.so
+ /opt/android-studio/plugins/android/resources/transport/native/agent/arm64-v8a/libjvmtiagent.so
+ /opt/android-studio/plugins/android/resources/transport/native/agent/armeabi-v7a/libjvmtiagent.so
+ /opt/android-studio/plugins/android/resources/transport/native/agent/x86/libjvmtiagent.so
+ /opt/android-studio/plugins/android/resources/transport/native/agent/x86_64/libjvmtiagent.so
  /opt/android-studio/plugins/android/resources/transport/armeabi-v7a/transport
  /opt/android-studio/plugins/android/resources/transport/x86/transport
  /opt/android-studio/plugins/android/resources/transport/arm64-v8a/transport

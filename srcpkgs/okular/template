@@ -1,7 +1,7 @@
 # Template file for 'okular'
 pkgname=okular
-version=19.12.3
-revision=2
+version=20.08.0
+revision=1
 build_style=cmake
 hostmakedepends="extra-cmake-modules pkg-config gettext kcoreaddons"
 makedepends="discount-devel djvulibre-devel ebook-tools-devel khtml-devel
@@ -10,11 +10,11 @@ makedepends="discount-devel djvulibre-devel ebook-tools-devel khtml-devel
  purpose-devel qca-qt5-devel qt5-speech-devel threadweaver-devel"
 depends="hicolor-icon-theme"
 short_desc="KDE Document Viewer"
-maintainer="John <johnz@posteo.net>"
+maintainer="John <me@johnnynator.dev>"
 license="GPL-2.0-only"
-homepage="https://www.kde.org/applications/graphics/okular/"
+homepage="https://kde.org/applications/en/graphics/org.kde.okular"
 distfiles="${KDE_SITE}/release-service/${version}/src/${pkgname}-${version}.tar.xz"
-checksum=c5de22cc4292e3b7adae3f6ef6566dcba33a1dd5995fb0b968ea3e705a4c04e0
+checksum=8d775292cc6b2cb703e5ff716337a49352cd6d3faa90d6d7ac2f4e9d006a4047
 
 if [ "$CROSS_BUILD" ]; then
 	hostmakedepends+=" qt5-qmake qt5-host-tools kdoctools kconfig"

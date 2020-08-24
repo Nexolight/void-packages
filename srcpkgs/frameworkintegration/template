@@ -1,6 +1,6 @@
 # Template file for 'frameworkintegration'
 pkgname=frameworkintegration
-version=5.68.0
+version=5.73.0
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
@@ -8,11 +8,11 @@ hostmakedepends="kcoreaddons extra-cmake-modules pkg-config
  qt5-host-tools qt5-qmake python3 gettext"
 makedepends="kiconthemes-devel knotifications-devel kpackage-devel knewstuff-devel"
 short_desc="Integration of Qt application with KDE workspaces"
-maintainer="John <johnz@posteo.net>"
+maintainer="John <me@johnnynator.dev>"
 license="LGPL-2.0-or-later"
-homepage="https://projects.kde.org/projects/frameworks/frameworkintegration"
+homepage="https://invent.kde.org/frameworks/frameworkintegration"
 distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=5bb3c2e56b2c4c41d8a472363f80445fd3fc28656e6a3163d48ed826a133985a
+checksum=21ef7f1a6d48f9fb14ccac9bc37e803c92cf83c9e235a5ca8bd7eb08fd0a6fb3
 
 frameworkintegration-devel_package() {
 	short_desc+=" - development"

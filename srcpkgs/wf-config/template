@@ -1,23 +1,23 @@
 # Template file for 'wf-config'
 pkgname=wf-config
-version=0.3
+version=0.5.0
 revision=1
 build_style=meson
 hostmakedepends="pkg-config"
-makedepends="libevdev-devel wlroots-devel xcb-util-errors-devel xcb-util-wm-devel"
+makedepends="glm libevdev-devel libxml2-devel"
 short_desc="Wayfire library for managing configuration files"
 maintainer="Young Jin Park <youngjinpark20@gmail.com>"
 license="MIT"
 homepage="https://wayfire.org"
 distfiles="https://github.com/WayfireWM/wf-config/archive/${version}.tar.gz"
-checksum=5d1a5038b11a177174b392f3b383d787f568265ce483a5be9178698f548f7c66
+checksum=bf690477ff0d8928ddeca6a278b9153a39ade1e13fd32cc6d04552db4d65cbf0
 
 post_install() {
 	vlicense LICENSE
 }
 
 wf-config-devel_package() {
-	depends="libevdev-devel wlroots-devel wf-config>=${version}_${revision}"
+	depends="${makedepends} ${sourcepkg}>=${version}_${revision}"
 	short_desc+=" - development files"
 	pkg_install() {
 		vmove usr/include

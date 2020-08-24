@@ -1,6 +1,6 @@
 # Template file for 'wfuzz'
 pkgname=wfuzz
-version=2.4.5
+version=2.4.7
 revision=1
 archs=noarch
 build_style=python3-module
@@ -12,4 +12,4 @@ maintainer="Andrew Benson <abenson+void@gmail.com>"
 license="GPL-2.0-only"
 homepage="http://wfuzz.org"
 distfiles="https://github.com/xmendez/wfuzz/archive/v${version}.tar.gz"
-checksum=7d900083b21e12352ad021bf7ea2f1925af9555ad242f83ed9b77b1cf4a25d62
+checksum=11017be0c0e37ae89f3bbfec1dab731ec2bdb4fbe8e06648616fb4fd582f6c6f

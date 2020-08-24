@@ -1,13 +1,14 @@
 # Template file for '66'
 pkgname=66
-version=0.2.5.2
-revision=2
+version=0.5.0.0
+revision=3
 wrksrc="66-v${version}"
 build_style=configure
 configure_args="--prefix=/usr
  --with-sysdeps=${XBPS_CROSS_BASE}/usr/lib/skalibs/sysdeps
- --with-lib=${XBPS_CROSS_BASE}/usr/lib"
-hostmakedepends="pkg-config scdoc"
+ --with-lib=${XBPS_CROSS_BASE}/usr/lib
+ --with-s6-log-timestamp=iso"
+hostmakedepends="pkg-config lowdown"
 makedepends="oblibs-devel skalibs-devel execline-devel s6-devel
 s6-rc-devel procps-ng-devel"
 depends="s6-portable-utils"
@@ -15,9 +16,9 @@ short_desc="Small tools built around s6 and s6-rc programs"
 maintainer="mobinmob <mobinmob@disroot.org>"
 license="ISC"
 homepage="http://web.obarun.org/software/"
-changelog="https://framagit.org/Obarun/66/raw/master/NEWS"
+changelog="https://framagit.org/Obarun/66/raw/master/NEWS.md"
 distfiles="https://framagit.org/Obarun/66/-/archive/v${version}/66-v${version}.tar.bz2"
-checksum=a097e96b4a7470aac33168920789e0061d1c15e462a469ffc680d5938a1e4462
+checksum=dd505d8d4355c33f4cdf79ad69b1fdc6aa9996cf9532116eea2e13ba7dac455a
 
 conf_files="/etc/66/init /etc/66/init.conf"
 make_dirs="
@@ -27,19 +28,14 @@ make_dirs="
 /etc/66/service 0755 root root
 /etc/66/conf 0755 root root"
 
-
-pre_build() {
-	make man
-}
-
 post_install() {
 	local i
 	vlicense COPYING
 	for i in doc/html/*.html ; do
 		vdoc $i
 	done
-	vdoc README
-	for i in doc/man/*.{1,5,8} ; do
+	vdoc README.md
+	for i in doc/man/man{1,5,8}/* ; do
 		vman $i
 	done
 }

@@ -1,15 +1,16 @@
 # Template file for 'linux4.14'
 pkgname=linux4.14
-version=4.14.172
+version=4.14.192
 revision=1
-patch_args="-Np1"
 wrksrc="linux-${version}"
-maintainer="Orphaned <orphan@voidlinux.org>"
-homepage="http://www.kernel.org"
-license="GPL-2.0-only"
 short_desc="Linux kernel and modules (${version%.*} series)"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="GPL-2.0-only"
+homepage="http://www.kernel.org"
 distfiles="https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-${version}.tar.xz"
-checksum=2318a1ab937580a079351ed20557c336a3d95b664f667b14e3ba49e3271b217a
+checksum=d2b5b0739f1559fc70146da50ff175b20a63e97e688a36dab16927d4ebd0f9d1
+python_version=2 #unverified
+patch_args="-Np1"
 
 nodebug=yes  # -dbg package is generated below manually
 nostrip=yes
@@ -17,7 +18,7 @@ noverifyrdeps=yes
 noshlibprovides=yes
 preserve=yes
 
-archs="i686* x86_64* armv5tel* armv7l* aarch64* ppc*"
+archs="i686* x86_64* armv5tel* aarch64* ppc*"
 hostmakedepends="bc elfutils-devel kmod libressl-devel perl uboot-mkimage gmp-devel libmpc-devel"
 
 case "$XBPS_TARGET_MACHINE" in
@@ -31,6 +32,7 @@ kernel_hooks_version="${_kernver}"
 # These files could be modified when an external module is built.
 mutable_files="
  /usr/lib/modules/${_kernver}/modules.builtin.bin
+ /usr/lib/modules/${_kernver}/modules.builtin.alias.bin
  /usr/lib/modules/${_kernver}/modules.softdep
  /usr/lib/modules/${_kernver}/modules.dep
  /usr/lib/modules/${_kernver}/modules.dep.bin

@@ -1,6 +1,6 @@
 # Template file for 'knotifyconfig'
 pkgname=knotifyconfig
-version=5.68.0
+version=5.73.0
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
@@ -8,11 +8,11 @@ hostmakedepends="kcoreaddons extra-cmake-modules gettext
  qt5-host-tools qt5-qmake python3"
 makedepends="kio-devel"
 short_desc="KDE Configuration dialog for desktop notifications"
-maintainer="John <johnz@posteo.net>"
+maintainer="John <me@johnnynator.dev>"
 license="LGPL-2.1-or-later"
-homepage="https://projects.kde.org/projects/frameworks/knotifyconfig"
+homepage="https://invent.kde.org/frameworks/knotifyconfig"
 distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=36c7c93964f2b9b584d73de1757f75d6ee8bb29ebe860e8fd6905354d2f10145
+checksum=641a167a58856e99036d44b3e7472b44cdfbbf68e5d75b9af988d0b71dc10af4
 
 knotifyconfig-devel_package() {
 	short_desc+=" - development"

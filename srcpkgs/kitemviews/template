@@ -1,17 +1,17 @@
 # Template file for 'kitemviews'
 pkgname=kitemviews
-version=5.68.0
+version=5.73.0
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
 hostmakedepends="kcoreaddons extra-cmake-modules"
 makedepends="qt5-devel qt5-tools-devel"
 short_desc="Set of item views extending the Qt model-view framework"
-maintainer="John <johnz@posteo.net>"
+maintainer="John <me@johnnynator.dev>"
 license="LGPL-2.0-only, LGPL-2.0-or-later"
-homepage="https://projects.kde.org/projects/frameworks/kitemviews"
+homepage="https://invent.kde.org/frameworks/kitemviews"
 distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=5196885ac42347d67779df61a03d7f9c54f38053ff91348ef6fdc08439b4742f
+checksum=ec29707d789bee58c47ee538319560a168642f69e96cacb78818825e47177727
 
 if [ "$CROSS_BUILD" ]; then
 	hostmakedepends+=" qt5-qmake qt5-host-tools qt5-tools-devel"

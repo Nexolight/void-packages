@@ -1,6 +1,6 @@
 # Template file for 'kdesignerplugin'
 pkgname=kdesignerplugin
-version=5.68.0
+version=5.73.0
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
@@ -9,11 +9,11 @@ makedepends="kdoctools-devel kplotting-devel kcoreaddons-devel
  kconfig-devel"
 depends="kgendesignerplugin>=${version}_${revision}"
 short_desc="Integrating KDE frameworks widgets with Qt Designer"
-maintainer="John <johnz@posteo.net>"
+maintainer="John <me@johnnynator.dev>"
 license="LGPL-2.1-only"
-homepage="https://projects.kde.org/projects/frameworks/kdesignerplugin"
+homepage="https://invent.kde.org/frameworks/kdesignerplugin"
 distfiles="${KDE_SITE}/frameworks/${version%.*}/portingAids/${pkgname}-${version}.tar.xz"
-checksum=ae433e0eeaf0007312b1f32fc4349cf26c34617a5a9951ae4155c5c4e4009b72
+checksum=379db9fd0ec135706630dbd54e1b446e51dd3b64189754c281993d761c1d20b2
 
 if [ "$CROSS_BUILD" ]; then
 	hostmakedepends+=" qt5-host-tools qt5-qmake qt5-tools python kgendesignerplugin kdoctools"

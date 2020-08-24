@@ -64,6 +64,7 @@ packages for XBPS, the `Void Linux` native packaging system.
 		* [pycompile](#triggers_pycompile)
 		* [register-shell](#triggers_register_shell)
 		* [system-accounts](#triggers_system_accounts)
+		* [texmf-dist](#triggers_texmf_dist)
 		* [update-desktopdb](#triggers_update_desktopdb)
 		* [x11-fonts](#triggers_x11_fonts)
 		* [xml-catalog](#triggers_xml_catalog)
@@ -120,11 +121,11 @@ a binary package named `foo-1.0_1.<arch>.xbps` will be generated in the local re
 <a id="quality_requirements"></a>
 ### Quality Requirements
 
-Follow this list to determine if a piece of software or other technology may be
-permitted in the Void Linux repository. Exceptions to the list are possible,
-and may be accepted, but are extremely unlikely. If you believe you have an
+To be included in the Void repository, software must meet at least one
+of the following requirements. Exceptions to the list are possible,
+and might be accepted, but are extremely unlikely. If you believe you have an
 exception, start a PR and make an argument for why that particular piece of
-software, while not meeting the below requirements, is a good candidate for
+software, while not meeting any of the following requirements, is a good candidate for
 the Void packages system.
 
 1. System: The software should be installed system-wide, not per-user.
@@ -134,6 +135,14 @@ the Void packages system.
 
 1. Required: Another package either within the repository or pending inclusion
    requires the package.
+
+In particular, new themes and small shell scripts are highly unlikely
+to be accepted. New fonts are welcome if they provide value beyond
+aesthetics (e.g. they contain glyphs for a script missing in already
+packaged fonts).
+
+Browser forks, including those based on Chromium and Firefox, are generally not 
+accepted. Such forks require heavy patching, maintenance and hours of build time.
 
 <a id="buildphase"></a>
 ### Package build phases
@@ -281,11 +290,11 @@ The following functions are defined by `xbps-src` and can be used on any templat
 	converts gzipped (.gz) and bzipped (.bz2) manpages into plaintext.
 	Example mappings:
 
-	`foo.1` -> `${DESTDIR}/usr/share/man/man1/foo.1`
-	`foo.fr.1` -> `${DESTDIR}/usr/share/man/fr/man1/foo.1`
-	`foo.1p` -> `${DESTDIR}/usr/share/man/man1/foo.1p`
-	`foo.1.gz` -> `${DESTDIR}/usr/share/man/man1/foo.1`
-	`foo.1.bz2` -> `${DESTDIR}/usr/share/man/man1/foo.1`
+	- `foo.1` -> `${DESTDIR}/usr/share/man/man1/foo.1`
+	- `foo.fr.1` -> `${DESTDIR}/usr/share/man/fr/man1/foo.1`
+	- `foo.1p` -> `${DESTDIR}/usr/share/man/man1/foo.1p`
+	- `foo.1.gz` -> `${DESTDIR}/usr/share/man/man1/foo.1`
+	- `foo.1.bz2` -> `${DESTDIR}/usr/share/man/man1/foo.1`
 
 - *vdoc()* `vdoc <file> [<name>]`
 
@@ -330,6 +339,13 @@ The following functions are defined by `xbps-src` and can be used on any templat
 
 	Note that vsed will call the sed command for every regex specified against
 	every file specified, in the order that they are given.
+
+- *vcompletion()* `<file> <shell> [<command>]`
+
+	Installs shell completion from `file` for `command`, in the correct location
+	and with the appropriate filename for `shell`. If `command` isn't specified,
+	it will default to `pkgname`. The `shell` argument can be one of `bash`,
+	`fish` or `zsh`.
 
 > Shell wildcards must be properly quoted, Example: `vmove "usr/lib/*.a"`.
 
@@ -479,19 +495,18 @@ Example:
 
   | Variable         | Value                                           |
   |------------------|-------------------------------------------------|
-  | CPAN_SITE        | http://cpan.perl.org/modules/by-module          |
+  | CPAN_SITE        | https://cpan.perl.org/modules/by-module          |
   | DEBIAN_SITE      | http://ftp.debian.org/debian/pool               |
-  | FREEDESKTOP_SITE | http://freedesktop.org/software                 |
-  | GNOME_SITE       | http://ftp.gnome.org/pub/GNOME/sources          |
-  | GNU_SITE         | http://ftp.gnu.org/gnu                          |
-  | KERNEL_SITE      | http://www.kernel.org/pub/linux                 |
-  | MOZILLA_SITE     | http://ftp.mozilla.org/pub                      |
-  | NONGNU_SITE      | http://download.savannah.nongnu.org/releases    |
+  | FREEDESKTOP_SITE | https://freedesktop.org/software                 |
+  | GNOME_SITE       | https://ftp.gnome.org/pub/GNOME/sources          |
+  | GNU_SITE         | https://ftp.gnu.org/gnu                          |
+  | KERNEL_SITE      | https://www.kernel.org/pub/linux                 |
+  | MOZILLA_SITE     | https://ftp.mozilla.org/pub                      |
+  | NONGNU_SITE      | https://download.savannah.nongnu.org/releases    |
   | PYPI_SITE        | https://files.pythonhosted.org/packages/source  |
-  | SOURCEFORGE_SITE | http://downloads.sourceforge.net/sourceforge    |
+  | SOURCEFORGE_SITE | https://downloads.sourceforge.net/sourceforge    |
   | UBUNTU_SITE      | http://archive.ubuntu.com/ubuntu/pool           |
-  | XORG_HOME        | http://xorg.freedesktop.org/wiki/               |
-  | XORG_SITE        | http://www.x.org/releases/individual            |
+  | XORG_SITE        | https://www.x.org/releases/individual            |
   | KDE_SITE         | https://download.kde.org/stable                 |
 
 - `checksum` The `sha256` digests matching `${distfiles}`. Multiple files can be
@@ -635,6 +650,9 @@ This appends to the generated file rather than replacing it.
 - `nopie` Only needs to be set to something to make active, disables building the package with hardening
   features (PIE, relro, etc). Not necessary for most packages.
 
+- `nopie_files` White-space seperated list of ELF binaries that won't be checked
+for PIE.
+
 - `reverts` xbps supports a unique feature which allows to downgrade from broken
 packages automatically. In the `reverts` field one can define a list of broken
 pkgver the resulting package should revert. This field *must* be defined before
@@ -689,6 +707,9 @@ used.
 - `archs` Whitespace separated list of architectures that a package can be
 built for, available architectures can be found under `common/cross-profiles`
 alongside the `noarch` value for packages that do not contain any machine code.
+In general, `archs` should only be set if the upstream software explicitly targets
+certain architectures or there is a compelling reason why the software should not be
+available on some supported architectures.
 Examples:
 
 	```
@@ -932,6 +953,9 @@ Environment variables for a specific `build_style` can be declared in a filename
 matching the `build_style` name, Example:
 
     `common/environment/build-style/gnu-configure.sh`
+    
+- `texmf` For texmf zip/tarballs that need to go into /usr/share/texmf-dist. Includes
+duplicates handling.
 
 <a id="build_helper"></a>
 ### build helper scripts
@@ -955,7 +979,9 @@ additional paths to be searched when linking target binaries to be introspected.
 - `qemu` sets additional variables for the `cmake` and `meson` build styles to allow
 executing cross-compiled binaries inside qemu.
 It sets `CMAKE_CROSSCOMPILING_EMULATOR` for cmake and `exe_wrapper` for meson
-to `qemu-<target_arch>-static` and `QEMU_LD_PREFIX` to `XBPS_CROSS_BASE`
+to `qemu-<target_arch>-static` and `QEMU_LD_PREFIX` to `XBPS_CROSS_BASE`.
+It also creates the `vtargetrun` function to wrap commands in a call to
+`qemu-<target_arch>-static` for the target architecture.
 
 - `qmake` creates the `qt.conf` configuration file (cf. `qmake` `build_style`)
 needed for cross builds and a qmake-wrapper to make `qmake` use this configuration.
@@ -1162,10 +1188,16 @@ Dependencies declared via `${depends}` are not installed to the master directory
 only checked if they exist as binary packages, and are built automatically by `xbps-src` if
 the specified version is not in the local repository.
 
-There's a special variant of how `virtual` dependencies can be specified as `runtime dependencies`
-and is by using the `virtual?` keyword, i.e `depends="virtual?vpkg-0.1_1"`. This declares
-a `runtime` virtual dependency to `vpkg-0.1_1`; this `virtual` dependency will be simply ignored
-when the package is being built with `xbps-src`.
+As a special case, `virtual` dependencies may be specified as runtime dependencies in the
+`${depends}` template variable. Several different packages can provide common functionality by
+declaring a virtual name and version in the `${provides}` template variable (e.g.,
+`provides="vpkg-0.1_1"`). Packages that rely on the common functionality without concern for the
+specific provider can declare a dependency on the virtual package name with the prefix `virtual?`
+(e.g., `depends="virtual?vpkg-0.1_1"`). When a package is built by `xbps-src`, providers for any
+virtual packages will be confirmed to exist and will be built if necessary. A map from virtual
+packages to their default providers is defined in `etc/default.virtual`. Individual mappings can be
+overridden by local preferences in `etc/virtual`. Comments in `etc/default.virtual` provide more
+information on this map.
 
 <a id="install_remove_files"></a>
 ### INSTALL and REMOVE files
@@ -1396,14 +1428,14 @@ the appropriate `development` packages as dependencies.
 Development packages for the C and C++ languages usually `vmove` the
 following subset of files from the main package:
 
-    * Header files `usr/include`
-    * Static libraries `usr/lib/*.a`
-    * Shared library symbolic links `usr/lib/*.so`
-    * Cmake rules `usr/lib/cmake` `usr/share/cmake`
-    * Package config files `usr/lib/pkgconfig` `usr/share/pkgconfig`
-    * Autoconf macros `usr/share/aclocal`
-    * Gobject introspection XML files `usr/share/gir-1.0`
-    * Vala bindings `usr/share/vala`
+* Header files `usr/include`
+* Static libraries `usr/lib/*.a`
+* Shared library symbolic links `usr/lib/*.so`
+* Cmake rules `usr/lib/cmake` `usr/share/cmake`
+* Package config files `usr/lib/pkgconfig` `usr/share/pkgconfig`
+* Autoconf macros `usr/share/aclocal`
+* Gobject introspection XML files `usr/share/gir-1.0`
+* Vala bindings `usr/share/vala`
 
 <a id="pkgs_data"></a>
 ### Data packages
@@ -1439,9 +1471,18 @@ Python packages should be built with the `python{,2,3}-module` build style, if p
 This sets some environment variables required to allow cross compilation. Support to allow
 building a python module for multiple versions from a single template is also possible.
 
-To allow cross compilation, the `python-devel` package (for python 2.7) must be added
-to `hostmakedepends` and `makedepends`. If any other python version is also supported,
-for example python3.4, those must also be added as host and target build dependencies.
+Python packages that rely on `python3-setuptools` should generally map `setup_requires`
+dependencies in `setup.py` to `hostmakedepends` in the template and `install_requires`
+dependencies to `depends` in the template; include `python3` in `depends` if there are no other
+python dependencies. If the package includes a compiled extension, the `python3-devel` packages
+should be added to `makedepends`, as should any python packages that also provide native libraries
+against which the extension will be linked (even if that package is also included in
+`hostmakedepends` to satisfy `setuptools`).
+
+**NB**: Python `setuptools` will attempt to use `pip` or `EasyInstall` to fetch any missing
+dependencies at build time. If you notice warnings about `EasyInstall` deprecation or python eggs
+present in `${wrksrc}/.eggs` after building the package, then those packages should be added to
+`hostmakedepends`.
 
 The following variables may influence how the python packages are built and configured
 at post-install time:
@@ -1458,29 +1499,25 @@ by blanks, Example: `pycompile_module="foo blah"`. If a python module installs a
 recursively by the target python version. This differs from `pycompile_module` in that any
 path may be specified, Example: `pycompile_dirs="usr/share/foo"`.
 
-- `pycompile_version`: this variable expects the python version that is used to
-byte-compile the python code (it generates the `.py[co]` files at post-install time).
-By default it's set to `2.7` for `python 2.x` packages.
-
-> NOTE: you need to define it *only* for non-Python modules.
-
 - `python_version`: this variable expects the supported Python major version.
 By default it's set to `2`. This variable is needed for multi-language
 applications (e.g., the application is written in C while the command is
 written in Python) or just single Python file ones that live in `/usr/bin`.
+
+> NOTE: you need to define it *only* for non-Python modules.
 
 Also, a set of useful variables are defined to use in the templates:
 
 | Variable    | Value                            |
 |-------------|----------------------------------|
 | py2_ver     | 2.X                              |
-| py2_lib     | /usr/lib/python2.X               |
-| py2_sitelib | /usr/lib/python2.X/site-packages |
-| py2_inc     | /usr/include/python2.X           |
+| py2_lib     | usr/lib/python2.X                |
+| py2_sitelib | usr/lib/python2.X/site-packages  |
+| py2_inc     | usr/include/python2.X            |
 | py3_ver     | 3.X                              |
-| py3_lib     | /usr/lib/python3.X               |
-| py3_sitelib | /usr/lib/python3.X/site-packages |
-| py3_inc     | /usr/include/python3.Xm          |
+| py3_lib     | usr/lib/python3.X                |
+| py3_sitelib | usr/lib/python3.X/site-packages  |
+| py3_inc     | usr/include/python3.Xm           |
 
 > NOTE: it's expected that additional subpkgs must be generated to allow packaging for multiple
 python versions.
@@ -1894,6 +1931,20 @@ Example: `transmission unprivileged user - for uninstalled package transmission`
 
 This trigger can only be used by using the `system_accounts` variable.
 
+<a id="triggers_texmf_dist"></a>
+#### texmf-dist
+
+The texmf-dist trigger is responsible for regenerating TeXLive's texmf databases.
+
+During both installation and removal, it regenerates both the texhash and format
+databases using `texhash` and `fmtutil-sys`, to add or remove any new hashes or
+formats.
+
+It runs on every package that changes /usr/share/texmf-dist. This is likely overkill,
+but it is much cleaner rather than checking each format directory and each directory
+that is hashed. In addition, it is very likely any package touching /usr/share/texmf-dist
+requires one of these triggers anyway.
+
 <a id="triggers_update_desktopdb"></a>
 #### update-desktopdb
 
@@ -1962,27 +2013,17 @@ Fork the voidlinux `void-packages` git repository on github and clone it:
 
     $ git clone git@github.com:<user>/void-packages.git
 
-You can now make your own commits to the `forked` repository:
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for information on how to format your
+commits and other tips for contributing.
 
-    $ git add ...
-    $ git commit ...
-    $ git push ...
+Once you've made changes to your `forked` repository you can submit
+a github pull request; see https://help.github.com/articles/fork-a-repo for more information.
 
 To keep your forked repository always up to date, setup the `upstream` remote
 to pull in new changes:
 
     $ git remote add upstream git://github.com/void-linux/void-packages.git
-    $ git pull upstream master
-
-Once you've made changes to your `forked` repository you can submit
-a github pull request; see https://help.github.com/articles/fork-a-repo for more information.
-
-For commit messages please use the following rules:
-
-- If you've imported a new package use `"New package: <pkgname>-<version>"`.
-- If you've updated a package use `"<pkgname>: update to <version>."`.
-- If you've removed a package use `"<pkgname>: removed ..."`.
-- If you've modified a package use `"<pkgname>: ..."`.
+    $ git pull --rebase upstream master
 
 <a id="help"></a>
 ## Help

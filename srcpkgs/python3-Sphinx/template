@@ -1,6 +1,6 @@
 # Template file for 'python3-Sphinx'
 pkgname=python3-Sphinx
-version=2.4.4
+version=3.2.1
 revision=1
 archs=noarch
 wrksrc=Sphinx-${version}
@@ -19,21 +19,13 @@ maintainer="Đoàn Trần Công Danh <congdanhqx@gmail.com>"
 license="BSD-3-Clause"
 homepage="http://sphinx-doc.org"
 distfiles="${PYPI_SITE}/S/Sphinx/Sphinx-${version}.tar.gz"
-checksum=b4c750d546ab6d7e05bdff6ac24db8ae3e8b8253a3569b754e445110a0a12b66
-alternatives="
- sphinx:sphinx-apidoc:/usr/bin/sphinx-apidoc3
- sphinx:sphinx-autogen:/usr/bin/sphinx-autogen3
- sphinx:sphinx-build:/usr/bin/sphinx-build3
- sphinx:sphinx-quickstart:/usr/bin/sphinx-quickstart3"
+checksum=321d6d9b16fa381a5306e5a0b76cd48ffbc588e6340059a729c6fdd66087e0e8
+conflicts="python-Sphinx>=0"
 
 do_check() {
 	PYTHONPATH=$(pwd)/build/lib pytest
 }
 
 post_install() {
-	mv ${DESTDIR}/usr/bin/sphinx-apidoc ${DESTDIR}/usr/bin/sphinx-apidoc3
-	mv ${DESTDIR}/usr/bin/sphinx-autogen ${DESTDIR}/usr/bin/sphinx-autogen3
-	mv ${DESTDIR}/usr/bin/sphinx-build ${DESTDIR}/usr/bin/sphinx-build3
-	mv ${DESTDIR}/usr/bin/sphinx-quickstart ${DESTDIR}/usr/bin/sphinx-quickstart3
 	vlicense LICENSE
 }

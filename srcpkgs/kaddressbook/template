@@ -1,6 +1,6 @@
 # Template file for 'kaddressbook'
 pkgname=kaddressbook
-version=19.12.3
+version=20.08.0
 revision=1
 build_style=cmake
 configure_args="-DDESKTOPTOJSON_EXECUTABLE=/usr/bin/desktoptojson"
@@ -10,6 +10,6 @@ makedepends="kdepim-apps-libs-devel kontactinterface-devel"
 short_desc="KDE contact manager"
 maintainer="Orphaned <orphan@voidlinux.org>"
 license="GPL-2.0-or-later"
-homepage="https://www.kde.org/applications/office/kaddressbook"
+homepage="https://kde.org/applications/en/office/org.kde.kaddressbook"
 distfiles="${KDE_SITE}/release-service/${version}/src/${pkgname}-${version}.tar.xz"
-checksum=1dede421e6fef2b1abc7d36dd1855cef43cc82de909a432cd38cff42d4168fba
+checksum=e34b4515a5721b9dd1d9d391acb81905bc2b6a0d219347c7dac87ebbb5b7b921

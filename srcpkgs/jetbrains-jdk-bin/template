@@ -1,7 +1,7 @@
 # Template file for 'jetbrains-jdk-bin'
 pkgname=jetbrains-jdk-bin
-version=11.0.6b770.9
-revision=2
+version=11.0.8b1031.1
+revision=1
 archs="x86_64"
 wrksrc="jbrsdk"
 hostmakedepends="wget"
@@ -12,10 +12,10 @@ homepage="https://github.com/JetBrains/JetBrainsRuntime"
 _jdk_ver=${version%b*}
 _jdk_build=${version#*b}
 distfiles="https://dl.bintray.com/jetbrains/intellij-jbr/jbrsdk-${_jdk_ver//\./_}-linux-x64-b${_jdk_build}.tar.gz"
-checksum=51c076fbb9a78daa503e67839add860a0b17820bd43597f14ef0a4ddfb3eb332
-# This JDK appears to link to libs that do not exist, but still continues to function well even in their absence.
-# Best guess is that they are optional. ¯\_(ツ)_/¯
+checksum=0f72e1005648b020cec95957d1b6534158e06e6202e78263aed0976287d2488d
 fetch_cmd="wget"
+# This JDK appears to link to libs that do not exist, but functions well even in their absence.
+# Best guess is that they are optional. ¯\_(ツ)_/¯
 noverifyrdeps=yes
 nopie=yes
 

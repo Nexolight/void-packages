@@ -1,12 +1,12 @@
 # Template file for 'cura'
 pkgname=cura
-version=4.5.0
+version=4.6.2
 revision=1
 archs=noarch
 wrksrc="Cura-${version}"
 build_style=cmake
-configure_args="-DCURA_VERSION=${version}"
-pycompile_module="cura"
+configure_args="-DCURA_VERSION=${version}
+ -DURANIUM_DIR=$XBPS_CROSS_BASE/usr/share/uranium"
 pycompile_dirs="usr/lib/cura/plugins"
 hostmakedepends="python3"
 makedepends="Uranium libArcus-devel python3-devel"
@@ -17,4 +17,4 @@ maintainer="Karl Nilsson <karl.robert.nilsson@gmail.com>"
 license="LGPL-3.0-or-later"
 homepage="https://github.com/Ultimaker/Cura"
 distfiles="https://github.com/Ultimaker/Cura/archive/${version}.tar.gz"
-checksum=32aa91effa861be4bdcefc9c78e426d04c0c16c0f65dd32f33610234b16153e9
+checksum=a6bcbf15bcc36d2c6bbedc9d52c7b00b7e22f3e44ca53b0ca7c73b8c1f49bb80

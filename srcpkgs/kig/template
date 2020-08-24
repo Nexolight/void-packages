@@ -1,6 +1,6 @@
 # Template file for 'kig'
 pkgname=kig
-version=19.12.3
+version=20.04.3
 revision=1
 build_style=cmake
 hostmakedepends="extra-cmake-modules kcoreaddons kdoctools gettext
@@ -11,4 +11,5 @@ maintainer="Piotr Wójcik <chocimier@tlen.pl>"
 license="GPL-2.0-only"
 homepage="https://www.kde.org/applications/education/kig/"
 distfiles="${KDE_SITE}/release-service/${version}/src/kig-${version}.tar.xz"
-checksum=1ae2c3024cdd14e476ff15b730f4ebe9b279477b67cc4cc89606755c7d3beef3
+checksum=ccbc8f10e79f420d8a97aa00616fc29ed771721bfe22eb74b160464ac6cc3023
+python_version=2

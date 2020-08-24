@@ -1,6 +1,6 @@
 # Template file for 'chroot-git'
 pkgname=chroot-git
-version=2.25.2
+version=2.26.2
 revision=1
 bootstrap=yes
 wrksrc="git-${version}"
@@ -14,10 +14,10 @@ maintainer="Enno Boland <gottox@voidlinux.org>"
 license="GPL-2.0-only"
 homepage="https://git-scm.com/"
 distfiles="https://www.kernel.org/pub/software/scm/git/git-${version}.tar.xz"
-checksum=9b937103e048e2d3bf964d4132a0e7edccc2583d4ef30bc8a516f93a76de7123
+checksum=6d65132471df9e531807cb2746f8be317e22a343b9385bbe11c9ce7f0d2fc848
 
 if [ "$CHROOT_READY" ]; then
-	hostmakedepends="perl gettext tar"
+	hostmakedepends="perl tar"
 else
 	configure_args+=" --with-zlib=${XBPS_MASTERDIR}/usr"
 fi
@@ -26,6 +26,7 @@ post_configure() {
 	cat <<-EOF >config.mak
 	CC_LD_DYNPATH=-L
 	NO_INSTALL_HARDLINKS=Yes
+	NO_GETTEXT=Yes
 	EOF
 }
 

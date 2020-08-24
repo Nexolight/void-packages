@@ -1,6 +1,6 @@
 # Template file for 'systemsettings'
 pkgname=systemsettings
-version=5.18.3
+version=5.19.4
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
@@ -9,16 +9,11 @@ makedepends="kcmutils-devel kdoctools khtml-devel kactivities5-stats-devel
  kirigami2-devel plasma-workspace-devel"
 depends="kirigami2 setxkbmap xrdb"
 short_desc="KDE System settings"
-maintainer="John <johnz@posteo.net>"
+maintainer="John <me@johnnynator.dev>"
 license="GPL-2.0-or-later, GFDL-1.2"
-homepage="https://projects.kde.org/projects/plasma/systemsettings"
+homepage="https://invent.kde.org/plasma/systemsettings"
 distfiles="${KDE_SITE}/plasma/${version}/${pkgname}-${version}.tar.xz"
-checksum=9298b3d59e4e48dc613db7e9e281e5700b9a17ae541519b848038e200aff4ddd
-
-case "$XBPS_TARGET_MACHINE" in
-	armv[56]*) broken="xorg-server-xwayland is not available"
-	;;
-esac
+checksum=a84544d7d7f3d247a81e49046595e42acf3d25b22b9875ff66cdb0bb3f218ebe
 
 if [ "$CROSS_BUILD" ]; then
 	hostmakedepends+=" python qt5-qmake qt5-host-tools kconfig

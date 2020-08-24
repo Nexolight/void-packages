@@ -18,6 +18,7 @@ show_pkg() {
     echo "maintainer:	$maintainer"
     [ -n "$homepage" ] && echo "Upstream URL:	$homepage"
     [ -n "$license" ] && echo "License(s):	$license"
+    [ -n "$changelog" ] && echo "Changelog:	$changelog"
     [ -n "$build_style" ] && echo "build_style:	$build_style"
     for i in $build_helper; do
         [ -n "$i" ] && echo "build_helper:  $i"
@@ -43,6 +44,21 @@ show_pkg() {
     for i in ${conflicts}; do
         [ -n "$i" ] && echo "conflicts:	$i"
     done
+    local OIFS="$IFS"
+    IFS=','
+    for var in $1; do
+        IFS=$OIFS
+        if [ ${var} != ${var/'*'} ]
+        then
+            var="${var/'*'}"
+            [ -n "${!var}" ] && echo "$var:	${!var//$'\n'/' '}"
+        else
+            for val in ${!var}; do
+                [ -n "$val" ] && echo "$var:	$val"
+            done
+        fi
+    done
+    IFS="$OIFS"
     [ -n "$long_desc" ] && echo "long_desc: $long_desc"
 
     return 0
@@ -68,6 +84,10 @@ show_pkg_build_depends() {
 
     # build time deps
     for f in ${_deps}; do
+        if [ -z "$CROSS_BUILD" ]; then
+            # ignore dependency on itself
+            [[ $f == $sourcepkg ]] && continue
+        fi
         if [ ! -f $XBPS_SRCPKGDIR/$f/template ]; then
             msg_error "$pkgver: dependency '$f' does not exist!\n"
         fi
@@ -89,7 +109,7 @@ show_pkg_build_depends() {
 }
 
 show_pkg_build_deps() {
-    show_pkg_build_depends "${hostmakedepends} ${makedepends} $(setup_pkg_depends '' 1)"
+    show_pkg_build_depends "${hostmakedepends} ${makedepends} $(setup_pkg_depends '' 1 1)"
 }
 
 show_pkg_hostmakedepends() {

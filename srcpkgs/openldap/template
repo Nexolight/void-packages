@@ -1,6 +1,6 @@
 # Template file for 'openldap'
 pkgname=openldap
-version=2.4.49
+version=2.4.51
 revision=1
 build_style=gnu-configure
 configure_args="--prefix=/usr
@@ -22,7 +22,7 @@ maintainer="Orphaned <orphan@voidlinux.org>"
 license="OLDAP-2.0"
 homepage="http://www.openldap.org"
 distfiles="https://www.openldap.org/software/download/OpenLDAP/openldap-release/openldap-${version}.tgz"
-checksum=e3b117944b4180f23befe87d0dcf47f29de775befbc469dcf4ac3dab3311e56e
+checksum=f490775ea4c6506b7210ee55a102c8f4aacfe9d1c8eaa633c7316d33a714be62
 
 system_accounts="ldap"
 ldap_homedir="/var/lib/openldap"

@@ -1,6 +1,6 @@
 # Template file for 'baloo5'
 pkgname=baloo5
-version=5.68.0
+version=5.73.0
 revision=1
 wrksrc="${pkgname%5}-${version}"
 build_style=cmake
@@ -11,11 +11,11 @@ hostmakedepends="kcoreaddons extra-cmake-modules gettext
 makedepends="kfilemetadata5-devel kidletime-devel kio-devel ksolid-devel lmdb-devel"
 depends="hicolor-icon-theme"
 short_desc="Framework for searching and managing metadata"
-maintainer="John <johnz@posteo.net>"
+maintainer="John <me@johnnynator.dev>"
 license="LGPL-2.1-or-later"
 homepage="https://community.kde.org/Baloo"
 distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname%5}-${version}.tar.xz"
-checksum=4b599fb279ef92dc4f575847767c370f2633b27e884e372c3f7b92f08917865e
+checksum=887077ae3e090d673d2ffe7eb869a0ab6f5d14e9dae2dccd619e4689699a2dfe
 
 baloo5-devel_package() {
 	short_desc+=" - development"

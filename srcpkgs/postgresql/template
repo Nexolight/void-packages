@@ -1,6 +1,6 @@
 # Template file for 'postgresql'
 pkgname=postgresql
-version=9.6.17
+version=9.6.19
 revision=1
 build_style=gnu-configure
 make_build_target=world
@@ -12,12 +12,14 @@ configure_args="--with-openssl --with-python
 hostmakedepends="docbook2x flex gettext openjade"
 makedepends="libfl-devel libressl-devel libuuid-devel libxslt-devel pam-devel perl
  python-devel readline-devel tcl-devel"
+checkdepends="tzdata"
 short_desc="Sophisticated open-source Object-Relational DBMS"
 maintainer="Johannes <johannes.brechtmann@gmail.com>"
 license="PostgreSQL"
 homepage="https://www.postgresql.org"
+changelog="https://www.postgresql.org/docs/current/release-${version//./-}.html"
 distfiles="https://ftp.postgresql.org/pub/source/v${version}/${pkgname}-${version}.tar.bz2"
-checksum=f6e1e32d32545f97c066f3c19f4d58dfab1205c01252cf85c5c92294ace1a0c2
+checksum=61f93a94ccddbe0b2d1afaf03f04ba605d8af5b774ff9b830e5adeb50ab55cb0
 
 conf_files="
 	/etc/default/${pkgname}
@@ -34,6 +36,12 @@ make_dirs="/var/lib/postgresql 0750 postgres postgres"
 if [ "$CROSS_BUILD" ]; then
 	configure_args+=" --without-perl --without-python --without-tcl"
 fi
+
+post_patch() {
+	sed -e "s/@VERSION@/$version/" \
+		"$FILESDIR"/pg_config.sh.in >src/common/pg_config.sh.in
+	vsed -i -e "s,@XBPS_SYSROOT@,${XBPS_CROSS_BASE%/}," src/common/Makefile
+}
 
 pre_build() {
 	# http://www.postgresql.org/docs/9.3/static/docguide-toolsets.html
@@ -58,6 +66,7 @@ post_install() {
 	vinstall ${FILESDIR}/${pkgname}.pam 644 etc/pam.d ${pkgname}
 	vinstall ${DESTDIR}/usr/share/${pkgname}/${pkgname}.conf.sample \
 		644 etc/${pkgname} ${pkgname}.conf
+	vbin src/common/pg_config.sh
 
 	sed -i 's/install_bin = .*/install_bin = install/g' \
 		${DESTDIR}/usr/lib/postgresql/pgxs/src/Makefile.global
@@ -71,7 +80,7 @@ postgresql-doc_package() {
 	}
 }
 
-postgresql-libs_package() {
+postgresql9.6-libs_package() {
 	short_desc="PostgreSQL shared libraries"
 	pkg_install() {
 		vmove "usr/lib/*.so*"
@@ -83,7 +92,7 @@ postgresql-libs_package() {
 	}
 }
 
-postgresql-libs-devel_package() {
+postgresql9.6-libs-devel_package() {
 	depends="postgresql-libs>=$version"
 	short_desc="PostgreSQL shared libraries (development files)"
 	pkg_install() {
@@ -91,6 +100,7 @@ postgresql-libs-devel_package() {
 			vmove usr/bin/${f}
 			vmove "usr/share/man/man1/$(basename ${f})*"
 		done
+		vmove usr/bin/pg_config.sh
 		vmove usr/include
 		vmove "usr/lib/*.a"
 		vmove "usr/lib/pkgconfig/*"

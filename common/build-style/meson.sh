@@ -16,10 +16,6 @@ do_patch() {
 			armv*)
 				_MESON_CPU_FAMILY=arm
 				;;
-			ppc|ppc-musl)
-				_MESON_TARGET_ENDIAN=big
-				_MESON_CPU_FAMILY=ppc
-				;;
 			i686*)
 				_MESON_CPU_FAMILY=x86
 				;;
@@ -29,6 +25,13 @@ do_patch() {
 			ppc64*)
 				_MESON_TARGET_ENDIAN=big
 				_MESON_CPU_FAMILY=ppc64
+				;;
+			ppcle*)
+				_MESON_CPU_FAMILY=ppc
+				;;
+			ppc*)
+				_MESON_TARGET_ENDIAN=big
+				_MESON_CPU_FAMILY=ppc
 				;;
 			*)
 				# if we reached here that means that the cpu and cpu_family
@@ -49,11 +52,13 @@ ld = '${LD}'
 strip = '${STRIP}'
 readelf = '${READELF}'
 objcopy = '${OBJCOPY}'
-pkgconfig = 'pkg-config'
+pkgconfig = '${PKG_CONFIG}'
 rust = 'rustc'
 g-ir-scanner = '${XBPS_CROSS_BASE}/usr/bin/g-ir-scanner'
 g-ir-compiler = '${XBPS_CROSS_BASE}/usr/bin/g-ir-compiler'
 g-ir-generate = '${XBPS_CROSS_BASE}/usr/bin/g-ir-generate'
+llvm-config = '/usr/bin/llvm-config'
+cups-config = '${XBPS_CROSS_BASE}/usr/bin/cups-config'
 
 [properties]
 needs_exe_wrapper = true
@@ -85,22 +90,6 @@ do_configure() {
 
 	if [ "$CROSS_BUILD" ]; then
 		configure_args+=" --cross-file=${meson_crossfile}"
-
-		# Meson tries to compile natively with CC, CXX, LD, AR 
-		# so when cross compiling, we need to set those to the 
-		# host versions.
-		export CC=${CC_host} CXX=${CXX_host} LD=${LD_host} AR=${AR_host}
-
-		# Meson tries to use CFLAGS, CXXFLAGS, CPPFLAGS and LDFLAGS when compiling under
-		# native: true, so we use XBPS_CFLAGS, XBPS_CXXFLAGS, XBPS_CPPFLAGS and XBPS_LDFLAGS
-		# which are set to (C|CXX|CPP|LD)FLAGS_host
-		export CFLAGS=${CFLAGS_host} CXXFLAGS=${CXXFLAGS_host} CPPFLAGS=${CPPFLAGS_host} LDFLAGS=${LDFLAGS_host}
-
-		# Meson tries to use our wrapped cross-only pkg-config to find
-		# libraries even when 'native: true' (build against the host platform)
-		# is set, so set the PKG_CONFIG variable to tell Meson which pkg-config
-		# it should use when searching for stuff in the build machine
-		export PKG_CONFIG="/usr/bin/pkg-config"
 	fi
 
 	${meson_cmd} \

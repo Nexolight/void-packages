@@ -1,23 +1,35 @@
 # Template file for 'starship'
 pkgname=starship
-version=0.37.0
+version=0.44.0
 revision=1
 build_style=cargo
-build_helper="rust"
+build_helper=qemu
 hostmakedepends="pkg-config"
 makedepends="libgit2-devel"
+checkdepends="git"
 short_desc="Minimal, fast and customizable cross-shell prompt"
 maintainer="Aluísio Augusto Silva Gonçalves <aluisio@aasg.name>"
 license="ISC"
 homepage="https://starship.rs"
 distfiles="https://github.com/starship/starship/archive/v${version}.tar.gz"
-checksum=9a7344a1f61f195ddee9fef794e3214d47b38c5d18dfba8d66959dff3e06403b
+checksum=b002fa0e2b34ad59330a543461a51648751db4ae8d439d58065a3b9656772fe3
 
-pre_build() {
-	vsed -i '/reqwest =/s/, "rustls-tls"//' Cargo.toml
-	cargo update
+post_build() {
+	STARSHIP="target/${RUST_TARGET}/release/starship"
+	vtargetrun ${STARSHIP} completions zsh  >starship.zsh
+	vtargetrun ${STARSHIP} completions bash >starship.bash
+	vtargetrun ${STARSHIP} completions fish >starship.fish
+}
+
+pre_check() {
+	[ -L target/debug ] && unlink target/debug
+	ln -s release target/debug
 }
 
 post_install() {
+	vcompletion starship.bash bash
+	vcompletion starship.fish fish
+	vcompletion starship.zsh zsh
+
 	vlicense LICENSE
 }

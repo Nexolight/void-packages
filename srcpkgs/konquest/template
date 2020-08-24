@@ -1,6 +1,6 @@
 # Template file for 'konquest'
 pkgname=konquest
-version=19.12.3
+version=20.04.3
 revision=1
 build_style=cmake
 hostmakedepends="extra-cmake-modules qt5-qmake qt5-host-tools kcoreaddons kdoctools
@@ -10,6 +10,6 @@ depends="hicolor-icon-theme"
 short_desc="KDE galactic conquest game"
 maintainer="Olga Ustuzhanina <me@laserbat.pw>"
 license="GPL-2.0-or-later"
-homepage="https://www.kde.org/applications/games/konquest/"
+homepage="https://kde.org/applications/en/games/org.kde.konquest"
 distfiles="${KDE_SITE}/release-service/${version}/src/konquest-${version}.tar.xz"
-checksum=e23732a7d78382c73fca0d31afb3ed85614ee4b4bfe2f07647a13582fa0811a5
+checksum=004b3d8d38acecb0d5e78d037a47d137f0517d74768da461ce51fbd2a549578d

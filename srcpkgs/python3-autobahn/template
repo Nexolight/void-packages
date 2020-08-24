@@ -1,6 +1,6 @@
 # Template file for 'python3-autobahn'
 pkgname=python3-autobahn
-version=20.3.1
+version=20.7.1
 revision=1
 archs=noarch
 wrksrc="autobahn-${version}"
@@ -12,7 +12,7 @@ maintainer="travankor <travankor@tuta.io>"
 license="MIT"
 homepage="https://crossbar.io/autobahn"
 distfiles="${PYPI_SITE}/a/autobahn/autobahn-${version}.tar.gz"
-checksum=88e150e4b3d284b83daafd8e0b289a5625ee00c633a2c580055bf1be2d391002
+checksum=86bbce30cdd407137c57670993a8f9bfdfe3f8e994b889181d85e844d5aa8dfb
 
 post-install() {
 	vlicense LICENSE

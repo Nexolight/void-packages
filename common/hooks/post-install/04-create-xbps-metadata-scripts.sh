@@ -150,6 +150,12 @@ _EOF
 		_add_trigger hwdb.d-dir
 	fi
 	#
+	# Handle texmf database changes
+	#
+	if [ -d "${PKGDESTDIR}/usr/share/texmf-dist" ] ; then
+		_add_trigger texmf-dist
+	fi
+	#
 	# (Un)Register a shell in /etc/shells.
 	#
 	if [ -n "${register_shell}" ]; then
@@ -258,6 +264,7 @@ _EOF
 	#
 	# Handle python bytecode archives with pycompile trigger.
 	#
+	local pycompile_version
 	if [ -d ${PKGDESTDIR}/usr/lib/python* ]; then
 		pycompile_version="$(find ${PKGDESTDIR}/usr/lib/python* -prune -type d | grep -o '[[:digit:]]\.[[:digit:]]$')"
 		if [ -z "${pycompile_module}" ]; then
@@ -265,8 +272,19 @@ _EOF
 		fi
 	fi
 
+	if [ -n "$python_version" ]; then
+		pycompile_version=${python_version}
+	fi
+
+	if [ "$pycompile_version" = 3 ]; then
+		pycompile_version=${py3_ver}
+	elif [ "$pycompile_version" = 2 ]; then
+		pycompile_version=${py2_ver}
+	fi
+
 	if [ -n "${pycompile_dirs}" -o -n "${pycompile_module}" ]; then
-		echo "export pycompile_version=\"${pycompile_version:=2.7}\"" >>$tmpf
+		[ -n "$pycompile_version" ] || msg_error "$pkgver: byte-compilation is required, but python_version is not set\n"
+		echo "export pycompile_version=\"${pycompile_version}\"" >>$tmpf
 		if [ -n "${pycompile_dirs}" ]; then
 			echo "export pycompile_dirs=\"${pycompile_dirs}\"" >>$tmpf
 		fi

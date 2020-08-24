@@ -1,6 +1,6 @@
 # Template file for 'monolith'
 pkgname=monolith
-version=2.1.2
+version=2.3.1
 revision=1
 build_style=cargo
 hostmakedepends="pkg-config"
@@ -10,7 +10,11 @@ maintainer="Benjamín Albiñana <benalb@gmail.com>"
 license="Unlicense"
 homepage="https://github.com/Y2Z/monolith"
 distfiles="https://github.com/Y2Z/monolith/archive/v${version}.tar.gz"
-checksum=eecd0f56ea98a5217016a99a8342d9d6bc369f5a08744b8cdefac381635e86e3
+checksum=b99fdc2cff81488f7ddb52bfc505697f76ac494c6d261704b98d3e1432d66645
+
+pre_build() {
+	cargo update --package openssl-sys --precise 0.9.58
+}
 
 post_install() {
 	vlicense LICENSE

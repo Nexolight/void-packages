@@ -1,7 +1,7 @@
 # Template file for 'dnsmasq'
 pkgname=dnsmasq
-version=2.80
-revision=7
+version=2.82
+revision=1
 conf_files="/etc/dnsmasq.conf"
 hostmakedepends="pkg-config"
 makedepends="dbus-devel libcap-devel libidn2-devel $(vopt_if dnssec nettle-devel)"
@@ -9,8 +9,9 @@ short_desc="Lightweight, easy to configure DNS forwarder and DHCP server"
 maintainer="Orphaned <orphan@voidlinux.org>"
 license="GPL-2.0-or-later"
 homepage="http://www.thekelleys.org.uk/dnsmasq/doc.html"
+changelog="http://www.thekelleys.org.uk/dnsmasq/CHANGELOG"
 distfiles="http://www.thekelleys.org.uk/${pkgname}/${pkgname}-${version}.tar.gz"
-checksum=9e4a58f816ce0033ce383c549b7d4058ad9b823968d352d2b76614f83ea39adc
+checksum=62f33bfac1a1b4a5dab8461b4664e414f7d6ced1d2cf141e9cdf9c3c2a424f65
 system_accounts="dnsmasq"
 dnsmasq_homedir="/var/chroot"
 

@@ -1,6 +1,6 @@
 # Template file for 'breeze'
 pkgname=breeze
-version=5.18.3
+version=5.19.4
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
@@ -8,15 +8,23 @@ hostmakedepends="extra-cmake-modules qt5-qmake qt5-host-tools kcoreaddons
  gettext kpackage"
 makedepends="frameworkintegration-devel kcmutils-devel kdecoration-devel
  fftw-devel plasma-framework-devel"
-depends="breeze-icons frameworkintegration"
+depends="breeze-icons frameworkintegration breeze-snow-cursor-theme"
 short_desc="Breeze visual style for the Plasma Desktop"
-maintainer="John <johnz@posteo.net>"
+maintainer="John <me@johnnynator.dev>"
 license="GPL-2.0-or-later"
-homepage="https://projects.kde.org/projects/plasma/breeze"
+homepage="https://invent.kde.org/plasma/breeze"
 distfiles="${KDE_SITE}/plasma/${version}/${pkgname}-${version}.tar.xz"
-checksum=f75048e35717e6d8de4d0ee3364257fffd2a26dd7c99c1ea60aaac5b8d0216a6
+checksum=02171c903d2fc7ec7b6a25c9507290602be3f0f195fcd9388ff0db421415ff11
 
 if [ "$CROSS_BUILD" ]; then
 	hostmakedepends+=" kpackage-devel kconfig-devel kcoreaddons-devel plasma-framework"
 	configure_args+=" -DKF5_HOST_TOOLING=/usr/lib/cmake"
 fi
+
+breeze-snow-cursor-theme_package() {
+	short_desc="Breeze Snow cursor theme"
+	archs=noarch
+	pkg_install() {
+		vmove usr/share/icons/Breeze_Snow
+	}
+}

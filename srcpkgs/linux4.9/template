@@ -1,15 +1,16 @@
 # Template file for 'linux4.9'
 pkgname=linux4.9
-version=4.9.215
+version=4.9.232
 revision=1
-patch_args="-Np1"
 wrksrc="linux-${version}"
-maintainer="Orphaned <orphan@voidlinux.org>"
-homepage="https://www.kernel.org"
-license="GPL-2.0-only"
 short_desc="Linux kernel and modules (${version%.*} series)"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="GPL-2.0-only"
+homepage="https://www.kernel.org"
 distfiles="https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-${version}.tar.xz"
-checksum=236f2f47853700f22b9925cb17917d97ff7120fcc8110ec827c5a030a8129f48
+checksum=58f472e82345dc719a1d6d7bae01e5aa73387cd83308acd2c92371f7d5bc4f60
+python_version=2 #unverified
+patch_args="-Np1"
 
 nodebug=yes  # -dbg package is generated below manually
 nostrip=yes
@@ -17,7 +18,7 @@ noverifyrdeps=yes
 noshlibprovides=yes
 preserve=yes
 
-archs="i686* x86_64* armv7l* aarch64* ppc*"
+archs="i686* x86_64* aarch64* ppc*"
 hostmakedepends="bc perl kmod uboot-mkimage libressl-devel"
 
 case "$XBPS_TARGET_MACHINE" in
@@ -30,6 +31,7 @@ kernel_hooks_version="${_kernver}"
 # These files could be modified when an external module is built.
 mutable_files="
  /usr/lib/modules/${_kernver}/modules.builtin.bin
+ /usr/lib/modules/${_kernver}/modules.builtin.alias.bin
  /usr/lib/modules/${_kernver}/modules.softdep
  /usr/lib/modules/${_kernver}/modules.dep
  /usr/lib/modules/${_kernver}/modules.dep.bin

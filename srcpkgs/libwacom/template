@@ -1,29 +1,30 @@
 # Template file for 'libwacom'
 pkgname=libwacom
-version=0.33
+version=1.4.1
 revision=1
-build_style=gnu-configure
+build_style=meson
+build_helper="qemu"
+configure_args="-Ddocumentation=disabled -Dexe_wrapper=qemu-${XBPS_TARGET_QEMU_MACHINE}-static"
 hostmakedepends="pkg-config"
-makedepends="libgudev-devel"
+makedepends="gtk+-devel libgudev-devel librsvg-devel libxml2-devel"
 short_desc="Library to identify wacom tablets"
-maintainer="Orphaned <orphan@voidlinux.org>"
+maintainer="skmpz <dem.procopiou@gmail.com>"
 license="MIT"
 homepage="https://github.com/linuxwacom/libwacom"
 changelog="https://raw.githubusercontent.com/linuxwacom/libwacom/master/NEWS"
 distfiles="https://github.com/linuxwacom/libwacom/releases/download/${pkgname}-${version}/${pkgname}-${version}.tar.bz2"
-checksum=94f8a3371f30f4a38d6d2290f5160d5f5ba7a7cd6e63bee95686a67a3c19dbf2
+checksum=07839c542940776c402168c7b73c04b346ba7557eb3f25a23a49893aff86ab08
 
 post_install() {
 	vlicense COPYING
 }
 
 libwacom-devel_package() {
-	depends="${makedepends} ${sourcepkg}>=${version}_${revision}"
+	depends="libgudev-devel ${sourcepkg}>=${version}_${revision}"
 	short_desc+=" - development files"
 	pkg_install() {
 		vmove usr/include
 		vmove usr/lib/pkgconfig
-		vmove "usr/lib/*.a"
 		vmove "usr/lib/*.so"
 	}
 }

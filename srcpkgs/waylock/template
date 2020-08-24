@@ -1,15 +1,15 @@
 # Template file for 'waylock'
 pkgname=waylock
-version=0.2.0
+version=0.3.3
 revision=1
 build_style=cargo
-makedepends="cairo-devel pam-devel wayland-devel"
+makedepends="pam-devel"
 short_desc="Simple screenlocker for wayland compositors"
-maintainer="travankor <travankor@tuta.io>"
+maintainer="Isaac Freund <ifreund@ifreund.xyz>"
 license="MIT"
 homepage="https://github.com/ifreund/waylock"
-distfiles="https://github.com/ifreund/waylock/archive/v${version}.tar.gz"
-checksum=5f8b0a116bfc90b4dc5574d13bc9e09305dc808ad9a1d0776093ea857793ce52
+distfiles="${homepage}/archive/v${version}.tar.gz"
+checksum=f0b7377bf743111c82d7292daaa84a0aca861b17608accf18d181ac66fbacfc9
 
 post_install() {
 	vlicense LICENSE

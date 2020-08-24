@@ -15,6 +15,7 @@ do_configure() {
 			mips*) _CMAKE_SYSTEM_PROCESSOR=mips ;;
 			ppc64le*) _CMAKE_SYSTEM_PROCESSOR=ppc64le ;;
 			ppc64*) _CMAKE_SYSTEM_PROCESSOR=ppc64 ;;
+			ppcle*) _CMAKE_SYSTEM_PROCESSOR=ppcle ;;
 			ppc*) _CMAKE_SYSTEM_PROCESSOR=ppc ;;
 			*) _CMAKE_SYSTEM_PROCESSOR=generic ;;
 		esac
@@ -90,7 +91,7 @@ do_check() {
 	: ${make_cmd:=make}
 	: ${make_check_target:=test}
 
-	${make_cmd} ${make_check_args} ${make_check_target}
+	CTEST_OUTPUT_ON_FAILURE=TRUE ${make_cmd} ${make_check_args} ${make_check_target}
 }
 
 do_install() {

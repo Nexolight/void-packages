@@ -1,6 +1,6 @@
 # Template file for 'darcs'
 pkgname=darcs
-version=2.14.2
+version=2.16.1
 revision=1
 build_style=haskell-stack
 hostmakedepends="unzip"
@@ -10,7 +10,7 @@ maintainer="Leah Neukirchen <leah@vuxu.org>"
 license="GPL-2.0-or-later"
 homepage="http://darcs.net/"
 distfiles="http://hackage.haskell.org/package/${pkgname}-${version}/${pkgname}-${version}.tar.gz"
-checksum=65d160a43874960dcba114c0b74d9c7b25d098486f515655502f42ff0c22a27e
+checksum=00efd85509724e278412ec4317ea23a5ac491833b464f64c75c39de4563c03e1
 nopie_files="/usr/bin/darcs"
 nocross=yes
 

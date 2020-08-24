@@ -1,7 +1,7 @@
 # Template file for 'juCi++'
 pkgname=juCi++
 version=1.5.0
-revision=3
+revision=6
 _libclangmm_commit="687b9c231d850504ec515acb9ccab73f26c34063"
 _tiny_commit="a6773276efdbc322f1abb0159301f5502647eb52"
 wrksrc="jucipp-v${version}"
@@ -10,7 +10,7 @@ hostmakedepends="pkg-config"
 makedepends="aspell-devel lldb-devel clang boost-devel gtksourceviewmm-devel libgit2-devel"
 depends="ctags"
 short_desc="Lightweight IDE supporting the most recent C++ standards"
-maintainer="John <johnz@posteo.net>"
+maintainer="John <me@johnnynator.dev>"
 license="MIT"
 homepage="https://gitlab.com/cppit/jucipp"
 distfiles="https://gitlab.com/cppit/jucipp/-/archive/v${version}/jucipp-v${version}.tar.gz

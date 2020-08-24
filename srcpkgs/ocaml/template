@@ -1,9 +1,9 @@
 # Template file for 'ocaml'
 pkgname=ocaml
-version=4.09.0
+version=4.11.0
 revision=1
 build_style="gnu-configure"
-configure_args="--with-pic"
+configure_args="--with-pic --disable-force-safe-string"
 make_build_target="world.opt"
 makedepends="ncurses-devel libX11-devel"
 short_desc="Main implementation of the Caml language"
@@ -11,15 +11,19 @@ maintainer="Leah Neukirchen <leah@vuxu.org>"
 license="QPL-1.0, LGPL-2.1-only"
 homepage="http://ocaml.org/"
 distfiles="https://github.com/${pkgname}/${pkgname}/archive/${version}.tar.gz"
-checksum=a7bc044167e7d09f8e3ea84b88ec9d81392908ecdac861d3d5015e5f0fc496a3
+checksum=060a26420ad868e192076138a103dbe28fa39d7a0a80f7db349a1d5143dea506
 nocross=yes
 patch_args="-Np1"
 
 export ASPP="cc -c"
 
 case "$XBPS_TARGET_MACHINE" in
+	x86_64*|ppc64*) ;;
 	# also just segfaults when compiled without PIE (BSS-PLT?)
 	ppc-musl) broken="/usr/bin/ocamlc: unsupported relocation type 6";;
+	# https://github.com/ocaml/ocaml/issues/7562
+	# for ppc we solved this separately though
+	*-musl) nopie=yes ;;
 esac
 
 post_install() {

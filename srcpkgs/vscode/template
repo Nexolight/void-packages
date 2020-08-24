@@ -1,30 +1,35 @@
 # Template file for 'vscode'
 pkgname=vscode
-version=1.43.1
+version=1.48.0
 revision=1
-hostmakedepends="pkg-config python nodejs-lts-10 yarn tar"
-makedepends="libxkbfile-devel libsecret-devel"
-depends="libXtst libxkbfile nss dejavu-fonts-ttf xdg-utils"
+_electronver=7.3.2
+hostmakedepends="pkg-config python nodejs-lts-10 yarn tar git"
+makedepends="libxkbfile-devel libsecret-devel electron7"
+depends="libXtst libxkbfile nss dejavu-fonts-ttf xdg-utils ripgrep electron7"
 short_desc="Microsoft Code for Linux"
 maintainer="shizonic <realtiaz@gmail.com>"
 license="MIT"
 homepage="https://code.visualstudio.com/"
 distfiles="https://github.com/Microsoft/vscode/archive/${version}.tar.gz"
-checksum=da4e85d41cfda28bb9466f2015bf2199e6293a1d497b0516c216b996f7e4e31e
+checksum=3983a6807554bc76a233cf215e6e1c936e5ace5c635fe049d019db24ccc0f62d
 patch_args="-Np1"
 
-# Due to electron
-archs="x86_64"
-nostrip_files="code-oss"
+if [ "$XBPS_TARGET_WORDSIZE" = "32" ]; then
+	broken="FATAL ERROR: CALL_AND_RETRY_LAST Allocation failed - JavaScript heap out of memory"
+fi
 
-case "$XBPS_TARGET_MACHINE" in
-	i686) _ARCH="i686";;
-	x86_64) _ARCH="x64";;
-esac
-
-pre_build() {
+do_configure() {
 	# Use yarn to install dependencies
 	echo "" > build/npm/preinstall.js
+
+	# redirect telemetry urls to 0.0.0.0
+	# src: vscodium/undo_telemetry.sh
+	_TELEMETRY_URLS="(dc\.services\.visualstudio\.com)|(vortex\.data\.microsoft\.com)"
+	_REPLACEMENT="s/$_TELEMETRY_URLS/0\.0\.0\.0/g"
+	grep -rl --exclude-dir=.git -E $_TELEMETRY_URLS | xargs sed -i -E $_REPLACEMENT
+
+	# set used electron version
+	sed -i "s/^target .*/target \"${_electronver}\"/" .yarnrc
 }
 
 do_build() {
@@ -34,18 +39,28 @@ do_build() {
 	_mem_limit="--max_old_space_size=4095"
 
 	export NODE_OPTIONS="${_mem_limit}"
-	yarn install --ignore-engines --arch=${_ARCH}
-	yarn run gulp vscode-linux-${_ARCH}-min
+	/usr/lib/node_modules/npm/bin/node-gyp-bin/node-gyp install \
+		--target=$_electronver \
+		--tarball=/usr/include/electron7/node_headers.tar.gz
+	yarn install --ignore-engines --frozen-lockfile --arch=x64
+	export CFLAGS="$CFLAGS -I/usr/include/node"
+	yarn run gulp vscode-linux-x64-min
 }
 
 do_install() {
 	vmkdir usr/lib/code-oss
-	vcopy ../VSCode-linux-${_ARCH}/* usr/lib/code-oss
+	vcopy ../VSCode-linux-x64/resources usr/lib/code-oss
+	vcopy ../VSCode-linux-x64/bin usr/lib/code-oss
 	vmkdir usr/bin
 	ln -sf /usr/lib/code-oss/bin/code-oss ${DESTDIR}/usr/bin/
 	vmkdir usr/share/applications
 	ln -sf /usr/lib/code-oss/resources/app/resources/linux/code.desktop ${DESTDIR}/usr/share/applications/code-oss.desktop
 	vmkdir usr/share/pixmaps
 	ln -sf /usr/lib/code-oss/resources/app/resources/linux/code.png ${DESTDIR}/usr/share/pixmaps/code-oss.png
+	ln -sf /usr/bin/rg ${DESTDIR}/usr/lib/code-oss/resources/app/node_modules.asar.unpacked/vscode-ripgrep/bin/rg
+	vsed \
+		-e "s|ELECTRON=.*|ELECTRON=/usr/lib/electron${_electronver%%.*}/electron|g" \
+		-e 's|"$CLI"|"$CLI" --app="${VSCODE_PATH}/resources/app"|g' \
+		-i "$DESTDIR"/usr/lib/code-oss/bin/code-oss
 	vlicense LICENSE.txt
 }

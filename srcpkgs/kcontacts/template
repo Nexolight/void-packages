@@ -1,18 +1,22 @@
 # Template file for 'kcontacts'
 pkgname=kcontacts
 reverts="19.08.2_1 19.08.1_1 19.08.0_1 19.04.3_1"
-version=5.68.0
+version=5.73.0
 revision=1
 build_style=cmake
 hostmakedepends="extra-cmake-modules qt5-qmake qt5-host-tools python3
  gettext kcoreaddons"
 makedepends="qt5-devel kcoreaddons-devel ki18n-devel kconfig-devel kcodecs-devel"
 short_desc="Address book API for KDE"
-maintainer="John <johnz@posteo.net>"
+maintainer="John <me@johnnynator.dev>"
 license="LGPL-2.1-or-later"
-homepage="https://projects.kde.org/projects/applications/kcontacts"
+homepage="https://invent.kde.org/frameworks/kcontacts"
 distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=532f1e89c7412e971db8c431d627d38144470ddf5c978a7fa9348e418b6cd3c3
+checksum=4351bf80f5a5417ba7e99fe557a851d1c7173fd7511fc1426375c66692e748bb
+
+pre_check() {
+	export QT_QPA_PLATFORM=offscreen
+}
 
 kcontacts-devel_package() {
 	short_desc+=" - development"
